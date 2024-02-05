@@ -1,0 +1,147 @@
+[gd_scene load_steps=16 format=3 uid="uid://dukxkjfwv4sap"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
+[ext_resource type="PackedScene" uid="uid://jbci8uq5bnyo" path="res://scenes/assault_rifle.tscn" id="2_lyg13"]
+[ext_resource type="Script" path="res://scripts/reticle.gd" id="3_oi4b1"]
+[ext_resource type="Script" path="res://scripts/ui_debug.gd" id="5_c7tx3"]
+[ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
+[ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
+[ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
+[ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
+[ext_resource type="Script" path="res://scripts/player state machine/sprint_state.gd" id="9_touqc"]
+[ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
+[ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lh2ax"]
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_f7gol"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_adhyr")
+
+[node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_7qfu8")
+
+[node name="CrouchStateCollision" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_lh2ax")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00398284, 0.994013, 0.00473261)
+visible = false
+mesh = SubResource("CapsuleMesh_f7gol")
+skeleton = NodePath("../DefaultStateCollision")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("SphereShape3D_c1c83")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+visible = false
+target_position = Vector3(0, 2, 0)
+
+[node name="CameraHolder" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+
+[node name="ArmsHolder" type="Node3D" parent="CameraHolder"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.11, -0.257, -0.282)
+
+[node name="Sketchfab_Scene" parent="CameraHolder/ArmsHolder" instance=ExtResource("2_lyg13")]
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.118783, 0)
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraHolder/Camera3D"]
+visible = false
+enable_shadows = true
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Reticle" type="CenterContainer" parent="Interface" node_paths=PackedStringArray("reticle_lines", "player")]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_oi4b1")
+reticle_lines = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
+player = NodePath("../..")
+reticle_distance = 5.0
+
+[node name="Top" type="Line2D" parent="Interface/Reticle"]
+points = PackedVector2Array(0, -6, 0, -14)
+width = 2.0
+
+[node name="Right" type="Line2D" parent="Interface/Reticle"]
+points = PackedVector2Array(14, 0, 6, 0)
+width = 2.0
+
+[node name="Bottom" type="Line2D" parent="Interface/Reticle"]
+points = PackedVector2Array(0, 6, 0, 14)
+width = 2.0
+
+[node name="Left" type="Line2D" parent="Interface/Reticle"]
+points = PackedVector2Array(-6, 0, -14, 0)
+width = 2.0
+
+[node name="Debug" type="PanelContainer" parent="Interface"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 215.0
+offset_bottom = 55.0
+theme = ExtResource("5_js7jf")
+script = ExtResource("5_c7tx3")
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Debug"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Debug/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("6_28k2k")
+current_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("7_pfe0v")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("8_w2o86")
+
+[node name="Sprint" type="Node" parent="StateMachine"]
+script = ExtResource("9_touqc")
+
+[node name="Crouch" type="Node" parent="StateMachine"]
+script = ExtResource("10_0am0j")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("11_juquo")

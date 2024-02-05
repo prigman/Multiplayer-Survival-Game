@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://3pl420rkx6v"]
+
+[ext_resource type="PackedScene" uid="uid://ppyauqijv1k3" path="res://models/Glock17.glb" id="1_o8g5i"]
+[ext_resource type="Material" uid="uid://dxvxlmpyd2y7l" path="res://materials/default_material.tres" id="2_l4f75"]
+
+[node name="Glock17" instance=ExtResource("1_o8g5i")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/rotation = Quaternion(0.120577, 0.69675, -0.120577, 0.696751)
+bones/1/rotation = Quaternion(0.407416, -0.577938, -0.407416, 0.577938)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/rotation = Quaternion(-0.170522, -2.32771e-09, 4.01937e-08, 0.985354)
+bones/4/rotation = Quaternion(0.576173, -8.70085e-08, -2.64551e-07, 0.817328)
+
+[node name="Cube_001" parent="Armature/Skeleton3D" index="0"]
+cast_shadow = 0
+surface_material_override/0 = ExtResource("2_l4f75")
