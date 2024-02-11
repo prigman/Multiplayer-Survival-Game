@@ -2,6 +2,7 @@ class_name CrouchState
 extends PlayerMovementState
 
 const CROUCH_DEPTH = -0.5
+var crouch_transition_time = 0.05
 
 @export var speed_state = 3.0
 
@@ -17,9 +18,9 @@ func physics_update(delta):
 	default_state_collision.disabled = true
 	crouch_state_collision.disabled = false
 	if Input.is_action_just_released("left_ctrl"):
-		uncrouch()
+		uncrouch(delta)
 		
-func uncrouch():
+func uncrouch(delta):
 	if !spherecast.is_colliding() and !Input.is_action_pressed("left_ctrl"):
 		player.camera_holder.position.y = player.camera_holder_position
 		default_state_collision.disabled = false
@@ -27,4 +28,4 @@ func uncrouch():
 		transition.emit("Idle")
 	elif spherecast.is_colliding():
 		await get_tree().create_timer(0.1).timeout
-		uncrouch()
+		uncrouch(delta)

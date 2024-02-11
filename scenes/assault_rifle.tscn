@@ -8,5 +8,5 @@
 transform = Transform3D(-9.63279e-09, -0.220373, 0, -9.63279e-09, 4.21063e-16, 0.220373, -0.220373, 9.63279e-09, -9.63279e-09, 0, 0, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="." index="1"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.00238726, 0.0463017, -1.19319)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.00238726, 0.0463017, -0.598238)
 target_position = Vector3(0, 0, -1)

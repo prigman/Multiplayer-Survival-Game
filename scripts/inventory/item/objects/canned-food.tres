@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=3 format=3 uid="uid://d05wvcamae4du"]
+
+[ext_resource type="Texture2D" uid="uid://cqv4kimc2fdjk" path="res://icons/canned food.png" id="1_f0npr"]
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_consumable.gd" id="1_ifj7l"]
+
+[resource]
+script = ExtResource("1_ifj7l")
+hunger_value = 15
+name = "Canned food"
+description = "canned food"
+stackable = false
+max_stack = 0
+icon = ExtResource("1_f0npr")
+properties = {
+"dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn"
+}

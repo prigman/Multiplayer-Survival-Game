@@ -1,0 +1,153 @@
+[gd_scene load_steps=16 format=3 uid="uid://dw8lcfnktv7mv"]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
+[ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
+[ext_resource type="Material" uid="uid://cdw6pxne8q3rh" path="res://materials/template.tres" id="3_al2pv"]
+[ext_resource type="Texture2D" uid="uid://ddthpkiltgd1c" path="res://textures/PNG/Orange/texture_02.png" id="4_1c60t"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_interface.gd" id="5_1auu5"]
+[ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://scenes/inventory/main_inventory.tscn" id="5_ux46h"]
+[ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://scenes/inventory/inventory_slot.tscn" id="7_wli0u"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0j0wh"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_22r82"]
+sky_material = SubResource("ProceduralSkyMaterial_0j0wh")
+
+[sub_resource type="Environment" id="Environment_o00h3"]
+background_mode = 2
+background_energy_multiplier = 1.1
+sky = SubResource("Sky_22r82")
+tonemap_mode = 1
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m5ca6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_oyib0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pk40u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noymn"]
+albedo_texture = ExtResource("4_1c60t")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kffj0"]
+albedo_texture = ExtResource("4_1c60t")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_7fa2s")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.85
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o00h3")
+
+[node name="Player" parent="." instance=ExtResource("2_4vywr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.79055, -4.76837e-07, -0.879194)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0)
+use_collision = true
+mesh = SubResource("PlaneMesh_m5ca6")
+material = ExtResource("3_al2pv")
+
+[node name="CSGMesh3D8" type="CSGMesh3D" parent="."]
+transform = Transform3D(-2.18557e-07, -1, 0, 5, -4.37114e-08, 0, 0, 0, 62.3267, 29.685, 2.5, 0.0968132)
+use_collision = true
+mesh = SubResource("BoxMesh_oyib0")
+material = ExtResource("3_al2pv")
+
+[node name="CSGMesh3D10" type="CSGMesh3D" parent="."]
+transform = Transform3D(-2.18557e-07, -1, 0, 5, -4.37114e-08, 0, 0, 0, 62.3267, -29.315, 2.5, 0.0968132)
+use_collision = true
+mesh = SubResource("BoxMesh_oyib0")
+material = ExtResource("3_al2pv")
+
+[node name="CSGMesh3D9" type="CSGMesh3D" parent="."]
+transform = Transform3D(9.55343e-15, 4.37114e-08, 62.3267, 5, -4.37114e-08, 0, 2.18557e-07, 1, -2.72439e-06, -0.519247, 2.5, 29.0662)
+use_collision = true
+mesh = SubResource("BoxMesh_oyib0")
+material = ExtResource("3_al2pv")
+
+[node name="CSGMesh3D11" type="CSGMesh3D" parent="."]
+transform = Transform3D(9.55343e-15, 4.37114e-08, 62.3267, 5, -4.37114e-08, 0, 2.18557e-07, 1, -2.72439e-06, -0.519247, 2.5, -29.9338)
+use_collision = true
+mesh = SubResource("BoxMesh_oyib0")
+material = ExtResource("3_al2pv")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+transform = Transform3D(4.536, 0, 0, 0, 1, 0, 0, 0, 2.0328, -1.52957, 2, -7.883)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = SubResource("StandardMaterial3D_noymn")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="."]
+transform = Transform3D(4.536, 0, 0, 0, 1, 0, 0, 0, 2.0328, 6.99813, 2, -7.883)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = SubResource("StandardMaterial3D_kffj0")
+
+[node name="CSGMesh3D4" type="CSGMesh3D" parent="."]
+transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805, 6.998, 0.5, 1.288)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = ExtResource("3_al2pv")
+
+[node name="CSGMesh3D5" type="CSGMesh3D" parent="."]
+transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805, 9.998, 1.5, 3.288)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = ExtResource("3_al2pv")
+
+[node name="CSGMesh3D6" type="CSGMesh3D" parent="."]
+transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805, 12.998, 2.5, 0.288)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = ExtResource("3_al2pv")
+
+[node name="CSGMesh3D7" type="CSGMesh3D" parent="."]
+transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805, 16.998, 3.5, 3.288)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = ExtResource("3_al2pv")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_1auu5")
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("5_ux46h")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -170.0
+offset_right = 20.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("7_wli0u")]
+visible = false
+modulate = Color(1, 1, 1, 0.788235)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0

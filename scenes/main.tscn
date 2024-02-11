@@ -1,9 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=25 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
 [ext_resource type="Material" uid="uid://cdw6pxne8q3rh" path="res://materials/template.tres" id="3_al2pv"]
+[ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://scripts/inventory/inventory.tres" id="3_v83ji"]
 [ext_resource type="Texture2D" uid="uid://ddthpkiltgd1c" path="res://textures/PNG/Orange/texture_02.png" id="4_1c60t"]
+[ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://scripts/inventory/quick_slot_inventory.tres" id="4_7bn48"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_interface.gd" id="5_1auu5"]
+[ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://scenes/inventory/main_inventory.tscn" id="5_ux46h"]
+[ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://scenes/inventory/inventory_slot.tscn" id="7_wli0u"]
+[ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/chest_staticbody.tscn" id="8_upg36"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_data.gd" id="9_56to4"]
+[ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://scripts/inventory/item/objects/godot.tres" id="10_dadr8"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="11_653sy"]
+[ext_resource type="PackedScene" uid="uid://bs0te4ilgfkpw" path="res://scenes/interactable/pickup/canned-food_rigidbody.tscn" id="12_k0p58"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0j0wh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -14,7 +24,7 @@ sky_material = SubResource("ProceduralSkyMaterial_0j0wh")
 
 [sub_resource type="Environment" id="Environment_o00h3"]
 background_mode = 2
-background_energy_multiplier = 1.5
+background_energy_multiplier = 1.1
 sky = SubResource("Sky_22r82")
 tonemap_mode = 1
 glow_enabled = true
@@ -35,6 +45,15 @@ albedo_texture = ExtResource("4_1c60t")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
+[sub_resource type="Resource" id="Resource_o1761"]
+script = ExtResource("11_653sy")
+item = ExtResource("10_dadr8")
+amount_in_slot = 15
+
+[sub_resource type="Resource" id="Resource_7gatj"]
+script = ExtResource("9_56to4")
+slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_o1761"), null, null, null, null])
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_7fa2s")
 
@@ -48,6 +67,8 @@ environment = SubResource("Environment_o00h3")
 
 [node name="Player" parent="." instance=ExtResource("2_4vywr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.79055, -4.76837e-07, -0.879194)
+player_inventory = ExtResource("3_v83ji")
+player_quick_slot = ExtResource("4_7bn48")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0)
@@ -114,3 +135,89 @@ transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805
 use_collision = true
 mesh = SubResource("BoxMesh_pk40u")
 material = ExtResource("3_al2pv")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="InventoryInterface" type="Control" parent="UI/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_1auu5")
+
+[node name="PlayerInventory" parent="UI/Control/InventoryInterface" instance=ExtResource("5_ux46h")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -179.0
+offset_right = 20.0
+offset_bottom = -139.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ExternalInventory" parent="UI/Control/InventoryInterface" instance=ExtResource("5_ux46h")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -405.0
+offset_right = 20.0
+offset_bottom = -365.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PlayerQuickSlot" parent="UI/Control" instance=ExtResource("5_ux46h")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -66.0
+offset_right = 20.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="GrabbedSlot" parent="UI/Control" instance=ExtResource("7_wli0u")]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.788235)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="Chest" parent="." groups=["external_inventory"] instance=ExtResource("8_upg36")]
+inventory_data = SubResource("Resource_7gatj")
+
+[node name="Canned-food" parent="." instance=ExtResource("12_k0p58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39825, 0.319719, -0.331761)
+
+[connection signal="gui_input" from="UI/Control/InventoryInterface" to="UI/Control/InventoryInterface" method="_on_gui_input"]
+[connection signal="signal_drop_slot_data" from="UI/Control/InventoryInterface" to="." method="_on_inventory_interface_signal_drop_slot_data"]
+[connection signal="visibility_changed" from="UI/Control/InventoryInterface" to="UI/Control/InventoryInterface" method="_on_visibility_changed"]
