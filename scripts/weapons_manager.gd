@@ -13,14 +13,22 @@ var weapon_equiped = false
 
 func _ready():
 	initialize(on_game_start_weapon) # enter the state machine
+	pass
 
-func _input(_event):
-	if(Input.is_action_pressed("2")):
+func _physics_process(_delta):
+	if(Input.is_action_pressed("mouse_1")):
+		if anim_player.get_current_animation() != weapon_current.anim_shoot:
+			anim_player.play(weapon_current.anim_shoot)
+
+func _unhandled_input(_event):
+	if(Input.is_action_just_pressed("2")):
 		weapon_indicator = min(weapon_indicator + 1, weapon_stack.size() - 1)
 		exit(weapon_stack[weapon_indicator])
-	if(Input.is_action_pressed("1")):
+	if(Input.is_action_just_pressed("1")):
 		weapon_indicator = max(weapon_indicator - 1, 0)
 		exit(weapon_stack[weapon_indicator])
+	if(Input.is_action_just_pressed("reload")):
+		anim_player.play(weapon_current.anim_reload)
  
 func initialize(_weapons_on_start: Array):
 	for weapon in weapon_resources:

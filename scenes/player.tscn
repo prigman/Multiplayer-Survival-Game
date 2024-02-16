@@ -1,9 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=23 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
-[ext_resource type="Script" path="res://weapons_manager.gd" id="2_0lw6w"]
 [ext_resource type="PackedScene" uid="uid://jbci8uq5bnyo" path="res://scenes/assault_rifle.tscn" id="2_lyg13"]
-[ext_resource type="Resource" uid="uid://cbh72c1pp4qu8" path="res://scripts/weapon resources/assault_rifle.tres" id="3_jmkht"]
 [ext_resource type="Script" path="res://scripts/reticle.gd" id="3_oi4b1"]
 [ext_resource type="Script" path="res://scripts/ui_debug.gd" id="5_c7tx3"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
@@ -265,19 +263,17 @@ shape = SubResource("SphereShape3D_c1c83")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
-[node name="Weapons_Manager" type="Node3D" parent="CameraHolder"]
-script = ExtResource("2_0lw6w")
-weapon_resources = Array[Resource("res://scripts/weapon_resource.gd")]([ExtResource("3_jmkht")])
-on_game_start_weapon = Array[String](["Assault Rifle"])
-
-[node name="ArmsHolder" type="Node3D" parent="CameraHolder/Weapons_Manager"]
+[node name="ArmsHolder" type="Node3D" parent="CameraHolder"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.145, -0.257, -0.247)
 
-[node name="Rifle" parent="CameraHolder/Weapons_Manager/ArmsHolder" instance=ExtResource("2_lyg13")]
-transform = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 0, 0)
+[node name="ItemsHolder" type="Node3D" parent="CameraHolder/ArmsHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.365, 0.165)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/Weapons_Manager/ArmsHolder"]
-unique_name_in_owner = true
+[node name="Rifle" parent="CameraHolder/ArmsHolder" instance=ExtResource("2_lyg13")]
+transform = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 0, 0)
+visible = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/ArmsHolder"]
 libraries = {
 "": SubResource("AnimationLibrary_lus2o")
 }
@@ -369,5 +365,3 @@ script = ExtResource("10_0am0j")
 
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("11_juquo")
-
-[connection signal="animation_finished" from="CameraHolder/Weapons_Manager/ArmsHolder/AnimationPlayer" to="CameraHolder/Weapons_Manager" method="_on_animation_player_animation_finished"]

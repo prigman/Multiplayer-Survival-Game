@@ -19,6 +19,7 @@ var gravity = 12.0
 @onready var camera_holder = %CameraHolder
 @onready var camera = %Camera3D
 @onready var interact_ray = $CameraHolder/Camera3D/InteractRay
+@onready var items_holder = $CameraHolder/ArmsHolder/ItemsHolder
 
 
 func _ready():
