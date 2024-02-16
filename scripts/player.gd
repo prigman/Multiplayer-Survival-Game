@@ -1,26 +1,25 @@
 class_name Player
 extends CharacterBody3D
 
-var lerp_speed = 20.0
+signal signal_toggle_inventory()
+
 var camera_holder_position
 var input_dir = Vector2.ZERO
 var direction = Vector3.ZERO
+var gravity = 12.0
 
 @export var mouse_sens = 0.15
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+@export var player_inventory : InventoryData
+@export var player_quick_slot : InventoryData
+
 #var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var gravity = 12.0
 
 @onready var spherecast = %ShapeCast3D
 @onready var camera_holder = %CameraHolder
 @onready var camera = %Camera3D
+@onready var interact_ray = $CameraHolder/Camera3D/InteractRay
 
-
-#var bullet_source = load("res://scenes/bullet.tscn")
-#var instance
-#@onready var weapon_anim = %AnimationPlayer
-#@onready var weapon_muzzle = $CameraHolder/Weapons_Manager/ArmsHolder/Rifle/RayCast3D
 
 func _ready():
 	Global.global_player = self
@@ -37,10 +36,13 @@ func _input(event):
 		camera_holder.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 
-func set_camera_fov(fov_value):
-	camera.fov = lerp(camera.fov, fov_value, lerp_speed * velocity.length())
+func _unhandled_input(_event):
+	if Input.is_action_just_pressed("inv_toggle"):
+		signal_toggle_inventory.emit()
+	if Input.is_action_just_pressed("interact"):
+		interact()
 
-### States functions
+### Player states
 
 func update_gravity(delta):
 	if not is_on_floor():
@@ -58,3 +60,11 @@ func update_input(speed, acceleration, decceleration):
 	
 func update_velocity():
 	move_and_slide()
+
+func interact():
+	if interact_ray.is_colliding():
+		interact_ray.get_collider()._player_interact(player_inventory)
+
+func get_drop_position() -> Vector3:
+	var drop_direction = -camera.global_transform.basis.z
+	return camera.global_position + drop_direction
