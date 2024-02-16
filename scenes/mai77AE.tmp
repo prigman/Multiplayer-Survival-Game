@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
-[ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="3_v83ji"]
-[ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="4_7bn48"]
-[ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="5_1auu5"]
-[ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://inventory/inventory_scenes/main_inventory.tscn" id="5_ux46h"]
+[ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://scripts/inventory/inventory.tres" id="3_v83ji"]
+[ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://scripts/inventory/quick_slot_inventory.tres" id="4_7bn48"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_interface.gd" id="5_1auu5"]
+[ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://scenes/inventory/main_inventory.tscn" id="5_ux46h"]
 [ext_resource type="PackedScene" uid="uid://cu78wr4f7155s" path="res://scenes/scene_template.tscn" id="5_xsqmg"]
-[ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="7_wli0u"]
+[ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://scenes/inventory/inventory_slot.tscn" id="7_wli0u"]
 [ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/chest_staticbody.tscn" id="8_upg36"]
-[ext_resource type="Script" path="res://inventory/inventory_data.gd" id="9_56to4"]
-[ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="10_dadr8"]
-[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_data.gd" id="9_56to4"]
+[ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://scripts/inventory/item/objects/godot.tres" id="10_dadr8"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="11_653sy"]
 [ext_resource type="PackedScene" uid="uid://bs0te4ilgfkpw" path="res://scenes/interactable/pickup/canned-food_rigidbody.tscn" id="12_k0p58"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0j0wh"]
@@ -152,6 +152,8 @@ visible = false
 modulate = Color(1, 1, 1, 0.788235)
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
 
 [connection signal="gui_input" from="UI/Control/InventoryInterface" to="UI/Control/InventoryInterface" method="_on_gui_input"]
 [connection signal="signal_drop_slot_data" from="UI/Control/InventoryInterface" to="." method="_on_inventory_interface_signal_drop_slot_data"]

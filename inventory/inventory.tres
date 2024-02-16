@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=8 format=3 uid="uid://w5yuvrpdvx3k"]
+
+[ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_n2del"]
+[ext_resource type="Resource" uid="uid://d05wvcamae4du" path="res://inventory/item/objects/canned-food.tres" id="2_6f6oq"]
+[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_cayhr"]
+[ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="4_pl6c4"]
+
+[sub_resource type="Resource" id="Resource_xkpv3"]
+script = ExtResource("3_cayhr")
+item = ExtResource("2_6f6oq")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_umlj8"]
+script = ExtResource("3_cayhr")
+item = ExtResource("4_pl6c4")
+amount_in_slot = 7
+
+[sub_resource type="Resource" id="Resource_qs1xa"]
+script = ExtResource("3_cayhr")
+item = ExtResource("4_pl6c4")
+amount_in_slot = 10
+
+[resource]
+script = ExtResource("1_n2del")
+slots_data = Array[ExtResource("3_cayhr")]([null, null, SubResource("Resource_xkpv3"), null, SubResource("Resource_umlj8"), null, null, SubResource("Resource_qs1xa"), null, null, null, null, null, null, null, null, null, null])

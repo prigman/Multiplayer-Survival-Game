@@ -1,6 +1,6 @@
 extends PanelContainer
 
-const SLOT_SCENE = preload("res://scenes/inventory/inventory_slot.tscn")
+const SLOT_SCENE = preload("res://inventory/inventory_scenes/inventory_slot.tscn")
 @onready var grid_container = $MarginContainer/GridContainer
 
 func _set_inventory_data(inventory_data : InventoryData):

@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://cu78wr4f7155s"]
+
+[ext_resource type="Material" uid="uid://cdw6pxne8q3rh" path="res://materials/template.tres" id="1_bxbrf"]
+[ext_resource type="Texture2D" uid="uid://ddthpkiltgd1c" path="res://textures/PNG/Orange/texture_02.png" id="2_xg3t2"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m5ca6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_oyib0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pk40u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noymn"]
+albedo_texture = ExtResource("2_xg3t2")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kffj0"]
+albedo_texture = ExtResource("2_xg3t2")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0)
+use_collision = true
+mesh = SubResource("PlaneMesh_m5ca6")
+material = ExtResource("1_bxbrf")
+
+[node name="CSGMesh3D8" type="CSGMesh3D" parent="."]
+transform = Transform3D(-2.18557e-07, -1, 0, 5, -4.37114e-08, 0, 0, 0, 62.3267, 29.685, 2.5, 0.0968132)
+use_collision = true
+mesh = SubResource("BoxMesh_oyib0")
+material = ExtResource("1_bxbrf")
+
+[node name="CSGMesh3D10" type="CSGMesh3D" parent="."]
+transform = Transform3D(-2.18557e-07, -1, 0, 5, -4.37114e-08, 0, 0, 0, 62.3267, -29.315, 2.5, 0.0968132)
+use_collision = true
+mesh = SubResource("BoxMesh_oyib0")
+material = ExtResource("1_bxbrf")
+
+[node name="CSGMesh3D9" type="CSGMesh3D" parent="."]
+transform = Transform3D(9.55343e-15, 4.37114e-08, 62.3267, 5, -4.37114e-08, 0, 2.18557e-07, 1, -2.72439e-06, -0.519247, 2.5, 29.0662)
+use_collision = true
+mesh = SubResource("BoxMesh_oyib0")
+material = ExtResource("1_bxbrf")
+
+[node name="CSGMesh3D11" type="CSGMesh3D" parent="."]
+transform = Transform3D(9.55343e-15, 4.37114e-08, 62.3267, 5, -4.37114e-08, 0, 2.18557e-07, 1, -2.72439e-06, -0.519247, 2.5, -29.9338)
+use_collision = true
+mesh = SubResource("BoxMesh_oyib0")
+material = ExtResource("1_bxbrf")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+transform = Transform3D(4.536, 0, 0, 0, 1, 0, 0, 0, 2.0328, -1.52957, 2, -7.883)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = SubResource("StandardMaterial3D_noymn")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="."]
+transform = Transform3D(4.536, 0, 0, 0, 1, 0, 0, 0, 2.0328, 6.99813, 2, -7.883)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = SubResource("StandardMaterial3D_kffj0")
+
+[node name="CSGMesh3D4" type="CSGMesh3D" parent="."]
+transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805, 6.998, 0.5, 1.288)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = ExtResource("1_bxbrf")
+
+[node name="CSGMesh3D5" type="CSGMesh3D" parent="."]
+transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805, 9.998, 1.5, 3.288)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = ExtResource("1_bxbrf")
+
+[node name="CSGMesh3D6" type="CSGMesh3D" parent="."]
+transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805, 12.998, 2.5, 0.288)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = ExtResource("1_bxbrf")
+
+[node name="CSGMesh3D7" type="CSGMesh3D" parent="."]
+transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805, 16.998, 3.5, 3.288)
+use_collision = true
+mesh = SubResource("BoxMesh_pk40u")
+material = ExtResource("1_bxbrf")

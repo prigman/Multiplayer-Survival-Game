@@ -1,10 +1,11 @@
 extends PanelContainer
 
 signal signal_slot_clicked(index : int, button : int)
+signal signal_slot_chose(index : int, button : int)
 
 @onready var texture_rect = $MarginContainer/TextureRect
 @onready var amount_text = $"Quantity label"
-
+@onready var panel_container = $PanelContainer
 
 func _set_slot_data(slot_info: InSlotData):
 	texture_rect.texture = slot_info.item.icon
@@ -22,3 +23,8 @@ func _on_gui_input(event : InputEvent):
 			or event.button_index == MOUSE_BUTTON_RIGHT) \
 			and event.is_pressed():
 		signal_slot_clicked.emit(get_index(), event.button_index)
+
+func _on_signal_slot_clicked(_index, _button):
+	if Input.is_action_just_pressed("1"):
+		pass
+		

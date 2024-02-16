@@ -4,11 +4,16 @@ signal signal_drop_slot_data(slot_data : InSlotData)
 signal signal_force_close
 var grabbed_slot_data : InSlotData
 var external_inventory_owner
-
+var quick_slots_data
 @onready var player_inventory = %PlayerInventory
 @onready var player_quick_slot = %PlayerQuickSlot
 @onready var grabbed_slot = %GrabbedSlot
 @onready var external_inventory = %ExternalInventory
+
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("1"):
+		#_on_signal_slot_clicked()
+		pass
 
 func _physics_process(_delta):
 	if grabbed_slot.visible:
@@ -25,6 +30,8 @@ func _set_player_inventory_data(inventory_data : InventoryData):
 func _set_quick_slot_data(inventory_data : InventoryData):
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
 	player_quick_slot._set_inventory_data(inventory_data)
+	quick_slots_data = inventory_data.slots_data
+	print("quick_slots_amount: " + str(quick_slots_data))
 
 func _set_external_inventory(inventory_owner):
 	external_inventory_owner = inventory_owner
@@ -53,7 +60,7 @@ func _on_inventory_interact(inventory_data : InventoryData, index : int, button 
 		[_, MOUSE_BUTTON_LEFT]:
 			grabbed_slot_data = inventory_data._drop_slot_data(grabbed_slot_data, index)
 		[null, MOUSE_BUTTON_RIGHT]:
-			pass
+			grabbed_slot_data = inventory_data._grab_slot_data(index)
 		[_, MOUSE_BUTTON_RIGHT]:
 			grabbed_slot_data = inventory_data._drop_single_slot_data(grabbed_slot_data, index)
 	_update_grabbed_slot()

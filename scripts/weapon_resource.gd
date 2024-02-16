@@ -1,8 +1,7 @@
-extends Resource
+extends ItemData
 
 class_name WeaponResources
 
-@export var name : String
 @export var anim_activate : String
 @export var anim_shoot : String
 @export var anim_reload : String
