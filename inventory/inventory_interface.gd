@@ -12,7 +12,6 @@ var quick_slots_data
 @onready var player_quick_slot = %PlayerQuickSlot
 @onready var grabbed_slot = %GrabbedSlot
 @onready var external_inventory = %ExternalInventory
-@onready var player = $"../../../Player"
 
 
 var can = preload("res://scenes/interactable/pickup/canned-food_rigidbody.tscn")
@@ -65,14 +64,9 @@ func _on_inventory_interact(inventory_data : InventoryData, index : int, button 
 			grabbed_slot_data = inventory_data._grab_slot_data(index)
 		[_, MOUSE_BUTTON_RIGHT]:
 			grabbed_slot_data = inventory_data._drop_single_slot_data(grabbed_slot_data, index)
-	if player.equiped_inv_item != null and player.equiped_inv_item == grabbed_slot_data:
-		player.equiped_inv_item = null
-		print("removed")
 	_update_grabbed_slot()
-	#if player.equiped_inv_item != grabbed_slot_data:
-		#player.equiped_inv_item = null
-		#player.signal_equip_inv_item.emit(inventory_data, player.equiped_inv_item, index)
-		#print("removed")
+	if Global.global_player.equiped_inv_item != null and Global.global_player.equiped_inv_item == grabbed_slot_data:
+		Global.global_player.signal_equip_inv_item.emit(inventory_data, Global.global_player.equiped_inv_item, index)
 
 
 func _update_grabbed_slot():

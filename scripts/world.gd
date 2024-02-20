@@ -50,21 +50,28 @@ func _on_player_signal_equip_inv_item(player_quick_slot : InventoryData, equiped
 	for i in index+1:
 		match [slot, equiped_item, index]:
 			[null, null, i]:
+				print("Removed item from hands")
 				player.equiped_inv_item = null
+				player.instantiate_player_item(player.equiped_inv_item)
 				break
 			[null, _, i]:
+				print("Removed item from hands")
 				player.equiped_inv_item = null
+				player.instantiate_player_item(player.equiped_inv_item)
 				break
 			[_, null, i]:
 				print("Equip item from inventory: %s" % slot.item.name)
 				player.equiped_inv_item = slot
+				player.instantiate_player_item(player.equiped_inv_item)
 				break
 			[_, _, i]:
 				if player.equiped_inv_item != slot:
 					print("Changed to item: %s" % slot.item.name)
 					player.equiped_inv_item = slot
+					player.instantiate_player_item(player.equiped_inv_item)
 				else:
-					print("Removed item from hands: %s" % slot.item.name)
+					print("Removed item from hands")
 					player.equiped_inv_item = null
+					player.instantiate_player_item(player.equiped_inv_item)
 				break
 			

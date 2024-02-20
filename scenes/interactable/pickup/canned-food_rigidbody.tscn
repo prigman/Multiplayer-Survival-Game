@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bs0te4ilgfkpw"]
 
 [ext_resource type="Texture2D" uid="uid://ccafkaxv72egf" path="res://textures/Polygon_Texture.png" id="1_03at8"]
-[ext_resource type="Script" path="res://inventory/item/objects/canned-food.gd" id="1_ssnmr"]
+[ext_resource type="Script" path="res://inventory/item/objects/item_interactable.gd" id="1_fn2sq"]
 [ext_resource type="Resource" uid="uid://d05wvcamae4du" path="res://inventory/item/objects/canned-food.tres" id="2_24f5a"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_hlnld"]
 
@@ -56,11 +56,11 @@ albedo_texture = ExtResource("1_03at8")
 points = PackedVector3Array(0.0388395, 0.110714, -0.0140525, -0.0415738, 0.0012042, -0.00383492, -0.0379281, 0.00150932, -0.0174581, 0.0424917, 0.00117448, -0.000404561, -0.000408557, 0.111024, 0.0424907, -0.0212687, 0.111718, -0.0369084, 0.0167308, 0.00123319, -0.0381227, -0.000408557, 0.00117564, 0.0424907, -0.0363584, 0.110888, 0.0218416, 0.0308361, 0.111676, 0.0273638, 0.0218484, 0.110889, -0.0363516, -0.0226614, 0.0013112, 0.0355386, -0.0369089, 0.111707, -0.0212667, -0.0212687, 0.000482336, -0.0369084, 0.0201124, 0.00136624, 0.0372178, 0.0355422, 0.00130494, -0.0226578, 0.0013169, 0.111865, -0.0422476, 0.0372192, 0.110836, 0.0201071, -0.0363584, 0.00131247, 0.0218416, 0.0372192, 0.00136368, 0.0201071, -0.0413406, 0.110691, 0.00470601, -0.0193331, 0.111156, 0.0374264, -0.00383913, 0.00120591, -0.0415726, 0.0424917, 0.111026, -0.000404561, 0.0201124, 0.110834, 0.0372178, 0.0355422, 0.110895, -0.0226578, 0.0308361, 0.000523706, 0.0273638, -0.0369089, 0.000492999, -0.0212667, 0.0218484, 0.00131141, -0.0363516, -0.0415738, 0.110996, -0.00383492, -0.0413406, 0.00150872, 0.00470601, 0.0374268, 0.00105471, -0.0193314)
 
 [node name="Canned-food" type="RigidBody3D"]
-collision_layer = 5
+collision_layer = 4
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
-script = ExtResource("1_ssnmr")
+script = ExtResource("1_fn2sq")
 slot_data = SubResource("Resource_e0diy")
 
 [node name="Canned_food_A_01" type="MeshInstance3D" parent="."]

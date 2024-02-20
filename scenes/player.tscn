@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=18 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_hr5ng"]
-[ext_resource type="PackedScene" uid="uid://jbci8uq5bnyo" path="res://scenes/assault_rifle.tscn" id="2_lyg13"]
 [ext_resource type="Script" path="res://scripts/reticle.gd" id="3_oi4b1"]
 [ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_qshfa"]
 [ext_resource type="Script" path="res://scripts/ui_debug.gd" id="5_c7tx3"]
@@ -25,6 +24,8 @@ height = 1.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_adhyr")
 player_inventory = ExtResource("2_hr5ng")
 player_quick_slot = ExtResource("3_qshfa")
@@ -61,10 +62,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.145,
 [node name="ItemsHolder" type="Node3D" parent="CameraHolder/ArmsHolder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.365, 0.165)
 
-[node name="Rifle" parent="CameraHolder/ArmsHolder" instance=ExtResource("2_lyg13")]
-transform = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 0, 0)
-visible = false
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/ArmsHolder"]
 active = false
 libraries = {
@@ -81,7 +78,7 @@ enable_shadows = true
 
 [node name="InteractRay" type="RayCast3D" parent="CameraHolder/Camera3D"]
 target_position = Vector3(0, 0, -2.5)
-collision_mask = 4
+collision_mask = 12
 
 [node name="Interface" type="Control" parent="."]
 layout_mode = 3

@@ -3,16 +3,19 @@ extends CharacterBody3D
 
 signal signal_toggle_inventory()
 signal signal_equip_inv_item(quick_slot_inv : InventoryData, equiped_item : InSlotData, index : int)
+
 var camera_holder_position
 var input_dir = Vector2.ZERO
 var direction = Vector3.ZERO
 var gravity = 12.0
+
 
 @export var mouse_sens = 0.15
 
 @export var player_inventory : InventoryData
 @export var player_quick_slot : InventoryData
 @export var equiped_inv_item : InSlotData
+var item_object_instantiate
 
 #var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -26,6 +29,7 @@ func _ready():
 	Global.global_player = self
 	camera_holder_position = camera_holder.position.y
 	spherecast.add_exception($".")
+	equiped_inv_item = null
 
 func _process(_delta):
 	var velocity_string = "%.2f" % velocity.length()
@@ -37,35 +41,38 @@ func _input(event):
 		camera_holder.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 
-func _unhandled_input(_event):
-	if Input.is_action_just_pressed("inv_toggle"):
+func _unhandled_input(event):
+	if event.is_action_pressed("inv_toggle"):
 		signal_toggle_inventory.emit()
-	if Input.is_action_just_pressed("interact"):
+	if event.is_action_pressed("interact"):
 		interact()
-	if Input.is_action_just_pressed("1"):
-		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 0)
-		if equiped_inv_item:
-			print("equiped item info: %s" % equiped_inv_item.item.name)
-	if Input.is_action_just_pressed("2"):
-		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 1)
-		if equiped_inv_item:
-			print("equiped item info: %s" % equiped_inv_item.item.name)
-	if Input.is_action_just_pressed("3"):
-		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 2)
-		if equiped_inv_item:
-			print("equiped item info: %s" % equiped_inv_item.item.name)
-	if Input.is_action_just_pressed("4"):
-		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 3)
-		if equiped_inv_item:
-			print("equiped item info: %s" % equiped_inv_item.item.name)
-	if Input.is_action_just_pressed("5"):
-		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 4)
-		if equiped_inv_item:
-			print("equiped item info: %s" % equiped_inv_item.item.name)
-	if Input.is_action_just_pressed("6"):
-		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 5)
-		if equiped_inv_item:
-			print("equiped item info: %s" % equiped_inv_item.item.name)
+	if event is InputEventKey and event.pressed:
+		match event.keycode:
+			KEY_1:
+				signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 0)
+				if equiped_inv_item:
+					print("equiped item info: %s" % equiped_inv_item.item.name)
+			KEY_2:
+				signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 1)
+				if equiped_inv_item:
+					print("equiped item info: %s" % equiped_inv_item.item.name)
+			KEY_3:
+				signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 2)
+				if equiped_inv_item:
+					print("equiped item info: %s" % equiped_inv_item.item.name)
+			KEY_4:
+				signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 3)
+				if equiped_inv_item:
+					print("equiped item info: %s" % equiped_inv_item.item.name)
+			KEY_5:
+				signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 4)
+				if equiped_inv_item:
+					print("equiped item info: %s" % equiped_inv_item.item.name)
+			KEY_6:
+				signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 5)
+				if equiped_inv_item:
+					print("equiped item info: %s" % equiped_inv_item.item.name)
+
 
 ### Player states
 
@@ -95,3 +102,16 @@ func interact():
 func get_drop_position() -> Vector3:
 	var drop_direction = -camera.global_transform.basis.z
 	return camera.global_position + drop_direction
+	
+
+func instantiate_player_item(equiped_item : InSlotData):
+	if item_object_instantiate:
+		item_object_instantiate.queue_free()
+		item_object_instantiate = null
+	if equiped_item:
+		if equiped_item.item.properties.has("equip_item"):
+			var object_source = load(equiped_item.item.properties["equip_item"])
+			item_object_instantiate = object_source.instantiate()
+			#object.slot_data = equiped_item
+			items_holder.add_child(item_object_instantiate)
+			item_object_instantiate.position = Vector3.ZERO
