@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=24 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="PackedScene" uid="uid://jbci8uq5bnyo" path="res://scenes/assault_rifle.tscn" id="2_lyg13"]
@@ -224,11 +224,28 @@ tracks/2/keys = {
 "values": [Vector3(0, -1.5708, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_g3kgu"]
+resource_name = "Assault Rifle Scope"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rifle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.0088414, -0.145091)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lus2o"]
 _data = {
 "Assault Rifle Activate": SubResource("Animation_ntt5p"),
 "Assault Rifle Deactivate": SubResource("Animation_sgdrs"),
 "Assault Rifle Reload": SubResource("Animation_cypf8"),
+"Assault Rifle Scope": SubResource("Animation_g3kgu"),
 "Assault Rifle Shoot": SubResource("Animation_ot87e"),
 "Assault Rifle out of ammo": SubResource("Animation_1q8uh"),
 "RESET": SubResource("Animation_hvc3l")

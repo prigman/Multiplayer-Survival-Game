@@ -7,7 +7,7 @@ var camera_holder_position
 var input_dir = Vector2.ZERO
 var direction = Vector3.ZERO
 var gravity = 12.0
-
+var Scoped: bool = false 
 @export var mouse_sens = 0.15
 
 @export var player_inventory : InventoryData
@@ -20,7 +20,7 @@ var gravity = 12.0
 @onready var camera = %Camera3D
 @onready var interact_ray = $CameraHolder/Camera3D/InteractRay
 @onready var items_holder = $CameraHolder/ArmsHolder/ItemsHolder
-
+@onready var AnimPlayer = $CameraHolder/ArmsHolder/AnimationPlayer
 
 func _ready():
 	Global.global_player = self
@@ -36,6 +36,14 @@ func _input(event):
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
 		camera_holder.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad(-85), deg_to_rad(85))
+	
+	###Scope
+	if event.is_action_pressed("right_click"):
+		$Interface/Reticle.hide()
+		Assault_Rifle_Scope()
+	if event.is_action_released("right_click"):
+		Assault_Rifle_Scope()
+		$Interface/Reticle.show()
 
 func _unhandled_input(_event):
 	if Input.is_action_just_pressed("inv_toggle"):
@@ -69,3 +77,11 @@ func interact():
 func get_drop_position() -> Vector3:
 	var drop_direction = -camera.global_transform.basis.z
 	return camera.global_position + drop_direction
+
+func Assault_Rifle_Scope():
+	if !Scoped:
+		AnimPlayer.play("Assault Rifle Scope")
+	else:
+		AnimPlayer.play_backwards("Assault Rifle Scope")
+	Scoped=!Scoped
+		
