@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://swr5x5ufg1w4" path="res://models/low-poly_assault_rifle.glb" id="1_0elgg"]
 
 [node name="Sketchfab_Scene" instance=ExtResource("1_0elgg")]
-visible = false
 
 [node name="Sketchfab_model" parent="." index="0"]
 transform = Transform3D(-9.63279e-09, -0.220373, 0, -9.63279e-09, 4.21063e-16, 0.220373, -0.220373, 9.63279e-09, -9.63279e-09, 0, 0, 0)

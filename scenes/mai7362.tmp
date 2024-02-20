@@ -1,7 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=19 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
+[ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="3_v83ji"]
+[ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="4_7bn48"]
 [ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="5_1auu5"]
 [ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://inventory/inventory_scenes/main_inventory.tscn" id="5_ux46h"]
 [ext_resource type="PackedScene" uid="uid://cu78wr4f7155s" path="res://scenes/scene_template.tscn" id="5_xsqmg"]
@@ -48,6 +50,8 @@ environment = SubResource("Environment_o00h3")
 
 [node name="Player" parent="." instance=ExtResource("2_4vywr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.79055, -4.76837e-07, -0.879194)
+player_inventory = ExtResource("3_v83ji")
+player_quick_slot = ExtResource("4_7bn48")
 
 [node name="Node3D" parent="." instance=ExtResource("5_xsqmg")]
 
@@ -149,7 +153,7 @@ modulate = Color(1, 1, 1, 0.788235)
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 
-[connection signal="signal_equip_inv_item" from="Player" to="." method="_on_player_signal_equip_inv_item"]
+[connection signal="equip_item" from="UI/Control/InventoryInterface" to="UI/Control/InventoryInterface" method="_on_equip_item"]
 [connection signal="gui_input" from="UI/Control/InventoryInterface" to="UI/Control/InventoryInterface" method="_on_gui_input"]
 [connection signal="signal_drop_slot_data" from="UI/Control/InventoryInterface" to="." method="_on_inventory_interface_signal_drop_slot_data"]
 [connection signal="visibility_changed" from="UI/Control/InventoryInterface" to="UI/Control/InventoryInterface" method="_on_visibility_changed"]

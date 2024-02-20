@@ -23,8 +23,3 @@ func _on_gui_input(event : InputEvent):
 			or event.button_index == MOUSE_BUTTON_RIGHT) \
 			and event.is_pressed():
 		signal_slot_clicked.emit(get_index(), event.button_index)
-
-func _on_signal_slot_clicked(_index, _button):
-	if Input.is_action_just_pressed("1"):
-		pass
-		

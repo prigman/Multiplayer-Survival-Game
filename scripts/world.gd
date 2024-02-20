@@ -43,4 +43,28 @@ func _instantiate_dropped_item(dropped_slot : PackedScene, slot_data : InSlotDat
 	obj.slot_data = slot_data
 	obj.position = player.get_drop_position()
 	add_child(obj)
-	#dropped.emit(obj)
+
+
+func _on_player_signal_equip_inv_item(player_quick_slot : InventoryData, equiped_item : InSlotData, index : int):
+	var slot = player_quick_slot.slots_data[index]
+	for i in index+1:
+		match [slot, equiped_item, index]:
+			[null, null, i]:
+				player.equiped_inv_item = null
+				break
+			[null, _, i]:
+				player.equiped_inv_item = null
+				break
+			[_, null, i]:
+				print("Equip item from inventory: %s" % slot.item.name)
+				player.equiped_inv_item = slot
+				break
+			[_, _, i]:
+				if player.equiped_inv_item != slot:
+					print("Changed to item: %s" % slot.item.name)
+					player.equiped_inv_item = slot
+				else:
+					print("Removed item from hands: %s" % slot.item.name)
+					player.equiped_inv_item = null
+				break
+			

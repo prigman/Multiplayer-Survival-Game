@@ -1,19 +1,21 @@
 extends Control
 class_name InventoryInterface
+
 signal signal_drop_slot_data(slot_data : InSlotData)
 signal signal_force_close
+
 var grabbed_slot_data : InSlotData
 var external_inventory_owner
 var quick_slots_data
+
 @onready var player_inventory = %PlayerInventory
 @onready var player_quick_slot = %PlayerQuickSlot
 @onready var grabbed_slot = %GrabbedSlot
 @onready var external_inventory = %ExternalInventory
+@onready var player = $"../../../Player"
 
-func _unhandled_input(event):
-	if Input.is_action_just_pressed("1"):
-		#_on_signal_slot_clicked()
-		pass
+
+var can = preload("res://scenes/interactable/pickup/canned-food_rigidbody.tscn")
 
 func _physics_process(_delta):
 	if grabbed_slot.visible:
@@ -53,7 +55,7 @@ func _clear_external_inventory():
 		external_inventory_owner = null
 	
 func _on_inventory_interact(inventory_data : InventoryData, index : int, button : int):
-	#print("%s %s %s" % [inventory_data, index, button])
+	#print("START %s %s %s" % [inventory_data, index, button])
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]:
 			grabbed_slot_data = inventory_data._grab_slot_data(index)
@@ -63,7 +65,14 @@ func _on_inventory_interact(inventory_data : InventoryData, index : int, button 
 			grabbed_slot_data = inventory_data._grab_slot_data(index)
 		[_, MOUSE_BUTTON_RIGHT]:
 			grabbed_slot_data = inventory_data._drop_single_slot_data(grabbed_slot_data, index)
+	if player.equiped_inv_item != null and player.equiped_inv_item == grabbed_slot_data:
+		player.equiped_inv_item = null
+		print("removed")
 	_update_grabbed_slot()
+	#if player.equiped_inv_item != grabbed_slot_data:
+		#player.equiped_inv_item = null
+		#player.signal_equip_inv_item.emit(inventory_data, player.equiped_inv_item, index)
+		#print("removed")
 
 
 func _update_grabbed_slot():
@@ -89,3 +98,4 @@ func _on_visibility_changed():
 		signal_drop_slot_data.emit(grabbed_slot_data)
 		grabbed_slot_data = null
 		_update_grabbed_slot()
+		

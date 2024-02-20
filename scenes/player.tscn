@@ -1,11 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=19 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
+[ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_hr5ng"]
 [ext_resource type="PackedScene" uid="uid://jbci8uq5bnyo" path="res://scenes/assault_rifle.tscn" id="2_lyg13"]
 [ext_resource type="Script" path="res://scripts/reticle.gd" id="3_oi4b1"]
+[ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_qshfa"]
 [ext_resource type="Script" path="res://scripts/ui_debug.gd" id="5_c7tx3"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
+[ext_resource type="AnimationLibrary" uid="uid://b0kmrrpmbpu6l" path="res://anims/Assault Rifle.res" id="7_5ta4k"]
 [ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
 [ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
 [ext_resource type="Script" path="res://scripts/player state machine/sprint_state.gd" id="9_touqc"]
@@ -21,221 +24,10 @@ height = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
 
-[sub_resource type="Animation" id="Animation_ntt5p"]
-resource_name = "Assault Rifle Activate"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -0.265, -0.095), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.025),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Rifle:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.645772, -0.794125, 0), Vector3(0, -1.5708, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_sgdrs"]
-resource_name = "Assault Rifle Deactivate"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.265, -0.095)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Rifle:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(-0.645772, -0.794125, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_cypf8"]
-resource_name = "Assault Rifle Reload"
-length = 2.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 1.9, 2.3, 2.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.01, -0.105, -0.165), Vector3(0.01, -0.108, -0.165), Vector3(0.01, -0.055, -0.165), Vector3(-0.023, -0.102, -0.17), Vector3(0.068, -0.091, -0.192), Vector3(0.138, -0.171, -0.192), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 1.9, 2.3, 2.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(-0.296706, -0.506145, 0), Vector3(-0.296706, -0.506145, 0.485202), Vector3(-0.296706, -0.506145, -0.794125), Vector3(-0.284489, -0.574213, -0.862193), Vector3(-0.237365, -0.849975, 0.614356), Vector3(-0.115192, -0.867429, 0.727802), Vector3(0, -1.5708, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_ot87e"]
-resource_name = "Assault Rifle Shoot"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.04, 0.02, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(0.00698132, -1.53938, -0.0279253), Vector3(0, -1.5708, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_1q8uh"]
-resource_name = "Assault Rifle out of ammo"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.01, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(0.00698132, -1.50098, 0), Vector3(0, -1.5708, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_hvc3l"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Rifle:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -1.5708, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lus2o"]
-_data = {
-"Assault Rifle Activate": SubResource("Animation_ntt5p"),
-"Assault Rifle Deactivate": SubResource("Animation_sgdrs"),
-"Assault Rifle Reload": SubResource("Animation_cypf8"),
-"Assault Rifle Shoot": SubResource("Animation_ot87e"),
-"Assault Rifle out of ammo": SubResource("Animation_1q8uh"),
-"RESET": SubResource("Animation_hvc3l")
-}
-
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_adhyr")
+player_inventory = ExtResource("2_hr5ng")
+player_quick_slot = ExtResource("3_qshfa")
 
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
@@ -271,11 +63,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.365, 0.165)
 
 [node name="Rifle" parent="CameraHolder/ArmsHolder" instance=ExtResource("2_lyg13")]
 transform = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 0, 0)
-visible = true
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/ArmsHolder"]
+active = false
 libraries = {
-"": SubResource("AnimationLibrary_lus2o")
+"Assault Rifle": ExtResource("7_5ta4k")
 }
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]

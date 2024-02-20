@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody3D
 
 signal signal_toggle_inventory()
-
+signal signal_equip_inv_item(quick_slot_inv : InventoryData, equiped_item : InSlotData, index : int)
 var camera_holder_position
 var input_dir = Vector2.ZERO
 var direction = Vector3.ZERO
@@ -12,6 +12,7 @@ var gravity = 12.0
 
 @export var player_inventory : InventoryData
 @export var player_quick_slot : InventoryData
+@export var equiped_inv_item : InSlotData
 
 #var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -20,7 +21,6 @@ var gravity = 12.0
 @onready var camera = %Camera3D
 @onready var interact_ray = $CameraHolder/Camera3D/InteractRay
 @onready var items_holder = $CameraHolder/ArmsHolder/ItemsHolder
-
 
 func _ready():
 	Global.global_player = self
@@ -42,6 +42,30 @@ func _unhandled_input(_event):
 		signal_toggle_inventory.emit()
 	if Input.is_action_just_pressed("interact"):
 		interact()
+	if Input.is_action_just_pressed("1"):
+		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 0)
+		if equiped_inv_item:
+			print("equiped item info: %s" % equiped_inv_item.item.name)
+	if Input.is_action_just_pressed("2"):
+		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 1)
+		if equiped_inv_item:
+			print("equiped item info: %s" % equiped_inv_item.item.name)
+	if Input.is_action_just_pressed("3"):
+		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 2)
+		if equiped_inv_item:
+			print("equiped item info: %s" % equiped_inv_item.item.name)
+	if Input.is_action_just_pressed("4"):
+		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 3)
+		if equiped_inv_item:
+			print("equiped item info: %s" % equiped_inv_item.item.name)
+	if Input.is_action_just_pressed("5"):
+		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 4)
+		if equiped_inv_item:
+			print("equiped item info: %s" % equiped_inv_item.item.name)
+	if Input.is_action_just_pressed("6"):
+		signal_equip_inv_item.emit(player_quick_slot, equiped_inv_item, 5)
+		if equiped_inv_item:
+			print("equiped item info: %s" % equiped_inv_item.item.name)
 
 ### Player states
 
@@ -61,6 +85,8 @@ func update_input(speed, acceleration, decceleration):
 	
 func update_velocity():
 	move_and_slide()
+
+### Inventory items interaction
 
 func interact():
 	if interact_ray.is_colliding():
