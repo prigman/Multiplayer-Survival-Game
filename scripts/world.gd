@@ -1,7 +1,7 @@
 extends Node
-
+class_name World
 @onready var player = $Player
-@onready var inventory_interface = $UI/Control/InventoryInterface
+@onready var inventory_interface = %InventoryInterface
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

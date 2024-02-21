@@ -1,4 +1,5 @@
 extends PanelContainer
+class_name InventoryScript
 
 const SLOT_SCENE = preload("res://inventory/inventory_scenes/inventory_slot.tscn")
 @onready var grid_container = $MarginContainer/GridContainer
