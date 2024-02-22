@@ -3,10 +3,15 @@
 [ext_resource type="PackedScene" uid="uid://swr5x5ufg1w4" path="res://models/low-poly_assault_rifle.glb" id="1_0elgg"]
 
 [node name="Sketchfab_Scene" instance=ExtResource("1_0elgg")]
-visible = false
 
 [node name="Sketchfab_model" parent="." index="0"]
 transform = Transform3D(-9.63279e-09, -0.220373, 0, -9.63279e-09, 4.21063e-16, 0.220373, -0.220373, 9.63279e-09, -9.63279e-09, 0, 0, 0)
+
+[node name="AR_Scope_AR_Scope_Glass_0" parent="Sketchfab_model/f040ccaeafff45a489978aa3a2a453fb_fbx/RootNode/AR_Scope" index="1"]
+transform = Transform3D(1, -1.42109e-14, 0, 0, 1, 5.49327e-14, -1.06581e-14, -5.87541e-14, 1, 0, 0, 0)
+
+[node name="AR_Scope_AR_Scope_Laser_0" parent="Sketchfab_model/f040ccaeafff45a489978aa3a2a453fb_fbx/RootNode/AR_Scope" index="2"]
+transform = Transform3D(1, -3.55271e-15, 0, 0, 1, 1.23002e-14, -3.55271e-15, -1.61215e-14, 1, 0, 0, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="." index="1"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.00238726, 0.0463017, -0.598238)
