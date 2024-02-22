@@ -18,4 +18,6 @@ func physics_update(delta):
 	
 	if Global.global_player.velocity.length() <= 0:
 		transition.emit("Idle")
+	if Input.is_action_just_pressed("right_click"):
+			transition.emit("Scope")
 		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=28 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="2_6bjxl"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/player state machine/sprint_state.gd" id="9_touqc"]
 [ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
+[ext_resource type="Script" path="res://scenes/Scope.gd" id="13_uslv3"]
 
 [sub_resource type="Resource" id="Resource_vvirp"]
 script = ExtResource("2_6bjxl")
@@ -398,3 +399,6 @@ script = ExtResource("10_0am0j")
 
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("11_juquo")
+
+[node name="Scope" type="Node" parent="StateMachine"]
+script = ExtResource("13_uslv3")

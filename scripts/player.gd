@@ -7,8 +7,8 @@ var camera_holder_position
 var input_dir = Vector2.ZERO
 var direction = Vector3.ZERO
 var gravity = 12.0
-var Scoped: bool = false 
-var Moved: bool = false
+
+
 
 	
 @export var mouse_sens = 0.15
@@ -62,21 +62,6 @@ func _input(event):
 		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 		mouse_input = event.relative
 		
-	
-	if velocity.length() > 0:
-		Moved = true
-	else:
-		Moved = false
-
-#Scope
-	if event.is_action_pressed("right_click"):
-		$Interface/Reticle.hide()
-		if !Scoped:
-			Assault_Rifle_Scope()
-	if event.is_action_released("right_click"):
-		if Scoped:
-			Assault_Rifle_Scope()
-			$Interface/Reticle.show()
 
 
 func _unhandled_input(_event):
@@ -139,9 +124,3 @@ func weapon_bob(vel : float, delta):
 			weapon_holder.position.x = lerp(weapon_holder.position.x, def_weapon_holder_pos.x, 10 * delta)
 #-------
 
-func Assault_Rifle_Scope():
-	if !Scoped:
-		AnimPlayer.play("Assault Rifle Scope")
-	else:
-		AnimPlayer.play_backwards("Assault Rifle Scope")
-	Scoped = !Scoped
