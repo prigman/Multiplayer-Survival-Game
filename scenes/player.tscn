@@ -1,14 +1,17 @@
-[gd_scene load_steps=28 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=31 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="2_6bjxl"]
 [ext_resource type="PackedScene" uid="uid://jbci8uq5bnyo" path="res://scenes/assault_rifle.tscn" id="2_lyg13"]
+[ext_resource type="Script" path="res://scripts/weapons_manager.gd" id="3_cnrpl"]
 [ext_resource type="Script" path="res://scripts/reticle.gd" id="3_oi4b1"]
+[ext_resource type="Resource" uid="uid://ck1lidxd2881u" path="res://weapon_resources/AssaultRifle.tres" id="4_umty7"]
 [ext_resource type="Script" path="res://scripts/ui_debug.gd" id="5_c7tx3"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
 [ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
 [ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
+[ext_resource type="Script" path="res://HUD.gd" id="9_plw7j"]
 [ext_resource type="Script" path="res://scripts/player state machine/sprint_state.gd" id="9_touqc"]
 [ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
@@ -37,7 +40,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
+tracks/0/path = NodePath("weapons_manager/Rifle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -49,7 +52,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:visible")
+tracks/1/path = NodePath("weapons_manager/Rifle:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -61,7 +64,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Rifle:rotation")
+tracks/2/path = NodePath("weapons_manager/Rifle:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -77,7 +80,7 @@ length = 2.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
+tracks/0/path = NodePath("weapons_manager/Rifle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -89,7 +92,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:rotation")
+tracks/1/path = NodePath("weapons_manager/Rifle:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -105,7 +108,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
+tracks/0/path = NodePath("weapons_manager/Rifle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -117,7 +120,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:rotation")
+tracks/1/path = NodePath("weapons_manager/Rifle:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -133,7 +136,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
+tracks/0/path = NodePath("weapons_manager/Rifle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -145,7 +148,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:rotation")
+tracks/1/path = NodePath("weapons_manager/Rifle:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -161,7 +164,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
+tracks/0/path = NodePath("weapons_manager/Rifle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -173,7 +176,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:rotation")
+tracks/1/path = NodePath("weapons_manager/Rifle:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -189,7 +192,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
+tracks/0/path = NodePath("weapons_manager/Rifle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -201,7 +204,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:rotation")
+tracks/1/path = NodePath("weapons_manager/Rifle:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -216,7 +219,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Rifle:position")
+tracks/0/path = NodePath("weapons_manager/Rifle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -228,7 +231,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Rifle:visible")
+tracks/1/path = NodePath("weapons_manager/Rifle:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -240,7 +243,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Rifle:rotation")
+tracks/2/path = NodePath("weapons_manager/Rifle:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -261,13 +264,10 @@ _data = {
 "RESET": SubResource("Animation_hvc3l")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cam", "weapon_holder")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
 script = ExtResource("1_adhyr")
 player_inventory = SubResource("Resource_vvirp")
 player_quick_slot = SubResource("Resource_tnajd")
-cam = NodePath("CameraHolder")
-cam_speed = 0.001
-cam_rotation_amount = 0.05
 weapon_holder = NodePath("CameraHolder/ArmsHolder")
 weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.003
@@ -304,7 +304,12 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.145,
 [node name="ItemsHolder" type="Node3D" parent="CameraHolder/ArmsHolder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.365, 0.165)
 
-[node name="Rifle" parent="CameraHolder/ArmsHolder" instance=ExtResource("2_lyg13")]
+[node name="weapons_manager" type="Node3D" parent="CameraHolder/ArmsHolder"]
+script = ExtResource("3_cnrpl")
+weapon_resources = Array[Resource("res://scripts/weapon_resource.gd")]([ExtResource("4_umty7"), ExtResource("4_umty7")])
+on_game_start_weapon = Array[String](["AssaultRifle", "Rifle"])
+
+[node name="Rifle" parent="CameraHolder/ArmsHolder/weapons_manager" instance=ExtResource("2_lyg13")]
 transform = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/ArmsHolder"]
@@ -381,6 +386,45 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_plw7j")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Interface/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Current Weapon:"
+
+[node name="CurrentWeapon" type="Label" parent="Interface/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Interface/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Interface/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Ammo:"
+
+[node name="CurrentAmmo" type="Label" parent="Interface/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Interface/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Interface/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Weapon Stack:"
+
+[node name="WeaponStack" type="Label" parent="Interface/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("6_28k2k")
 current_state = NodePath("Idle")
@@ -402,3 +446,7 @@ script = ExtResource("11_juquo")
 
 [node name="Scope" type="Node" parent="StateMachine"]
 script = ExtResource("13_uslv3")
+
+[connection signal="Update_Ammo" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/VBoxContainer" method="_on_weapons_manager_update_ammo"]
+[connection signal="Update_Weapon_Stack" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/VBoxContainer" method="_on_weapons_manager_update_weapon_stack"]
+[connection signal="Weapon_Changed" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/VBoxContainer" method="_on_weapons_manager_weapon_changed"]

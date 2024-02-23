@@ -17,10 +17,7 @@ var gravity = 12.0
 @export var player_quick_slot : InventoryData
 #var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-#tilt camera
-@export var cam : Node3D
-@export var cam_speed : float = 5
-@export var cam_rotation_amount : float = 1
+
 #tilt weapon
 @export var weapon_holder : Node3D
 @export var weapon_sway_amount : float = 5
@@ -49,13 +46,12 @@ func _process(_delta):
 	var velocity_string = "%.2f" % velocity.length()
 	Global.global_debug.add_property("velocity", velocity_string, +1)
 	
-	cam_tilt(input_dir.x, _delta)
 	weapon_tilt(input_dir.x, _delta)
 	weapon_sway(_delta)
 	weapon_bob(velocity.length(), _delta)
 	
 func _input(event):
-	if !cam: return
+	
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
 		camera_holder.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
@@ -98,10 +94,6 @@ func get_drop_position() -> Vector3:
 	return camera.global_position + drop_direction
 
 #-Camera and weapon tilt
-func cam_tilt(input_x, delta):
-	if cam:
-		cam.rotation.z = lerp(cam.rotation.z, -input_x * cam_rotation_amount, 10 * delta)
-
 func weapon_tilt(input_x, delta):
 	if weapon_holder:
 		weapon_holder.rotation.z = lerp(weapon_holder.rotation.z, -input_x * weapon_rotation_amount * 10, 10 * delta)

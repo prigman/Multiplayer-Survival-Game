@@ -2,6 +2,7 @@ extends ItemData
 
 class_name WeaponResources
 
+@export var weapon_name: String
 @export var anim_activate : String
 @export var anim_shoot : String
 @export var anim_reload : String
@@ -14,3 +15,4 @@ class_name WeaponResources
 @export var magazine : int
 
 @export var fire_mode_auto : bool
+  

@@ -6,7 +6,7 @@ var Scoped: bool = false
 func enter(_previous_state):
 	pass
 	
-func physics_update(delta):
+func physics_update(_delta):
 	if Input.is_action_pressed("right_click"):
 		$"../../Interface/Reticle".hide()
 		if !Scoped:
