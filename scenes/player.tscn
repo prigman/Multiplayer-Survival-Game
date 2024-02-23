@@ -1,15 +1,15 @@
-[gd_scene load_steps=31 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=30 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
-[ext_resource type="Script" path="res://inventory/inventory_data.gd" id="2_6bjxl"]
 [ext_resource type="PackedScene" uid="uid://jbci8uq5bnyo" path="res://scenes/assault_rifle.tscn" id="2_lyg13"]
+[ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
 [ext_resource type="Script" path="res://scripts/weapons_manager.gd" id="3_cnrpl"]
+[ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_nqi44"]
 [ext_resource type="Script" path="res://scripts/reticle.gd" id="3_oi4b1"]
 [ext_resource type="Resource" uid="uid://ck1lidxd2881u" path="res://weapon_resources/AssaultRifle.tres" id="4_umty7"]
 [ext_resource type="Script" path="res://scripts/ui_debug.gd" id="5_c7tx3"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
-[ext_resource type="AnimationLibrary" uid="uid://b0kmrrpmbpu6l" path="res://anims/Assault Rifle.res" id="7_5ta4k"]
 [ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
 [ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
 [ext_resource type="Script" path="res://HUD.gd" id="9_plw7j"]
@@ -17,14 +17,6 @@
 [ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
 [ext_resource type="Script" path="res://scenes/Scope.gd" id="13_uslv3"]
-
-[sub_resource type="Resource" id="Resource_vvirp"]
-script = ExtResource("2_6bjxl")
-slots_data = Array[Resource("res://inventory/in_slot_data.gd")]([])
-
-[sub_resource type="Resource" id="Resource_tnajd"]
-script = ExtResource("2_6bjxl")
-slots_data = Array[Resource("res://inventory/in_slot_data.gd")]([])
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
 
@@ -34,14 +26,6 @@ height = 1.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f7gol"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
-
-
-[node name="Player" type="CharacterBody3D"]
-collision_layer = 2
-collision_mask = 9
-script = ExtResource("1_adhyr")
-player_inventory = ExtResource("2_hr5ng")
-player_quick_slot = ExtResource("3_qshfa")
 
 [sub_resource type="Animation" id="Animation_ntt5p"]
 resource_name = "Assault Rifle Activate"
@@ -275,12 +259,11 @@ _data = {
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
 script = ExtResource("1_adhyr")
-player_inventory = SubResource("Resource_vvirp")
-player_quick_slot = SubResource("Resource_tnajd")
+player_inventory = ExtResource("2_xq8ps")
+player_quick_slot = ExtResource("3_nqi44")
 weapon_holder = NodePath("CameraHolder/ArmsHolder")
 weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.003
-
 
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
@@ -309,23 +292,22 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
 [node name="ArmsHolder" type="Node3D" parent="CameraHolder"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.145, -0.257, -0.247)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.141129, -0.348797, -0.469118)
 
 [node name="ItemsHolder" type="Node3D" parent="CameraHolder/ArmsHolder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.365, 0.165)
 
 [node name="weapons_manager" type="Node3D" parent="CameraHolder/ArmsHolder"]
 script = ExtResource("3_cnrpl")
-weapon_resources = Array[Resource("res://scripts/weapon_resource.gd")]([ExtResource("4_umty7"), ExtResource("4_umty7")])
+weapon_resources = Array[Resource("res://scripts/weapon_resource.gd")]([ExtResource("4_umty7")])
 on_game_start_weapon = Array[String](["AssaultRifle", "Rifle"])
 
 [node name="Rifle" parent="CameraHolder/ArmsHolder/weapons_manager" instance=ExtResource("2_lyg13")]
 transform = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/ArmsHolder"]
-active = false
 libraries = {
-"Assault Rifle": ExtResource("7_5ta4k")
+"": SubResource("AnimationLibrary_lus2o")
 }
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
@@ -338,7 +320,7 @@ enable_shadows = true
 
 [node name="InteractRay" type="RayCast3D" parent="CameraHolder/Camera3D"]
 target_position = Vector3(0, 0, -2.5)
-collision_mask = 12
+collision_mask = 4
 
 [node name="Interface" type="Control" parent="."]
 layout_mode = 3

@@ -26,12 +26,7 @@ func _physics_process(_delta):
 	pass
 
 func _unhandled_input(_event):
-	if(Input.is_action_just_pressed("2")):
-		weapon_indicator = min(weapon_indicator + 1, weapon_stack.size() - 1)
-		exit(weapon_stack[weapon_indicator])
-	if(Input.is_action_just_pressed("1")):
-		weapon_indicator = max(weapon_indicator - 1, 0)
-		exit(weapon_stack[weapon_indicator])
+	
 	if(Input.is_action_just_pressed("reload")):
 		reload()
 		
