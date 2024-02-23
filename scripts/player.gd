@@ -13,7 +13,7 @@ var gravity = 12.0
 
 @export var player_inventory : InventoryData
 @export var player_quick_slot : InventoryData
-@export var equiped_inv_item : InSlotData
+var equiped_inv_item : InSlotData
 
 var item_object_instantiate
 

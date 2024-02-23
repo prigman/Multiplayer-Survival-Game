@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_nm73g")
+weapon_name = ""
 anim_activate = "Assault Rifle Activate"
 anim_shoot = "Assault Rifle Shoot"
 anim_reload = "Assault Rifle Reload"

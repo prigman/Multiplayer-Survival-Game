@@ -258,6 +258,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
+collision_mask = 9
 script = ExtResource("1_adhyr")
 player_inventory = ExtResource("2_xq8ps")
 player_quick_slot = ExtResource("3_nqi44")

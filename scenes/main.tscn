@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=18 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
@@ -27,10 +27,6 @@ sky = SubResource("Sky_22r82")
 tonemap_mode = 1
 glow_enabled = true
 
-[sub_resource type="Resource" id="Resource_wiodb"]
-script = ExtResource("11_653sy")
-amount_in_slot = 1
-
 [sub_resource type="Resource" id="Resource_o1761"]
 script = ExtResource("11_653sy")
 item = ExtResource("10_dadr8")
@@ -53,7 +49,6 @@ environment = SubResource("Environment_o00h3")
 
 [node name="Player" parent="." instance=ExtResource("2_4vywr")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.79055, -4.76837e-07, -0.879194)
-equiped_inv_item = SubResource("Resource_wiodb")
 
 [node name="Node3D" parent="." instance=ExtResource("5_xsqmg")]
 
