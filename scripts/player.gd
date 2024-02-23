@@ -9,37 +9,58 @@ var input_dir = Vector2.ZERO
 var direction = Vector3.ZERO
 var gravity = 12.0
 
-
 @export var mouse_sens = 0.15
 
 @export var player_inventory : InventoryData
 @export var player_quick_slot : InventoryData
 @export var equiped_inv_item : InSlotData
+
 var item_object_instantiate
 
 #var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+
+#tilt weapon
+@export var weapon_holder : Node3D
+@export var weapon_sway_amount : float = 5
+@export var weapon_rotation_amount : float = 1
+@export var invert_weapon_sway : bool = false
 
 @onready var spherecast = %ShapeCast3D
 @onready var camera_holder = %CameraHolder
 @onready var camera = %Camera3D
 @onready var interact_ray = $CameraHolder/Camera3D/InteractRay
 @onready var items_holder = $CameraHolder/ArmsHolder/ItemsHolder
+@onready var AnimPlayer = $CameraHolder/ArmsHolder/AnimationPlayer
+
+var def_weapon_holder_pos : Vector3
+var mouse_input : Vector2
 
 func _ready():
 	Global.global_player = self
 	camera_holder_position = camera_holder.position.y
+	def_weapon_holder_pos = weapon_holder.position
 	spherecast.add_exception($".")
 	equiped_inv_item = null
+
 
 func _process(_delta):
 	var velocity_string = "%.2f" % velocity.length()
 	Global.global_debug.add_property("velocity", velocity_string, +1)
 	
+	weapon_tilt(input_dir.x, _delta)
+	weapon_sway(_delta)
+	weapon_bob(velocity.length(), _delta)
+	
 func _input(event):
+	
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
 		camera_holder.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad(-85), deg_to_rad(85))
+		mouse_input = event.relative
+		
+
 
 func _unhandled_input(event):
 	if event.is_action_pressed("inv_toggle"):
@@ -102,7 +123,6 @@ func interact():
 func get_drop_position() -> Vector3:
 	var drop_direction = -camera.global_transform.basis.z
 	return camera.global_position + drop_direction
-	
 
 func instantiate_player_item(equiped_item : InSlotData):
 	if item_object_instantiate:
@@ -115,3 +135,26 @@ func instantiate_player_item(equiped_item : InSlotData):
 			#object.slot_data = equiped_item
 			items_holder.add_child(item_object_instantiate)
 			item_object_instantiate.position = Vector3.ZERO
+
+#-Camera and weapon tilt
+func weapon_tilt(input_x, delta):
+	if weapon_holder:
+		weapon_holder.rotation.z = lerp(weapon_holder.rotation.z, -input_x * weapon_rotation_amount * 10, 10 * delta)
+
+func weapon_sway(delta):
+	mouse_input = lerp(mouse_input,Vector2.ZERO,10*delta)
+	weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, mouse_input.y * weapon_rotation_amount * (-1 if invert_weapon_sway else 1), 10 * delta)
+	weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, mouse_input.x * weapon_rotation_amount * (-1 if invert_weapon_sway else 1)+1.54, 10 * delta)
+	
+func weapon_bob(vel : float, delta):
+	if weapon_holder:
+		if vel > 0 and is_on_floor():
+			var bob_amount : float = 0.01
+			var bob_freq : float = 0.01
+			weapon_holder.position.y = lerp(weapon_holder.position.y, def_weapon_holder_pos.y + sin(Time.get_ticks_msec() * bob_freq) * bob_amount, 10 * delta)
+			weapon_holder.position.x = lerp(weapon_holder.position.x, def_weapon_holder_pos.x + sin(Time.get_ticks_msec() * bob_freq * 0.5) * bob_amount, 10 * delta)
+			
+		else:
+			weapon_holder.position.y = lerp(weapon_holder.position.y, def_weapon_holder_pos.y, 10 * delta)
+			weapon_holder.position.x = lerp(weapon_holder.position.x, def_weapon_holder_pos.x, 10 * delta)
+#-------

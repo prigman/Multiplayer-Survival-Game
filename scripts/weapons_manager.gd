@@ -1,6 +1,13 @@
 extends Node3D
 
-@onready var anim_player = %AnimationPlayer
+signal Weapon_Changed
+signal Update_Ammo
+signal Update_Weapon_Stack(stack)
+
+
+
+
+@onready var anim_player = $"../AnimationPlayer"
 
 var weapon_current = null
 var weapon_stack = [] # all weapons in the game
@@ -16,9 +23,7 @@ func _ready():
 	pass
 
 func _physics_process(_delta):
-	if(Input.is_action_pressed("mouse_1")):
-		if anim_player.get_current_animation() != weapon_current.anim_shoot:
-			anim_player.play(weapon_current.anim_shoot)
+	pass
 
 func _unhandled_input(_event):
 	if(Input.is_action_just_pressed("2")):
@@ -28,23 +33,32 @@ func _unhandled_input(_event):
 		weapon_indicator = max(weapon_indicator - 1, 0)
 		exit(weapon_stack[weapon_indicator])
 	if(Input.is_action_just_pressed("reload")):
-		anim_player.play(weapon_current.anim_reload)
+		reload()
+		
+	if(Input.is_action_just_pressed("fire")):
+		shoot()
+	
+		
  
 func initialize(_weapons_on_start: Array):
 	for weapon in weapon_resources:
 		weapon_list[weapon.name] = weapon
-	
+
 	for i in _weapons_on_start:
 		weapon_stack.push_back(i) # add start weapons
 		
 	weapon_current = weapon_list[weapon_stack[0]] # set the first weapon in the stack to current
+	
 	enter()
 	
 func enter(): # calls when first entering into a weapon
 	anim_player.queue(weapon_current.anim_activate)
+	Update_Weapon_Stack.emit(weapon_stack)
+	Weapon_Changed.emit(weapon_current.weapon_name)
+	Update_Ammo.emit([weapon_current.ammo_current, weapon_current.ammo_reserve])
 
 func exit(_exit_weapon_next : String):
-	if(_exit_weapon_next != weapon_current.name):
+	if(_exit_weapon_next != weapon_current.weapon_name):
 		if anim_player.get_current_animation() != weapon_current.anim_deactivate:
 			anim_player.play(weapon_current)
 			weapon_next = _exit_weapon_next
@@ -56,5 +70,13 @@ func weapon_change(_weapon_name: String):
 
 
 func _on_animation_player_animation_finished(anim_name):
-	if anim_name == weapon_current.anim_deactivate:
+	if anim_name == weapon_current:
 		weapon_change(weapon_next)
+
+func shoot():
+	anim_player.play(weapon_current.anim_shoot)
+
+func reload():
+	anim_player.play(weapon_current.anim_reload)
+	
+

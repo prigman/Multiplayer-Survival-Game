@@ -14,3 +14,5 @@ func physics_update(delta):
 			transition.emit("Walking")
 		if Input.is_action_just_pressed("space"):
 			transition.emit("Jump")
+		if Input.is_action_just_pressed("right_click"):
+			transition.emit("Scope")

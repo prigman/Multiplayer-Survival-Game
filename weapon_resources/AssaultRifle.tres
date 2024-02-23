@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponResources" load_steps=2 format=3 uid="uid://ck1lidxd2881u"]
+
+[ext_resource type="Script" path="res://scripts/weapon_resource.gd" id="1_4jy08"]
+
+[resource]
+script = ExtResource("1_4jy08")
+weapon_name = "AssaultRifle"
+anim_activate = "Assault Rifle Activate"
+anim_shoot = "Assault Rifle Shoot"
+anim_reload = "Assault Rifle Reload"
+anim_deactivate = "Assault Rifle Activate"
+anim_out_of_ammo = "Assault Rifle out of ammo"
+ammo_current = 30
+ammo_reserve = 100
+ammo_max = 60
+magazine = 30
+fire_mode_auto = false
+name = "AssaultRifle"
+description = ""
+stackable = false
+max_stack = 0
+properties = {}

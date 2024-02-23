@@ -19,7 +19,9 @@ func physics_update(delta):
 	crouch_state_collision.disabled = false
 	if Input.is_action_just_released("left_ctrl"):
 		uncrouch(delta)
-		
+	if Input.is_action_just_pressed("right_click"):
+			transition.emit("Scope")
+	
 func uncrouch(delta):
 	if !spherecast.is_colliding() and !Input.is_action_pressed("left_ctrl"):
 		player.camera_holder.position.y = player.camera_holder_position
