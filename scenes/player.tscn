@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/ui_debug.gd" id="5_c7tx3"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
+[ext_resource type="AnimationLibrary" uid="uid://b0kmrrpmbpu6l" path="res://anims/Assault Rifle.res" id="7_5ta4k"]
 [ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
 [ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
 [ext_resource type="Script" path="res://HUD.gd" id="9_plw7j"]
@@ -33,6 +34,14 @@ height = 1.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f7gol"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
+
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_adhyr")
+player_inventory = ExtResource("2_hr5ng")
+player_quick_slot = ExtResource("3_qshfa")
 
 [sub_resource type="Animation" id="Animation_ntt5p"]
 resource_name = "Assault Rifle Activate"
@@ -272,6 +281,7 @@ weapon_holder = NodePath("CameraHolder/ArmsHolder")
 weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.003
 
+
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 1, -3.72529e-09)
@@ -313,8 +323,9 @@ on_game_start_weapon = Array[String](["AssaultRifle", "Rifle"])
 transform = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/ArmsHolder"]
+active = false
 libraries = {
-"": SubResource("AnimationLibrary_lus2o")
+"Assault Rifle": ExtResource("7_5ta4k")
 }
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
@@ -327,7 +338,7 @@ enable_shadows = true
 
 [node name="InteractRay" type="RayCast3D" parent="CameraHolder/Camera3D"]
 target_position = Vector3(0, 0, -2.5)
-collision_mask = 4
+collision_mask = 12
 
 [node name="Interface" type="Control" parent="."]
 layout_mode = 3

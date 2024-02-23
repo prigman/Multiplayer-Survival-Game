@@ -1,7 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=19 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
+[ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="3_v83ji"]
+[ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="4_7bn48"]
 [ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="5_1auu5"]
 [ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://inventory/inventory_scenes/main_inventory.tscn" id="5_ux46h"]
 [ext_resource type="PackedScene" uid="uid://cu78wr4f7155s" path="res://scenes/scene_template.tscn" id="5_xsqmg"]
@@ -10,7 +12,6 @@
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="9_56to4"]
 [ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="10_dadr8"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
-[ext_resource type="PackedScene" uid="uid://dmxgrm6pjsqfy" path="res://inventory/inventory_scenes/inv_item_info_panel.tscn" id="12_gn37j"]
 [ext_resource type="PackedScene" uid="uid://bs0te4ilgfkpw" path="res://scenes/interactable/pickup/canned-food_rigidbody.tscn" id="12_k0p58"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0j0wh"]
@@ -49,6 +50,8 @@ environment = SubResource("Environment_o00h3")
 
 [node name="Player" parent="." instance=ExtResource("2_4vywr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.79055, -4.76837e-07, -0.879194)
+player_inventory = ExtResource("3_v83ji")
+player_quick_slot = ExtResource("4_7bn48")
 
 [node name="Node3D" parent="." instance=ExtResource("5_xsqmg")]
 
@@ -85,80 +88,72 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control"]
+[node name="InventoryInterface" type="Control" parent="UI/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Control/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-theme_override_constants/margin_top = 40
-
-[node name="InvItemInfoPanel" parent="UI/Control/VBoxContainer/MarginContainer" instance=ExtResource("12_gn37j")]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="InventoryInterface" type="Control" parent="UI/Control/VBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
 script = ExtResource("5_1auu5")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface"]
+[node name="PlayerInventory" parent="UI/Control/InventoryInterface" instance=ExtResource("5_ux46h")]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -179.0
+offset_right = 20.0
+offset_bottom = -139.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 
-[node name="ExternalInventory" parent="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface/VBoxContainer" instance=ExtResource("5_ux46h")]
+[node name="ExternalInventory" parent="UI/Control/InventoryInterface" instance=ExtResource("5_ux46h")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -405.0
+offset_right = 20.0
+offset_bottom = -365.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="PlayerInventory" parent="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface/VBoxContainer" instance=ExtResource("5_ux46h")]
+[node name="PlayerQuickSlot" parent="UI/Control" instance=ExtResource("5_ux46h")]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 10
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Control/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 10
-size_flags_stretch_ratio = 1.9
-theme_override_constants/margin_bottom = 20
-
-[node name="PlayerQuickSlot" parent="UI/Control/VBoxContainer/VBoxContainer/MarginContainer" instance=ExtResource("5_ux46h")]
-unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -66.0
+offset_right = 20.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="GrabbedSlot" parent="UI/Control" instance=ExtResource("7_wli0u")]
 unique_name_in_owner = true
+visible = false
 modulate = Color(1, 1, 1, 0.788235)
 self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-size_flags_horizontal = 4
-size_flags_vertical = 6
+layout_mode = 0
 
-[connection signal="signal_equip_inv_item" from="Player" to="." method="_on_player_signal_equip_inv_item"]
-[connection signal="gui_input" from="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" to="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" method="_on_gui_input"]
-[connection signal="signal_drop_slot_data" from="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" to="." method="_on_inventory_interface_signal_drop_slot_data"]
-[connection signal="visibility_changed" from="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" to="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" method="_on_visibility_changed"]
+[connection signal="equip_item" from="UI/Control/InventoryInterface" to="UI/Control/InventoryInterface" method="_on_equip_item"]
+[connection signal="gui_input" from="UI/Control/InventoryInterface" to="UI/Control/InventoryInterface" method="_on_gui_input"]
+[connection signal="signal_drop_slot_data" from="UI/Control/InventoryInterface" to="." method="_on_inventory_interface_signal_drop_slot_data"]
+[connection signal="visibility_changed" from="UI/Control/InventoryInterface" to="UI/Control/InventoryInterface" method="_on_visibility_changed"]

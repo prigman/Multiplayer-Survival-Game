@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponResources" load_steps=3 format=3 uid="uid://dueasdbvrpec2"]
 
-[ext_resource type="Texture2D" uid="uid://beyuabc24hd8t" path="res://icons/icon.svg" id="1_6fkuk"]
+[ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="1_0fff5"]
 [ext_resource type="Script" path="res://scripts/weapon_resource.gd" id="1_nm73g"]
 
 [resource]
@@ -19,8 +19,8 @@ name = "Assault Rifle"
 description = "automatic rifle"
 stackable = false
 max_stack = 0
-icon = ExtResource("1_6fkuk")
+icon = ExtResource("1_0fff5")
 properties = {
-"dropped_item": "res://scenes/assault_rifle.tscn",
+"dropped_item": "res://scenes/interactable/pickup/assault_rifle_rigidbody.tscn",
 "equip_item": "res://scenes/assault_rifle.tscn"
 }

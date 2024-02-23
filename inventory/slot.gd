@@ -1,8 +1,8 @@
 extends PanelContainer
-
+class_name Slot
 signal signal_slot_clicked(index : int, button : int)
-signal signal_slot_chose(index : int, button : int)
 
+var mouse_button_hold : bool
 @onready var texture_rect = $MarginContainer/TextureRect
 @onready var amount_text = $"Quantity label"
 @onready var panel_container = $PanelContainer
@@ -22,9 +22,4 @@ func _on_gui_input(event : InputEvent):
 			and (event.button_index == MOUSE_BUTTON_LEFT \
 			or event.button_index == MOUSE_BUTTON_RIGHT) \
 			and event.is_pressed():
-		signal_slot_clicked.emit(get_index(), event.button_index)
-
-func _on_signal_slot_clicked(_index, _button):
-	if Input.is_action_just_pressed("1"):
-		pass
-		
+			signal_slot_clicked.emit(get_index(), event.button_index)
