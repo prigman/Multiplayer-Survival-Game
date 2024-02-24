@@ -8,6 +8,7 @@ script = ExtResource("1_ifj7l")
 hunger_value = 15
 name = "Canned food"
 description = "canned food"
+type = 0
 stackable = false
 max_stack = 0
 icon = ExtResource("1_f0npr")

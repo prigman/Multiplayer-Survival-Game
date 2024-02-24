@@ -35,9 +35,6 @@ version_control/autoload_on_startup=true
 [file_customization]
 
 folder_colors={
-"res://inventory/": "blue",
-"res://inventory/item/": "yellow",
-"res://inventory/item/objects/": "orange",
 "res://scripts/player state machine/": "gray"
 }
 

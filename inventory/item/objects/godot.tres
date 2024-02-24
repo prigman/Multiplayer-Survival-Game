@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cuhm3r0mlhurs"]
+[gd_resource type="Resource" script_class="ItemDataOther" load_steps=3 format=3 uid="uid://cuhm3r0mlhurs"]
 
 [ext_resource type="Texture2D" uid="uid://beyuabc24hd8t" path="res://icons/icon.svg" id="1_n2x22"]
-[ext_resource type="Script" path="res://inventory/item/item_data.gd" id="2_0mv0m"]
+[ext_resource type="Script" path="res://inventory/item/item_data_other.gd" id="1_wob3u"]
 
 [resource]
-script = ExtResource("2_0mv0m")
+script = ExtResource("1_wob3u")
+item_type = 2
 name = "Godot"
 description = "pointless engine"
 stackable = true

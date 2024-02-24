@@ -6,6 +6,7 @@ signal Update_Weapon_Stack(stack)
 
 
 
+@onready var player = $"../../.."
 
 @onready var anim_player = $"../AnimationPlayer"
 
@@ -19,32 +20,27 @@ var weapon_list = {}
 var weapon_equiped = false
 
 func _ready():
-	initialize(on_game_start_weapon) # enter the state machine
 	pass
 
 func _physics_process(_delta):
 	pass
 
 func _unhandled_input(_event):
-	
-	if(Input.is_action_just_pressed("reload")):
-		reload()
-		
-	if(Input.is_action_just_pressed("fire")):
-		shoot()
+	if weapon_current:
+		if(Input.is_action_just_pressed("reload")):
+			reload()
+			
+		if(Input.is_action_just_pressed("fire")):
+			shoot()
 	
 		
  
-func initialize(_weapons_on_start: Array):
-	for weapon in weapon_resources:
-		weapon_list[weapon.name] = weapon
-
-	for i in _weapons_on_start:
-		weapon_stack.push_back(i) # add start weapons
-		
-	weapon_current = weapon_list[weapon_stack[0]] # set the first weapon in the stack to current
-	
-	enter()
+func initialize(weapon : InSlotData):
+	weapon_current = weapon.item
+	anim_player.queue(weapon_current.anim_activate)
+	#Update_Weapon_Stack.emit(weapon_stack)
+	#Weapon_Changed.emit(weapon_current.weapon.weapon_name)
+	#Update_Ammo.emit([weapon_current.weapon.ammo_current, weapon_current.weapon.ammo_reserve])
 	
 func enter(): # calls when first entering into a weapon
 	anim_player.queue(weapon_current.anim_activate)

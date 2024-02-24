@@ -5,9 +5,11 @@
 
 [resource]
 script = ExtResource("1_nm73g")
-weapon_name = ""
+weapon_name = "AssaultRifle"
+item_type = 0
 anim_activate = "Assault Rifle Activate"
 anim_shoot = "Assault Rifle Shoot"
+anim_scope = "Assault Rifle Scope"
 anim_reload = "Assault Rifle Reload"
 anim_deactivate = "Assault Rifle Deactivate"
 anim_out_of_ammo = "Assault Rifle out of ammo"
@@ -18,6 +20,7 @@ magazine = 20
 fire_mode_auto = true
 name = "Assault Rifle"
 description = "automatic rifle"
+type = 0
 stackable = false
 max_stack = 0
 icon = ExtResource("1_0fff5")

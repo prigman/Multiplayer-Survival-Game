@@ -13,7 +13,7 @@ var gravity = 12.0
 
 @export var player_inventory : InventoryData
 @export var player_quick_slot : InventoryData
-var equiped_inv_item : InSlotData
+@export var equiped_inv_item : InSlotData = null
 
 var item_object_instantiate
 
@@ -31,7 +31,8 @@ var item_object_instantiate
 @onready var camera = %Camera3D
 @onready var interact_ray = $CameraHolder/Camera3D/InteractRay
 @onready var items_holder = $CameraHolder/ArmsHolder/ItemsHolder
-@onready var AnimPlayer = $CameraHolder/ArmsHolder/AnimationPlayer
+@onready var animator = $CameraHolder/ArmsHolder/AnimationPlayer
+@onready var weapons_manager = $CameraHolder/ArmsHolder/weapons_manager
 
 var def_weapon_holder_pos : Vector3
 var mouse_input : Vector2
@@ -41,13 +42,11 @@ func _ready():
 	camera_holder_position = camera_holder.position.y
 	def_weapon_holder_pos = weapon_holder.position
 	spherecast.add_exception($".")
-	equiped_inv_item = null
 
 
 func _process(_delta):
 	var velocity_string = "%.2f" % velocity.length()
 	Global.global_debug.add_property("velocity", velocity_string, +1)
-	
 	weapon_tilt(input_dir.x, _delta)
 	weapon_sway(_delta)
 	weapon_bob(velocity.length(), _delta)
@@ -132,8 +131,11 @@ func instantiate_player_item(equiped_item : InSlotData):
 		if equiped_item.item.properties.has("equip_item"):
 			var object_source = load(equiped_item.item.properties["equip_item"])
 			item_object_instantiate = object_source.instantiate()
-			#object.slot_data = equiped_item
-			items_holder.add_child(item_object_instantiate)
+			if equiped_item.item.item_type == equiped_item.item.ItemType.weapon:
+				weapons_manager.add_child(item_object_instantiate)
+				weapons_manager.initialize(equiped_item)
+			else:
+				items_holder.add_child(item_object_instantiate)
 			item_object_instantiate.position = Vector3.ZERO
 
 #-Camera and weapon tilt

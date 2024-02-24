@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://scripts/player state machine/sprint_state.gd" id="9_touqc"]
 [ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
-[ext_resource type="Script" path="res://scripts/player state machine/Scope.gd" id="16_5ewgm"]
+[ext_resource type="Script" path="res://scenes/Scope.gd" id="13_uslv3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
 
@@ -453,7 +453,7 @@ script = ExtResource("10_0am0j")
 script = ExtResource("11_juquo")
 
 [node name="Scope" type="Node" parent="StateMachine"]
-script = ExtResource("16_5ewgm")
+script = ExtResource("13_uslv3")
 
 [connection signal="Update_Ammo" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/VBoxContainer" method="_on_weapons_manager_update_ammo"]
 [connection signal="Update_Weapon_Stack" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/VBoxContainer" method="_on_weapons_manager_update_weapon_stack"]
