@@ -15,7 +15,7 @@ var gravity = 12.0
 @export var player_quick_slot : InventoryData
 @export var equiped_inv_item : InSlotData = null
 
-var item_object_instantiate
+var item_object_instantiate : Node3D = null
 
 #var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -50,7 +50,7 @@ func _process(_delta):
 	weapon_tilt(input_dir.x, _delta)
 	weapon_sway(_delta)
 	weapon_bob(velocity.length(), _delta)
-	
+		
 func _input(event):
 	
 	if event is InputEventMouseMotion:
@@ -58,8 +58,6 @@ func _input(event):
 		camera_holder.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 		mouse_input = event.relative
-		
-
 
 func _unhandled_input(event):
 	if event.is_action_pressed("inv_toggle"):
@@ -125,18 +123,19 @@ func get_drop_position() -> Vector3:
 
 func instantiate_player_item(equiped_item : InSlotData):
 	if item_object_instantiate:
+		if item_object_instantiate.slot_data.item.item_type == item_object_instantiate.slot_data.item.ItemType.weapon:
+			weapons_manager.exit(item_object_instantiate.slot_data)
 		item_object_instantiate.queue_free()
 		item_object_instantiate = null
 	if equiped_item:
 		if equiped_item.item.properties.has("equip_item"):
 			var object_source = load(equiped_item.item.properties["equip_item"])
 			item_object_instantiate = object_source.instantiate()
-			if equiped_item.item.item_type == equiped_item.item.ItemType.weapon:
+			if item_object_instantiate.slot_data.item.item_type == item_object_instantiate.slot_data.item.ItemType.weapon:
 				weapons_manager.add_child(item_object_instantiate)
-				weapons_manager.initialize(equiped_item)
+				weapons_manager.initialize_weapon(item_object_instantiate.slot_data)
 			else:
 				items_holder.add_child(item_object_instantiate)
-			item_object_instantiate.position = Vector3.ZERO
 
 #-Camera and weapon tilt
 func weapon_tilt(input_x, delta):

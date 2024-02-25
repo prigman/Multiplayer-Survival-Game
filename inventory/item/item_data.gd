@@ -2,14 +2,13 @@ extends Resource
 class_name ItemData
 
 enum ItemType {
-	weapon,
-	consumable,
-	other
+	weapon = 0,
+	consumable = 1,
+	other = 2
 }
 
 @export var name : String
 @export_multiline var description : String
-var type : ItemType
 @export var stackable : bool = false
 @export var max_stack : int
 @export var icon : Texture

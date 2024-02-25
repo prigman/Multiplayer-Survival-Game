@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="WeaponResources" load_steps=3 format=3 uid="uid://dueasdbvrpec2"]
+[gd_resource type="Resource" script_class="ItemDataWeapon" load_steps=3 format=3 uid="uid://dueasdbvrpec2"]
 
 [ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="1_0fff5"]
-[ext_resource type="Script" path="res://scripts/weapon_resource.gd" id="1_nm73g"]
+[ext_resource type="Script" path="res://inventory/item/item_data_weapon.gd" id="1_nm73g"]
 
 [resource]
 script = ExtResource("1_nm73g")
-weapon_name = "AssaultRifle"
 item_type = 0
+weapon_name = "AssaultRifle"
 anim_activate = "Assault Rifle Activate"
 anim_shoot = "Assault Rifle Shoot"
 anim_scope = "Assault Rifle Scope"
@@ -17,10 +17,10 @@ ammo_current = 20
 ammo_reserve = 20
 ammo_max = 20
 magazine = 20
+damage = 999.99
 fire_mode_auto = true
 name = "Assault Rifle"
 description = "automatic rifle"
-type = 0
 stackable = false
 max_stack = 0
 icon = ExtResource("1_0fff5")

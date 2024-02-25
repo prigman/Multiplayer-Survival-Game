@@ -15,9 +15,5 @@ func physics_update(delta):
 	if Input.is_action_just_released("space"):
 		if player.velocity.y > 0:
 			player.velocity.y = player.velocity.y / 2.0
-	if player.equiped_inv_item:
-		if player.equiped_inv_item.item.item_type == player.equiped_inv_item.item.ItemType.weapon:
-			if Input.is_action_pressed("right_click"):
-				transition.emit("Scope")
 	if player.is_on_floor():
 		transition.emit("Idle")

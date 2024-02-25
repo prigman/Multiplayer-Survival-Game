@@ -1,21 +1,19 @@
-[gd_scene load_steps=30 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=27 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
-[ext_resource type="Script" path="res://scripts/weapons_manager.gd" id="3_cnrpl"]
+[ext_resource type="Script" path="res://scripts/weapon/weapons_manager.gd" id="3_cnrpl"]
 [ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_nqi44"]
 [ext_resource type="Script" path="res://scripts/reticle.gd" id="3_oi4b1"]
-[ext_resource type="Resource" uid="uid://ck1lidxd2881u" path="res://weapon_resources/AssaultRifle.tres" id="4_umty7"]
 [ext_resource type="Script" path="res://scripts/ui_debug.gd" id="5_c7tx3"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
 [ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
 [ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
-[ext_resource type="Script" path="res://HUD.gd" id="9_plw7j"]
+[ext_resource type="Script" path="res://scripts/weapon/weapon_hud.gd" id="9_plw7j"]
 [ext_resource type="Script" path="res://scripts/player state machine/sprint_state.gd" id="9_touqc"]
 [ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
-[ext_resource type="Script" path="res://scripts/player state machine/Scope.gd" id="16_5ewgm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
 
@@ -256,10 +254,6 @@ _data = {
 "RESET": SubResource("Animation_hvc3l")
 }
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_gp82r"]
-graph_offset = Vector2(-681.257, 28.0766)
-nodes/output/position = Vector2(293.333, 133.333)
-
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
 collision_mask = 9
 script = ExtResource("1_adhyr")
@@ -302,15 +296,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141129, -0.348797, -0.46911
 [node name="ItemsHolder" type="Node3D" parent="CameraHolder/ArmsHolder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.365, 0.165)
 
-[node name="weapons_manager" type="Node3D" parent="CameraHolder/ArmsHolder"]
+[node name="weapons_manager" type="Node3D" parent="CameraHolder/ArmsHolder" node_paths=PackedStringArray("player", "state_machine")]
 script = ExtResource("3_cnrpl")
-weapon_resources = Array[Resource("res://scripts/weapon_resource.gd")]([ExtResource("4_umty7")])
-on_game_start_weapon = Array[String](["AssaultRifle", "Rifle"])
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/ArmsHolder"]
-libraries = {
-"": SubResource("AnimationLibrary_lus2o")
-}
+player = NodePath("../../..")
+state_machine = NodePath("../../../StateMachine")
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
 unique_name_in_owner = true
@@ -324,13 +313,12 @@ enable_shadows = true
 target_position = Vector3(0, 0, -2.5)
 collision_mask = 4
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-root_node = NodePath("%CameraHolder/ArmsHolder")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../CameraHolder/ArmsHolder")
 libraries = {
 "": SubResource("AnimationLibrary_lus2o")
 }
-tree_root = SubResource("AnimationNodeBlendTree_gp82r")
-anim_player = NodePath("../CameraHolder/ArmsHolder/AnimationPlayer")
 
 [node name="Interface" type="Control" parent="."]
 layout_mode = 3
@@ -341,6 +329,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Reticle" type="CenterContainer" parent="Interface" node_paths=PackedStringArray("reticle_lines", "player")]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -389,47 +378,38 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Interface"]
+[node name="WeaponHud" type="VBoxContainer" parent="Interface"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -38.5
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -77.0
 offset_right = 137.0
-offset_bottom = 38.5
-grow_vertical = 2
+grow_vertical = 0
+alignment = 1
 script = ExtResource("9_plw7j")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Interface/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/WeaponHud"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Interface/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Interface/WeaponHud/HBoxContainer"]
 layout_mode = 2
 text = "Current Weapon:"
 
-[node name="CurrentWeapon" type="Label" parent="Interface/VBoxContainer/HBoxContainer"]
+[node name="CurrentWeapon" type="Label" parent="Interface/WeaponHud/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Interface/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Interface/WeaponHud"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Interface/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="Interface/WeaponHud/HBoxContainer2"]
 layout_mode = 2
 text = "Ammo:"
 
-[node name="CurrentAmmo" type="Label" parent="Interface/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="Interface/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Interface/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-text = "Weapon Stack:"
-
-[node name="WeaponStack" type="Label" parent="Interface/VBoxContainer/HBoxContainer3"]
+[node name="CurrentAmmo" type="Label" parent="Interface/WeaponHud/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 
@@ -452,9 +432,6 @@ script = ExtResource("10_0am0j")
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("11_juquo")
 
-[node name="Scope" type="Node" parent="StateMachine"]
-script = ExtResource("16_5ewgm")
-
-[connection signal="Update_Ammo" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/VBoxContainer" method="_on_weapons_manager_update_ammo"]
-[connection signal="Update_Weapon_Stack" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/VBoxContainer" method="_on_weapons_manager_update_weapon_stack"]
-[connection signal="Weapon_Changed" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/VBoxContainer" method="_on_weapons_manager_weapon_changed"]
+[connection signal="Update_Ammo" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/WeaponHud" method="_on_weapons_manager_update_ammo"]
+[connection signal="Update_Weapon_Stack" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/WeaponHud" method="_on_weapons_manager_update_weapon_stack"]
+[connection signal="Weapon_Changed" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/WeaponHud" method="_on_weapons_manager_weapon_changed"]

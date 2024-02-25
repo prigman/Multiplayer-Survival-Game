@@ -29,3 +29,9 @@ func on_child_transition(new_state_name: StringName) -> void:
 			current_state = new_state
 	else:
 		push_warning("State does not exist")
+	
+func is_current_state(state_name : StringName) -> bool:
+	if current_state.name == state_name:
+		return true
+	else:
+		return false

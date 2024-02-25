@@ -13,7 +13,6 @@ var quick_slots_data
 @onready var grabbed_slot = %GrabbedSlot
 @onready var external_inventory = %ExternalInventory
 
-
 var can = preload("res://scenes/interactable/pickup/canned-food_rigidbody.tscn")
 
 func _physics_process(_delta):
@@ -37,19 +36,15 @@ func _set_quick_slot_data(inventory_data : InventoryData):
 func _set_external_inventory(inventory_owner):
 	external_inventory_owner = inventory_owner
 	var inventory_data = external_inventory_owner.inventory_data
-	
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
 	external_inventory._set_inventory_data(inventory_data)
-	
 	external_inventory.show()
 	
 func _clear_external_inventory():
 	if external_inventory_owner:
 		var inventory_data = external_inventory_owner.inventory_data
-		
 		inventory_data.signal_inventory_interact.disconnect(_on_inventory_interact)
 		external_inventory._clear_inventory_data(inventory_data)
-		
 		external_inventory.hide()
 		external_inventory_owner = null
 	
@@ -68,7 +63,6 @@ func _on_inventory_interact(inventory_data : InventoryData, index : int, button 
 	if Global.global_player.equiped_inv_item != null and Global.global_player.equiped_inv_item == grabbed_slot_data:
 		Global.global_player.signal_equip_inv_item.emit(inventory_data, Global.global_player.equiped_inv_item, index)
 
-
 func _update_grabbed_slot():
 	if grabbed_slot_data:
 		grabbed_slot.show()
@@ -86,10 +80,8 @@ func _on_gui_input(event):
 				grabbed_slot_data = null
 		_update_grabbed_slot()
 
-
 func _on_visibility_changed():
 	if not visible and grabbed_slot_data:
 		signal_drop_slot_data.emit(grabbed_slot_data)
 		grabbed_slot_data = null
 		_update_grabbed_slot()
-		

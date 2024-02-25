@@ -19,10 +19,6 @@ func physics_update(delta):
 	crouch_state_collision.disabled = false
 	if Input.is_action_just_released("left_ctrl"):
 		uncrouch(delta)
-	if player.equiped_inv_item:
-		if player.equiped_inv_item.item.item_type == player.equiped_inv_item.item.ItemType.weapon:
-			if Input.is_action_pressed("right_click"):
-				transition.emit("Scope")
 	
 func uncrouch(delta):
 	if !spherecast.is_colliding() and !Input.is_action_pressed("left_ctrl"):

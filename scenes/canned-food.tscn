@@ -1,6 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1niiubp6d06n"]
+[gd_scene load_steps=10 format=3 uid="uid://d1niiubp6d06n"]
 
+[ext_resource type="Script" path="res://inventory/equiped_static_object.gd" id="1_aeu6h"]
 [ext_resource type="Texture2D" uid="uid://ccafkaxv72egf" path="res://textures/Polygon_Texture.png" id="1_d25ob"]
+[ext_resource type="Resource" uid="uid://d05wvcamae4du" path="res://inventory/item/objects/canned-food.tres" id="2_y8gy1"]
+[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_omweh"]
+
+[sub_resource type="Resource" id="Resource_8ervh"]
+script = ExtResource("3_omweh")
+item = ExtResource("2_y8gy1")
+amount_in_slot = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qnfsd"]
 resource_name = "main"
@@ -45,6 +53,8 @@ shadow_mesh = SubResource("ArrayMesh_y0hbs")
 albedo_texture = ExtResource("1_d25ob")
 
 [node name="Canned-food" type="Node3D"]
+script = ExtResource("1_aeu6h")
+slot_data = SubResource("Resource_8ervh")
 
 [node name="Canned_food_A_01" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
