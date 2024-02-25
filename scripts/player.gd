@@ -31,7 +31,7 @@ var item_object_instantiate : Node3D = null
 @onready var camera = %Camera3D
 @onready var interact_ray = $CameraHolder/Camera3D/InteractRay
 @onready var items_holder = $CameraHolder/ArmsHolder/ItemsHolder
-@onready var animator = $CameraHolder/ArmsHolder/AnimationPlayer
+
 @onready var weapons_manager = $CameraHolder/ArmsHolder/weapons_manager
 
 var def_weapon_holder_pos : Vector3

@@ -18,20 +18,19 @@ func _ready():
 
 func _physics_process(_delta):
 	if weapon_current:
-		if weapon_current.item_type == weapon_current.ItemType.weapon:
-			if state_machine.is_current_state("Sprint") == false:
-				if Input.is_action_pressed("right_click"):
-					if !Scoped:
-						if weapon_current.item_type == weapon_current.ItemType.weapon:
-							Assault_Rifle_Scope()
-							%Reticle.hide()
-				if Input.is_action_just_released("right_click"):
-					if Scoped:
+		if state_machine.is_current_state("Sprint") == false:
+			if Input.is_action_pressed("right_click"):
+				if !Scoped:
 						Assault_Rifle_Scope()
-						%Reticle.show()
-			elif state_machine.is_current_state("Sprint"):
+						%Reticle.hide()
+			if Input.is_action_just_released("right_click"):
 				if Scoped:
 					Assault_Rifle_Scope()
+					%Reticle.show()
+		elif state_machine.is_current_state("Sprint"):
+			if Scoped:
+				%Reticle.show()
+				Assault_Rifle_Scope()
 
 func _unhandled_input(_event):
 	if weapon_current:
