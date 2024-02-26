@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=20 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://inventory/inventory_scenes/main_inventory.tscn" id="5_ux46h"]
 [ext_resource type="PackedScene" uid="uid://cu78wr4f7155s" path="res://scenes/scene_template.tscn" id="5_xsqmg"]
 [ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="7_wli0u"]
+[ext_resource type="Resource" uid="uid://dueasdbvrpec2" path="res://inventory/item/objects/assault-rifle.tres" id="8_jx5nc"]
 [ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/chest_staticbody.tscn" id="8_upg36"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="9_56to4"]
 [ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="10_dadr8"]
@@ -32,9 +33,14 @@ script = ExtResource("11_653sy")
 item = ExtResource("10_dadr8")
 amount_in_slot = 15
 
+[sub_resource type="Resource" id="Resource_4ueux"]
+script = ExtResource("11_653sy")
+item = ExtResource("8_jx5nc")
+amount_in_slot = 1
+
 [sub_resource type="Resource" id="Resource_7gatj"]
 script = ExtResource("9_56to4")
-slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_o1761"), null, null, null, null])
+slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_o1761"), null, null, null, null, null, null, null, SubResource("Resource_4ueux"), null])
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_7fa2s")
@@ -96,14 +102,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_constants/margin_top = 40
 
 [node name="InvItemInfoPanel" parent="UI/Control/VBoxContainer/MarginContainer" instance=ExtResource("12_gn37j")]
+visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
@@ -111,6 +120,7 @@ size_flags_vertical = 0
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="InventoryInterface" type="Control" parent="UI/Control/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -159,6 +169,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 
 [connection signal="signal_equip_inv_item" from="Player" to="." method="_on_player_signal_equip_inv_item"]
-[connection signal="gui_input" from="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" to="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" method="_on_gui_input"]
+[connection signal="gui_input" from="UI/Control" to="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" method="_on_control_gui_input"]
 [connection signal="signal_drop_slot_data" from="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" to="." method="_on_inventory_interface_signal_drop_slot_data"]
 [connection signal="visibility_changed" from="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" to="UI/Control/VBoxContainer/VBoxContainer/InventoryInterface" method="_on_visibility_changed"]

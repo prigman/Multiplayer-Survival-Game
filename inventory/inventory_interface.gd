@@ -70,7 +70,14 @@ func _update_grabbed_slot():
 	else:
 		grabbed_slot.hide()
 
-func _on_gui_input(event):
+func _on_visibility_changed():
+	if not visible and grabbed_slot_data:
+		signal_drop_slot_data.emit(grabbed_slot_data)
+		grabbed_slot_data = null
+		_update_grabbed_slot()
+
+
+func _on_control_gui_input(event):
 	if event is InputEventMouseButton \
 			and event.is_pressed() \
 			and grabbed_slot_data:
@@ -78,10 +85,4 @@ func _on_gui_input(event):
 			MOUSE_BUTTON_LEFT:
 				signal_drop_slot_data.emit(grabbed_slot_data)
 				grabbed_slot_data = null
-		_update_grabbed_slot()
-
-func _on_visibility_changed():
-	if not visible and grabbed_slot_data:
-		signal_drop_slot_data.emit(grabbed_slot_data)
-		grabbed_slot_data = null
 		_update_grabbed_slot()

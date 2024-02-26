@@ -1,18 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://jbci8uq5bnyo"]
+[gd_scene load_steps=3 format=3 uid="uid://jbci8uq5bnyo"]
 
 [ext_resource type="PackedScene" uid="uid://swr5x5ufg1w4" path="res://models/low-poly_assault_rifle.glb" id="1_0elgg"]
 [ext_resource type="Script" path="res://inventory/equiped_static_object.gd" id="2_nmpys"]
-[ext_resource type="Resource" uid="uid://dueasdbvrpec2" path="res://inventory/item/objects/assault-rifle.tres" id="3_otnhw"]
-[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="4_vq2ee"]
-
-[sub_resource type="Resource" id="Resource_fexho"]
-script = ExtResource("4_vq2ee")
-item = ExtResource("3_otnhw")
-amount_in_slot = 1
 
 [node name="Rifle" instance=ExtResource("1_0elgg")]
 script = ExtResource("2_nmpys")
-slot_data = SubResource("Resource_fexho")
 
 [node name="Sketchfab_model" parent="." index="0"]
 transform = Transform3D(0.004, 0, 0, 0, 0.004, 0, 0, 0, 0.004, 0, 0, 0)

@@ -311,7 +311,7 @@ enable_shadows = true
 
 [node name="InteractRay" type="RayCast3D" parent="CameraHolder/Camera3D"]
 target_position = Vector3(0, 0, -2.5)
-collision_mask = 4
+collision_mask = 12
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -380,6 +380,7 @@ layout_mode = 2
 
 [node name="WeaponHud" type="VBoxContainer" parent="Interface"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0

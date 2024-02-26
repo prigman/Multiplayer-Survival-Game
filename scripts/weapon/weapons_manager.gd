@@ -8,6 +8,7 @@ signal Update_Weapon_Stack(stack)
 @onready var animator = %AnimationPlayer
 @onready var weapon_hud = %WeaponHud
 
+var weapon_current_object : Node3D = null
 var weapon_current : ItemData = null # получает данные из класса Player equiped_inv_item
 var weapon_equiped = false
 var Scoped = false
@@ -46,9 +47,10 @@ func _unhandled_input(_event):
 					Assault_Rifle_Scope()
 					%Reticle.show()
 
-func initialize_weapon(weapon : InSlotData): # получает данные о слоте из которого создалось оружие ранее и вызывается после того, как оружие создано
+func initialize_weapon(weapon : Node3D): # получает данные о слоте из которого создалось оружие ранее и вызывается после того, как оружие создано
 	if weapon != null:
-		weapon_current = weapon.item
+		weapon_current_object = weapon
+		weapon_current = weapon.slot_data.item
 		weapon_hud.show()
 		animator.play(weapon_current.anim_activate) # если вызвана анимация и в то же время быстро переключен слот, то анимка немного багается, не критично, позже исправлю
 		Weapon_Changed.emit(weapon_current.weapon_name)

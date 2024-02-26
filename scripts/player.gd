@@ -47,9 +47,10 @@ func _ready():
 func _process(_delta):
 	var velocity_string = "%.2f" % velocity.length()
 	Global.global_debug.add_property("velocity", velocity_string, +1)
-	weapon_tilt(input_dir.x, _delta)
-	weapon_sway(_delta)
-	weapon_bob(velocity.length(), _delta)
+	if equiped_inv_item:
+		weapon_tilt(input_dir.x, _delta)
+		weapon_sway(_delta)
+		weapon_bob(velocity.length(), _delta)
 		
 func _input(event):
 	
@@ -131,9 +132,10 @@ func instantiate_player_item(equiped_item : InSlotData):
 		if equiped_item.item.properties.has("equip_item"):
 			var object_source = load(equiped_item.item.properties["equip_item"])
 			item_object_instantiate = object_source.instantiate()
+			item_object_instantiate.slot_data = equiped_item
 			if item_object_instantiate.slot_data.item.item_type == item_object_instantiate.slot_data.item.ItemType.weapon:
 				weapons_manager.add_child(item_object_instantiate)
-				weapons_manager.initialize_weapon(item_object_instantiate.slot_data)
+				weapons_manager.initialize_weapon(item_object_instantiate)
 			else:
 				items_holder.add_child(item_object_instantiate)
 
