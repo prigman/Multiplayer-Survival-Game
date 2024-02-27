@@ -19,3 +19,10 @@ class_name ItemDataWeapon
 
 @export var fire_mode_auto : bool
 
+@export var recoil_rotation_x : Curve
+@export var recoil_rotation_z : Curve
+@export var recoil_position_z : Curve
+@export var recoil_amplitude := Vector3(1,1,1)
+@export var lerp_speed : float = 1
+@export var recoil_speed : float = 1
+

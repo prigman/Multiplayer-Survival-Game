@@ -1,7 +1,12 @@
-[gd_resource type="Resource" script_class="ItemDataWeapon" load_steps=3 format=3 uid="uid://dueasdbvrpec2"]
+[gd_resource type="Resource" script_class="ItemDataWeapon" load_steps=4 format=3 uid="uid://dueasdbvrpec2"]
 
 [ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="1_0fff5"]
 [ext_resource type="Script" path="res://inventory/item/item_data_weapon.gd" id="1_nm73g"]
+
+[sub_resource type="Curve" id="Curve_frbq2"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.166102, -0.298222), 0.0, 0.0, 0, 0, Vector2(0.264407, 0.341997), 0.0, 0.0, 0, 0, Vector2(0.5, 1.49012e-08), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [resource]
 script = ExtResource("1_nm73g")
@@ -19,6 +24,12 @@ ammo_max = 20
 magazine = 20
 damage = 999.99
 fire_mode_auto = true
+recoil_rotation_x = SubResource("Curve_frbq2")
+recoil_rotation_z = SubResource("Curve_frbq2")
+recoil_position_z = SubResource("Curve_frbq2")
+recoil_amplitude = Vector3(1.485, 1.435, 0.15)
+lerp_speed = 3.0
+recoil_speed = 1.405
 name = "Assault Rifle"
 description = "automatic rifle"
 stackable = false
