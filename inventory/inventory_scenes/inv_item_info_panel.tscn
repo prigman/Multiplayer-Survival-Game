@@ -1,18 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmxgrm6pjsqfy"]
+[gd_scene load_steps=7 format=3 uid="uid://dmxgrm6pjsqfy"]
 
 [ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="1_1o77g"]
+[ext_resource type="Script" path="res://inventory/item/inv_item_info_panel.gd" id="1_4oswq"]
+[ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="2_4e3ew"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s15vj"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfy83"]
 bg_color = Color(0, 0.611765, 0.286275, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing_size = 0.979
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hi0ux"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="InvItemInfoPanel" type="PanelContainer"]
 custom_minimum_size = Vector2(400, 170)
 offset_right = 400.0
 offset_bottom = 170.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_s15vj")
+script = ExtResource("1_4oswq")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -24,42 +43,70 @@ theme_override_constants/margin_bottom = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
+alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+size_flags_stretch_ratio = 2.0
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer"]
+[node name="ItemHealth" type="ProgressBar" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 10
 theme_override_styles/fill = SubResource("StyleBoxFlat_sfy83")
-value = 81.18
+value = 80.0
+show_percentage = false
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ItemHealth"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 7
+text = "QUALITY
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+
+[node name="ItemIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 5.5
+size_flags_stretch_ratio = 15.0
 texture = ExtResource("1_1o77g")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/TextureRect"]
+[node name="AmmoCountPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -71,7 +118,8 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/TextureRect/PanelContainer"]
+[node name="AmmoCount" type="Label" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon/AmmoCountPanel"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 18
@@ -79,62 +127,45 @@ text = "30"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="WeaponSlots" type="PanelContainer" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
+layout_mode = 2
+alignment = 1
+
+[node name="Slot" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("2_4e3ew")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Slot2" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("2_4e3ew")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Slot3" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("2_4e3ew")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Slot4" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("2_4e3ew")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.5
+size_flags_stretch_ratio = 15.0
 theme_override_constants/side_margin = 0
-tab_alignment = 2
+theme_override_constants/icon_max_width = 0
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 16
 tab_focus_mode = 0
 
-[node name="Description" type="TabBar" parent="MarginContainer/HBoxContainer/TabContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/TabContainer/Description"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/TabContainer/Description/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_type_variation = &"TooltipLabel"
-text = "Assault Rifle"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/TabContainer/Description/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 3.2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/TabContainer/Description/VBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/TabContainer/Description/VBoxContainer/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/TabContainer/Description/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-theme_override_font_sizes/normal_font_size = 10
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu sem vel erat ultrices varius. Pellentesque ante est, cursus in tincidunt id, dictum non dui. Sed quis accumsan sapien. Nullam dictum diam sapien. Maecenas id neque ac magna commodo semper. Donec porttitor tincidunt sodales. Aliquam pharetra sollicitudin dolor. Vestibulum et dui orci.
-
-Nunc iaculis, nisi ut mattis elementum, sapien nibh interdum nulla, ut consectetur ipsum metus nec ante. Mauris eu nulla a nibh sagittis dapibus id ut nisl. Fusce malesuada, velit id pellentesque auctor, enim mauris sodales mi, tempus egestas quam urna vel eros. Proin dignissim nec diam eget consequat. Proin suscipit sapien non augue mattis, et semper nibh finibus. Pellentesque arcu leo, hendrerit accumsan consequat quis, iaculis quis mauris. Donec in elit dui. Etiam sed aliquam ligula, nec malesuada nisl. Donec augue dolor, accumsan at ex pharetra, gravida cursus orci. Nulla finibus lectus in euismod facilisis."
-
 [node name="Properties" type="TabBar" parent="MarginContainer/HBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/TabContainer/Properties"]
@@ -145,10 +176,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer"]
+[node name="ItemName" type="Label" parent="MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_type_variation = &"TooltipLabel"
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 14
 text = "Assault Rifle"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -156,7 +189,7 @@ vertical_alignment = 1
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.2
+size_flags_stretch_ratio = 15.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
@@ -171,11 +204,66 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="ItemDescription" type="RichTextLabel" parent="MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 theme_override_font_sizes/normal_font_size = 10
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu sem vel erat ultrices varius. Pellentesque ante est, cursus in tincidunt id, dictum non dui. Sed quis accumsan sapien. Nullam dictum diam sapien. Maecenas id neque ac magna commodo semper. Donec porttitor tincidunt sodales. Aliquam pharetra sollicitudin dolor. Vestibulum et dui orci.
+text = "The handy short automatic rifle with supressor and sight.
 
-Nunc iaculis, nisi ut mattis elementum, sapien nibh interdum nulla, ut consectetur ipsum metus nec ante. Mauris eu nulla a nibh sagittis dapibus id ut nisl. Fusce malesuada, velit id pellentesque auctor, enim mauris sodales mi, tempus egestas quam urna vel eros. Proin dignissim nec diam eget consequat. Proin suscipit sapien non augue mattis, et semper nibh finibus. Pellentesque arcu leo, hendrerit accumsan consequat quis, iaculis quis mauris. Donec in elit dui. Etiam sed aliquam ligula, nec malesuada nisl. Donec augue dolor, accumsan at ex pharetra, gravida cursus orci. Nulla finibus lectus in euismod facilisis."
+Ammo type: 5.45 mm
+Damage head: 60 hp
+Damage body: 25 hp
+Damage arms: 15 hp
+Damage legs: 15 hps
+Shoot types: auto, single, burst"
+
+[node name="Actions" type="TabBar" parent="MarginContainer/HBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/TabContainer/Actions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemUseButton" type="Button" parent="MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Use
+"
+
+[node name="WeaponUnloadButton" type="Button" parent="MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Unload"
+
+[node name="ItemDropButton" type="Button" parent="MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Drop"

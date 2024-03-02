@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://m8lgl6sgjc8e"]
+
+[ext_resource type="Script" path="res://scripts/item_script.gd" id="1_fbrkp"]
+
+[node name="Item" type="Node3D"]
+script = ExtResource("1_fbrkp")
+
+[node name="ItemMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bjhcs3joqfqpx"]
 
-[ext_resource type="Script" path="res://scripts/reticle.gd" id="1_jrdn0"]
+[ext_resource type="Script" path="res://scripts/interface/reticle.gd" id="1_jrdn0"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="2_61q0g"]
-[ext_resource type="Script" path="res://scripts/ui_debug.gd" id="3_c0euq"]
+[ext_resource type="Script" path="res://scripts/interface/ui_debug.gd" id="3_c0euq"]
 
 [node name="Interface" type="Control"]
 layout_mode = 3

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c0e3kssjfljtm"]
+
+[ext_resource type="Texture2D" uid="uid://c71ipwr01lvmn" path="res://textures/CUBIC-prototype-pack/Blue/6.png" id="1_jcuw2"]
+
+[resource]
+albedo_texture = ExtResource("1_jcuw2")
+uv1_triplanar = true
+uv1_world_triplanar = true
