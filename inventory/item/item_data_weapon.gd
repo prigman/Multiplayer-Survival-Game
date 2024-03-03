@@ -25,4 +25,5 @@ class_name ItemDataWeapon
 @export var recoil_amplitude := Vector3(1,1,1)
 @export var lerp_speed : float = 1
 @export var recoil_speed : float = 1
+@export var sight_mesh : Mesh
 

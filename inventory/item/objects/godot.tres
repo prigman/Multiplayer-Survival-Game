@@ -7,8 +7,13 @@
 script = ExtResource("1_wob3u")
 item_type = 2
 name = "Godot"
-description = "pointless engine"
+description = "Pointless engine"
+description_item_panel = "Pointless engine"
 stackable = true
 max_stack = 30
+quality = 100.0
 icon = ExtResource("1_n2x22")
-properties = {}
+dictionary = {}
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0, 0, 0)

@@ -1,18 +1,24 @@
-[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=3 format=3 uid="uid://d05wvcamae4du"]
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=4 format=3 uid="uid://d05wvcamae4du"]
 
 [ext_resource type="Texture2D" uid="uid://cqv4kimc2fdjk" path="res://icons/canned food.png" id="1_f0npr"]
 [ext_resource type="Script" path="res://inventory/item/item_data_consumable.gd" id="1_ifj7l"]
+[ext_resource type="ArrayMesh" uid="uid://cfi27t8ieg6hs" path="res://models/canned-food.res" id="2_hdo5s"]
 
 [resource]
 script = ExtResource("1_ifj7l")
 hunger_value = 15
+item_type = 1
 name = "Canned food"
-description = "canned food"
-type = 0
+description = "Canned food"
+description_item_panel = "Canned food"
 stackable = false
 max_stack = 0
+quality = 100.0
 icon = ExtResource("1_f0npr")
-properties = {
-"dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn",
-"equip_item": "res://scenes/canned-food.tscn"
+mesh = ExtResource("2_hdo5s")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn"
 }
+position = Vector3(0.335, -0.535, -0.535)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(2.5, 2.5, 2.5)

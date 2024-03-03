@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="300"
+   height="300"
+   viewBox="0 0 79.374998 79.375"
+   version="1.1"
+   id="svg42813"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   sodipodi:docname="5.svg"
+   inkscape:export-filename="..\Dark\5.png"
+   inkscape:export-xdpi="327.67999"
+   inkscape:export-ydpi="327.67999"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview42815"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="1.2357901"
+     inkscape:cx="159.00759"
+     inkscape:cy="158.60299"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     inkscape:window-x="-4"
+     inkscape:window-y="36"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs42810" />
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#282829;fill-rule:evenodd;stroke:none;stroke-width:0;paint-order:markers stroke fill;fill-opacity:1;stroke-dasharray:none"
+       id="rect43947"
+       width="79.375"
+       height="79.375"
+       x="0"
+       y="0" />
+    <path
+       style="fill:#2d2d2f;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.05833332;paint-order:markers stroke fill;stroke-dasharray:none;stroke-opacity:1"
+       d="M 0,39.6875 H 79.374999"
+       id="path47512" />
+    <path
+       style="fill:#2d2d2f;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.05833332;stroke-dasharray:none;paint-order:markers stroke fill;stroke-opacity:1"
+       d="M 39.6875,0 V 39.6875"
+       id="path50284" />
+    <path
+       style="fill:none;fill-opacity:0;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.05833;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       d="M 78.845834,39.6875 V 79.374999"
+       id="path52506" />
+    <path
+       style="fill:#2d2d2f;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.05833332;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       d="M -4.1446629e-4,78.809039 79.356399,78.907139"
+       id="path52508" />
+  </g>
+</svg>

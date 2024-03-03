@@ -1,0 +1,504 @@
+[gd_scene load_steps=32 format=3 uid="uid://dukxkjfwv4sap"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
+[ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
+[ext_resource type="Script" path="res://scripts/weapon/weapons_manager.gd" id="3_cnrpl"]
+[ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_nqi44"]
+[ext_resource type="Script" path="res://scripts/reticle.gd" id="3_oi4b1"]
+[ext_resource type="Script" path="res://scripts/ui_debug.gd" id="5_c7tx3"]
+[ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
+[ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
+[ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
+[ext_resource type="PackedScene" uid="uid://dmxgrm6pjsqfy" path="res://inventory/inventory_scenes/inv_item_info_panel.tscn" id="8_mhk06"]
+[ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
+[ext_resource type="PackedScene" uid="uid://mdsqpmcb7k53" path="res://scenes/progress_bar.tscn" id="9_bcxkl"]
+[ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="9_sd5qi"]
+[ext_resource type="Script" path="res://scripts/player state machine/sprint_state.gd" id="9_touqc"]
+[ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
+[ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://inventory/inventory_scenes/main_inventory.tscn" id="10_51sge"]
+[ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
+[ext_resource type="PackedScene" uid="uid://c0vow3q82yehc" path="res://scenes/weapon_hud.tscn" id="12_2ffht"]
+[ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="13_6ejrl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lh2ax"]
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_f7gol"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
+
+[sub_resource type="Animation" id="Animation_ntt5p"]
+resource_name = "Assault Rifle Activate"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.645772, -0.794125, 0), Vector3(0, -1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapons_manager/Rifle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.025),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("weapons_manager/Rifle:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.265, -0.095), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_cypf8"]
+resource_name = "Assault Rifle Reload"
+length = 2.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 1.9, 2.3, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0), Vector3(-0.296706, -0.506145, 0), Vector3(-0.296706, -0.506145, 0.485202), Vector3(-0.296706, -0.506145, -0.794125), Vector3(-0.284489, -0.574213, -0.862193), Vector3(-0.237365, -0.849975, 0.614356), Vector3(-0.115192, -0.867429, 0.727802), Vector3(0, -1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapons_manager/Rifle:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 1.9, 2.3, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.01, -0.105, -0.165), Vector3(0.01, -0.108, -0.165), Vector3(0.01, -0.055, -0.165), Vector3(-0.023, -0.102, -0.17), Vector3(0.068, -0.091, -0.192), Vector3(0.138, -0.171, -0.192), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g3kgu"]
+resource_name = "Assault Rifle Scope"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapons_manager/Rifle:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.0088414, -0.145091)]
+}
+
+[sub_resource type="Animation" id="Animation_6suu3"]
+resource_name = "Assault Rifle Scope Center"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapons_manager/Rifle:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.0088414, -0.145091)]
+}
+
+[sub_resource type="Animation" id="Animation_ot87e"]
+resource_name = "Assault Rifle Shoot"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0), Vector3(0.00698132, -1.53938, -0.0279253), Vector3(0, -1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapons_manager/Rifle:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.04, 0.02, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1q8uh"]
+resource_name = "Assault Rifle out of ammo"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0), Vector3(0.00698132, -1.50098, 0), Vector3(0, -1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapons_manager/Rifle:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.01, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hvc3l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapons_manager/Rifle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("weapons_manager/Rifle:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lus2o"]
+_data = {
+"Assault Rifle Activate": SubResource("Animation_ntt5p"),
+"Assault Rifle Reload": SubResource("Animation_cypf8"),
+"Assault Rifle Scope": SubResource("Animation_g3kgu"),
+"Assault Rifle Scope Center": SubResource("Animation_6suu3"),
+"Assault Rifle Shoot": SubResource("Animation_ot87e"),
+"Assault Rifle out of ammo": SubResource("Animation_1q8uh"),
+"RESET": SubResource("Animation_hvc3l")
+}
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
+collision_mask = 9
+script = ExtResource("1_adhyr")
+player_inventory = ExtResource("2_xq8ps")
+player_quick_slot = ExtResource("3_nqi44")
+weapon_holder = NodePath("CameraHolder/ArmsHolder")
+weapon_sway_amount = 0.001
+weapon_rotation_amount = 0.001
+invert_weapon_sway = true
+
+[node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 1, -3.72529e-09)
+shape = SubResource("CapsuleShape3D_7qfu8")
+
+[node name="CrouchStateCollision" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 0.5, -3.72529e-09)
+shape = SubResource("CapsuleShape3D_lh2ax")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00398284, 0.994013, 0.00473261)
+visible = false
+mesh = SubResource("CapsuleMesh_f7gol")
+skeleton = NodePath("../DefaultStateCollision")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 2.5, -3.72529e-09)
+shape = SubResource("SphereShape3D_c1c83")
+
+[node name="CameraHolder" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+
+[node name="ArmsHolder" type="Node3D" parent="CameraHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141129, -0.348797, -0.469118)
+
+[node name="ItemsHolder" type="Node3D" parent="CameraHolder/ArmsHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.365, 0.165)
+
+[node name="weapons_manager" type="Node3D" parent="CameraHolder/ArmsHolder" node_paths=PackedStringArray("player", "state_machine")]
+script = ExtResource("3_cnrpl")
+player = NodePath("../../..")
+state_machine = NodePath("../../../StateMachine")
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, -0.118783, -3.72529e-09)
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraHolder/Camera3D"]
+visible = false
+enable_shadows = true
+
+[node name="InteractRay" type="RayCast3D" parent="CameraHolder/Camera3D"]
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 12
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../CameraHolder/ArmsHolder")
+libraries = {
+"": SubResource("AnimationLibrary_lus2o")
+}
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Reticle" type="CenterContainer" parent="Interface" node_paths=PackedStringArray("reticle_lines", "player")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_oi4b1")
+reticle_lines = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
+player = NodePath("../..")
+reticle_distance = 5.0
+
+[node name="Top" type="Line2D" parent="Interface/Reticle"]
+points = PackedVector2Array(0, -6, 0, -14)
+width = 2.0
+
+[node name="Right" type="Line2D" parent="Interface/Reticle"]
+points = PackedVector2Array(14, 0, 6, 0)
+width = 2.0
+
+[node name="Bottom" type="Line2D" parent="Interface/Reticle"]
+points = PackedVector2Array(0, 6, 0, 14)
+width = 2.0
+
+[node name="Left" type="Line2D" parent="Interface/Reticle"]
+points = PackedVector2Array(-6, 0, -14, 0)
+width = 2.0
+
+[node name="Debug" type="PanelContainer" parent="Interface"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 215.0
+offset_bottom = 55.0
+mouse_filter = 2
+theme = ExtResource("5_js7jf")
+script = ExtResource("5_c7tx3")
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Debug"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Debug/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Interface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_top = 40
+
+[node name="InvItemInfoPanel" parent="Interface/Control/VBoxContainer/MarginContainer" instance=ExtResource("8_mhk06")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="InventoryInterface" type="Control" parent="Interface/Control/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+script = ExtResource("9_sd5qi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/VBoxContainer/InventoryInterface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExternalInventory" parent="Interface/Control/VBoxContainer/InventoryInterface/VBoxContainer" instance=ExtResource("10_51sge")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+
+[node name="PlayerInventory" parent="Interface/Control/VBoxContainer/InventoryInterface/VBoxContainer" instance=ExtResource("10_51sge")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="MarginContainer2" type="MarginContainer" parent="Interface/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Control/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="PanelContainer" parent="Interface/Control/VBoxContainer/MarginContainer2/HBoxContainer" instance=ExtResource("9_bcxkl")]
+custom_minimum_size = Vector2(250, 90)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_stretch_ratio = 10.0
+
+[node name="PlayerQuickSlot" parent="Interface/Control/VBoxContainer/MarginContainer2/HBoxContainer" instance=ExtResource("10_51sge")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="WeaponHud" parent="Interface/Control/VBoxContainer/MarginContainer2/HBoxContainer" instance=ExtResource("12_2ffht")]
+unique_name_in_owner = true
+visible = true
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_stretch_ratio = 10.0
+
+[node name="GrabbedSlot" parent="Interface/Control" instance=ExtResource("13_6ejrl")]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.788235)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("6_28k2k")
+current_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("7_pfe0v")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("8_w2o86")
+
+[node name="Sprint" type="Node" parent="StateMachine"]
+script = ExtResource("9_touqc")
+
+[node name="Crouch" type="Node" parent="StateMachine"]
+script = ExtResource("10_0am0j")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("11_juquo")
+
+[connection signal="gui_input" from="Interface/Control" to="Interface/Control/VBoxContainer/InventoryInterface" method="_on_control_gui_input"]
+[connection signal="visibility_changed" from="Interface/Control/VBoxContainer/InventoryInterface" to="Interface/Control/VBoxContainer/InventoryInterface" method="_on_visibility_changed"]

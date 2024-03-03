@@ -1,19 +1,25 @@
-[gd_scene load_steps=27 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=36 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
-[ext_resource type="Script" path="res://scripts/weapon/weapons_manager.gd" id="3_cnrpl"]
 [ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_nqi44"]
-[ext_resource type="Script" path="res://scripts/reticle.gd" id="3_oi4b1"]
-[ext_resource type="Script" path="res://scripts/ui_debug.gd" id="5_c7tx3"]
+[ext_resource type="PackedScene" uid="uid://m8lgl6sgjc8e" path="res://scenes/item.tscn" id="4_dcn20"]
+[ext_resource type="Script" path="res://scripts/interface/reticle.gd" id="5_8lwt1"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
+[ext_resource type="Script" path="res://scripts/interface/ui_debug.gd" id="7_6mltq"]
 [ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
 [ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
-[ext_resource type="Script" path="res://scripts/weapon/weapon_hud.gd" id="9_plw7j"]
+[ext_resource type="PackedScene" uid="uid://mdsqpmcb7k53" path="res://scenes/progress_bar.tscn" id="9_bcxkl"]
+[ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="9_sd5qi"]
 [ext_resource type="Script" path="res://scripts/player state machine/sprint_state.gd" id="9_touqc"]
 [ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
+[ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://inventory/inventory_scenes/main_inventory.tscn" id="10_51sge"]
+[ext_resource type="Script" path="res://inventory/item/inv_item_info_panel.gd" id="10_pwj6i"]
+[ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="11_bwrnu"]
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
+[ext_resource type="PackedScene" uid="uid://c0vow3q82yehc" path="res://scenes/weapon_hud.tscn" id="12_2ffht"]
+[ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="13_6ejrl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
 
@@ -30,38 +36,26 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/path = NodePath("%Item:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.645772, -0.794125, 0), Vector3(0, -1.5708, 0)]
+"values": [Vector3(0.00872665, 2.7838, -0.802851), Vector3(0, 1.5708, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("weapons_manager/Rifle:visible")
+tracks/1/path = NodePath("%Item:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.025),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("weapons_manager/Rifle:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, -0.265, -0.095), Vector3(0, 0, 0)]
+"values": [Vector3(0.04, -0.61, -0.545), Vector3(0.23, -0.355, -0.34)]
 }
 
 [sub_resource type="Animation" id="Animation_cypf8"]
@@ -70,26 +64,26 @@ length = 2.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/path = NodePath("%Item:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 1.9, 2.3, 2.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.9, 1.6, 1.9, 2.3, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(-0.296706, -0.506145, 0), Vector3(-0.296706, -0.506145, 0.485202), Vector3(-0.296706, -0.506145, -0.794125), Vector3(-0.284489, -0.574213, -0.862193), Vector3(-0.237365, -0.849975, 0.614356), Vector3(-0.115192, -0.867429, 0.727802), Vector3(0, -1.5708, 0)]
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0.065, -0.355, -0.34), Vector3(0.065, -0.435, -0.28), Vector3(0.065, -0.51, -0.28), Vector3(0.11, -0.36, -0.28), Vector3(0.11, -0.36, -0.395), Vector3(0.23, -0.355, -0.34)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("weapons_manager/Rifle:position")
+tracks/1/path = NodePath("%Item:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 1.9, 2.3, 2.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.9, 1.6, 1.9, 2.3, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.01, -0.105, -0.165), Vector3(0.01, -0.108, -0.165), Vector3(0.01, -0.055, -0.165), Vector3(-0.023, -0.102, -0.17), Vector3(0.068, -0.091, -0.192), Vector3(0.138, -0.171, -0.192), Vector3(0, 0, 0)]
+"values": [Vector3(0, 1.5708, 0), Vector3(0.497419, 2.73144, -0.270526), Vector3(0.165806, 2.73144, -0.270526), Vector3(-0.0872665, 2.522, -0.270526), Vector3(-0.436332, 1.72788, -0.270526), Vector3(-0.244346, 1.51844, -0.0785398), Vector3(0, 1.5708, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_g3kgu"]
@@ -98,26 +92,26 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/path = NodePath("%Item:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, -1.5708, 0)]
+"values": [Vector3(0, 1.5708, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("weapons_manager/Rifle:position")
+tracks/1/path = NodePath("%Item:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.0088414, -0.145091)]
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0, -0.285, -0.325)]
 }
 
 [sub_resource type="Animation" id="Animation_6suu3"]
@@ -126,26 +120,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/path = NodePath("%Item:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, -1.5708, 0)]
+"values": [Vector3(0, 1.5708, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("weapons_manager/Rifle:position")
+tracks/1/path = NodePath("%Item:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.0088414, -0.145091)]
+"values": [Vector3(0, -0.285, -0.325)]
 }
 
 [sub_resource type="Animation" id="Animation_ot87e"]
@@ -154,26 +148,26 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/path = NodePath("%Item:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(0.00698132, -1.53938, -0.0279253), Vector3(0, -1.5708, 0)]
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0.23, -0.355, -0.275), Vector3(0.23, -0.355, -0.34)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("weapons_manager/Rifle:position")
+tracks/1/path = NodePath("%Item:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.04, 0.02, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0.0610865), Vector3(0, 1.5708, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_1q8uh"]
@@ -182,26 +176,26 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/path = NodePath("Item:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(0.00698132, -1.50098, 0), Vector3(0, -1.5708, 0)]
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0.23, -0.355, -0.335), Vector3(0.23, -0.355, -0.34)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("weapons_manager/Rifle:position")
+tracks/1/path = NodePath("Item:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.01, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0.00872665), Vector3(0, 1.5708, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_hvc3l"]
@@ -209,38 +203,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("weapons_manager/Rifle:rotation")
+tracks/0/path = NodePath("%Item:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, -1.5708, 0)]
+"values": [Vector3(0, 1.5708, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("weapons_manager/Rifle:visible")
+tracks/1/path = NodePath("%Item:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("weapons_manager/Rifle:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.23, -0.355, -0.34)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lus2o"]
@@ -254,12 +236,35 @@ _data = {
 "RESET": SubResource("Animation_hvc3l")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfy83"]
+bg_color = Color(0, 0.611765, 0.286275, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing_size = 0.979
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27v0r"]
+bg_color = Color(0.235294, 0.235294, 0.235294, 0.490196)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hi0ux"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
+collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_adhyr")
 player_inventory = ExtResource("2_xq8ps")
 player_quick_slot = ExtResource("3_nqi44")
-weapon_holder = NodePath("CameraHolder/ArmsHolder")
+weapon_holder = NodePath("CameraHolder/RigHolder")
 weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.001
 invert_weapon_sway = true
@@ -290,24 +295,20 @@ shape = SubResource("SphereShape3D_c1c83")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
-[node name="ArmsHolder" type="Node3D" parent="CameraHolder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141129, -0.348797, -0.469118)
+[node name="RigHolder" type="Node3D" parent="CameraHolder"]
 
-[node name="ItemsHolder" type="Node3D" parent="CameraHolder/ArmsHolder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.365, 0.165)
-
-[node name="weapons_manager" type="Node3D" parent="CameraHolder/ArmsHolder" node_paths=PackedStringArray("player", "state_machine")]
-script = ExtResource("3_cnrpl")
-player = NodePath("../../..")
+[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("animator", "weapon_hud", "reticle", "crosshair", "state_machine") instance=ExtResource("4_dcn20")]
+unique_name_in_owner = true
+transform = Transform3D(-1.09278e-07, 0, 2.5, 0, 2.5, 0, -2.5, 0, -1.09278e-07, 0.23, -0.355, -0.34)
+animator = NodePath("../../../AnimationPlayer")
+weapon_hud = NodePath("../../../Interface/Control/WeaponHud")
+reticle = NodePath("../../../Interface/Reticle")
+crosshair = NodePath("../../../Interface/Reticle/Crosshair")
 state_machine = NodePath("../../../StateMachine")
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, -0.118783, -3.72529e-09)
-
-[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraHolder/Camera3D"]
-visible = false
-enable_shadows = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.094, 0)
 
 [node name="InteractRay" type="RayCast3D" parent="CameraHolder/Camera3D"]
 target_position = Vector3(0, 0, -2.5)
@@ -315,7 +316,7 @@ collision_mask = 12
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
-root_node = NodePath("../CameraHolder/ArmsHolder")
+root_node = NodePath("../CameraHolder/RigHolder")
 libraries = {
 "": SubResource("AnimationLibrary_lus2o")
 }
@@ -327,9 +328,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Reticle" type="CenterContainer" parent="Interface" node_paths=PackedStringArray("reticle_lines", "player")]
-unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -339,24 +340,28 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("3_oi4b1")
-reticle_lines = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
+script = ExtResource("5_8lwt1")
+reticle_lines = [NodePath("Crosshair/Top"), NodePath("Crosshair/Right"), NodePath("Crosshair/Bottom"), NodePath("Crosshair/Left")]
 player = NodePath("../..")
 reticle_distance = 5.0
 
-[node name="Top" type="Line2D" parent="Interface/Reticle"]
+[node name="Crosshair" type="Control" parent="Interface/Reticle"]
+visible = false
+layout_mode = 2
+
+[node name="Top" type="Line2D" parent="Interface/Reticle/Crosshair"]
 points = PackedVector2Array(0, -6, 0, -14)
 width = 2.0
 
-[node name="Right" type="Line2D" parent="Interface/Reticle"]
+[node name="Right" type="Line2D" parent="Interface/Reticle/Crosshair"]
 points = PackedVector2Array(14, 0, 6, 0)
 width = 2.0
 
-[node name="Bottom" type="Line2D" parent="Interface/Reticle"]
+[node name="Bottom" type="Line2D" parent="Interface/Reticle/Crosshair"]
 points = PackedVector2Array(0, 6, 0, 14)
 width = 2.0
 
-[node name="Left" type="Line2D" parent="Interface/Reticle"]
+[node name="Left" type="Line2D" parent="Interface/Reticle/Crosshair"]
 points = PackedVector2Array(-6, 0, -14, 0)
 width = 2.0
 
@@ -369,7 +374,7 @@ offset_right = 215.0
 offset_bottom = 55.0
 mouse_filter = 2
 theme = ExtResource("5_js7jf")
-script = ExtResource("5_c7tx3")
+script = ExtResource("7_6mltq")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/Debug"]
 layout_mode = 2
@@ -378,40 +383,385 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="WeaponHud" type="VBoxContainer" parent="Interface"]
+[node name="Control" type="Control" parent="Interface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="PlayerStats" parent="Interface/Control" instance=ExtResource("9_bcxkl")]
 unique_name_in_owner = true
-visible = false
+custom_minimum_size = Vector2(250, 90)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -77.0
-offset_right = 137.0
+offset_left = 50.0
+offset_top = -122.0
+offset_right = 300.0
+offset_bottom = -32.0
 grow_vertical = 0
+size_flags_horizontal = 2
+size_flags_vertical = 8
+size_flags_stretch_ratio = 5.0
+
+[node name="WeaponHud" parent="Interface/Control" instance=ExtResource("12_2ffht")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -217.0
+offset_top = -100.0
+offset_right = -26.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 10
+size_flags_vertical = 10
+size_flags_stretch_ratio = 5.0
+
+[node name="InventoryInterface" type="Control" parent="Interface/Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+mouse_filter = 1
+script = ExtResource("9_sd5qi")
+
+[node name="PlayerInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = 76.0
+offset_right = 10.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 10.0
+
+[node name="ExternalInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -124.0
+offset_right = 10.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 10
+size_flags_vertical = 6
+size_flags_stretch_ratio = 5.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="Interface/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -55.0
+offset_right = 10.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 5.0
+mouse_filter = 2
+theme_override_constants/margin_bottom = 35
+
+[node name="PlayerQuickSlot" parent="Interface/Control/MarginContainer2" instance=ExtResource("10_51sge")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+size_flags_stretch_ratio = 20.25
+
+[node name="GrabbedSlot" parent="Interface/Control" instance=ExtResource("13_6ejrl")]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.788235)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="InvItemInfoPanel" type="PanelContainer" parent="Interface/Control"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(400, 170)
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 170.0
+size_flags_vertical = 0
+script = ExtResource("10_pwj6i")
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
 alignment = 1
-script = ExtResource("9_plw7j")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Interface/WeaponHud"]
+[node name="PanelContainer" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Interface/WeaponHud/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Current Weapon:"
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 
-[node name="CurrentWeapon" type="Label" parent="Interface/WeaponHud/HBoxContainer"]
+[node name="ItemHealth" type="ProgressBar" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_sfy83")
+value = 80.0
+show_percentage = false
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Interface/WeaponHud"]
+[node name="Label" type="Label" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ItemHealth"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 7
+text = "QUALITY
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
 
-[node name="Label" type="Label" parent="Interface/WeaponHud/HBoxContainer2"]
+[node name="ItemIcon" type="TextureRect" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-text = "Ammo:"
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+texture = ExtResource("11_bwrnu")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="CurrentAmmo" type="Label" parent="Interface/WeaponHud/HBoxContainer2"]
+[node name="AmmoCountPanel" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="AmmoCount" type="Label" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon/AmmoCountPanel"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 18
+text = "30"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponSlots" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
+layout_mode = 2
+alignment = 1
+
+[node name="Slot" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="Slot2" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="Slot3" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="Slot4" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="TabContainer" type="TabContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 15.0
+theme_override_constants/side_margin = 0
+theme_override_constants/icon_max_width = 0
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 16
+tab_focus_mode = 0
+
+[node name="Properties" type="TabBar" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemName" type="Label" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 14
+text = "Assault Rifle"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ItemDescription" type="RichTextLabel" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/normal_font_size = 10
+text = "The handy short automatic rifle with supressor and sight.
+
+Ammo type: 5.45 mm
+Damage head: 60 hp
+Damage body: 25 hp
+Damage arms: 15 hp
+Damage legs: 15 hps
+Shoot types: auto, single, burst"
+
+[node name="Actions" type="TabBar" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemUseButton" type="Button" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Use
+"
+
+[node name="WeaponUnloadButton" type="Button" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Unload"
+
+[node name="ItemDropButton" type="Button" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Drop"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("6_28k2k")
@@ -432,6 +782,13 @@ script = ExtResource("10_0am0j")
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("11_juquo")
 
-[connection signal="Update_Ammo" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/WeaponHud" method="_on_weapons_manager_update_ammo"]
-[connection signal="Update_Weapon_Stack" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/WeaponHud" method="_on_weapons_manager_update_weapon_stack"]
-[connection signal="Weapon_Changed" from="CameraHolder/ArmsHolder/weapons_manager" to="Interface/WeaponHud" method="_on_weapons_manager_weapon_changed"]
+[connection signal="signal_update_player_health" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_health"]
+[connection signal="signal_update_player_hunger" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_hunger"]
+[connection signal="signal_update_player_stats" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_stats"]
+[connection signal="Update_Ammo" from="CameraHolder/RigHolder/Item" to="Interface/Control/WeaponHud" method="_on_item_update_ammo"]
+[connection signal="Update_Weapon_Stack" from="CameraHolder/RigHolder/Item" to="Interface/Control/WeaponHud" method="_on_item_update_weapon_stack"]
+[connection signal="Weapon_Changed" from="CameraHolder/RigHolder/Item" to="Interface/Control/WeaponHud" method="_on_item_weapon_changed"]
+[connection signal="gui_input" from="Interface/Control/InventoryInterface" to="Interface/Control/InventoryInterface" method="_on_gui_input"]
+[connection signal="signal_item_info_panel_set_data" from="Interface/Control/InventoryInterface" to="Interface/Control/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
+[connection signal="visibility_changed" from="Interface/Control/InventoryInterface" to="Interface/Control/InventoryInterface" method="_on_visibility_changed"]
+[connection signal="pressed" from="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="Interface/Control/InventoryInterface" method="_on_item_drop_button_pressed"]

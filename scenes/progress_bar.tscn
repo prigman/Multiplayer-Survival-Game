@@ -1,26 +1,56 @@
-[gd_scene format=3 uid="uid://burre3lg0m77s"]
+[gd_scene load_steps=4 format=3 uid="uid://mdsqpmcb7k53"]
 
-[node name="QuickSlotInventory" type="PanelContainer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = -170.0
+[ext_resource type="Script" path="res://scripts/interface/player_stats.gd" id="1_xpt2x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c24yu"]
+bg_color = Color(0, 0.611765, 0.286275, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing_size = 0.979
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pyei"]
+bg_color = Color(1, 0.611765, 0.286275, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing_size = 0.979
+
+[node name="PlayerStats" type="PanelContainer"]
 offset_right = 250.0
-offset_bottom = -50.0
-grow_vertical = 0
-size_flags_vertical = 8
+offset_bottom = 80.0
+script = ExtResource("1_xpt2x")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer"]
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_c24yu")
+value = 100.0
+
+[node name="HungerBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_6pyei")
+value = 80.0

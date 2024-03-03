@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="ItemDataWeapon" load_steps=4 format=3 uid="uid://dueasdbvrpec2"]
+[gd_resource type="Resource" script_class="ItemDataWeapon" load_steps=5 format=3 uid="uid://dueasdbvrpec2"]
 
 [ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="1_0fff5"]
 [ext_resource type="Script" path="res://inventory/item/item_data_weapon.gd" id="1_nm73g"]
+[ext_resource type="ArrayMesh" uid="uid://cl73ro1sfy3jp" path="res://models/ar/ar_body.res" id="2_d5tc1"]
+[ext_resource type="ArrayMesh" uid="uid://cghrb8l1uuxk5" path="res://models/ar/ar_holo.res" id="4_jua7y"]
 
 [sub_resource type="Curve" id="Curve_frbq2"]
 min_value = -1.0
@@ -30,12 +32,25 @@ recoil_position_z = SubResource("Curve_frbq2")
 recoil_amplitude = Vector3(1.485, 1.435, 0.15)
 lerp_speed = 3.0
 recoil_speed = 1.405
+sight_mesh = ExtResource("4_jua7y")
 name = "Assault Rifle"
-description = "automatic rifle"
+description = "Automatic rifle"
+description_item_panel = "The handy short automatic rifle with supressor and sight.
+
+Ammo type: 5.45 mm
+Damage head: 60 hp
+Damage body: 25 hp
+Damage arms: 15 hp
+Damage legs: 15 hps
+Shoot types: auto, single, burst"
 stackable = false
 max_stack = 0
+quality = 100.0
 icon = ExtResource("1_0fff5")
-properties = {
-"dropped_item": "res://scenes/interactable/pickup/assault_rifle_rigidbody.tscn",
-"equip_item": "res://scenes/assault_rifle.tscn"
+mesh = ExtResource("2_d5tc1")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/ar_rigidbody.tscn"
 }
+position = Vector3(0.23, -0.355, -0.34)
+rotation = Vector3(0, 90, 0)
+scale = Vector3(0.4, 0.4, 0.4)
