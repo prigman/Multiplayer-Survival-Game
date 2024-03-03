@@ -299,7 +299,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
 [node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("animator", "weapon_hud", "reticle", "crosshair", "state_machine") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
-transform = Transform3D(-1.09278e-07, 0, 2.5, 0, 2.5, 0, -2.5, 0, -1.09278e-07, 0.23, -0.355, -0.34)
+transform = Transform3D(-9.04998e-06, 0, 2.5, 0, 2.5, 0, -2.5, 0, -9.04998e-06, 0.23, -0.355, -0.34)
 animator = NodePath("../../../AnimationPlayer")
 weapon_hud = NodePath("../../../Interface/Control/WeaponHud")
 reticle = NodePath("../../../Interface/Reticle")
