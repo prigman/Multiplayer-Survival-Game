@@ -7,3 +7,8 @@ script = ExtResource("1_fbrkp")
 
 [node name="ItemMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
+
+[node name="WeaponSight" type="MeshInstance3D" parent="ItemMesh"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0616178, 0.46649, -0.0742726)
+skeleton = NodePath("../..")

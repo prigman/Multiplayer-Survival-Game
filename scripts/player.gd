@@ -6,8 +6,6 @@ signal signal_update_player_stats(health : float, hunger : float)
 signal signal_update_player_health(health : float)
 signal signal_update_player_hunger(hunger : float)
 
-signal signal_update_equiped_item(inventory : InventoryData, slot_index : int)
-
 var camera_holder_position
 var input_dir = Vector2.ZERO
 var direction = Vector3.ZERO
@@ -55,7 +53,7 @@ func _ready():
 func _process(_delta):
 	var velocity_string = "%.2f" % velocity.length()
 	Global.global_debug.add_property("velocity", velocity_string, +1)
-	if item.item_data:
+	if item.equiped_slot:
 		weapon_tilt(input_dir.x, _delta)
 		weapon_sway(_delta)
 		weapon_bob(velocity.length(), _delta)
@@ -75,17 +73,17 @@ func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
 		match event.keycode:
 			KEY_1:
-				signal_update_equiped_item.emit(player_quick_slot, 0)
+				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 0)
 			KEY_2:
-				signal_update_equiped_item.emit(player_quick_slot, 1)
+				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 1)
 			KEY_3:
-				signal_update_equiped_item.emit(player_quick_slot, 2)
+				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 2)
 			KEY_4:
-				signal_update_equiped_item.emit(player_quick_slot, 3)
+				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 3)
 			KEY_5:
-				signal_update_equiped_item.emit(player_quick_slot, 4)
+				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 4)
 			KEY_6:
-				signal_update_equiped_item.emit(player_quick_slot, 5)
+				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 5)
 
 
 ### Player states

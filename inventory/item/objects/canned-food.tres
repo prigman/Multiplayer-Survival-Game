@@ -19,6 +19,6 @@ mesh = ExtResource("2_hdo5s")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn"
 }
-position = Vector3(0.23, -0.355, -0.34)
+position = Vector3(0.335, -0.535, -0.535)
 rotation = Vector3(0, 0, 0)
 scale = Vector3(2.5, 2.5, 2.5)

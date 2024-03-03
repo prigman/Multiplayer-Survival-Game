@@ -43,47 +43,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.645772, -0.794125, 0), Vector3(0, -1.5708, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("%Item:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.025),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("%Item:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -0.265, -0.095), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_cypf8"]
-resource_name = "Assault Rifle Reload"
-length = 2.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%Item:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 1.9, 2.3, 2.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(-0.296706, -0.506145, 0), Vector3(-0.296706, -0.506145, 0.485202), Vector3(-0.296706, -0.506145, -0.794125), Vector3(-0.284489, -0.574213, -0.862193), Vector3(-0.237365, -0.849975, 0.614356), Vector3(-0.115192, -0.867429, 0.727802), Vector3(0, -1.5708, 0)]
+"values": [Vector3(0.00872665, 2.7838, -0.802851), Vector3(0, 1.5708, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -92,10 +52,38 @@ tracks/1/path = NodePath("%Item:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 1.9, 2.3, 2.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.01, -0.105, -0.165), Vector3(0.01, -0.108, -0.165), Vector3(0.01, -0.055, -0.165), Vector3(-0.023, -0.102, -0.17), Vector3(0.068, -0.091, -0.192), Vector3(0.138, -0.171, -0.192), Vector3(0, 0, 0)]
+"values": [Vector3(0.04, -0.61, -0.545), Vector3(0.23, -0.355, -0.34)]
+}
+
+[sub_resource type="Animation" id="Animation_cypf8"]
+resource_name = "Assault Rifle Reload"
+length = 2.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Item:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.9, 1.6, 1.9, 2.3, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0.065, -0.355, -0.34), Vector3(0.065, -0.435, -0.28), Vector3(0.065, -0.51, -0.28), Vector3(0.11, -0.36, -0.28), Vector3(0.11, -0.36, -0.395), Vector3(0.23, -0.355, -0.34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Item:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.9, 1.6, 1.9, 2.3, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0.497419, 2.73144, -0.270526), Vector3(0.165806, 2.73144, -0.270526), Vector3(-0.0872665, 2.522, -0.270526), Vector3(-0.436332, 1.72788, -0.270526), Vector3(-0.244346, 1.51844, -0.0785398), Vector3(0, 1.5708, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_g3kgu"]
@@ -111,7 +99,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, -1.5708, 0)]
+"values": [Vector3(0, 1.5708, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -123,7 +111,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.0088414, -0.145091)]
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0, -0.285, -0.325)]
 }
 
 [sub_resource type="Animation" id="Animation_6suu3"]
@@ -139,7 +127,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, -1.5708, 0)]
+"values": [Vector3(0, 1.5708, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -151,7 +139,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.0088414, -0.145091)]
+"values": [Vector3(0, -0.285, -0.325)]
 }
 
 [sub_resource type="Animation" id="Animation_ot87e"]
@@ -160,26 +148,26 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%Item:rotation")
+tracks/0/path = NodePath("%Item:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(0.00698132, -1.53938, -0.0279253), Vector3(0, -1.5708, 0)]
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0.23, -0.355, -0.275), Vector3(0.23, -0.355, -0.34)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("%Item:position")
+tracks/1/path = NodePath("%Item:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.04, 0.02, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0.0610865), Vector3(0, 1.5708, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_1q8uh"]
@@ -188,26 +176,26 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%Item:rotation")
+tracks/0/path = NodePath("Item:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(0.00698132, -1.50098, 0), Vector3(0, -1.5708, 0)]
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0.23, -0.355, -0.335), Vector3(0.23, -0.355, -0.34)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("%Item:position")
+tracks/1/path = NodePath("Item:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.01, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0.00872665), Vector3(0, 1.5708, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_hvc3l"]
@@ -222,31 +210,19 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0, 1.5708, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("%Item:visible")
+tracks/1/path = NodePath("%Item:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("%Item:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.23, -0.355, -0.34)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lus2o"]
@@ -260,13 +236,6 @@ _data = {
 "RESET": SubResource("Animation_hvc3l")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s15vj"]
-bg_color = Color(0.180392, 0.180392, 0.180392, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfy83"]
 bg_color = Color(0, 0.611765, 0.286275, 1)
 corner_radius_top_left = 1
@@ -274,6 +243,13 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 anti_aliasing_size = 0.979
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27v0r"]
+bg_color = Color(0.235294, 0.235294, 0.235294, 0.490196)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hi0ux"]
 bg_color = Color(0.231373, 0.231373, 0.231373, 1)
@@ -283,6 +259,7 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
+collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_adhyr")
 player_inventory = ExtResource("2_xq8ps")
@@ -320,11 +297,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
 [node name="RigHolder" type="Node3D" parent="CameraHolder"]
 
-[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("animator", "weapon_hud", "reticle", "state_machine") instance=ExtResource("4_dcn20")]
+[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("animator", "weapon_hud", "reticle", "crosshair", "state_machine") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
+transform = Transform3D(-1.09278e-07, 0, 2.5, 0, 2.5, 0, -2.5, 0, -1.09278e-07, 0.23, -0.355, -0.34)
 animator = NodePath("../../../AnimationPlayer")
 weapon_hud = NodePath("../../../Interface/Control/WeaponHud")
 reticle = NodePath("../../../Interface/Reticle")
+crosshair = NodePath("../../../Interface/Reticle/Crosshair")
 state_machine = NodePath("../../../StateMachine")
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
@@ -352,7 +331,6 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="Reticle" type="CenterContainer" parent="Interface" node_paths=PackedStringArray("reticle_lines", "player")]
-unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -363,23 +341,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("5_8lwt1")
-reticle_lines = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
+reticle_lines = [NodePath("Crosshair/Top"), NodePath("Crosshair/Right"), NodePath("Crosshair/Bottom"), NodePath("Crosshair/Left")]
 player = NodePath("../..")
 reticle_distance = 5.0
 
-[node name="Top" type="Line2D" parent="Interface/Reticle"]
+[node name="Crosshair" type="Control" parent="Interface/Reticle"]
+visible = false
+layout_mode = 2
+
+[node name="Top" type="Line2D" parent="Interface/Reticle/Crosshair"]
 points = PackedVector2Array(0, -6, 0, -14)
 width = 2.0
 
-[node name="Right" type="Line2D" parent="Interface/Reticle"]
+[node name="Right" type="Line2D" parent="Interface/Reticle/Crosshair"]
 points = PackedVector2Array(14, 0, 6, 0)
 width = 2.0
 
-[node name="Bottom" type="Line2D" parent="Interface/Reticle"]
+[node name="Bottom" type="Line2D" parent="Interface/Reticle/Crosshair"]
 points = PackedVector2Array(0, 6, 0, 14)
 width = 2.0
 
-[node name="Left" type="Line2D" parent="Interface/Reticle"]
+[node name="Left" type="Line2D" parent="Interface/Reticle/Crosshair"]
 points = PackedVector2Array(-6, 0, -14, 0)
 width = 2.0
 
@@ -430,16 +412,19 @@ size_flags_stretch_ratio = 5.0
 
 [node name="WeaponHud" parent="Interface/Control" instance=ExtResource("12_2ffht")]
 unique_name_in_owner = true
-visible = true
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -217.0
 offset_top = -100.0
-offset_right = -80.0
+offset_right = -26.0
 offset_bottom = -50.0
 grow_horizontal = 0
+grow_vertical = 0
 size_flags_horizontal = 10
 size_flags_vertical = 10
 size_flags_stretch_ratio = 5.0
@@ -537,7 +522,6 @@ layout_mode = 0
 offset_right = 400.0
 offset_bottom = 170.0
 size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_s15vj")
 script = ExtResource("10_pwj6i")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel"]
@@ -598,6 +582,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PanelContainer3" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 20.0
@@ -636,7 +621,6 @@ vertical_alignment = 1
 
 [node name="WeaponSlots" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -649,18 +633,22 @@ alignment = 1
 [node name="Slot" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
 [node name="Slot2" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
 [node name="Slot3" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
 [node name="Slot4" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
 [node name="TabContainer" type="TabContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -794,10 +782,12 @@ script = ExtResource("10_0am0j")
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("11_juquo")
 
-[connection signal="signal_update_equiped_item" from="." to="CameraHolder/RigHolder/Item" method="_on_player_signal_update_equiped_item"]
 [connection signal="signal_update_player_health" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_health"]
 [connection signal="signal_update_player_hunger" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_hunger"]
 [connection signal="signal_update_player_stats" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_stats"]
+[connection signal="Update_Ammo" from="CameraHolder/RigHolder/Item" to="Interface/Control/WeaponHud" method="_on_item_update_ammo"]
+[connection signal="Update_Weapon_Stack" from="CameraHolder/RigHolder/Item" to="Interface/Control/WeaponHud" method="_on_item_update_weapon_stack"]
+[connection signal="Weapon_Changed" from="CameraHolder/RigHolder/Item" to="Interface/Control/WeaponHud" method="_on_item_weapon_changed"]
 [connection signal="gui_input" from="Interface/Control/InventoryInterface" to="Interface/Control/InventoryInterface" method="_on_gui_input"]
 [connection signal="signal_item_info_panel_set_data" from="Interface/Control/InventoryInterface" to="Interface/Control/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
 [connection signal="visibility_changed" from="Interface/Control/InventoryInterface" to="Interface/Control/InventoryInterface" method="_on_visibility_changed"]

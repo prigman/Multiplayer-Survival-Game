@@ -5,104 +5,105 @@ signal Update_Ammo
 signal Update_Weapon_Stack(stack)
 
 @onready var item_mesh : MeshInstance3D = %ItemMesh
-
-@export var item_data : ItemData = null#:
-	#set(value):
-		#item_data = value
-		#if Engine.is_editor_hint():
-			#set_mesh_and_loc()
+@onready var weapon_sight_mesh : MeshInstance3D = %WeaponSight
+@onready var player = $"../../.."
 
 @export var animator : AnimationPlayer
 @export var weapon_hud : VBoxContainer
 @export var reticle : CenterContainer
+@export var crosshair : Control
+
 @export var state_machine : StateMachine
 
 var equiped_slot : InSlotData = null
+var equiped_item : ItemData = null
 
 var Scoped = false
+var toggle_holo = false
 
 func _physics_process(_delta):
-	if Input.is_action_pressed("right_click"):
-		if item_data:
-			if item_data.item_type == item_data.ItemType.weapon:
-				if state_machine.is_current_state("Sprint") == false:
+	if !player.inv_opened:
+		if Input.is_action_pressed("right_click"):
+			if equiped_item:
+				if equiped_item.item_type == equiped_item.ItemType.weapon:
+					if state_machine.is_current_state("Sprint") == false:
+						if !Scoped:
+							Assault_Rifle_Scope()
+							reticle.hide()
+		if Scoped:
+			if state_machine.is_current_state("Sprint"):
+				reticle.show()
+				Assault_Rifle_Scope()
+
+func _unhandled_input(event):
+	if !player.inv_opened:
+		if equiped_item:
+			if equiped_item.item_type == equiped_item.ItemType.weapon:
+				if event is InputEventKey:
+					if event.keycode == KEY_0 and event.is_pressed():
+						toggle_holo_sight()
+				if(Input.is_action_just_pressed("reload")):
+					reload()
+				if(Input.is_action_just_pressed("fire")):
 					if !Scoped:
+						shoot()
+						#--- переделать (пример)
+						equiped_item.ammo_current -= 1
+						Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
+						#--- 
+				if Input.is_action_just_released("right_click"):
+					if Scoped:
 						Assault_Rifle_Scope()
-						reticle.hide()
-	if Scoped:
-		if state_machine.is_current_state("Sprint"):
-			reticle.show()
-			Assault_Rifle_Scope()
+						reticle.show()
 
-func _unhandled_input(_event):
-	if item_data:
-		if item_data.item_type == item_data.ItemType.weapon:
-			if(Input.is_action_just_pressed("reload")):
-				reload()
-			if(Input.is_action_just_pressed("fire")):
-				if !Scoped:
-					shoot()
-					##--- переделать (пример)
-					#weapon_current.ammo_current -= 1
-					#Update_Ammo.emit([weapon_current.ammo_current, weapon_current.ammo_reserve])
-					##--- 
-			if Input.is_action_just_released("right_click"):
-				if Scoped:
-					Assault_Rifle_Scope()
-					reticle.show()
+func toggle_holo_sight():
+	if !toggle_holo:
+		weapon_sight_mesh.mesh = equiped_item.sight_mesh
+	else:
+		weapon_sight_mesh.mesh = null
+	toggle_holo = !toggle_holo
 
-func initialize(slot_data : InSlotData):
-	if slot_data.item != null:
-		if item_data:
-			remove_item()
-		var item = slot_data.item
-		item_data = item
+func initialize(item_slot : InSlotData):
+	if item_slot != null:
+		equiped_slot = item_slot
+		equiped_item = equiped_slot.item
 		set_mesh_and_loc()
-		equiped_slot = slot_data
-		if item_data.item_type == item_data.ItemType.weapon:
+		if equiped_item.item_type == equiped_item.ItemType.weapon:
 			weapon_hud.show()
-			#animator.play(item_data.anim_activate)
-			Weapon_Changed.emit(item_data.name)
-			Update_Ammo.emit([item_data.ammo_current, item_data.ammo_reserve])
-			pass
+			crosshair.show()
+			animator.play(equiped_item.anim_activate)
+			Weapon_Changed.emit(equiped_item.name)
+			Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
+		elif weapon_hud.visible and crosshair.visible:
+			weapon_hud.hide()
+			crosshair.hide()
 
 func set_mesh_and_loc():
-	item_mesh.mesh = item_data.mesh
-	position = item_data.position
-	rotation_degrees = item_data.rotation
-	scale = item_data.scale
+	item_mesh.mesh = equiped_item.mesh
+	position = equiped_item.position
+	rotation_degrees = equiped_item.rotation
+	scale = equiped_item.scale
 
 func remove_item():
-	if item_data != null:
-		item_mesh.mesh = null
-		if item_data.item_type == item_data.ItemType.weapon:
-			#animator.play_backwards(item_data.anim_activate)
-			weapon_hud.hide()
-		item_data = null
-		position = Vector3.ZERO
-		rotation_degrees = Vector3.ZERO
-		scale = Vector3.ZERO
+	if weapon_hud.visible and crosshair.visible:
+		weapon_hud.hide()
+		crosshair.hide()
+	item_mesh.mesh = null
+	equiped_slot = null
+	equiped_item = null
+	position = Vector3.ZERO
+	rotation_degrees = Vector3.ZERO
+	scale = Vector3.ZERO
 
 func shoot():
-	animator.play(item_data.anim_shoot)
+	animator.play(equiped_item.anim_shoot)
 
 func reload():
-	animator.play(item_data.anim_reload)
+	animator.play(equiped_item.anim_reload)
 
 func Assault_Rifle_Scope():
 	if !Scoped:
-		animator.play(item_data.anim_scope)
+		animator.play(equiped_item.anim_scope)
 	else:
-		animator.play_backwards(item_data.anim_scope)
+		animator.play_backwards(equiped_item.anim_scope)
 	Scoped = !Scoped
-
-
-func _on_player_signal_update_equiped_item(inventory : InventoryData, slot_index : int):
-	if inventory.slots_data[slot_index] != null:
-		if item_data == inventory.slots_data[slot_index].item:
-			remove_item()
-		else:
-			initialize(inventory.slots_data[slot_index])
-	else:
-		if item_data: 
-			remove_item()

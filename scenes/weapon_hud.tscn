@@ -3,13 +3,8 @@
 [ext_resource type="Script" path="res://scripts/weapon/weapon_hud.gd" id="1_c1dub"]
 
 [node name="WeaponHud" type="VBoxContainer"]
-visible = false
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -77.0
 offset_right = 137.0
-grow_vertical = 0
+offset_bottom = 50.0
 alignment = 1
 script = ExtResource("1_c1dub")
 

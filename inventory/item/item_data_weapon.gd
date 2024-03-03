@@ -19,3 +19,5 @@ class_name ItemDataWeapon
 
 @export var fire_mode_auto : bool
 
+@export var sight_mesh : Mesh
+

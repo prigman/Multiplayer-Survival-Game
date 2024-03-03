@@ -38,7 +38,6 @@ func _set_quick_slot_data(inventory_data : InventoryData):
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
 	player_quick_slot._set_inventory_data(inventory_data)
 	quick_slots_data = inventory_data.slots_data
-	print("quick_slots_amount: " + str(quick_slots_data))
 
 func _set_external_inventory(inventory_owner):
 	external_inventory_owner = inventory_owner
@@ -59,20 +58,20 @@ func _on_inventory_interact(inventory_data : InventoryData, index : int, button 
 	#print("START %s %s %s" % [inventory_data, index, button])
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]:
+			#if inventory_data.slots_data[index] != null:
+				#if item.equiped_slot:
+					#item.remove_item()
 			if inv_item_info_panel.visible:
 				inv_item_info_panel.hide()
-			if item.equiped_slot == inventory_data.slots_data[index]:
-				item.remove_item()
 			grabbed_slot_data = inventory_data._grab_slot_data(index)
 		[_, MOUSE_BUTTON_LEFT]:
-			if item.equiped_slot == inventory_data.slots_data[index]:
-				item.initialize(grabbed_slot_data)
+			#if inventory_data.slots_data[index] == item.equiped_slot:
+				#item.initialize(grabbed_slot_data)
 			grabbed_slot_data = inventory_data._drop_slot_data(grabbed_slot_data, index)
 		[null, MOUSE_BUTTON_RIGHT]:
 			if inv_item_info_panel.visible:
 				inv_item_info_panel.hide()
-			else:
-				if inventory_data.slots_data[index] != null:
+			elif inventory_data.slots_data[index] != null:
 					inv_item_info_panel.show()
 					inv_item_info_panel.global_position = get_global_mouse_position() + Vector2(5,-170) 
 					signal_item_info_panel_set_data.emit(inventory_data.slots_data[index].item)
@@ -80,7 +79,30 @@ func _on_inventory_interact(inventory_data : InventoryData, index : int, button 
 					panel_inventory_data = inventory_data
 		[_, MOUSE_BUTTON_RIGHT]:
 			grabbed_slot_data = inventory_data._drop_single_slot_data(grabbed_slot_data, index)
+	if item.equiped_slot and item.equiped_slot == grabbed_slot_data:
+		swap_items(inventory_data, item.equiped_slot, index)
 	_update_grabbed_slot()
+
+func swap_items(inventory_data : InventoryData, equiped_item : InSlotData, index : int):
+	var slot = inventory_data.slots_data[index]
+	for i in index+1:
+		match[slot, equiped_item, index]:
+			[null, null, i], [null, _, i]:
+				print("Item removed")
+				item.remove_item()
+				break
+			[_, null, i]:
+				print("Item equiped %s" % slot.item.name)
+				item.initialize(slot)
+				break
+			[_,_, i]:
+				if item.equiped_slot != slot:
+					print("Item changed to %s" % slot.item.name)
+					item.initialize(slot)
+				else:
+					print("Item removed")
+					item.remove_item()
+				break
 
 func _update_grabbed_slot():
 	if grabbed_slot_data:
@@ -96,6 +118,8 @@ func _on_visibility_changed():
 		_update_grabbed_slot()
 
 func _on_item_drop_button_pressed():
+	if item.equiped_slot == panel_inventory_data.slots_data[panel_index_data]:
+		item.remove_item()
 	signal_drop_item.emit(panel_inventory_data.slots_data[panel_index_data])
 	panel_inventory_data._grab_slot_data(panel_index_data)
 	inv_item_info_panel.hide()

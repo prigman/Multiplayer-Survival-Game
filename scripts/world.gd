@@ -28,6 +28,8 @@ func _toggle_inventory_interface(external_inventory_owner = null):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		player.inv_opened = true
 	else:
+		if player.inventory_interface.inv_item_info_panel.visible:
+			player.inventory_interface.inv_item_info_panel.hide()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		player.inv_opened = false
 	if external_inventory_owner and player.inventory_interface.visible:
