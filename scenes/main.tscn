@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=33 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
@@ -7,8 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/chest_staticbody.tscn" id="8_upg36"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="9_56to4"]
 [ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="10_dadr8"]
+[ext_resource type="Texture2D" uid="uid://cqv4kimc2fdjk" path="res://icons/canned food.png" id="10_jj51v"]
+[ext_resource type="ArrayMesh" uid="uid://cfi27t8ieg6hs" path="res://models/canned-food.res" id="11_8paed"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
 [ext_resource type="PackedScene" uid="uid://bs0te4ilgfkpw" path="res://scenes/interactable/pickup/canned-food_rigidbody.tscn" id="12_k0p58"]
+[ext_resource type="Script" path="res://inventory/item/item_data_consumable.gd" id="12_kfiod"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0j0wh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -39,6 +42,174 @@ amount_in_slot = 1
 script = ExtResource("9_56to4")
 slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_o1761"), null, null, null, null, null, null, null, SubResource("Resource_4ueux"), null])
 
+[sub_resource type="Resource" id="Resource_t02ox"]
+script = ExtResource("12_kfiod")
+hunger_value = 15
+item_type = 1
+name = "Canned food"
+description = "Canned food"
+description_item_panel = "Canned food"
+stackable = false
+max_stack = 0
+quality = 73.0
+icon = ExtResource("10_jj51v")
+mesh = ExtResource("11_8paed")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn"
+}
+position = Vector3(0.335, -0.535, -0.535)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(2.5, 2.5, 2.5)
+
+[sub_resource type="Resource" id="Resource_evqbs"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_t02ox")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_l52jc"]
+script = ExtResource("12_kfiod")
+hunger_value = 15
+item_type = 1
+name = "Canned food"
+description = "Canned food"
+description_item_panel = "Canned food"
+stackable = false
+max_stack = 0
+quality = 32.0
+icon = ExtResource("10_jj51v")
+mesh = ExtResource("11_8paed")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn"
+}
+position = Vector3(0.335, -0.535, -0.535)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(2.5, 2.5, 2.5)
+
+[sub_resource type="Resource" id="Resource_lk07i"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_l52jc")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_w86o7"]
+script = ExtResource("12_kfiod")
+hunger_value = 15
+item_type = 1
+name = "Canned food"
+description = "Canned food"
+description_item_panel = "Canned food"
+stackable = false
+max_stack = 0
+quality = 89.0
+icon = ExtResource("10_jj51v")
+mesh = ExtResource("11_8paed")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn"
+}
+position = Vector3(0.335, -0.535, -0.535)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(2.5, 2.5, 2.5)
+
+[sub_resource type="Resource" id="Resource_8og8g"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_w86o7")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_pfmd6"]
+script = ExtResource("12_kfiod")
+hunger_value = 15
+item_type = 1
+name = "Canned food"
+description = "Canned food"
+description_item_panel = "Canned food"
+stackable = false
+max_stack = 0
+quality = 21.0
+icon = ExtResource("10_jj51v")
+mesh = ExtResource("11_8paed")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn"
+}
+position = Vector3(0.335, -0.535, -0.535)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(2.5, 2.5, 2.5)
+
+[sub_resource type="Resource" id="Resource_14ox1"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_pfmd6")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_c3nxx"]
+script = ExtResource("12_kfiod")
+hunger_value = 15
+item_type = 1
+name = "Canned food"
+description = "Canned food"
+description_item_panel = "Canned food"
+stackable = false
+max_stack = 0
+quality = 11.0
+icon = ExtResource("10_jj51v")
+mesh = ExtResource("11_8paed")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn"
+}
+position = Vector3(0.335, -0.535, -0.535)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(2.5, 2.5, 2.5)
+
+[sub_resource type="Resource" id="Resource_hl1gh"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_c3nxx")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_al7fu"]
+script = ExtResource("12_kfiod")
+hunger_value = 15
+item_type = 1
+name = "Canned food"
+description = "Canned food"
+description_item_panel = "Canned food"
+stackable = false
+max_stack = 0
+quality = 67.0
+icon = ExtResource("10_jj51v")
+mesh = ExtResource("11_8paed")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn"
+}
+position = Vector3(0.335, -0.535, -0.535)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(2.5, 2.5, 2.5)
+
+[sub_resource type="Resource" id="Resource_jl1ke"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_al7fu")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_se2j5"]
+script = ExtResource("12_kfiod")
+hunger_value = 15
+item_type = 1
+name = "Canned food"
+description = "Canned food"
+description_item_panel = "Canned food"
+stackable = false
+max_stack = 0
+quality = 45.0
+icon = ExtResource("10_jj51v")
+mesh = ExtResource("11_8paed")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/canned-food_rigidbody.tscn"
+}
+position = Vector3(0.335, -0.535, -0.535)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(2.5, 2.5, 2.5)
+
+[sub_resource type="Resource" id="Resource_5pi1d"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_se2j5")
+amount_in_slot = 1
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_7fa2s")
 
@@ -61,21 +232,28 @@ inventory_data = SubResource("Resource_7gatj")
 
 [node name="Canned-food" parent="." instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39825, 0.319719, -0.331761)
+slot_data = SubResource("Resource_evqbs")
 
 [node name="Canned-food2" parent="." instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39825, 0.319719, 0.214459)
+slot_data = SubResource("Resource_lk07i")
 
 [node name="Canned-food3" parent="." instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39825, 1.11009, -0.159173)
+slot_data = SubResource("Resource_8og8g")
 
 [node name="Canned-food4" parent="." instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08488, 1.11009, -0.159173)
+slot_data = SubResource("Resource_14ox1")
 
 [node name="Canned-food5" parent="." instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08488, 1.11009, 0.641108)
+slot_data = SubResource("Resource_hl1gh")
 
 [node name="Canned-food6" parent="." instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3692, 1.11009, 0.641108)
+slot_data = SubResource("Resource_jl1ke")
 
 [node name="Canned-food7" parent="." instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80195, 1.11009, 1.03357)
+slot_data = SubResource("Resource_5pi1d")

@@ -10,7 +10,10 @@ func physics_update(delta):
 	if player.is_on_floor():
 		if Input.is_action_pressed("left_ctrl"):
 			transition.emit("Crouch")
-		if player.velocity.length() > 0:
+		if player.velocity.length() > 0.0:
 			transition.emit("Walking")
 		if Input.is_action_just_pressed("space"):
 			transition.emit("Jump")
+	else:
+		if player.velocity.y < -3.0:
+			transition.emit("Falling")

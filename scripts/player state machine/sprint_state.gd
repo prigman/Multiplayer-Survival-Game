@@ -9,6 +9,10 @@ func physics_update(delta):
 	player.update_velocity()
 	if Input.is_action_just_released("shift"):
 		transition.emit("Walking")
-	if Input.is_action_just_pressed("space") and player.is_on_floor():
-		transition.emit("Jump")
+	if player.is_on_floor():
+		if Input.is_action_just_pressed("space"):
+			transition.emit("Jump")
+	else:
+		if player.velocity.y < -3.0:
+			transition.emit("Falling")
 	

@@ -58,15 +58,10 @@ func _on_inventory_interact(inventory_data : InventoryData, index : int, button 
 	#print("START %s %s %s" % [inventory_data, index, button])
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]:
-			#if inventory_data.slots_data[index] != null:
-				#if item.equiped_slot:
-					#item.remove_item()
 			if inv_item_info_panel.visible:
 				inv_item_info_panel.hide()
 			grabbed_slot_data = inventory_data._grab_slot_data(index)
 		[_, MOUSE_BUTTON_LEFT]:
-			#if inventory_data.slots_data[index] == item.equiped_slot:
-				#item.initialize(grabbed_slot_data)
 			grabbed_slot_data = inventory_data._drop_slot_data(grabbed_slot_data, index)
 		[null, MOUSE_BUTTON_RIGHT]:
 			if inv_item_info_panel.visible:
@@ -79,9 +74,9 @@ func _on_inventory_interact(inventory_data : InventoryData, index : int, button 
 					panel_inventory_data = inventory_data
 		[_, MOUSE_BUTTON_RIGHT]:
 			grabbed_slot_data = inventory_data._drop_single_slot_data(grabbed_slot_data, index)
+	_update_grabbed_slot()
 	if item.equiped_slot and item.equiped_slot == grabbed_slot_data:
 		swap_items(inventory_data, item.equiped_slot, index)
-	_update_grabbed_slot()
 
 func swap_items(inventory_data : InventoryData, equiped_item : InSlotData, index : int):
 	var slot = inventory_data.slots_data[index]

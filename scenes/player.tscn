@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=38 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
 [ext_resource type="PackedScene" uid="uid://c0vow3q82yehc" path="res://scenes/weapon_hud.tscn" id="12_2ffht"]
 [ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="13_6ejrl"]
+[ext_resource type="Script" path="res://scripts/player state machine/falling_state.gd" id="21_h51by"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
 
@@ -236,6 +237,9 @@ _data = {
 "RESET": SubResource("Animation_hvc3l")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3tcom"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.796078)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfy83"]
 bg_color = Color(0, 0.611765, 0.286275, 1)
 corner_radius_top_left = 1
@@ -245,7 +249,7 @@ corner_radius_bottom_left = 1
 anti_aliasing_size = 0.979
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27v0r"]
-bg_color = Color(0.235294, 0.235294, 0.235294, 0.490196)
+bg_color = Color(0.435294, 0.435294, 0.435294, 0.490196)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -446,6 +450,7 @@ script = ExtResource("9_sd5qi")
 
 [node name="PlayerInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.509804)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -465,6 +470,7 @@ size_flags_stretch_ratio = 10.0
 [node name="ExternalInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 visible = false
+self_modulate = Color(1, 1, 1, 0.509804)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -501,6 +507,7 @@ theme_override_constants/margin_bottom = 35
 
 [node name="PlayerQuickSlot" parent="Interface/Control/MarginContainer2" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -522,6 +529,7 @@ layout_mode = 0
 offset_right = 400.0
 offset_bottom = 170.0
 size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3tcom")
 script = ExtResource("10_pwj6i")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel"]
@@ -537,6 +545,7 @@ theme_override_constants/separation = 10
 alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.0
@@ -626,26 +635,38 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 7
+text = "Accessories"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 alignment = 1
 
-[node name="Slot" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot2" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot2" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot3" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot3" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot4" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot4" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
@@ -781,6 +802,9 @@ script = ExtResource("10_0am0j")
 
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("11_juquo")
+
+[node name="Falling" type="Node" parent="StateMachine"]
+script = ExtResource("21_h51by")
 
 [connection signal="signal_update_player_health" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_health"]
 [connection signal="signal_update_player_hunger" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_hunger"]

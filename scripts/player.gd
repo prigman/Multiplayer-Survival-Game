@@ -11,8 +11,6 @@ var input_dir = Vector2.ZERO
 var direction = Vector3.ZERO
 var gravity = 12.0
 
-var inv_opened : bool = false
-
 var hunger_value : float = 100.0
 var health_value : float = 100.0
 
@@ -37,7 +35,6 @@ var health_value : float = 100.0
 @onready var inventory_interface = %InventoryInterface
 @onready var item = %Item
 
-#@onready var weapons_manager = $CameraHolder/ArmsHolder/weapons_manager
 @onready var player_stats = %PlayerStats
 
 var def_weapon_holder_pos : Vector3
@@ -59,7 +56,7 @@ func _process(_delta):
 		weapon_bob(velocity.length(), _delta)
 		
 func _input(event):
-	if event is InputEventMouseMotion and !inv_opened:
+	if event is InputEventMouseMotion and !inventory_interface.visible:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
 		camera_holder.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad(-85), deg_to_rad(85))

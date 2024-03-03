@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=9 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=16 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
 [ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="2_ria7t"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_86rtt"]
 [ext_resource type="Resource" uid="uid://d05wvcamae4du" path="res://inventory/item/objects/canned-food.tres" id="4_clke4"]
-[ext_resource type="Resource" uid="uid://dueasdbvrpec2" path="res://inventory/item/objects/assault-rifle.tres" id="5_bmjn7"]
+[ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="6_y5mke"]
+[ext_resource type="ArrayMesh" uid="uid://cl73ro1sfy3jp" path="res://models/ar/ar_body.res" id="7_qc2ki"]
+[ext_resource type="Curve" uid="uid://qqbxi78mc5s2" path="res://scripts/weapon/new_curve.tres" id="8_1t00s"]
+[ext_resource type="Script" path="res://inventory/item/item_data_weapon.gd" id="9_ae3i4"]
+[ext_resource type="ArrayMesh" uid="uid://cghrb8l1uuxk5" path="res://models/ar/ar_holo.res" id="10_0rs4u"]
 
 [sub_resource type="Resource" id="Resource_nj1ga"]
 script = ExtResource("3_86rtt")
@@ -16,11 +20,105 @@ script = ExtResource("3_86rtt")
 item = ExtResource("4_clke4")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_7j2a6"]
+script = ExtResource("9_ae3i4")
+item_type = 0
+weapon_name = "AssaultRifle"
+anim_activate = "Assault Rifle Activate"
+anim_shoot = "Assault Rifle Shoot"
+anim_scope = "Assault Rifle Scope"
+anim_reload = "Assault Rifle Reload"
+anim_deactivate = "Assault Rifle Deactivate"
+anim_out_of_ammo = "Assault Rifle out of ammo"
+ammo_current = 20
+ammo_reserve = 20
+ammo_max = 20
+magazine = 20
+damage = 999.99
+fire_mode_auto = true
+recoil_rotation_x = ExtResource("8_1t00s")
+recoil_rotation_z = ExtResource("8_1t00s")
+recoil_position_z = ExtResource("8_1t00s")
+recoil_amplitude = Vector3(0.3, 0.4, 0.15)
+lerp_speed = 3.0
+recoil_speed = 1.04
+sight_mesh = ExtResource("10_0rs4u")
+name = "Assault Rifle"
+description = "Automatic rifle"
+description_item_panel = "The handy short automatic rifle with supressor and sight.
+
+Ammo type: 5.45 mm
+Damage head: 60 hp
+Damage body: 25 hp
+Damage arms: 15 hp
+Damage legs: 15 hps
+Shoot types: auto, single, burst"
+stackable = false
+max_stack = 0
+quality = 78.0
+icon = ExtResource("6_y5mke")
+mesh = ExtResource("7_qc2ki")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/ar_rigidbody.tscn"
+}
+position = Vector3(0.23, -0.355, -0.34)
+rotation = Vector3(0, 90, 0)
+scale = Vector3(0.4, 0.4, 0.4)
+
 [sub_resource type="Resource" id="Resource_pqnsw"]
 script = ExtResource("3_86rtt")
-item = ExtResource("5_bmjn7")
+item = SubResource("Resource_7j2a6")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_5frg4"]
+script = ExtResource("9_ae3i4")
+item_type = 0
+weapon_name = "AssaultRifle"
+anim_activate = "Assault Rifle Activate"
+anim_shoot = "Assault Rifle Shoot"
+anim_scope = "Assault Rifle Scope"
+anim_reload = "Assault Rifle Reload"
+anim_deactivate = "Assault Rifle Deactivate"
+anim_out_of_ammo = "Assault Rifle out of ammo"
+ammo_current = 20
+ammo_reserve = 20
+ammo_max = 20
+magazine = 20
+damage = 999.99
+fire_mode_auto = true
+recoil_rotation_x = ExtResource("8_1t00s")
+recoil_rotation_z = ExtResource("8_1t00s")
+recoil_position_z = ExtResource("8_1t00s")
+recoil_amplitude = Vector3(0.3, 0.4, 0.15)
+lerp_speed = 3.0
+recoil_speed = 1.04
+name = "Assault Rifle"
+description = "Automatic rifle"
+description_item_panel = "The handy short automatic rifle with supressor and sight.
+
+Ammo type: 5.45 mm
+Damage head: 60 hp
+Damage body: 25 hp
+Damage arms: 15 hp
+Damage legs: 15 hps
+Shoot types: auto, single, burst"
+stackable = false
+max_stack = 0
+quality = 42.0
+icon = ExtResource("6_y5mke")
+mesh = ExtResource("7_qc2ki")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/ar_rigidbody.tscn"
+}
+position = Vector3(0.23, -0.355, -0.34)
+rotation = Vector3(0, 90, 0)
+scale = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="Resource" id="Resource_eintk"]
+script = ExtResource("3_86rtt")
+item = SubResource("Resource_5frg4")
 amount_in_slot = 1
 
 [resource]
 script = ExtResource("1_ab8t5")
-slots_data = Array[ExtResource("3_86rtt")]([SubResource("Resource_nj1ga"), SubResource("Resource_s5wuh"), SubResource("Resource_pqnsw"), null, null, null])
+slots_data = Array[ExtResource("3_86rtt")]([SubResource("Resource_nj1ga"), SubResource("Resource_s5wuh"), SubResource("Resource_pqnsw"), SubResource("Resource_eintk"), null, null])

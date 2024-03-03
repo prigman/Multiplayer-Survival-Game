@@ -19,6 +19,7 @@ corner_radius_bottom_left = 1
 anti_aliasing_size = 0.979
 
 [node name="PlayerStats" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0.211765)
 offset_right = 250.0
 offset_bottom = 80.0
 script = ExtResource("1_xpt2x")
