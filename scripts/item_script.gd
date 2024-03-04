@@ -7,8 +7,6 @@ signal Update_Weapon_Stack(stack)
 @onready var item_mesh: MeshInstance3D = %ItemMesh # MeshInstance нода айтема куда назначается меш из переменной mesh в ItemData
 @onready var weapon_sight_mesh: MeshInstance3D = %WeaponSight # дубликат предыдущей ноды, но с иной позицией, сюда назначается меш прицела из ItemDataWeapon
 
-@onready var player = $"../../.."
-
 @export var animator: AnimationPlayer
 @export var weapon_hud: VBoxContainer
 @export var reticle: CenterContainer # перекрестие и точка
@@ -29,40 +27,54 @@ var target_pos: Vector3
 var current_time: float
 
 func _physics_process(delta):
-		if Input.is_action_pressed("right_click"):
-			if !player.inventory_interface.visible: # проверка если закрыт инвентарь
-				if equiped_item:
-					if equiped_item.item_type == equiped_item.ItemType.weapon:
-						if state_machine.is_current_state("Sprint") == false:
-							if !Scoped:
-								Assault_Rifle_Scope()
-								reticle.hide()
-		if (Input.is_action_just_pressed("fire")):
-			if !player.inventory_interface.visible: # проверка если закрыт инвентарь
-				if equiped_item:
-					if equiped_item.item_type == equiped_item.ItemType.weapon:
-						if state_machine.is_current_state("Sprint") == false:
-							apply_recoil()
-							if current_time < 1:
-								shoot(delta)
-		if Scoped:
-			if player.inventory_interface.visible or state_machine.is_current_state("Sprint"):
-				reticle.show()
-				Assault_Rifle_Scope()
+	if Input.is_action_pressed("right_click"):
+		if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
+			if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
+				if state_machine.is_current_state("Sprint") == false:
+					if !Scoped:
+						Assault_Rifle_Scope()
+						reticle.hide()
+	if Input.is_action_just_pressed("fire"):
+		if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
+			if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
+				if state_machine.is_current_state("Sprint") == false:
+					apply_recoil()
+					if current_time < 1:
+						shoot(delta)
+	if Scoped:
+		if Global.check_is_inventory_open() == true or state_machine.is_current_state("Sprint"):
+			reticle.show()
+			Assault_Rifle_Scope()
 
 func _unhandled_input(event):
-	if !player.inventory_interface.visible: # проверка если закрыт инвентарь
-		if equiped_item:
-			if equiped_item.item_type == equiped_item.ItemType.weapon:
-				if event is InputEventKey:
-					if event.keycode == KEY_0 and event.is_pressed(): # На кнопку 0 можно переключать меш прицела, если он выставлен в ItemDataWeapon для оружия
-						toggle_holo_sight()
-				if (Input.is_action_just_pressed("reload")):
-					reload()
-				if Input.is_action_just_released("right_click"):
-					if Scoped:
-						Assault_Rifle_Scope()
-						reticle.show()
+	if event is InputEventKey and event.pressed:
+		if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
+			match event.keycode:
+				KEY_1:
+					swap_items(Global.global_player_quick_slot, equiped_slot, 0)
+				KEY_2:
+					swap_items(Global.global_player_quick_slot, equiped_slot, 1)
+				KEY_3:
+					swap_items(Global.global_player_quick_slot, equiped_slot, 2)
+				KEY_4:
+					swap_items(Global.global_player_quick_slot, equiped_slot, 3)
+				KEY_5:
+					swap_items(Global.global_player_quick_slo, equiped_slot, 4)
+				KEY_6:
+					swap_items(Global.global_player_quick_slot, equiped_slot, 5)
+				KEY_0:
+					if _equiped_item_type(equiped_item.ItemType.weapon):
+						toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
+	if Input.is_action_just_pressed("reload"):
+		if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
+			if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
+				reload()
+	if Input.is_action_just_released("right_click"):
+		if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
+			if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
+				if Scoped:
+					Assault_Rifle_Scope()
+					reticle.show()
 
 func initialize(item_slot: InSlotData): # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
 	if item_slot != null:
@@ -77,7 +89,7 @@ func initialize(item_slot: InSlotData): # создаем либо свапаем
 			Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
 			current_time = 1
 			update_pos()
-			set_holo_sight() # удаляется или создаётся меш прицела если он выставлен в ItemDataWeapon для оружия
+			set_holo_sight() # удаляется или создаётся меш прицела если его меш выставлен в ItemDataWeapon для оружия
 		else:
 			clear_weapon_attachments() # убираем перекрестие, очищаем меш прицела если он не null
 
@@ -169,12 +181,10 @@ func swap_items(inventory_data : InventoryData, item : InSlotData, index : int):
 			[null, null, i], [null, _, i]:
 				print("Item removed")
 				remove_item()
-				#signal_update_slot_icon.emit(index, false)
 				break
 			[_, null, i]:
 				print("Item equiped %s" % slot_data.item.name)
 				initialize(slot_data)
-				#signal_update_slot_icon.emit(index, true)
 				break
 			[_,_, i]:
 				if equiped_slot != slot_data:
@@ -184,3 +194,13 @@ func swap_items(inventory_data : InventoryData, item : InSlotData, index : int):
 					print("Item removed")
 					remove_item()
 				break
+
+func _equiped_item_type(equiped_item_type : int) -> bool:
+	if equiped_item:
+		match equiped_item.item_type:
+			equiped_item_type:
+				return true
+			_:
+				return false
+	else:
+		return false

@@ -42,6 +42,7 @@ var mouse_input : Vector2
 
 func _ready():
 	Global.global_player = self
+	Global.global_player_quick_slot = player_quick_slot
 	camera_holder_position = camera_holder.position.y
 	def_weapon_holder_pos = weapon_holder.position
 	spherecast.add_exception($".")
@@ -67,21 +68,6 @@ func _unhandled_input(event):
 		signal_toggle_inventory.emit()
 	if event.is_action_pressed("interact"):
 		interact()
-	if event is InputEventKey and event.pressed:
-		match event.keycode:
-			KEY_1:
-				item.swap_items(player_quick_slot, item.equiped_slot, 0)
-			KEY_2:
-				item.swap_items(player_quick_slot, item.equiped_slot, 1)
-			KEY_3:
-				item.swap_items(player_quick_slot, item.equiped_slot, 2)
-			KEY_4:
-				item.swap_items(player_quick_slot, item.equiped_slot, 3)
-			KEY_5:
-				item.swap_items(player_quick_slot, item.equiped_slot, 4)
-			KEY_6:
-				item.swap_items(player_quick_slot, item.equiped_slot, 5)
-
 
 ### Player states
 
