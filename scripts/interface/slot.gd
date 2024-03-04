@@ -1,11 +1,12 @@
 extends PanelContainer
 class_name Slot
+
 signal signal_slot_clicked(index : int, button : int)
 
-var mouse_button_hold : bool
 @onready var texture_rect = $MarginContainer/TextureRect
 @onready var amount_text = $"Quantity label"
 @onready var panel_container = $PanelContainer
+@onready var slot_number = $MarginContainer2/SlotNumber
 
 func _set_slot_data(slot_info: InSlotData):
 	texture_rect.texture = slot_info.item.icon

@@ -22,4 +22,5 @@ amount_in_slot = 10
 
 [resource]
 script = ExtResource("1_n2del")
+type = 0
 slots_data = Array[ExtResource("3_cayhr")]([null, null, SubResource("Resource_xkpv3"), null, SubResource("Resource_umlj8"), null, null, SubResource("Resource_qs1xa"), null, null, null, null, null, null, null, null, null, null])

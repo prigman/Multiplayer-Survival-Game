@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=35 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
 [ext_resource type="PackedScene" uid="uid://bs0te4ilgfkpw" path="res://scenes/interactable/pickup/canned-food_rigidbody.tscn" id="12_k0p58"]
 [ext_resource type="Script" path="res://inventory/item/item_data_consumable.gd" id="12_kfiod"]
+[ext_resource type="PackedScene" uid="uid://bwwhsm0q1fnnj" path="res://scenes/interactable/pickup/resource_wood_rb.tscn" id="13_77uqr"]
+[ext_resource type="PackedScene" uid="uid://cnw83bbj2p7xk" path="res://scenes/interactable/pickup/stone_resource_rb.tscn" id="14_hv0t3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0j0wh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -40,6 +42,7 @@ amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_7gatj"]
 script = ExtResource("9_56to4")
+type = 2
 slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_o1761"), null, null, null, null, null, null, null, SubResource("Resource_4ueux"), null])
 
 [sub_resource type="Resource" id="Resource_t02ox"]
@@ -225,35 +228,65 @@ environment = SubResource("Environment_o00h3")
 [node name="Player" parent="." instance=ExtResource("2_4vywr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.79055, -4.76837e-07, -0.879194)
 
-[node name="Node3D" parent="." instance=ExtResource("5_xsqmg")]
+[node name="zone" parent="." instance=ExtResource("5_xsqmg")]
 
 [node name="Chest" parent="." groups=["external_inventory"] instance=ExtResource("8_upg36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.30298, 0, 0)
 inventory_data = SubResource("Resource_7gatj")
 
-[node name="Canned-food" parent="." instance=ExtResource("12_k0p58")]
+[node name="items_rb" type="Node3D" parent="."]
+
+[node name="Canned-food" parent="items_rb" instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39825, 0.319719, -0.331761)
 slot_data = SubResource("Resource_evqbs")
 
-[node name="Canned-food2" parent="." instance=ExtResource("12_k0p58")]
+[node name="Canned-food2" parent="items_rb" instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39825, 0.319719, 0.214459)
 slot_data = SubResource("Resource_lk07i")
 
-[node name="Canned-food3" parent="." instance=ExtResource("12_k0p58")]
+[node name="Canned-food3" parent="items_rb" instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39825, 1.11009, -0.159173)
 slot_data = SubResource("Resource_8og8g")
 
-[node name="Canned-food4" parent="." instance=ExtResource("12_k0p58")]
+[node name="Canned-food4" parent="items_rb" instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08488, 1.11009, -0.159173)
 slot_data = SubResource("Resource_14ox1")
 
-[node name="Canned-food5" parent="." instance=ExtResource("12_k0p58")]
+[node name="Canned-food5" parent="items_rb" instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08488, 1.11009, 0.641108)
 slot_data = SubResource("Resource_hl1gh")
 
-[node name="Canned-food6" parent="." instance=ExtResource("12_k0p58")]
+[node name="Canned-food6" parent="items_rb" instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3692, 1.11009, 0.641108)
 slot_data = SubResource("Resource_jl1ke")
 
-[node name="Canned-food7" parent="." instance=ExtResource("12_k0p58")]
+[node name="Canned-food7" parent="items_rb" instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80195, 1.11009, 1.03357)
 slot_data = SubResource("Resource_5pi1d")
+
+[node name="Wood resource" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(0.999892, 0, 0.0146951, 0, 1, 0, -0.0146951, 0, 0.999892, -1.00757, 0.237928, -1.26865)
+
+[node name="Wood resource2" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.294037, 0.237928, -0.988774)
+
+[node name="Wood resource3" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.61475, 0.557525, -2.13862)
+
+[node name="Wood resource4" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.279547, 0.237928, -2.07818)
+
+[node name="Stone resource" parent="items_rb" instance=ExtResource("14_hv0t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.824768, 0.447675, -1.94636)
+
+[node name="Stone resource2" parent="items_rb" instance=ExtResource("14_hv0t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48459, 0.447675, -0.920567)
+
+[node name="Stone resource3" parent="items_rb" instance=ExtResource("14_hv0t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19232, 0.447675, -0.483211)
+
+[node name="Stone resource4" parent="items_rb" instance=ExtResource("14_hv0t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35985, 0.447675, -1.46761)
+
+[node name="Stone resource5" parent="items_rb" instance=ExtResource("14_hv0t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144768, 0.447675, -2.89266)

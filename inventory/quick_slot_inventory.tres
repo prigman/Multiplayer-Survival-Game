@@ -121,4 +121,5 @@ amount_in_slot = 1
 
 [resource]
 script = ExtResource("1_ab8t5")
+type = 1
 slots_data = Array[ExtResource("3_86rtt")]([SubResource("Resource_nj1ga"), SubResource("Resource_s5wuh"), SubResource("Resource_pqnsw"), SubResource("Resource_eintk"), null, null])

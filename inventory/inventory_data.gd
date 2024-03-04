@@ -1,9 +1,17 @@
 extends Resource
 class_name InventoryData
 
+enum InventoryType
+{
+	player_inventory,
+	quick_slot,
+	external_inventory
+}
+
 signal signal_inventory_interact(inventory_data : InventoryData, index : int, button : int)
 signal signal_inventory_update(inventory_data : InventoryData)
 
+@export var type : InventoryType
 @export var slots_data: Array[InSlotData]
 
 func _grab_slot_data(index : int) -> InSlotData:

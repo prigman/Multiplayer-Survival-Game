@@ -4,7 +4,8 @@ class_name ItemData
 enum ItemType {
 	weapon = 0,
 	consumable = 1,
-	other = 2
+	other = 2,
+	resource = 3
 }
 
 @export var name : String

@@ -70,17 +70,17 @@ func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
 		match event.keycode:
 			KEY_1:
-				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 0)
+				item.swap_items(player_quick_slot, item.equiped_slot, 0)
 			KEY_2:
-				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 1)
+				item.swap_items(player_quick_slot, item.equiped_slot, 1)
 			KEY_3:
-				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 2)
+				item.swap_items(player_quick_slot, item.equiped_slot, 2)
 			KEY_4:
-				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 3)
+				item.swap_items(player_quick_slot, item.equiped_slot, 3)
 			KEY_5:
-				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 4)
+				item.swap_items(player_quick_slot, item.equiped_slot, 4)
 			KEY_6:
-				inventory_interface.swap_items(player_quick_slot, item.equiped_slot, 5)
+				item.swap_items(player_quick_slot, item.equiped_slot, 5)
 
 
 ### Player states

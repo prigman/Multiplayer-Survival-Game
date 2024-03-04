@@ -7,6 +7,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cghrb8l1uuxk5" path="res://models/ar/ar_holo.res" id="4_jua7y"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_nm73g")
 item_type = 0
 weapon_name = "AssaultRifle"

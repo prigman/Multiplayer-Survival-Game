@@ -161,3 +161,26 @@ func clear_weapon_attachments():
 func update_weapon_ammo(value : int):
 	equiped_item.ammo_current += value
 	Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
+	
+func swap_items(inventory_data : InventoryData, item : InSlotData, index : int):
+	var slot_data = inventory_data.slots_data[index]
+	for i in index+1:
+		match[slot_data, item, index]:
+			[null, null, i], [null, _, i]:
+				print("Item removed")
+				remove_item()
+				#signal_update_slot_icon.emit(index, false)
+				break
+			[_, null, i]:
+				print("Item equiped %s" % slot_data.item.name)
+				initialize(slot_data)
+				#signal_update_slot_icon.emit(index, true)
+				break
+			[_,_, i]:
+				if equiped_slot != slot_data:
+					print("Item changed to %s" % slot_data.item.name)
+					initialize(slot_data)
+				else:
+					print("Item removed")
+					remove_item()
+				break

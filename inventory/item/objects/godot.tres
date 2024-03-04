@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://inventory/item/item_data_other.gd" id="1_wob3u"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_wob3u")
 item_type = 2
 name = "Godot"

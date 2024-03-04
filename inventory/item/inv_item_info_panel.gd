@@ -13,9 +13,9 @@ extends PanelContainer
 
 func _on_inventory_interface_signal_item_info_panel_set_data(item_data : ItemData):
 	item_icon.texture = item_data.icon
-	item_health.value = item_data.quality
 	item_name.text = item_data.name
 	item_description.text = item_data.description_item_panel
+	item_health.value = item_data.quality
 	if item_data.item_type == item_data.ItemType.weapon:
 		ammo_count.text = "%s" % item_data.ammo_current
 		if !ammo_count_panel.visible:
@@ -35,3 +35,13 @@ func _on_inventory_interface_signal_item_info_panel_set_data(item_data : ItemDat
 			item_use_button.show()
 		if weapon_unload_button.visible:
 			weapon_unload_button.hide()
+		if item_data.item_type == item_data.ItemType.resource:
+			if item_health.visible:
+				item_health.hide()
+			if item_use_button.visible:
+				item_use_button.hide()
+		if item_data.item_type == item_data.ItemType.consumable:
+			if !item_health.visible:
+				item_health.show()
+			if !item_use_button.visible:
+				item_use_button.show()

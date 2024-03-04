@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwwhsm0q1fnnj"]
+
+[ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_eqdxh"]
+[ext_resource type="ArrayMesh" uid="uid://cgt5eylewmdwk" path="res://models/meshes/resourceWood.res" id="1_qs5xh"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_wood.tres" id="2_a6lf5"]
+[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_hk5bo"]
+
+[sub_resource type="Resource" id="Resource_s1gwc"]
+script = ExtResource("3_hk5bo")
+item = ExtResource("2_a6lf5")
+amount_in_slot = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o4p5t"]
+size = Vector3(0.575, 0.203, 0.555)
+
+[node name="Wood resource" type="RigidBody3D"]
+collision_layer = 4
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+lock_rotation = true
+script = ExtResource("1_eqdxh")
+slot_data = SubResource("Resource_s1gwc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = ExtResource("1_qs5xh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0987996, 0)
+shape = SubResource("BoxShape3D_o4p5t")

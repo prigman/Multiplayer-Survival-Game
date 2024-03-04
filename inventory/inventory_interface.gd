@@ -7,7 +7,6 @@ signal signal_item_info_panel_set_data(item_data : ItemData)
 
 var grabbed_slot_data : InSlotData
 var external_inventory_owner
-var quick_slots_data
 
 var panel_index_data
 var panel_inventory_data : InventoryData
@@ -37,7 +36,6 @@ func _set_player_inventory_data(inventory_data : InventoryData):
 func _set_quick_slot_data(inventory_data : InventoryData):
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
 	player_quick_slot._set_inventory_data(inventory_data)
-	quick_slots_data = inventory_data.slots_data
 
 func _set_external_inventory(inventory_owner):
 	external_inventory_owner = inventory_owner
@@ -76,28 +74,7 @@ func _on_inventory_interact(inventory_data : InventoryData, index : int, button 
 			grabbed_slot_data = inventory_data._drop_single_slot_data(grabbed_slot_data, index)
 	_update_grabbed_slot()
 	if item.equiped_slot and item.equiped_slot == grabbed_slot_data:
-		swap_items(inventory_data, item.equiped_slot, index)
-
-func swap_items(inventory_data : InventoryData, equiped_item : InSlotData, index : int):
-	var slot = inventory_data.slots_data[index]
-	for i in index+1:
-		match[slot, equiped_item, index]:
-			[null, null, i], [null, _, i]:
-				print("Item removed")
-				item.remove_item()
-				break
-			[_, null, i]:
-				print("Item equiped %s" % slot.item.name)
-				item.initialize(slot)
-				break
-			[_,_, i]:
-				if item.equiped_slot != slot:
-					print("Item changed to %s" % slot.item.name)
-					item.initialize(slot)
-				else:
-					print("Item removed")
-					item.remove_item()
-				break
+		item.swap_items(inventory_data, item.equiped_slot, index)
 
 func _update_grabbed_slot():
 	if grabbed_slot_data:

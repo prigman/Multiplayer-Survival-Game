@@ -448,7 +448,7 @@ size_flags_stretch_ratio = 15.0
 mouse_filter = 1
 script = ExtResource("9_sd5qi")
 
-[node name="PlayerInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
+[node name="PlayerInventory" parent="Interface/Control/InventoryInterface" node_paths=PackedStringArray("item") instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.509804)
 layout_mode = 1
@@ -466,8 +466,9 @@ grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 size_flags_stretch_ratio = 10.0
+item = NodePath("../../../../CameraHolder/RigHolder/Item")
 
-[node name="ExternalInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
+[node name="ExternalInventory" parent="Interface/Control/InventoryInterface" node_paths=PackedStringArray("item") instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(1, 1, 1, 0.509804)
@@ -486,6 +487,7 @@ grow_vertical = 2
 size_flags_horizontal = 10
 size_flags_vertical = 6
 size_flags_stretch_ratio = 5.0
+item = NodePath("../../../../CameraHolder/RigHolder/Item")
 
 [node name="MarginContainer2" type="MarginContainer" parent="Interface/Control"]
 layout_mode = 1
@@ -561,6 +563,7 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
