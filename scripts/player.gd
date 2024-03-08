@@ -43,6 +43,7 @@ var mouse_input : Vector2
 func _ready():
 	Global.global_player = self
 	Global.global_player_quick_slot = player_quick_slot
+	Global.global_player_inventory = player_inventory
 	camera_holder_position = camera_holder.position.y
 	def_weapon_holder_pos = weapon_holder.position
 	spherecast.add_exception($".")

@@ -1,4 +1,5 @@
 extends Node3D
+class_name ItemScript
 
 signal Weapon_Changed
 signal Update_Ammo
@@ -16,6 +17,7 @@ signal Update_Weapon_Stack(stack)
 
 var equiped_slot: InSlotData = null # слот, который в данный момент выбран
 var equiped_item: ItemData = null # айтем в этом слоте (для удобства, так как айтем можно получить через equiped_slot.item)
+var equiped_slot_index : int # индекс equip слота нужен для переключения активного слота
 
 var Scoped = false
 var toggle_holo = false # переключение прицела
@@ -25,6 +27,9 @@ var def_rot: Vector3
 var target_rot: Vector3
 var target_pos: Vector3
 var current_time: float
+
+func _ready():
+	Global.global_item_script = self
 
 func _physics_process(delta):
 	if Input.is_action_pressed("right_click"):
@@ -51,17 +56,17 @@ func _unhandled_input(event):
 		if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
 			match event.keycode:
 				KEY_1:
-					swap_items(Global.global_player_quick_slot, equiped_slot, 0)
+					swap_items(Global.global_player_quick_slot, 0)
 				KEY_2:
-					swap_items(Global.global_player_quick_slot, equiped_slot, 1)
+					swap_items(Global.global_player_quick_slot, 1)
 				KEY_3:
-					swap_items(Global.global_player_quick_slot, equiped_slot, 2)
+					swap_items(Global.global_player_quick_slot, 2)
 				KEY_4:
-					swap_items(Global.global_player_quick_slot, equiped_slot, 3)
+					swap_items(Global.global_player_quick_slot, 3)
 				KEY_5:
-					swap_items(Global.global_player_quick_slo, equiped_slot, 4)
+					swap_items(Global.global_player_quick_slot, 4)
 				KEY_6:
-					swap_items(Global.global_player_quick_slot, equiped_slot, 5)
+					swap_items(Global.global_player_quick_slot, 5)
 				KEY_0:
 					if _equiped_item_type(equiped_item.ItemType.weapon):
 						toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
@@ -76,10 +81,13 @@ func _unhandled_input(event):
 					Assault_Rifle_Scope()
 					reticle.show()
 
-func initialize(item_slot: InSlotData): # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
+func initialize(item_slot: InSlotData, slot_index : int): # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
 	if item_slot != null:
+		#-назначаем основные переменные этого класса
 		equiped_slot = item_slot
 		equiped_item = equiped_slot.item
+		equiped_slot_index = slot_index
+		#-
 		set_mesh_and_loc() # выставляются данные меша, позиции, размер, поворот этой ноды из класса ItemData
 		if equiped_item.item_type == equiped_item.ItemType.weapon:
 			weapon_hud.show()
@@ -174,22 +182,26 @@ func update_weapon_ammo(value : int):
 	equiped_item.ammo_current += value
 	Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
 	
-func swap_items(inventory_data : InventoryData, item : InSlotData, index : int):
+func swap_items(inventory_data : InventoryData, index : int):
 	var slot_data = inventory_data.slots_data[index]
+	inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot)
 	for i in index+1:
-		match[slot_data, item, index]:
-			[null, null, i], [null, _, i]:
+		match[slot_data, equiped_slot, index]:
+			[null, null, i]:
+				print("Niche nety v rykah i slot pystoi")
+				break 
+			[null, _, i]:
 				print("Item removed")
 				remove_item()
 				break
 			[_, null, i]:
 				print("Item equiped %s" % slot_data.item.name)
-				initialize(slot_data)
+				initialize(slot_data, index)
 				break
 			[_,_, i]:
 				if equiped_slot != slot_data:
 					print("Item changed to %s" % slot_data.item.name)
-					initialize(slot_data)
+					initialize(slot_data, index)
 				else:
 					print("Item removed")
 					remove_item()

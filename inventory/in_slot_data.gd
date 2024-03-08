@@ -4,6 +4,7 @@ class_name InSlotData
 
 @export var item : ItemData
 @export var amount_in_slot : int = 1
+var active_slot_data : bool
 
 func _can_stack_with(other_slot_data : InSlotData) -> bool:
 	return item == other_slot_data.item \

@@ -2,7 +2,6 @@ extends Node
 class_name World
 
 @onready var player = $Player
-#@onready var inventory_interface = $Player/%InventoryInterface
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -27,9 +26,9 @@ func _toggle_inventory_interface(external_inventory_owner = null):
 	if player.inventory_interface.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
-		if player.inventory_interface.inv_item_info_panel.visible:
-			player.inventory_interface.inv_item_info_panel.hide()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if player.inventory_interface.inv_item_info_panel.visible:
+		player.inventory_interface.inv_item_info_panel.hide()
 	if external_inventory_owner and player.inventory_interface.visible:
 		player.inventory_interface._set_external_inventory(external_inventory_owner)
 	else:
@@ -38,6 +37,8 @@ func _toggle_inventory_interface(external_inventory_owner = null):
 func _on_inventory_interface_signal_drop_item(slot_data):
 	if slot_data.item.dictionary.has("dropped_item"):
 		var dropped_slot = load(slot_data.item.dictionary["dropped_item"])
+		if player.inventory_interface.inv_item_info_panel.visible:
+			player.inventory_interface.inv_item_info_panel.hide()
 		_instantiate_dropped_item(dropped_slot, slot_data)
 
 func _instantiate_dropped_item(dropped_slot : PackedScene, slot_data : InSlotData):

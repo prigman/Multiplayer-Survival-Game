@@ -10,6 +10,9 @@ enum InventoryType
 
 signal signal_inventory_interact(inventory_data : InventoryData, index : int, button : int)
 signal signal_inventory_update(inventory_data : InventoryData)
+signal signal_update_active_slot(inventory_data : InventoryData, new_slot_index : int, last_slot_index : int, new_slot_data : InSlotData, last_slot_data : InSlotData)
+
+#signal signal_slot_mouse_right_clicked(inventory_data : InventoryData, last_inventory_data : InventoryData, clicked_slot_index : int, last_slot_index : int, panel_visible : bool)
 
 @export var type : InventoryType
 @export var slots_data: Array[InSlotData]
@@ -63,3 +66,4 @@ func _pick_up_slot_data(slot_data : InSlotData) -> bool:
 	
 func _on_slot_clicked(index : int, button : int):
 	signal_inventory_interact.emit(self, index, button)
+

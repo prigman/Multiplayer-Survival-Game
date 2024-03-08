@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=40 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="11_bwrnu"]
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
 [ext_resource type="PackedScene" uid="uid://c0vow3q82yehc" path="res://scenes/weapon_hud.tscn" id="12_2ffht"]
+[ext_resource type="Script" path="res://scripts/interface/slot.gd" id="12_vifhc"]
 [ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="13_6ejrl"]
 [ext_resource type="Script" path="res://scripts/player state machine/falling_state.gd" id="21_h51by"]
 
@@ -237,6 +238,16 @@ _data = {
 "RESET": SubResource("Animation_hvc3l")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m1o6"]
+bg_color = Color(1, 1, 1, 0)
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_bottom = 2.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3tcom"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 0.796078)
 
@@ -448,7 +459,7 @@ size_flags_stretch_ratio = 15.0
 mouse_filter = 1
 script = ExtResource("9_sd5qi")
 
-[node name="PlayerInventory" parent="Interface/Control/InventoryInterface" node_paths=PackedStringArray("item") instance=ExtResource("10_51sge")]
+[node name="PlayerInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.509804)
 layout_mode = 1
@@ -466,9 +477,8 @@ grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 size_flags_stretch_ratio = 10.0
-item = NodePath("../../../../CameraHolder/RigHolder/Item")
 
-[node name="ExternalInventory" parent="Interface/Control/InventoryInterface" node_paths=PackedStringArray("item") instance=ExtResource("10_51sge")]
+[node name="ExternalInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(1, 1, 1, 0.509804)
@@ -487,7 +497,6 @@ grow_vertical = 2
 size_flags_horizontal = 10
 size_flags_vertical = 6
 size_flags_stretch_ratio = 5.0
-item = NodePath("../../../../CameraHolder/RigHolder/Item")
 
 [node name="MarginContainer2" type="MarginContainer" parent="Interface/Control"]
 layout_mode = 1
@@ -515,13 +524,63 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 size_flags_stretch_ratio = 20.25
 
-[node name="GrabbedSlot" parent="Interface/Control" instance=ExtResource("13_6ejrl")]
+[node name="GrabbedSlot" type="PanelContainer" parent="Interface/Control"]
 unique_name_in_owner = true
+visible = false
 modulate = Color(1, 1, 1, 0.788235)
 self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
 size_flags_horizontal = 4
 size_flags_vertical = 6
+script = ExtResource("12_vifhc")
+
+[node name="ActiveSlotPanel" type="PanelContainer" parent="Interface/Control/GrabbedSlot"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8m1o6")
+
+[node name="MarginContainer3" type="MarginContainer" parent="Interface/Control/GrabbedSlot"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="TextureRect" type="TextureRect" parent="Interface/Control/GrabbedSlot/MarginContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Amount" type="Label" parent="Interface/Control/GrabbedSlot/MarginContainer3"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 16
+text = "x99"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Interface/Control/GrabbedSlot"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+
+[node name="SlotNumber" type="Label" parent="Interface/Control/GrabbedSlot/MarginContainer2"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "1"
 
 [node name="InvItemInfoPanel" type="PanelContainer" parent="Interface/Control"]
 unique_name_in_owner = true
@@ -818,4 +877,7 @@ script = ExtResource("21_h51by")
 [connection signal="gui_input" from="Interface/Control/InventoryInterface" to="Interface/Control/InventoryInterface" method="_on_gui_input"]
 [connection signal="signal_item_info_panel_set_data" from="Interface/Control/InventoryInterface" to="Interface/Control/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
 [connection signal="visibility_changed" from="Interface/Control/InventoryInterface" to="Interface/Control/InventoryInterface" method="_on_visibility_changed"]
+[connection signal="gui_input" from="Interface/Control/GrabbedSlot" to="Interface/Control/GrabbedSlot" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Interface/Control/GrabbedSlot" to="Interface/Control/GrabbedSlot" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Interface/Control/GrabbedSlot" to="Interface/Control/GrabbedSlot" method="_on_mouse_exited"]
 [connection signal="pressed" from="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="Interface/Control/InventoryInterface" method="_on_item_drop_button_pressed"]
