@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AllCraftableItems" load_steps=3 format=3 uid="uid://bmmuckfm8ysts"]
+
+[ext_resource type="Script" path="res://inventory/item/all_craftable_items.gd" id="1_1l45u"]
+[ext_resource type="Resource" uid="uid://dueasdbvrpec2" path="res://inventory/item/objects/assault-rifle.tres" id="2_62vgw"]
+
+[resource]
+script = ExtResource("1_1l45u")
+weapons = Array[Resource("res://inventory/item/item_data_craftable_weapon.gd")]([ExtResource("2_62vgw")])

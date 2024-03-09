@@ -19,10 +19,6 @@ config/icon="res://icons/icon.svg"
 
 Global="*res://scripts/global.gd"
 
-[display]
-
-window/size/resizable=false
-
 [dotnet]
 
 project/assembly_name="Godot Survival"

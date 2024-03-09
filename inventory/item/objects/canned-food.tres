@@ -5,11 +5,12 @@
 [ext_resource type="ArrayMesh" uid="uid://cfi27t8ieg6hs" path="res://models/canned-food.res" id="2_hdo5s"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_ifj7l")
 hunger_value = 15
 item_type = 1
 name = "Canned food"
-description = "Canned food"
+description = "Food"
 description_item_panel = "Canned food"
 stackable = true
 max_stack = 0

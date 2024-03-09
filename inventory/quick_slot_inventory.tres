@@ -44,7 +44,7 @@ lerp_speed = 3.0
 recoil_speed = 1.04
 sight_mesh = ExtResource("10_0rs4u")
 name = "Assault Rifle"
-description = "Automatic rifle"
+description = "Weapon"
 description_item_panel = "The handy short automatic rifle with supressor and sight.
 
 Ammo type: 5.45 mm
@@ -93,7 +93,7 @@ recoil_amplitude = Vector3(0.3, 0.4, 0.15)
 lerp_speed = 3.0
 recoil_speed = 1.04
 name = "Assault Rifle"
-description = "Automatic rifle"
+description = "Weapon"
 description_item_panel = "The handy short automatic rifle with supressor and sight.
 
 Ammo type: 5.45 mm

@@ -20,9 +20,9 @@ corner_radius_bottom_left = 3
 expand_margin_bottom = 2.0
 
 [node name="Slot" type="PanelContainer" node_paths=PackedStringArray("hover_panel")]
-custom_minimum_size = Vector2(64, 64)
-offset_right = 64.0
-offset_bottom = 64.0
+custom_minimum_size = Vector2(58, 58)
+offset_right = 32.0
+offset_bottom = 32.0
 script = ExtResource("1_wncw0")
 hover_panel = NodePath("HoverPanel")
 

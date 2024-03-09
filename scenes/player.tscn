@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=41 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
 [ext_resource type="PackedScene" uid="uid://c0vow3q82yehc" path="res://scenes/weapon_hud.tscn" id="12_2ffht"]
 [ext_resource type="Script" path="res://scripts/interface/slot.gd" id="12_vifhc"]
+[ext_resource type="PackedScene" uid="uid://cq5gdhexp333" path="res://inventory/craft_menu_scenes/craft_menu.tscn" id="13_00r71"]
 [ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="13_6ejrl"]
 [ext_resource type="Script" path="res://scripts/player state machine/falling_state.gd" id="21_h51by"]
 
@@ -459,6 +460,13 @@ size_flags_stretch_ratio = 15.0
 mouse_filter = 1
 script = ExtResource("9_sd5qi")
 
+[node name="CraftMenu" parent="Interface/Control/InventoryInterface" instance=ExtResource("13_00r71")]
+layout_mode = 0
+offset_left = 788.0
+offset_top = 147.0
+offset_right = 1108.0
+offset_bottom = 547.0
+
 [node name="PlayerInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.509804)
@@ -529,7 +537,7 @@ unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 1, 0.788235)
 self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(58, 58)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
@@ -743,10 +751,10 @@ theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 16
 tab_focus_mode = 0
 
-[node name="Properties" type="TabBar" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
+[node name="Details" type="TabBar" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -754,7 +762,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemName" type="Label" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer"]
+[node name="ItemName" type="Label" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -764,7 +772,7 @@ text = "Assault Rifle"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
@@ -772,17 +780,17 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ItemDescription" type="RichTextLabel" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Properties/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="ItemDescription" type="RichTextLabel" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

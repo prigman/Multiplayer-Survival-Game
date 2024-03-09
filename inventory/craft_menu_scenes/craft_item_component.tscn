@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyq87g0vfq1b5"]
+
+[ext_resource type="Script" path="res://scripts/interface/craft_item_component.gd" id="1_2y7mh"]
+
+[node name="CraftItemComponent" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(52, 52)
+offset_right = 52.0
+offset_bottom = 64.0
+script = ExtResource("1_2y7mh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CraftItemName" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 4
+
+[node name="CraftItemAmount" type="Label" parent="VBoxContainer/TextureRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 10
+text = "x1"
+horizontal_alignment = 2
+vertical_alignment = 2

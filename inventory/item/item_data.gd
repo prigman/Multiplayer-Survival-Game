@@ -1,5 +1,4 @@
-extends Resource
-class_name ItemData
+class_name ItemData extends Resource
 
 enum ItemType {
 	weapon = 0,
