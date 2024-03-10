@@ -18,20 +18,20 @@ func _set_inventory_slots(inventory_data : InventoryData):
 		child.queue_free()
 		
 	for slot_data in inventory_data.slots_data:
-		var slot = SLOT_SCENE.instantiate()
-		grid_container.add_child(slot)
-		
-		if slot_data:
-			if slot_data.active_slot_data:
-					slot.active_slot_panel.show()
-			slot._set_slot_data(slot_data)
+			var slot = SLOT_SCENE.instantiate()
+			grid_container.add_child(slot)
 			
-		if inventory_data.type == inventory_data.InventoryType.quick_slot:
-			slot_counter += 1
-			slot.slot_number.text = str(slot_counter)
-			slot.slot_number.show()
-			
-		slot.signal_slot_clicked.connect(inventory_data._on_slot_clicked)
+			if slot_data and slot_data.amount_in_slot >= 1:
+				if slot_data.active_slot_data:
+						slot.active_slot_panel.show()
+				slot._set_slot_data(slot_data)
+				
+			if inventory_data.type == inventory_data.InventoryType.quick_slot:
+				slot_counter += 1
+				slot.slot_number.text = str(slot_counter)
+				slot.slot_number.show()
+				
+			slot.signal_slot_clicked.connect(inventory_data._on_slot_clicked)
 	slot_counter = 0
 	
 func _set_active_slot(inventory_data : InventoryData, new_slot_index : int, last_slot_index : int, new_slot_data : InSlotData, last_slot_data : InSlotData):

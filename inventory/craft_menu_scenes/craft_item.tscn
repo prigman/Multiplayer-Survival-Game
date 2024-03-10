@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dx0tm71giiv3r"]
+[gd_scene load_steps=3 format=3 uid="uid://dx0tm71giiv3r"]
 
 [ext_resource type="Script" path="res://scripts/interface/craft_item.gd" id="1_sp2vx"]
-[ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="2_05a0v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_en5lm"]
 bg_color = Color(0.247059, 0.247059, 0.247059, 0.843137)
@@ -49,7 +48,6 @@ size_flags_vertical = 3
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("2_05a0v")
 expand_mode = 2
 stretch_mode = 4
 
@@ -126,3 +124,5 @@ columns = 4
 [node name="ItemLocked" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/CraftItemButton" to="." method="_on_craft_item_button_pressed"]

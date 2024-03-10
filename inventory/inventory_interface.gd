@@ -108,8 +108,7 @@ func _on_item_drop_button_pressed():
 		Global.global_item_script.remove_item()
 	signal_drop_item.emit(panel_inventory_data.slots_data[panel_index_data])
 	panel_inventory_data._grab_slot_data(panel_index_data)
-	panel_index_data = null
-	panel_inventory_data = null
+	hide_inv_item_panel()
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton \

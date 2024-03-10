@@ -3,7 +3,7 @@ extends Resource
 class_name InSlotData
 
 @export var item : ItemData
-@export var amount_in_slot : int = 1
+@export var amount_in_slot : int = 1 : set = _set_amount
 var active_slot_data : bool
 
 func _can_stack_with(other_slot_data : InSlotData) -> bool:

@@ -50,7 +50,6 @@ func _drop_single_slot_data(grabbed_slot_data : InSlotData, index : int) -> InSl
 		return null
 	
 func _pick_up_slot_data(slot_data : InSlotData) -> bool:
-		
 	for i in slots_data.size():
 		if slots_data[i] and slots_data[i]._can_stack_with(slot_data):
 			slots_data[i]._stack_with(slot_data)
@@ -62,6 +61,8 @@ func _pick_up_slot_data(slot_data : InSlotData) -> bool:
 			slots_data[i] = slot_data
 			signal_inventory_update.emit(self)
 			return true
+			
+	print("Player inventory is full")
 	return false
 	
 func _on_slot_clicked(index : int, button : int):

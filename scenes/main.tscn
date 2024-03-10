@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=59 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" path="res://inventory/item/item_data_consumable.gd" id="12_kfiod"]
 [ext_resource type="PackedScene" uid="uid://bwwhsm0q1fnnj" path="res://scenes/interactable/pickup/resource_wood_rb.tscn" id="13_77uqr"]
 [ext_resource type="PackedScene" uid="uid://cnw83bbj2p7xk" path="res://scenes/interactable/pickup/stone_resource_rb.tscn" id="14_hv0t3"]
+[ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="15_i4n86"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_wood.tres" id="16_nipej"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0j0wh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -90,6 +92,26 @@ rotation = Vector3(0, 0, 0)
 scale = Vector3(2.5, 2.5, 2.5)
 
 [sub_resource type="Resource" id="Resource_lk07i"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_l52jc")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_d66t0"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_l52jc")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_7o7tx"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_l52jc")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_424i5"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_l52jc")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_jmjch"]
 script = ExtResource("11_653sy")
 item = SubResource("Resource_l52jc")
 amount_in_slot = 1
@@ -214,6 +236,96 @@ script = ExtResource("11_653sy")
 item = SubResource("Resource_se2j5")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_upq5e"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_qedj0"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ig517"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ti7ai"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_mmp13"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ppgxd"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_2ched"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_lgob4"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_k7sol"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_p3cqw"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_0pahu"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_y1iu7"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ws0ve"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_h7q80"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_nfrpf"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_1re34"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ffp3a"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_3324h"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_7fa2s")
 
@@ -245,6 +357,22 @@ slot_data = SubResource("Resource_evqbs")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39825, 0.319719, 0.214459)
 slot_data = SubResource("Resource_lk07i")
 
+[node name="Canned-food8" parent="items_rb" instance=ExtResource("12_k0p58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.712603, 0.319719, 0.214459)
+slot_data = SubResource("Resource_d66t0")
+
+[node name="Canned-food9" parent="items_rb" instance=ExtResource("12_k0p58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.712603, 0.319719, 1.02797)
+slot_data = SubResource("Resource_7o7tx")
+
+[node name="Canned-food10" parent="items_rb" instance=ExtResource("12_k0p58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199038, 0.319719, 1.02797)
+slot_data = SubResource("Resource_424i5")
+
+[node name="Canned-food11" parent="items_rb" instance=ExtResource("12_k0p58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0772781, 0.319719, 0.149381)
+slot_data = SubResource("Resource_jmjch")
+
 [node name="Canned-food3" parent="items_rb" instance=ExtResource("12_k0p58")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39825, 1.11009, -0.159173)
 slot_data = SubResource("Resource_8og8g")
@@ -265,29 +393,74 @@ slot_data = SubResource("Resource_jl1ke")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80195, 1.11009, 1.03357)
 slot_data = SubResource("Resource_5pi1d")
 
-[node name="Wood resource" parent="items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(0.999892, 0, 0.0146951, 0, 1, 0, -0.0146951, 0, 0.999892, -1.00757, 0.237928, -1.26865)
-
-[node name="Wood resource2" parent="items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.294037, 0.237928, -0.988774)
-
-[node name="Wood resource3" parent="items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.61475, 0.557525, -2.13862)
-
-[node name="Wood resource4" parent="items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.279547, 0.237928, -2.07818)
-
 [node name="Stone resource" parent="items_rb" instance=ExtResource("14_hv0t3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.824768, 0.447675, -1.94636)
+slot_data = SubResource("Resource_upq5e")
 
 [node name="Stone resource2" parent="items_rb" instance=ExtResource("14_hv0t3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48459, 0.447675, -0.920567)
+slot_data = SubResource("Resource_qedj0")
+
+[node name="Stone resource6" parent="items_rb" instance=ExtResource("14_hv0t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40228, 0.447675, -0.920567)
+slot_data = SubResource("Resource_ig517")
+
+[node name="Stone resource7" parent="items_rb" instance=ExtResource("14_hv0t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40228, 0.447675, -2.10068)
+slot_data = SubResource("Resource_ti7ai")
+
+[node name="Stone resource8" parent="items_rb" instance=ExtResource("14_hv0t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34993, 0.447675, -3.28618)
+slot_data = SubResource("Resource_mmp13")
+
+[node name="Stone resource9" parent="items_rb" instance=ExtResource("14_hv0t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34993, 0.447675, -4.25902)
+slot_data = SubResource("Resource_ppgxd")
+
+[node name="Stone resource10" parent="items_rb" instance=ExtResource("14_hv0t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19151, 0.447675, -4.25902)
+slot_data = SubResource("Resource_2ched")
 
 [node name="Stone resource3" parent="items_rb" instance=ExtResource("14_hv0t3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19232, 0.447675, -0.483211)
+slot_data = SubResource("Resource_lgob4")
 
 [node name="Stone resource4" parent="items_rb" instance=ExtResource("14_hv0t3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35985, 0.447675, -1.46761)
+slot_data = SubResource("Resource_k7sol")
 
 [node name="Stone resource5" parent="items_rb" instance=ExtResource("14_hv0t3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144768, 0.447675, -2.89266)
+slot_data = SubResource("Resource_p3cqw")
+
+[node name="Wood resource2" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.431647, -1.2376)
+slot_data = SubResource("Resource_0pahu")
+
+[node name="Wood resource3" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.770075, 0.696564, -3.40857)
+slot_data = SubResource("Resource_y1iu7")
+
+[node name="Wood resource4" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19189, 0.428991, -4.15933)
+slot_data = SubResource("Resource_ws0ve")
+
+[node name="Wood resource5" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.73842, 0.473281, -2.79992)
+slot_data = SubResource("Resource_h7q80")
+
+[node name="Wood resource" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.416499, 0.39722, -2.06056)
+slot_data = SubResource("Resource_nfrpf")
+
+[node name="Wood resource6" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32784, 0.39722, -2.06056)
+slot_data = SubResource("Resource_1re34")
+
+[node name="Wood resource7" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32784, 0.39722, -3.07331)
+slot_data = SubResource("Resource_ffp3a")
+
+[node name="Wood resource8" parent="items_rb" instance=ExtResource("13_77uqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.29357, 0.39722, -3.07331)
+slot_data = SubResource("Resource_3324h")

@@ -1,5 +1,7 @@
 extends PanelContainer
 
+signal signal_craft_button_pressed(index : int)
+
 const CRAFT_COMPONENT = preload("res://inventory/craft_menu_scenes/craft_item_component.tscn")
 
 @onready var texture_rect = %TextureRect
@@ -7,14 +9,21 @@ const CRAFT_COMPONENT = preload("res://inventory/craft_menu_scenes/craft_item_co
 @onready var craft_item_button = %CraftItemButton
 @onready var grid_container = %GridContainer
 
-func set_craft_item_data(item_data : ItemDataCraftableWeapon):
+var slot : InSlotData
+
+func set_craft_item_data(slot_data : InSlotData):
+	var item_data = slot_data.item
 	texture_rect.texture = item_data.icon
 	craft_item_name.text = item_data.name
-	for component_data in item_data.craft_components:
-		if component_data:
+	slot = slot_data
+	for craft_item in item_data.craft_components:
+		if craft_item:
 			var craft_item_component = CRAFT_COMPONENT.instantiate()
 			grid_container.add_child(craft_item_component)
-			craft_item_component.texture_rect.texture = component_data.component.icon
-			craft_item_component.amount.text = "x%s" % component_data.amount
-			craft_item_component.craft_item_name.text = component_data.component.name
-			
+			craft_item_component.texture_rect.texture = craft_item.component.icon
+			craft_item_component.amount.text = "x%s" % craft_item.amount
+			craft_item_component.tooltip_text = "%s\n%s" % [craft_item.component.name, craft_item.component.description]
+			craft_item_component.craft_item_name.text = craft_item.component.name
+
+func _on_craft_item_button_pressed():
+	signal_craft_button_pressed.emit(slot)

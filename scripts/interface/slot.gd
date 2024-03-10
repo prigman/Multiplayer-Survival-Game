@@ -18,7 +18,7 @@ func _set_slot_data(slot_info: InSlotData):
 	
 	if slot_info.amount_in_slot > 1:
 		amount_text.text = "x%s" % slot_info.amount_in_slot
-		amount_text.show() 
+		amount_text.show()
 	else:
 		amount_text.hide()
 

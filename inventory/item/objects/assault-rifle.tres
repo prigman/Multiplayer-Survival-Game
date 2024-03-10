@@ -5,7 +5,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cl73ro1sfy3jp" path="res://models/ar/ar_body.res" id="2_d5tc1"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="3_3vu0k"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_wood.tres" id="3_7irh5"]
-[ext_resource type="Texture2D" uid="uid://df6oj3sv4d2u3" path="res://icons/resourceWood.png" id="4_cb5sk"]
+[ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="4_w1nnr"]
 
 [sub_resource type="Resource" id="Resource_aofcs"]
 script = ExtResource("2_4jvik")
@@ -22,7 +22,7 @@ resource_local_to_scene = true
 script = ExtResource("3_3vu0k")
 craft_components = Array[ExtResource("2_4jvik")]([SubResource("Resource_aofcs"), SubResource("Resource_hn4ia")])
 item_type = 0
-weapon_name = "Assault Stick"
+weapon_name = "Assault Rifle"
 anim_activate = "Assault Rifle Activate"
 anim_shoot = "Assault Rifle Shoot"
 anim_scope = "Assault Rifle Scope"
@@ -38,7 +38,7 @@ fire_mode_auto = true
 recoil_amplitude = Vector3(0.3, 0.4, 0.15)
 lerp_speed = 3.0
 recoil_speed = 1.04
-name = "Assault Stick"
+name = "Assault Rifle"
 description = "Weapon"
 description_item_panel = "The handy short automatic rifle with supressor and sight.
 
@@ -51,7 +51,7 @@ Shoot types: auto, single, burst"
 stackable = false
 max_stack = 0
 quality = 100.0
-icon = ExtResource("4_cb5sk")
+icon = ExtResource("4_w1nnr")
 mesh = ExtResource("2_d5tc1")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/ar_rigidbody.tscn"
