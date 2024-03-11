@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="9_56to4"]
 [ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="10_dadr8"]
 [ext_resource type="Texture2D" uid="uid://cqv4kimc2fdjk" path="res://icons/canned food.png" id="10_jj51v"]
-[ext_resource type="ArrayMesh" uid="uid://cfi27t8ieg6hs" path="res://models/canned-food.res" id="11_8paed"]
+[ext_resource type="ArrayMesh" uid="uid://cfi27t8ieg6hs" path="res://models/meshes/canned-food.res" id="11_8paed"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
 [ext_resource type="PackedScene" uid="uid://bs0te4ilgfkpw" path="res://scenes/interactable/pickup/canned-food_rigidbody.tscn" id="12_k0p58"]
 [ext_resource type="Script" path="res://inventory/item/item_data_consumable.gd" id="12_kfiod"]
