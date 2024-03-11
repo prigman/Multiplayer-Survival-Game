@@ -16,6 +16,8 @@ func _on_inventory_interface_signal_item_info_panel_set_data(item_data : ItemDat
 	item_name.text = item_data.name
 	item_description.text = item_data.description_item_panel
 	item_health.value = item_data.quality
+	if !item_health.visible:
+		item_health.show()
 	if item_data.item_type == item_data.ItemType.weapon:
 		ammo_count.text = "%s" % item_data.ammo_current
 		if !ammo_count_panel.visible:

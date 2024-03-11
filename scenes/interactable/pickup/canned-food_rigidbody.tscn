@@ -49,6 +49,7 @@ points = PackedVector3Array(0.0388395, 0.110714, -0.0140525, -0.0415738, 0.00120
 
 [node name="Canned-food" type="RigidBody3D"]
 collision_layer = 4
+collision_mask = 9
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true

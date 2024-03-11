@@ -15,6 +15,7 @@ points = PackedVector3Array(-0.0122809, 0.00220414, -0.0678073, -0.0476335, 0.00
 
 [node name="Stone resource" type="RigidBody3D"]
 collision_layer = 4
+collision_mask = 9
 script = ExtResource("1_oft30")
 slot_data = SubResource("Resource_c3cue")
 

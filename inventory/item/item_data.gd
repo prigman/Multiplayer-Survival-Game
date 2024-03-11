@@ -4,7 +4,9 @@ enum ItemType {
 	weapon = 0,
 	consumable = 1,
 	other = 2,
-	resource = 3
+	resource = 3,
+	tool = 4,
+	building = 5
 }
 
 @export var name : String

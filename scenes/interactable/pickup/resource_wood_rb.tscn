@@ -15,6 +15,7 @@ size = Vector3(0.575, 0.203, 0.555)
 
 [node name="Wood resource" type="RigidBody3D"]
 collision_layer = 4
+collision_mask = 9
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true

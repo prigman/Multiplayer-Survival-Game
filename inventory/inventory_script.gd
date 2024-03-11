@@ -14,9 +14,10 @@ func _clear_inventory_data(inventory_data : InventoryData):
 	inventory_data.signal_inventory_update.disconnect(_set_inventory_slots)
 
 func _set_inventory_slots(inventory_data : InventoryData):
-	for slot_data in inventory_data.slots_data:
+	for i in range(inventory_data.slots_data.size()):
+		var slot_data = inventory_data.slots_data[i]
 		if slot_data and slot_data.amount_in_slot == 0:
-			
+			inventory_data.slots_data[i] = null
 			
 	for child in grid_container.get_children():
 		child.queue_free()

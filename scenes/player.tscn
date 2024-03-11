@@ -315,7 +315,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
 [node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("animator", "weapon_hud", "reticle", "crosshair", "state_machine") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
-transform = Transform3D(-9.04998e-06, 0, 2.5, 0, 2.5, 0, -2.5, 0, -9.04998e-06, 0.23, -0.355, -0.34)
+transform = Transform3D(-3.61999e-06, 0, 1, 0, 1, 0, -1, 0, -3.61999e-06, 0.23, -0.355, -0.34)
 animator = NodePath("../../../AnimationPlayer")
 weapon_hud = NodePath("../../../Interface/Control/WeaponHud")
 reticle = NodePath("../../../Interface/Reticle")
@@ -449,9 +449,15 @@ size_flags_stretch_ratio = 5.0
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -461,11 +467,18 @@ mouse_filter = 1
 script = ExtResource("9_sd5qi")
 
 [node name="CraftMenu" parent="Interface/Control/InventoryInterface" instance=ExtResource("13_00r71")]
-layout_mode = 0
-offset_left = 788.0
-offset_top = 147.0
-offset_right = 1108.0
-offset_bottom = 547.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -350.676
+offset_top = -200.0
+offset_right = -15.6746
+offset_bottom = 200.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="PlayerInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true

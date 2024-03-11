@@ -5,7 +5,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cl73ro1sfy3jp" path="res://models/ar/ar_body.res" id="2_d5tc1"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="3_3vu0k"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_wood.tres" id="3_7irh5"]
-[ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="4_w1nnr"]
+[ext_resource type="Texture2D" uid="uid://dr0xbhyn7l23q" path="res://icons/AR_icon_new.png" id="4_xfjpv"]
 
 [sub_resource type="Resource" id="Resource_aofcs"]
 script = ExtResource("2_4jvik")
@@ -51,7 +51,7 @@ Shoot types: auto, single, burst"
 stackable = false
 max_stack = 0
 quality = 100.0
-icon = ExtResource("4_w1nnr")
+icon = ExtResource("4_xfjpv")
 mesh = ExtResource("2_d5tc1")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/ar_rigidbody.tscn"

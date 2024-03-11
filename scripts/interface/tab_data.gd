@@ -4,8 +4,8 @@ enum TabType
 {
 	heal = 0,
 	weapon = 1,
-	buildings = 2,
-	tools = 3
+	building = 2,
+	tool = 3
 }
 
 @export var icon : Texture
