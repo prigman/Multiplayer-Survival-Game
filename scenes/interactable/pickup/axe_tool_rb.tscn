@@ -23,7 +23,7 @@ script = ExtResource("1_glkrd")
 slot_data = SubResource("Resource_ot8mr")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0, 0)
+transform = Transform3D(0.55, 0, 0, 0, -2.40413e-08, 0.55, 0, -0.55, -2.40413e-08, 0, 0, 0)
 mesh = ExtResource("1_reov1")
 skeleton = NodePath("../..")
 
