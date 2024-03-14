@@ -1,48 +1,22 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=22 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=24 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
+[ext_resource type="Resource" uid="uid://d16s5vsgm2o6t" path="res://inventory/item/objects/axe.tres" id="2_4xy8c"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_86rtt"]
 [ext_resource type="Resource" uid="uid://d05wvcamae4du" path="res://inventory/item/objects/canned-food.tres" id="4_clke4"]
-[ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="5_lrvsn"]
 [ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="5_ura17"]
-[ext_resource type="ArrayMesh" uid="uid://cxp6bjdall1ug" path="res://models/meshes/axe.res" id="6_it4od"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="6_u0648"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_wood.tres" id="7_kfv66"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="7_ok821"]
 [ext_resource type="ArrayMesh" uid="uid://cl73ro1sfy3jp" path="res://models/ar/ar_body.res" id="7_qc2ki"]
 [ext_resource type="Texture2D" uid="uid://dr0xbhyn7l23q" path="res://icons/AR_icon_new.png" id="8_1h2sg"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="10_ppdbj"]
-
-[sub_resource type="Resource" id="Resource_1j36k"]
-script = ExtResource("6_u0648")
-component = ExtResource("5_ura17")
-amount = 2
-
-[sub_resource type="Resource" id="Resource_3yjym"]
-script = ExtResource("6_u0648")
-component = ExtResource("7_kfv66")
-amount = 2
-
-[sub_resource type="Resource" id="Resource_p1s1g"]
-script = ExtResource("7_ok821")
-item_type = 4
-craft_components = Array[ExtResource("6_u0648")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
-name = "Axe"
-description = "Axe"
-description_item_panel = "Axe"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("5_lrvsn")
-mesh = ExtResource("6_it4od")
-dictionary = {}
-position = Vector3(0.27, -0.39, -0.395)
-rotation = Vector3(98, 90, 0)
-scale = Vector3(0.5, 0.5, 0.5)
+[ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="13_xltmh"]
+[ext_resource type="ArrayMesh" uid="uid://hmgxq3s6kcv7" path="res://models/meshes/pickaxe.res" id="14_afbj6"]
 
 [sub_resource type="Resource" id="Resource_nj1ga"]
 script = ExtResource("3_86rtt")
-item = SubResource("Resource_p1s1g")
+item = ExtResource("2_4xy8c")
 amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_s5wuh"]
@@ -108,7 +82,41 @@ script = ExtResource("3_86rtt")
 item = SubResource("Resource_7osjg")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_ddorj"]
+script = ExtResource("6_u0648")
+component = ExtResource("5_ura17")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_t6tg5"]
+script = ExtResource("6_u0648")
+component = ExtResource("7_kfv66")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_i3gg6"]
+script = ExtResource("7_ok821")
+item_type = 4
+craft_components = Array[ExtResource("6_u0648")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
+name = "Pickaxe"
+description = "Pickaxe"
+description_item_panel = "Pickaxe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("13_xltmh")
+mesh = ExtResource("14_afbj6")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/pickaxe_rb.tscn"
+}
+position = Vector3(0.29, -0.335, -0.535)
+rotation = Vector3(11, 118, 0)
+scale = Vector3(0.55, 0.55, 0.55)
+
+[sub_resource type="Resource" id="Resource_8fmm2"]
+script = ExtResource("3_86rtt")
+item = SubResource("Resource_i3gg6")
+amount_in_slot = 1
+
 [resource]
 script = ExtResource("1_ab8t5")
 type = 1
-slots_data = Array[ExtResource("3_86rtt")]([SubResource("Resource_nj1ga"), SubResource("Resource_s5wuh"), SubResource("Resource_pqnsw"), null, null, null])
+slots_data = Array[ExtResource("3_86rtt")]([SubResource("Resource_nj1ga"), SubResource("Resource_s5wuh"), SubResource("Resource_pqnsw"), SubResource("Resource_8fmm2"), null, null])

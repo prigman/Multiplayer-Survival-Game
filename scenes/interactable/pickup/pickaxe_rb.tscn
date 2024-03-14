@@ -1,0 +1,64 @@
+[gd_scene load_steps=14 format=3 uid="uid://sk2v3l3djkvl"]
+
+[ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_cft26"]
+[ext_resource type="ArrayMesh" uid="uid://hmgxq3s6kcv7" path="res://models/meshes/pickaxe.res" id="1_e3ayi"]
+[ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="2_qonvs"]
+[ext_resource type="Script" path="res://inventory/craft_components.gd" id="3_eboer"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_wood.tres" id="4_3jmxv"]
+[ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="5_7rr3n"]
+[ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="7_bd7lw"]
+[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="8_jr624"]
+
+[sub_resource type="Resource" id="Resource_ddorj"]
+script = ExtResource("3_eboer")
+component = ExtResource("2_qonvs")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_t6tg5"]
+script = ExtResource("3_eboer")
+component = ExtResource("4_3jmxv")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_7jst0"]
+script = ExtResource("7_bd7lw")
+item_type = 4
+craft_components = Array[ExtResource("3_eboer")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
+name = "Pickaxe"
+description = "Pickaxe"
+description_item_panel = "Pickaxe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("5_7rr3n")
+mesh = ExtResource("1_e3ayi")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/pickaxe_rb.tscn"
+}
+position = Vector3(0.29, -0.335, -0.535)
+rotation = Vector3(11, 118, 0)
+scale = Vector3(0.55, 0.55, 0.55)
+
+[sub_resource type="Resource" id="Resource_aohpx"]
+script = ExtResource("8_jr624")
+item = SubResource("Resource_7jst0")
+amount_in_slot = 1
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ls6f3"]
+points = PackedVector3Array(0.0947843, 0.632638, 0.010498, 0.0947843, 0.632638, -0.0105081, 0.0870438, 0.632638, 0.0306377, 0.352411, 0.558211, 0.0422769, 0.352557, 0.558616, -0.0414043, 0.0870438, 0.632638, -0.0306642, 0.0722931, 0.632638, 0.048309, 0.100334, 0.587928, 0.0820005, 0.492616, 0.516202, 0.0322888, 0.492908, 0.517418, -0.0302228, 0.0517005, 0.632638, 0.062057, 0.0268726, 0.632638, 0.0707864, 0.100334, 0.587928, -0.0820107, 0.0268726, 0.632638, -0.0707965, 0.0517005, 0.632638, -0.0620671, 0.0722931, 0.632638, -0.0483192, 0.100334, 0.408142, 0.0820986, 0.745861, 0.394364, 0.00529958, 0.630776, 0.454473, 0.0175436, -0.000146091, 0.632638, 0.0737616, -0.000146091, 0.587928, 0.0834227, 0.631068, 0.456093, -0.0153469, 0.746007, 0.394904, -0.00475393, 0.100334, 0.408142, -0.0821088, -0.000146091, 0.587928, -0.0834329, -0.000146091, 0.632638, -0.0737881, -0.000146091, 0.408142, 0.0835045, -0.000146091, -0.747298, 0.0692988, 0.0252661, -0.747298, 0.0664871, 0.740311, 0.380586, 0.00477647, 0.0486335, -0.747298, 0.0582971, -0.0270187, 0.632638, 0.0707864, -0.10048, 0.587928, 0.0820005, -0.10048, 0.408142, 0.0820986, 0.740457, 0.381126, -0.00527704, 0.0252661, -0.747298, -0.0665136, -0.000146091, -0.747298, -0.0693253, -0.000146091, 0.408142, -0.0834983, -0.10048, 0.408142, -0.0821088, -0.10048, 0.587928, -0.0820107, -0.0270187, 0.632638, -0.0707965, -0.0254122, -0.747298, 0.0664871, 0.0679117, -0.747298, 0.0453829, 0.0817862, -0.747298, 0.0287905, 0.0890885, -0.747298, 0.00986045, 0.0890885, -0.747298, -0.0098706, -0.0518466, 0.632638, 0.062057, -0.352703, 0.558211, 0.0422769, -0.492762, 0.516202, 0.0322888, -0.630922, 0.454473, 0.0175436, -0.746007, 0.394364, 0.00529958, 0.0817862, -0.747298, -0.0288006, 0.0679117, -0.747298, -0.045393, 0.0486335, -0.747298, -0.0583236, -0.0254122, -0.747298, -0.0665136, -0.740603, 0.381126, -0.00527704, -0.746007, 0.394904, -0.00475393, -0.493054, 0.517418, -0.0302228, -0.352703, 0.558616, -0.0414043, -0.0518466, 0.632638, -0.0620671, -0.0487797, -0.747298, 0.0582971, -0.0725853, 0.632638, 0.048309, -0.087336, 0.632638, 0.0306377, -0.0949304, 0.632638, 0.010498, -0.631214, 0.456093, -0.0153469, -0.740457, 0.380586, 0.00477647, -0.0487797, -0.747298, -0.0583236, -0.0682039, -0.747298, -0.045393, -0.0819323, -0.747298, -0.0288006, -0.0892346, -0.747298, -0.0098706, -0.0949304, 0.632638, -0.0105081, -0.087336, 0.632638, -0.0306642, -0.0725853, 0.632638, -0.0483192, -0.0682039, -0.747298, 0.0453829, -0.0892346, -0.747298, 0.00986045, -0.0819323, -0.747298, 0.0287905)
+
+[node name="Pickaxe" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+collision_layer = 4
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+lock_rotation = true
+script = ExtResource("1_cft26")
+slot_data = SubResource("Resource_aohpx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0.0346748, 1.6463e-08)
+mesh = ExtResource("1_e3ayi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0.0346748, 1.6463e-08)
+shape = SubResource("ConvexPolygonShape3D_ls6f3")
