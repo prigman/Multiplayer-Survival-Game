@@ -75,62 +75,59 @@ func set_current_page(page : ScrollContainer):
 	
 func _on_craft_button_pressed(slot_data: InSlotData):
 	var item_data = slot_data.item
+	var craft_possible = true
 	player_inventory_slots = Global.get_player_inventory_slots()
 	player_quick_slots = Global.get_player_quick_slots()
 	if !player_inventory_slots or !player_quick_slots:
 		return
-
-	var used_components := {}
-	var total_components_needed: int = item_data.craft_components.size()
-	var total_components_used: int = 0
+	# Проверяем, есть ли у игрока все необходимые компоненты для крафта
 	for craft_item in item_data.craft_components:
-		var component_found = false
+		var required_amount = craft_item.amount
+		var found_amount = 0
+	# Проверяем инвентарь игрока на наличие необходимого компонента
 		for slot in player_inventory_slots:
-			if slot and slot.item and craft_item.component == slot.item:
-				var available = slot.amount_in_slot - used_components.get(slot.item, 0)
-				if available >= craft_item.amount:
-					used_components[slot.item] = used_components.get(slot.item, 0) + craft_item.amount
-					total_components_used += craft_item.amount
-					component_found = true
-					break
-
-		if !component_found:
-			for slot in player_quick_slots:
-				if slot and slot.item and craft_item.component == slot.item:
-					var available = slot.amount_in_slot - used_components.get(slot.item, 0)
-					if available >= craft_item.amount:
-						used_components[slot.item] = used_components.get(slot.item, 0) + craft_item.amount
-						total_components_used += craft_item.amount
-						break
-
-	# достаточно ли компонентов для крафта
-	if total_components_used >= total_components_needed:
+			if slot and slot.item == craft_item.component:
+				found_amount += slot.amount_in_slot
+		# Проверяем быстрые слоты игрока на наличие необходимого компонента
+		for slot in player_quick_slots:
+			if slot and slot.item == craft_item.component:
+				found_amount += slot.amount_in_slot
+		# Если игрок не имеет достаточное количество компонента для крафта
+		if found_amount < required_amount:
+			craft_possible = false
+			break
+	# Если крафт возможен
+	if craft_possible:
+		# Уменьшаем количество необходимых компонентов в инвентаре игрока
 		for craft_item in item_data.craft_components:
-			var amount_used = used_components.get(craft_item.component, 0)
+			var required_amount = craft_item.amount
+			var remaining_amount = required_amount
+			# Уменьшаем количество компонентов в инвентаре
 			for slot in player_inventory_slots:
 				if slot and slot.item == craft_item.component:
-					var available_in_slot = slot.amount_in_slot
-					var used_from_slot = min(available_in_slot, amount_used)
-					slot.amount_in_slot -= used_from_slot
-					amount_used -= used_from_slot
-
+					if slot.amount_in_slot <= remaining_amount:
+						remaining_amount -= slot.amount_in_slot
+						slot.amount_in_slot = 0
+					else:
+						slot.amount_in_slot -= remaining_amount
+						remaining_amount = 0
+					if remaining_amount == 0:
+						break
+			# Уменьшаем количество компонентов в быстрых слотах
 			for slot in player_quick_slots:
 				if slot and slot.item == craft_item.component:
-					var available_in_slot = slot.amount_in_slot
-					var used_from_slot = min(available_in_slot, amount_used)
-					slot.amount_in_slot -= used_from_slot
-					amount_used -= used_from_slot
-
+					if slot.amount_in_slot <= remaining_amount:
+						remaining_amount -= slot.amount_in_slot
+						slot.amount_in_slot = 0
+					else:
+						slot.amount_in_slot -= remaining_amount
+						remaining_amount = 0
+					if remaining_amount == 0:
+						break
 		Global.global_player_inventory.signal_inventory_update.emit(Global.global_player_inventory)
 		Global.global_player_quick_slot.signal_inventory_update.emit(Global.global_player_quick_slot)
-
 		if !Global.global_player_inventory._pick_up_slot_data(slot_data.duplicate()) \
 				and !Global.global_player_quick_slot._pick_up_slot_data(slot_data.duplicate()):
 			Global.global_player.inventory_interface.signal_drop_item.emit(slot_data.duplicate())
-
-		Global.global_player_inventory.signal_inventory_update.emit(Global.global_player_inventory)
-		Global.global_player_quick_slot.signal_inventory_update.emit(Global.global_player_quick_slot)
-
-		if !Global.global_player_inventory._pick_up_slot_data(slot_data.duplicate()) \
-				and !Global.global_player_quick_slot._pick_up_slot_data(slot_data.duplicate()):
-			Global.global_player.inventory_interface.signal_drop_item.emit(slot_data.duplicate())
+	else:
+		print("Not enough components for crafting.")
