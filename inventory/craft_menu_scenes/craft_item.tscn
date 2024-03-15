@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dx0tm71giiv3r"]
+[gd_scene load_steps=4 format=3 uid="uid://dx0tm71giiv3r"]
 
 [ext_resource type="Script" path="res://scripts/interface/craft_item.gd" id="1_sp2vx"]
 
@@ -8,6 +8,8 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_476y2"]
 
 [node name="CraftItem" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 120)
@@ -83,8 +85,11 @@ text = "Recipe:"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_en5lm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_476y2")
+button_mask = 3
 text = "Craft"
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]

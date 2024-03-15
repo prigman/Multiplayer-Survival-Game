@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqv4kimc2fdjk"
-path="res://.godot/imported/canned food.png-8fa9aa7e558b7d86e972b4929e9054f2.ctex"
+uid="uid://byn1xlauikmvf"
+path="res://.godot/imported/stone_icon2.png-d3be4c7add104749e5c6889453048691.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/canned food.png"
-dest_files=["res://.godot/imported/canned food.png-8fa9aa7e558b7d86e972b4929e9054f2.ctex"]
+source_file="res://icons/stone_icon2.png"
+dest_files=["res://.godot/imported/stone_icon2.png-d3be4c7add104749e5c6889453048691.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=42 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -273,6 +273,8 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqr46"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
 collision_layer = 2
@@ -844,27 +846,33 @@ layout_mode = 2
 
 [node name="ItemUseButton" type="Button" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_vertical = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
 text = "Use
 "
 
 [node name="WeaponUnloadButton" type="Button" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_vertical = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
 text = "Unload"
 
 [node name="ItemDropButton" type="Button" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_vertical = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
 text = "Drop"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
