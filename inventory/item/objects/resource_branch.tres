@@ -17,7 +17,7 @@ quality = 100.0
 icon = ExtResource("1_50odi")
 mesh = ExtResource("2_6mixb")
 dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/resource_wood_rb.tscn"
+"dropped_item": "res://scenes/interactable/pickup/resource_pine_branch_rb.tscn"
 }
 position = Vector3(0, 0, 0)
 rotation = Vector3(0, 0, 0)

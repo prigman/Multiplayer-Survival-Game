@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemDataResource" load_steps=4 format=3 uid="uid://dlkod5etdkco2"]
+
+[ext_resource type="Script" path="res://inventory/item/item_data_resource.gd" id="1_00r6d"]
+[ext_resource type="Texture2D" uid="uid://df6oj3sv4d2u3" path="res://icons/resourceWood.png" id="1_3b2an"]
+[ext_resource type="ArrayMesh" uid="uid://cgt5eylewmdwk" path="res://models/meshes/resourceWood.res" id="2_iiktj"]
+
+[resource]
+script = ExtResource("1_00r6d")
+item_type = 3
+name = "Pine Wood"
+description = "Crafting resource"
+description_item_panel = "Crafting resource"
+stackable = true
+max_stack = 54
+quality = 100.0
+icon = ExtResource("1_3b2an")
+mesh = ExtResource("2_iiktj")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/pine_wood_resource_rb.tscn"
+}
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0, 0, 0)

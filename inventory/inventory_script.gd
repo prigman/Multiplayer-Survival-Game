@@ -45,23 +45,23 @@ func _set_active_slot(inventory_data : InventoryData, new_slot_index : int, last
 	if new_slot_data and !last_slot_data:
 		new_active_slot.active_slot_panel.show()
 		new_slot_data.active_slot_data = true
-		print("active slot now: %s" % new_slot_data.item.name)
+		print("Active slot set: %s" % new_slot_data.item.name)
 	if new_slot_data and last_slot_data:
 		if new_slot_data == last_slot_data:
 			new_active_slot.active_slot_panel.hide()
 			new_slot_data.active_slot_data = false
-			print("active slot hide")
+			print("Active slot hided")
 		else:
 			last_active_slot.active_slot_panel.hide()
 			last_slot_data.active_slot_data = false
 			new_active_slot.active_slot_panel.show()
 			new_slot_data.active_slot_data = true
 			inventory_data.signal_inventory_update.emit(inventory_data)
-			print("active slot changed to %s" % new_slot_data.item.name)
+			print("Active slot changed to %s" % new_slot_data.item.name)
 	if !new_slot_data and last_slot_data:
 		last_active_slot.active_slot_panel.hide()
 		last_slot_data.active_slot_data = false
-		print("active slot hide")
+		print("Active slot hided")
 			
 #func _on_item_panel_visibility_changed(inventory_data : InventoryData, last_inventory_data : InventoryData, clicked_slot_index : int, last_slot_index : int, panel_visible : bool):
 	#var clicked_slot_data = inventory_data.slots_data[clicked_slot_index]
