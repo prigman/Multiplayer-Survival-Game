@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://mrccf4xim4xs"
-path="res://.godot/imported/stone_1.glb-652fb935a76f4bef412003fffafc784c.scn"
+uid="uid://daam0yja0hg6i"
+path="res://.godot/imported/stone_3.glb-782e4bf044ec783211ffbc9392b9d64b.scn"
 
 [deps]
 
-source_file="res://models/stone_1.glb"
-dest_files=["res://.godot/imported/stone_1.glb-652fb935a76f4bef412003fffafc784c.scn"]
+source_file="res://models/stone_3.glb"
+dest_files=["res://.godot/imported/stone_3.glb-782e4bf044ec783211ffbc9392b9d64b.scn"]
 
 [params]
 
@@ -31,7 +31,7 @@ animation/remove_immutable_tracks=true
 import_script/path=""
 _subresources={
 "meshes": {
-"stone_1_Sphere_001": {
+"stone_3_Sphere_003": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
@@ -39,7 +39,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://models/meshes/stone_1.res"
+"save_to_file/path": "res://models/meshes/stone_3.res"
 }
 }
 }

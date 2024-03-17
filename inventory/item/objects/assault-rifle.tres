@@ -1,26 +1,20 @@
-[gd_resource type="Resource" script_class="ItemDataCraftableWeapon" load_steps=9 format=3 uid="uid://dueasdbvrpec2"]
+[gd_resource type="Resource" script_class="ItemDataCraftableWeapon" load_steps=7 format=3 uid="uid://dueasdbvrpec2"]
 
-[ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="1_wfrue"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="1_2ls5s"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="2_4jvik"]
 [ext_resource type="ArrayMesh" uid="uid://cl73ro1sfy3jp" path="res://models/ar/ar_body.res" id="2_d5tc1"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="3_3vu0k"]
-[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_wood.tres" id="3_7irh5"]
 [ext_resource type="Texture2D" uid="uid://dr0xbhyn7l23q" path="res://icons/AR_icon_new.png" id="4_xfjpv"]
 
 [sub_resource type="Resource" id="Resource_aofcs"]
 script = ExtResource("2_4jvik")
-component = ExtResource("1_wfrue")
-amount = 3
-
-[sub_resource type="Resource" id="Resource_hn4ia"]
-script = ExtResource("2_4jvik")
-component = ExtResource("3_7irh5")
-amount = 2
+component = ExtResource("1_2ls5s")
+amount = 5
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("3_3vu0k")
-craft_components = Array[ExtResource("2_4jvik")]([SubResource("Resource_aofcs"), SubResource("Resource_hn4ia")])
+craft_components = Array[ExtResource("2_4jvik")]([SubResource("Resource_aofcs")])
 item_type = 0
 weapon_name = "Assault Rifle"
 anim_activate = "Assault Rifle Activate"

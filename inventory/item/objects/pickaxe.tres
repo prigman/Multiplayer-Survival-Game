@@ -1,20 +1,20 @@
 [gd_resource type="Resource" script_class="ItemDataCraftableTools" load_steps=9 format=3 uid="uid://cmhctfq2qq820"]
 
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="1_cr0lm"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="1_j1jxh"]
-[ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="1_vojq1"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="2_d12l8"]
-[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_wood.tres" id="3_2yios"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="3_w2ahp"]
 [ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="4_dlhhj"]
 [ext_resource type="ArrayMesh" uid="uid://hmgxq3s6kcv7" path="res://models/meshes/pickaxe.res" id="5_8myt5"]
 
 [sub_resource type="Resource" id="Resource_ddorj"]
 script = ExtResource("2_d12l8")
-component = ExtResource("1_vojq1")
-amount = 1
+component = ExtResource("1_cr0lm")
+amount = 2
 
 [sub_resource type="Resource" id="Resource_t6tg5"]
 script = ExtResource("2_d12l8")
-component = ExtResource("3_2yios")
+component = ExtResource("3_w2ahp")
 amount = 1
 
 [resource]

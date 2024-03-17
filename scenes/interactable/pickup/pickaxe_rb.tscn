@@ -4,7 +4,7 @@
 [ext_resource type="ArrayMesh" uid="uid://hmgxq3s6kcv7" path="res://models/meshes/pickaxe.res" id="1_e3ayi"]
 [ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="2_qonvs"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="3_eboer"]
-[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_wood.tres" id="4_3jmxv"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="4_3jmxv"]
 [ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="5_7rr3n"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="7_bd7lw"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="8_jr624"]
@@ -49,6 +49,7 @@ points = PackedVector3Array(0.0947843, 0.632638, 0.010498, 0.0947843, 0.632638, 
 [node name="Pickaxe" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 collision_layer = 4
+collision_mask = 9
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true

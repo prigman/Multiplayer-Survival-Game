@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ItemDataCraftableBuildings" load_steps=7 format=3 uid="uid://bhaf4mm6sq7pn"]
+
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="1_44x7h"]
+[ext_resource type="Script" path="res://inventory/item/item_data_craftable_buildings.gd" id="1_epkxx"]
+[ext_resource type="Script" path="res://inventory/craft_components.gd" id="2_xbifh"]
+[ext_resource type="Texture2D" uid="uid://by08p3rg4lhpe" path="res://icons/pine_wood_crate.png" id="3_3a4cd"]
+[ext_resource type="ArrayMesh" uid="uid://c0yho8pq4oj4l" path="res://models/meshes/pine_wood_crate.res" id="4_mpye1"]
+
+[sub_resource type="Resource" id="Resource_or310"]
+script = ExtResource("2_xbifh")
+component = ExtResource("1_44x7h")
+amount = 1
+
+[resource]
+script = ExtResource("1_epkxx")
+item_type = 5
+craft_components = Array[ExtResource("2_xbifh")]([SubResource("Resource_or310")])
+name = "Wooden Crate"
+description = "Pine wood crate"
+description_item_panel = "Pine wood crate"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("3_3a4cd")
+mesh = ExtResource("4_mpye1")
+dictionary = {
+"static_scene": "res://scenes/interactable/pine-wood-crate_staticbody.tscn"
+}
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0, 0, 0)

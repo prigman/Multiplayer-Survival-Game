@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://tph7g0p74l7g"
+uid="uid://cp3dw6505ji2"
 path="res://.godot/imported/stone_2.glb-31f08b4876ca33276438f92da11a40a9.scn"
 
 [deps]
@@ -31,7 +31,7 @@ animation/remove_immutable_tracks=true
 import_script/path=""
 _subresources={
 "meshes": {
-"stone_2_Icosphere_001": {
+"stone_2_Sphere_002": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,

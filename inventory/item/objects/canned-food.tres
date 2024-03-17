@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://da04vjyykrux2" path="res://icons/canned_food_new.png" id="1_4a17j"]
 [ext_resource type="Script" path="res://inventory/item/item_data_consumable.gd" id="1_ifj7l"]
-[ext_resource type="ArrayMesh" uid="uid://cfi27t8ieg6hs" path="res://models/meshes/canned-food.res" id="2_hdo5s"]
+[ext_resource type="ArrayMesh" uid="uid://cfi27t8ieg6hs" path="res://models/meshes/canned_food.res" id="2_hdo5s"]
 
 [resource]
 resource_local_to_scene = true

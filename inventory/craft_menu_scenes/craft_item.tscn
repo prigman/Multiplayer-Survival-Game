@@ -79,7 +79,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 12
-text = "Recipe:"
+text = "Requires:"
 
 [node name="CraftItemButton" type="Button" parent="MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true

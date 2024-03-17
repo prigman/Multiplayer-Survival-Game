@@ -1,0 +1,52 @@
+[gd_scene load_steps=15 format=3 uid="uid://bp6c182x8mldk"]
+
+[ext_resource type="Script" path="res://inventory/chest_staticbody.gd" id="1_xlx1u"]
+[ext_resource type="Script" path="res://inventory/inventory_data.gd" id="2_jeibw"]
+[ext_resource type="ArrayMesh" uid="uid://c0yho8pq4oj4l" path="res://models/meshes/pine_wood_crate.res" id="2_ysn2n"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="3_pxomq"]
+[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="4_4nwml"]
+[ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="5_e28on"]
+[ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="6_k2jpy"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="7_c2i7u"]
+
+[sub_resource type="Resource" id="Resource_5ii1q"]
+script = ExtResource("4_4nwml")
+item = ExtResource("3_pxomq")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_xwpok"]
+script = ExtResource("4_4nwml")
+item = ExtResource("5_e28on")
+amount_in_slot = 46
+
+[sub_resource type="Resource" id="Resource_k3qvb"]
+script = ExtResource("4_4nwml")
+item = ExtResource("6_k2jpy")
+amount_in_slot = 24
+
+[sub_resource type="Resource" id="Resource_nupsf"]
+script = ExtResource("4_4nwml")
+item = ExtResource("7_c2i7u")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_u1d15"]
+script = ExtResource("2_jeibw")
+type = 2
+slots_data = Array[ExtResource("4_4nwml")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), null, null])
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_segvh"]
+points = PackedVector3Array(-1.1, -1.1, -1.1, -1.1, -1.1, 1.1, -1.1, 1.1, -1.1, 1.1, -1.1, -1.1, -1.1, 1.1, 1.1, 1.1, -1.1, 1.1, 1.1, 1.1, -1.1, 1.1, 1.1, 1.1)
+
+[node name="Pine-Wood-Crate" type="StaticBody3D" groups=["external_inventory"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_xlx1u")
+inventory_data = SubResource("Resource_u1d15")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.55, 0)
+mesh = ExtResource("2_ysn2n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.55, 0)
+shape = SubResource("ConvexPolygonShape3D_segvh")

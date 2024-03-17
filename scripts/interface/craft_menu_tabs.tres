@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CraftMenuTab" load_steps=18 format=3 uid="uid://cva3usl6n6x60"]
+[gd_resource type="Resource" script_class="CraftMenuTab" load_steps=20 format=3 uid="uid://cva3usl6n6x60"]
 
 [ext_resource type="Script" path="res://scripts/interface/craft_menu_tab.gd" id="1_abixw"]
 [ext_resource type="Texture2D" uid="uid://cosm6l6ycyqya" path="res://icons/crossbow.svg" id="1_nh8bm"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dfbnyymoh4a7j" path="res://icons/stone-crafting.svg" id="5_rarwd"]
 [ext_resource type="Resource" uid="uid://dueasdbvrpec2" path="res://inventory/item/objects/assault-rifle.tres" id="5_vj2so"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="6_ivxpo"]
+[ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://inventory/item/objects/pine-wood-crate.tres" id="10_u0bfv"]
 
 [sub_resource type="Resource" id="Resource_ipw8q"]
 script = ExtResource("6_ivxpo")
@@ -44,11 +45,16 @@ icon = ExtResource("1_nh8bm")
 type = 1
 slot_in_tab = Array[ExtResource("6_ivxpo")]([SubResource("Resource_ti32n")])
 
+[sub_resource type="Resource" id="Resource_nihb6"]
+script = ExtResource("6_ivxpo")
+item = ExtResource("10_u0bfv")
+amount_in_slot = 1
+
 [sub_resource type="Resource" id="Resource_phucr"]
 script = ExtResource("2_nnf74")
 icon = ExtResource("4_ca28i")
 type = 2
-slot_in_tab = Array[ExtResource("6_ivxpo")]([])
+slot_in_tab = Array[ExtResource("6_ivxpo")]([SubResource("Resource_nihb6")])
 
 [resource]
 script = ExtResource("1_abixw")
