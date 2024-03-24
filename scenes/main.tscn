@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=75 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://cdqhup4cicysi" path="res://scenes/interactable/pickup/pine_wood_resource_rb.tscn" id="24_xaetn"]
 [ext_resource type="PackedScene" uid="uid://bbh30efrwiakh" path="res://scenes/interactable/pickup/metal-bar_resource_rb.tscn" id="25_8vwtk"]
 [ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="25_pkm0b"]
+[ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="27_2sm5u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0j0wh"]
@@ -281,8 +282,14 @@ script = ExtResource("11_653sy")
 item = ExtResource("25_pkm0b")
 amount_in_slot = 1
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3")]
 script = ExtResource("1_7fa2s")
+enemy1 = NodePath("Enemy")
+enemy2 = NodePath("Enemy2")
+enemy3 = NodePath("Enemy3")
+
+[node name="Player" parent="." instance=ExtResource("2_4vywr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10989, -4.76837e-07, -1.7612)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -292,9 +299,6 @@ directional_shadow_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o00h3")
-
-[node name="Player" parent="." instance=ExtResource("2_4vywr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10989, -4.76837e-07, -1.7612)
 
 [node name="zone" parent="." instance=ExtResource("5_xsqmg")]
 
@@ -493,3 +497,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4315, 0.299667, 1.02976)
 
 [node name="Resource-Wood7" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7739, 0.299667, 1.02976)
+
+[node name="Enemy" parent="." instance=ExtResource("26_pxx8e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 0, 0)
+
+[node name="Enemy2" parent="." instance=ExtResource("26_pxx8e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 0, -2.48857)
+
+[node name="Enemy3" parent="." instance=ExtResource("26_pxx8e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 0, -4.99677)
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

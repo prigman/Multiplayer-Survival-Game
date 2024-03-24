@@ -1,10 +1,15 @@
 class_name WalkingState
 extends PlayerMovementState
 
-@export var speed_state = 5.0
+var speed_state
+var walking_state = 5.0
 	
 func physics_update(delta):
 	player.update_gravity(delta)
+	if player.item.Scoped:
+		speed_state = walking_state / 2
+	else:
+		speed_state = walking_state
 	player.update_input(speed_state, ACCELERATION, DECCELERATION)
 	player.update_velocity()
 	if player.is_on_floor():

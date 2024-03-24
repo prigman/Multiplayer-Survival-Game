@@ -1,12 +1,10 @@
-[gd_scene load_steps=40 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=42 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
 [ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_nqi44"]
 [ext_resource type="PackedScene" uid="uid://m8lgl6sgjc8e" path="res://scenes/item.tscn" id="4_dcn20"]
-[ext_resource type="AnimationLibrary" uid="uid://cbdt7intcw3pe" path="res://anims/player_state.res" id="5_7m1j8"]
 [ext_resource type="Script" path="res://scripts/interface/reticle.gd" id="5_8lwt1"]
-[ext_resource type="AnimationLibrary" uid="uid://ds2vbvd6h8jgs" path="res://anims/assault_rifle.res" id="5_gr4sb"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
 [ext_resource type="Script" path="res://scripts/interface/ui_debug.gd" id="7_6mltq"]
@@ -34,42 +32,38 @@ height = 1.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f7gol"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
-radius = 0.605
 
-[sub_resource type="Animation" id="Animation_wl7o4"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_ntt5p"]
+resource_name = "Assault Rifle Activate"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CameraHolder/RigHolder/Item:position")
+tracks/0/path = NodePath("%Item:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.23, -0.355, -0.34)]
+"values": [Vector3(0.00872665, 2.7838, -0.802851), Vector3(0, 1.5708, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CameraHolder/RigHolder/Item:rotation")
+tracks/1/path = NodePath("%Item:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 1.5708, 0)]
+"values": [Vector3(0.04, -0.61, -0.545), Vector3(0.23, -0.355, -0.34)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ag73v"]
-_data = {
-"RESET": SubResource("Animation_wl7o4")
-}
-
-[sub_resource type="Animation" id="Animation_0it08"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_cypf8"]
+resource_name = "Assault Rifle Reload"
+length = 2.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -77,10 +71,10 @@ tracks/0/path = NodePath("%Item:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.4, 0.9, 1.6, 1.9, 2.3, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0.04, -0.61, -0.545)]
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0.065, -0.355, -0.34), Vector3(0.065, -0.435, -0.28), Vector3(0.065, -0.51, -0.28), Vector3(0.11, -0.36, -0.28), Vector3(0.11, -0.36, -0.395), Vector3(0.23, -0.355, -0.34)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -89,15 +83,160 @@ tracks/1/path = NodePath("%Item:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.9, 1.6, 1.9, 2.3, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0.497419, 2.73144, -0.270526), Vector3(0.165806, 2.73144, -0.270526), Vector3(-0.0872665, 2.522, -0.270526), Vector3(-0.436332, 1.72788, -0.270526), Vector3(-0.244346, 1.51844, -0.0785398), Vector3(0, 1.5708, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g3kgu"]
+resource_name = "Assault Rifle Scope"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Item:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.00872666, 2.7838, -0.802851)]
+"values": [Vector3(0, 1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Item:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0, -0.285, -0.325)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jnhb8"]
+[sub_resource type="Animation" id="Animation_6suu3"]
+resource_name = "Assault Rifle Scope Center"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Item:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Item:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.285, -0.325)]
+}
+
+[sub_resource type="Animation" id="Animation_ot87e"]
+resource_name = "Assault Rifle Shoot"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Item:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0.23, -0.355, -0.275), Vector3(0.23, -0.355, -0.34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Item:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0.0610865), Vector3(0, 1.5708, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1q8uh"]
+resource_name = "Assault Rifle out of ammo"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Item:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.23, -0.355, -0.34), Vector3(0.23, -0.355, -0.335), Vector3(0.23, -0.355, -0.34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Item:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0.00872665), Vector3(0, 1.5708, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hvc3l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Item:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Item:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.23, -0.355, -0.34)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lus2o"]
 _data = {
-"RESET": SubResource("Animation_0it08")
+"Assault Rifle Activate": SubResource("Animation_ntt5p"),
+"Assault Rifle Reload": SubResource("Animation_cypf8"),
+"Assault Rifle Scope": SubResource("Animation_g3kgu"),
+"Assault Rifle Scope Center": SubResource("Animation_6suu3"),
+"Assault Rifle Shoot": SubResource("Animation_ot87e"),
+"Assault Rifle out of ammo": SubResource("Animation_1q8uh"),
+"RESET": SubResource("Animation_hvc3l")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m1o6"]
@@ -147,18 +286,15 @@ weapon_holder = NodePath("CameraHolder/RigHolder")
 weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.001
 invert_weapon_sway = true
-spread_radius = 20.0
-in_sight_multiplier = 5.0
 
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 1, -3.72529e-09)
 shape = SubResource("CapsuleShape3D_7qfu8")
 
 [node name="CrouchStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 0.5, -3.72529e-09)
-visible = false
 shape = SubResource("CapsuleShape3D_lh2ax")
 disabled = true
 
@@ -172,7 +308,6 @@ skeleton = NodePath("../DefaultStateCollision")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 2.5, -3.72529e-09)
 shape = SubResource("SphereShape3D_c1c83")
-collision_mask = 25
 
 [node name="CameraHolder" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -180,56 +315,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
 [node name="RigHolder" type="Node3D" parent="CameraHolder"]
 
-[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("player", "animator", "weapon_hud", "reticle", "crosshair", "state_machine", "camera_holder", "timer", "aim_cast") instance=ExtResource("4_dcn20")]
+[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("animator", "weapon_hud", "reticle", "crosshair", "state_machine", "camera_holder") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
-transform = Transform3D(-0.261146, -0.268665, 0.140078, -0.287725, 0.277853, -0.00349062, -0.094958, -0.103039, -0.374655, 0.04, -0.61, -0.545)
-player = NodePath("../../..")
-animator = NodePath("../../../AnimItem")
-weapon_hud = NodePath("../../../CanvasLayer/Interface/Control/WeaponHud")
-reticle = NodePath("../../../CanvasLayer/Interface/Reticle")
-crosshair = NodePath("../../../CanvasLayer/Interface/Crosshair")
+transform = Transform3D(-3.61999e-06, 0, 1, 0, 1, 0, -1, 0, -3.61999e-06, 0.23, -0.355, -0.34)
+animator = NodePath("../../../AnimationPlayer")
+weapon_hud = NodePath("../../../Interface/Control/WeaponHud")
+reticle = NodePath("../../../Interface/Reticle")
+crosshair = NodePath("../../../Interface/Reticle/Crosshair")
 state_machine = NodePath("../../../StateMachine")
 camera_holder = NodePath("../..")
-timer = NodePath("../Timer")
-aim_cast = NodePath("../../Camera3D/AimCast")
-
-[node name="Timer" type="Timer" parent="CameraHolder/RigHolder"]
-one_shot = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.094, 0)
 
 [node name="InteractRay" type="RayCast3D" parent="CameraHolder/Camera3D"]
-unique_name_in_owner = true
 target_position = Vector3(0, 0, -2.5)
 collision_mask = 12
 
-[node name="AimCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
-unique_name_in_owner = true
-target_position = Vector3(0, 0, -1000)
-collision_mask = 59
-hit_back_faces = false
-collide_with_areas = true
-
-[node name="AnimItem" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_ag73v"),
-"assault_rifle": ExtResource("5_gr4sb")
-}
-
-[node name="AnimPlayerState" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 root_node = NodePath("../CameraHolder/RigHolder")
 libraries = {
-"": SubResource("AnimationLibrary_jnhb8"),
-"player_state": ExtResource("5_7m1j8")
+"": SubResource("AnimationLibrary_lus2o")
 }
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Interface" type="Control" parent="CanvasLayer"]
+[node name="Interface" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -238,34 +349,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Crosshair" type="Control" parent="CanvasLayer/Interface"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Top" type="Line2D" parent="CanvasLayer/Interface/Crosshair"]
-points = PackedVector2Array(0, -6, 0, -14)
-width = 1.5
-
-[node name="Right" type="Line2D" parent="CanvasLayer/Interface/Crosshair"]
-points = PackedVector2Array(14, 0, 6, 0)
-width = 1.5
-
-[node name="Bottom" type="Line2D" parent="CanvasLayer/Interface/Crosshair"]
-points = PackedVector2Array(0, 6, 0, 14)
-width = 1.5
-
-[node name="Left" type="Line2D" parent="CanvasLayer/Interface/Crosshair"]
-points = PackedVector2Array(-6, 0, -14, 0)
-width = 1.5
-
-[node name="Reticle" type="CenterContainer" parent="CanvasLayer/Interface" node_paths=PackedStringArray("state_machine", "reticle_lines", "player")]
+[node name="Reticle" type="CenterContainer" parent="Interface" node_paths=PackedStringArray("reticle_lines", "player")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -276,11 +360,31 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("5_8lwt1")
-state_machine = NodePath("../../../StateMachine")
-reticle_lines = [NodePath("../Crosshair/Top"), NodePath("../Crosshair/Right"), NodePath("../Crosshair/Bottom"), NodePath("../Crosshair/Left"), null, null]
-player = NodePath("../../..")
+reticle_lines = [NodePath("Crosshair/Top"), NodePath("Crosshair/Right"), NodePath("Crosshair/Bottom"), NodePath("Crosshair/Left")]
+player = NodePath("../..")
+reticle_distance = 5.0
 
-[node name="Debug" type="PanelContainer" parent="CanvasLayer/Interface"]
+[node name="Crosshair" type="Control" parent="Interface/Reticle"]
+visible = false
+layout_mode = 2
+
+[node name="Top" type="Line2D" parent="Interface/Reticle/Crosshair"]
+points = PackedVector2Array(0, -6, 0, -14)
+width = 2.0
+
+[node name="Right" type="Line2D" parent="Interface/Reticle/Crosshair"]
+points = PackedVector2Array(14, 0, 6, 0)
+width = 2.0
+
+[node name="Bottom" type="Line2D" parent="Interface/Reticle/Crosshair"]
+points = PackedVector2Array(0, 6, 0, 14)
+width = 2.0
+
+[node name="Left" type="Line2D" parent="Interface/Reticle/Crosshair"]
+points = PackedVector2Array(-6, 0, -14, 0)
+width = 2.0
+
+[node name="Debug" type="PanelContainer" parent="Interface"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 0
 offset_left = 15.0
@@ -291,14 +395,14 @@ mouse_filter = 2
 theme = ExtResource("5_js7jf")
 script = ExtResource("7_6mltq")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Debug"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Debug"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Debug/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Debug/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Control" type="Control" parent="CanvasLayer/Interface"]
+[node name="Control" type="Control" parent="Interface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -309,7 +413,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="PlayerStats" parent="CanvasLayer/Interface/Control" instance=ExtResource("9_bcxkl")]
+[node name="PlayerStats" parent="Interface/Control" instance=ExtResource("9_bcxkl")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 90)
 layout_mode = 1
@@ -325,7 +429,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 8
 size_flags_stretch_ratio = 5.0
 
-[node name="WeaponHud" parent="CanvasLayer/Interface/Control" instance=ExtResource("12_2ffht")]
+[node name="WeaponHud" parent="Interface/Control" instance=ExtResource("12_2ffht")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -344,7 +448,7 @@ size_flags_horizontal = 10
 size_flags_vertical = 10
 size_flags_stretch_ratio = 5.0
 
-[node name="InventoryInterface" type="Control" parent="CanvasLayer/Interface/Control"]
+[node name="InventoryInterface" type="Control" parent="Interface/Control"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -365,7 +469,7 @@ size_flags_stretch_ratio = 15.0
 mouse_filter = 1
 script = ExtResource("9_sd5qi")
 
-[node name="CraftMenu" parent="CanvasLayer/Interface/Control/InventoryInterface" instance=ExtResource("13_00r71")]
+[node name="CraftMenu" parent="Interface/Control/InventoryInterface" instance=ExtResource("13_00r71")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -379,7 +483,7 @@ offset_bottom = 200.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="PlayerInventory" parent="CanvasLayer/Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
+[node name="PlayerInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.509804)
 layout_mode = 1
@@ -398,7 +502,7 @@ size_flags_horizontal = 6
 size_flags_vertical = 4
 size_flags_stretch_ratio = 10.0
 
-[node name="ExternalInventory" parent="CanvasLayer/Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
+[node name="ExternalInventory" parent="Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(1, 1, 1, 0.509804)
@@ -418,7 +522,7 @@ size_flags_horizontal = 10
 size_flags_vertical = 6
 size_flags_stretch_ratio = 5.0
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Interface/Control"]
+[node name="MarginContainer2" type="MarginContainer" parent="Interface/Control"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -436,7 +540,7 @@ size_flags_stretch_ratio = 5.0
 mouse_filter = 2
 theme_override_constants/margin_bottom = 35
 
-[node name="PlayerQuickSlot" parent="CanvasLayer/Interface/Control/MarginContainer2" instance=ExtResource("10_51sge")]
+[node name="PlayerQuickSlot" parent="Interface/Control/MarginContainer2" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
@@ -444,7 +548,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 size_flags_stretch_ratio = 20.25
 
-[node name="GrabbedSlot" type="PanelContainer" parent="CanvasLayer/Interface/Control"]
+[node name="GrabbedSlot" type="PanelContainer" parent="Interface/Control"]
 unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 1, 0.788235)
@@ -457,26 +561,26 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 script = ExtResource("12_vifhc")
 
-[node name="ActiveSlotPanel" type="PanelContainer" parent="CanvasLayer/Interface/Control/GrabbedSlot"]
+[node name="ActiveSlotPanel" type="PanelContainer" parent="Interface/Control/GrabbedSlot"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8m1o6")
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/Control/GrabbedSlot"]
+[node name="MarginContainer3" type="MarginContainer" parent="Interface/Control/GrabbedSlot"]
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Interface/Control/GrabbedSlot/MarginContainer3"]
+[node name="TextureRect" type="TextureRect" parent="Interface/Control/GrabbedSlot/MarginContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Amount" type="Label" parent="CanvasLayer/Interface/Control/GrabbedSlot/MarginContainer3"]
+[node name="Amount" type="Label" parent="Interface/Control/GrabbedSlot/MarginContainer3"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -487,12 +591,12 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 text = "x99"
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Interface/Control/GrabbedSlot"]
+[node name="MarginContainer2" type="MarginContainer" parent="Interface/Control/GrabbedSlot"]
 layout_mode = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
 
-[node name="SlotNumber" type="Label" parent="CanvasLayer/Interface/Control/GrabbedSlot/MarginContainer2"]
+[node name="SlotNumber" type="Label" parent="Interface/Control/GrabbedSlot/MarginContainer2"]
 unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 1, 0.392157)
@@ -502,7 +606,7 @@ size_flags_vertical = 0
 theme_override_font_sizes/font_size = 12
 text = "1"
 
-[node name="InvItemInfoPanel" type="PanelContainer" parent="CanvasLayer/Interface/Control"]
+[node name="InvItemInfoPanel" type="PanelContainer" parent="Interface/Control"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(400, 170)
@@ -513,41 +617,41 @@ size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3tcom")
 script = ExtResource("10_pwj6i")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.0
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="ItemHealth" type="ProgressBar" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+[node name="ItemHealth" type="ProgressBar" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -556,7 +660,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_sfy83")
 value = 80.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ItemHealth"]
+[node name="Label" type="Label" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ItemHealth"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -572,13 +676,13 @@ text = "QUALITY
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer3" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 20.0
 
-[node name="ItemIcon" type="TextureRect" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3"]
+[node name="ItemIcon" type="TextureRect" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -588,7 +692,7 @@ texture = ExtResource("11_bwrnu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AmmoCountPanel" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon"]
+[node name="AmmoCountPanel" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
@@ -601,7 +705,7 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="AmmoCount" type="Label" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon/AmmoCountPanel"]
+[node name="AmmoCount" type="Label" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon/AmmoCountPanel"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
@@ -610,50 +714,50 @@ text = "30"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WeaponSlots" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="WeaponSlots" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
+[node name="Label" type="Label" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 7
-text = "Attachments"
+text = "Accessories"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Slot" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot2" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot2" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot3" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot3" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot4" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot4" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 15.0
@@ -663,10 +767,10 @@ theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 16
 tab_focus_mode = 0
 
-[node name="Details" type="TabBar" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
+[node name="Details" type="TabBar" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -674,7 +778,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemName" type="Label" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
+[node name="ItemName" type="Label" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -684,7 +788,7 @@ text = "Assault Rifle"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
@@ -692,17 +796,17 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ItemDescription" type="RichTextLabel" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="ItemDescription" type="RichTextLabel" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -717,11 +821,11 @@ Damage arms: 15 hp
 Damage legs: 15 hps
 Shoot types: auto, single, burst"
 
-[node name="Actions" type="TabBar" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
+[node name="Actions" type="TabBar" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -729,7 +833,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.2
@@ -738,10 +842,10 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="ItemUseButton" type="Button" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="ItemUseButton" type="Button" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -752,7 +856,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
 text = "Use
 "
 
-[node name="WeaponUnloadButton" type="Button" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="WeaponUnloadButton" type="Button" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -762,7 +866,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
 text = "Unload"
 
-[node name="ItemDropButton" type="Button" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="ItemDropButton" type="Button" parent="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -785,9 +889,8 @@ script = ExtResource("8_w2o86")
 [node name="Sprint" type="Node" parent="StateMachine"]
 script = ExtResource("9_touqc")
 
-[node name="Crouch" type="Node" parent="StateMachine" node_paths=PackedStringArray("animator")]
+[node name="Crouch" type="Node" parent="StateMachine"]
 script = ExtResource("10_0am0j")
-animator = NodePath("../../AnimPlayerState")
 
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("11_juquo")
@@ -795,18 +898,16 @@ script = ExtResource("11_juquo")
 [node name="Falling" type="Node" parent="StateMachine"]
 script = ExtResource("21_h51by")
 
-[connection signal="signal_update_player_health" from="." to="CanvasLayer/Interface/Control/PlayerStats" method="_on_player_signal_update_player_health"]
-[connection signal="signal_update_player_hunger" from="." to="CanvasLayer/Interface/Control/PlayerStats" method="_on_player_signal_update_player_hunger"]
-[connection signal="signal_update_player_stats" from="." to="CanvasLayer/Interface/Control/PlayerStats" method="_on_player_signal_update_player_stats"]
-[connection signal="Update_Ammo" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/WeaponHud" method="_on_item_update_ammo"]
-[connection signal="Update_Fire_Mode" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/WeaponHud" method="_on_item_update_fire_mode"]
-[connection signal="Update_Weapon_Stack" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/WeaponHud" method="_on_item_update_weapon_stack"]
-[connection signal="Weapon_Changed" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/WeaponHud" method="_on_item_weapon_changed"]
-[connection signal="animation_finished" from="AnimItem" to="CameraHolder/RigHolder/Item" method="_on_anim_item_animation_finished"]
-[connection signal="gui_input" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_gui_input"]
-[connection signal="signal_item_info_panel_set_data" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
-[connection signal="visibility_changed" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_visibility_changed"]
-[connection signal="gui_input" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_gui_input"]
-[connection signal="mouse_entered" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_mouse_exited"]
-[connection signal="pressed" from="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_item_drop_button_pressed"]
+[connection signal="signal_update_player_health" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_health"]
+[connection signal="signal_update_player_hunger" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_hunger"]
+[connection signal="signal_update_player_stats" from="." to="Interface/Control/PlayerStats" method="_on_player_signal_update_player_stats"]
+[connection signal="Update_Ammo" from="CameraHolder/RigHolder/Item" to="Interface/Control/WeaponHud" method="_on_item_update_ammo"]
+[connection signal="Update_Weapon_Stack" from="CameraHolder/RigHolder/Item" to="Interface/Control/WeaponHud" method="_on_item_update_weapon_stack"]
+[connection signal="Weapon_Changed" from="CameraHolder/RigHolder/Item" to="Interface/Control/WeaponHud" method="_on_item_weapon_changed"]
+[connection signal="gui_input" from="Interface/Control/InventoryInterface" to="Interface/Control/InventoryInterface" method="_on_gui_input"]
+[connection signal="signal_item_info_panel_set_data" from="Interface/Control/InventoryInterface" to="Interface/Control/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
+[connection signal="visibility_changed" from="Interface/Control/InventoryInterface" to="Interface/Control/InventoryInterface" method="_on_visibility_changed"]
+[connection signal="gui_input" from="Interface/Control/GrabbedSlot" to="Interface/Control/GrabbedSlot" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Interface/Control/GrabbedSlot" to="Interface/Control/GrabbedSlot" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Interface/Control/GrabbedSlot" to="Interface/Control/GrabbedSlot" method="_on_mouse_exited"]
+[connection signal="pressed" from="Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="Interface/Control/InventoryInterface" method="_on_item_drop_button_pressed"]

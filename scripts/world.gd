@@ -1,9 +1,13 @@
-extends Node
-class_name World
+class_name World extends Node
 
 @onready var player = $Player
 
+@export var enemy1 : CharacterBody3D
+@export var enemy2 : CharacterBody3D
+@export var enemy3 : CharacterBody3D
+
 func _ready():
+	Global.global_world = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	player.signal_toggle_inventory.connect(_toggle_inventory_interface)
 	player.inventory_interface._set_player_inventory_data(player.player_inventory)
@@ -44,3 +48,12 @@ func _instantiate_dropped_item(dropped_slot : PackedScene, slot_data : InSlotDat
 	obj.slot_data = slot_data
 	obj.position = player.get_drop_position()
 	add_child(obj)
+
+
+func _on_enemy_spawn_timer_timeout():
+	if !enemy1.visible:
+		enemy1.show()
+	if !enemy2.visible:
+		enemy2.show()
+	if !enemy3.visible:
+		enemy3.show()

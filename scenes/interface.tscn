@@ -23,7 +23,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jrdn0")
 reticle_lines = [null, null, null, null]
-reticle_distance = 5.0
 
 [node name="Top" type="Line2D" parent="Reticle"]
 points = PackedVector2Array(0, -6, 0, -14)

@@ -29,3 +29,14 @@ text = "Ammo:"
 [node name="CurrentAmmo" type="Label" parent="HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer3"]
+layout_mode = 2
+text = "Fire Mode:"
+
+[node name="FireMode" type="Label" parent="HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2

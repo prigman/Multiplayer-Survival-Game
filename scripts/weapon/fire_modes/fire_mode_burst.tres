@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FireModeBurst" load_steps=2 format=3 uid="uid://c6k3d775kkc2k"]
+
+[ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_burst.gd" id="1_kikew"]
+
+[resource]
+script = ExtResource("1_kikew")
+name = "Burst"
+fire_mode = 2
+fire_rate = 0.0
+bullets_per_shot_rate = 0.0
+bullets_per_shot = 3

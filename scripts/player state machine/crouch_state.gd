@@ -1,30 +1,31 @@
 class_name CrouchState
 extends PlayerMovementState
 
-const CROUCH_DEPTH = -0.5
-var crouch_transition_time = 0.05
-
-@export var speed_state = 3.0
+var speed_state
+var crouch_state = 3.0
 
 @onready var spherecast = %ShapeCast3D
-@onready var default_state_collision = %DefaultStateCollision
-@onready var crouch_state_collision = %CrouchStateCollision
+@export var animator : AnimationPlayer
+
+func enter(_previous_state):
+	animator.play("player_state/crouch_state")
 
 func physics_update(delta):
 	player.update_gravity(delta)
+	if player.item.Scoped:
+		speed_state = crouch_state / 2
+	else:
+		speed_state = crouch_state
 	player.update_input(speed_state, ACCELERATION, DECCELERATION)
 	player.update_velocity()
-	player.camera_holder.position.y = player.camera_holder_position + CROUCH_DEPTH
-	default_state_collision.disabled = true
-	crouch_state_collision.disabled = false
 	if Input.is_action_just_released("left_ctrl"):
 		uncrouch(delta)
 	
 func uncrouch(delta):
 	if !spherecast.is_colliding() and !Input.is_action_pressed("left_ctrl"):
-		player.camera_holder.position.y = player.camera_holder_position
-		default_state_collision.disabled = false
-		crouch_state_collision.disabled = true
+		animator.play_backwards("player_state/crouch_state")
+		if animator.current_animation == "player_state/crouch_state":
+			await animator.animation_finished
 		transition.emit("Idle")
 	elif spherecast.is_colliding():
 		await get_tree().create_timer(0.1).timeout

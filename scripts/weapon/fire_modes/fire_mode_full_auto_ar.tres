@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="FireModeFullAuto" load_steps=2 format=3 uid="uid://dwmpk6d810gkb"]
+
+[ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_full_auto.gd" id="1_ybu8r"]
+
+[resource]
+script = ExtResource("1_ybu8r")
+name = "Full Auto"
+mode = 1
+fire_rate = 0.14

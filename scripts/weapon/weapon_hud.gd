@@ -10,3 +10,7 @@ func _on_item_update_weapon_stack(sweapon_stack):
 
 func _on_item_weapon_changed(weapon_name):
 	%CurrentWeapon.set_text(weapon_name)
+
+
+func _on_item_update_fire_mode(fire_mode : WeaponFireModes):
+	%FireMode.set_text(fire_mode.name)

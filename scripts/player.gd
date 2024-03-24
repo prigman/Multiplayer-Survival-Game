@@ -1,5 +1,4 @@
-class_name Player
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
 signal signal_toggle_inventory()
 signal signal_update_player_stats(health : float, hunger : float)
@@ -21,7 +20,6 @@ var health_value : float = 100.0
 
 #var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-
 #tilt weapon
 @export var weapon_holder : Node3D
 @export var weapon_sway_amount : float = 5
@@ -31,7 +29,8 @@ var health_value : float = 100.0
 @onready var spherecast = %ShapeCast3D
 @onready var camera_holder = %CameraHolder
 @onready var camera = %Camera3D
-@onready var interact_ray = $CameraHolder/Camera3D/InteractRay
+@onready var interact_ray = %InteractRay
+
 @onready var inventory_interface = %InventoryInterface
 @onready var item = %Item
 
@@ -39,6 +38,16 @@ var health_value : float = 100.0
 
 var def_weapon_holder_pos : Vector3
 var mouse_input : Vector2
+
+# переменные разброса для Assault Rifle
+@export var spread_radius : float = 10
+# spread_radius делит на значения
+@export var in_sight_multiplier : float = 4
+@export var crouch_state_multiplier : float = 2.5
+@export var shooting_state_multiplier : float = 2
+#
+@export var all_factors_multiplier : float = 2
+#--
 
 func _ready():
 	Global.global_player = self
@@ -111,7 +120,7 @@ func weapon_sway(delta):
 	
 func weapon_bob(vel : float, delta):
 	if weapon_holder:
-		if vel > 0 and is_on_floor():
+		if vel > 0 and is_on_floor() and !item.Scoped:
 			var bob_amount : float = 0.01
 			var bob_freq : float = 0.01
 			weapon_holder.position.y = lerp(weapon_holder.position.y, def_weapon_holder_pos.y + sin(Time.get_ticks_msec() * bob_freq) * bob_amount, 10 * delta)

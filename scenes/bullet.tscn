@@ -1,16 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://kvijdr26xo5d"]
+[gd_scene load_steps=8 format=3 uid="uid://kvijdr26xo5d"]
 
 [ext_resource type="Script" path="res://scripts/weapon/bullet.gd" id="1_hnba2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5kyt3"]
 radius = 0.05
-height = 1.0
+height = 0.365
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjufd"]
 albedo_color = Color(0.972549, 0.741176, 0, 1)
 emission_enabled = true
-emission = Color(0.972549, 1, 0.392157, 1)
-emission_energy_multiplier = 10.0
+emission = Color(0.992157, 0.4, 0, 1)
+emission_energy_multiplier = 0.9
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w15lr"]
+radius = 0.1
+height = 0.465
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cgm8g"]
 albedo_color = Color(0.972549, 1, 0, 1)
@@ -31,18 +35,25 @@ height = 0.15
 [node name="Bullet" type="Node3D"]
 script = ExtResource("1_hnba2")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.539528)
-target_position = Vector3(0, -2.81, 0)
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 11
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_5kyt3")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_yjufd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_w15lr")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.500446)
+visible = false
 material_override = SubResource("StandardMaterial3D_cgm8g")
 emitting = false
 one_shot = true
@@ -51,8 +62,9 @@ process_material = SubResource("ParticleProcessMaterial_4aypq")
 draw_pass_1 = SubResource("SphereMesh_0i548")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 3.0
 one_shot = true
 autostart = true
 
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
