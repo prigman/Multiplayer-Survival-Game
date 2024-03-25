@@ -44,7 +44,6 @@ var spread_value : float
 
 func _ready():
 	randomize() # чтобы разброс оружия работал
-	randomize_aimcast_spread()
 	Global.global_item_script = self
 
 func _physics_process(delta):
@@ -90,6 +89,9 @@ func _unhandled_input(event):
 						toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
 	
 	if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
+		if Input.is_action_just_pressed("fire"):
+			if _equiped_item_type(equiped_item.ItemType.tool):
+				animator.play(equiped_item.anim_hit)
 		if _equiped_item_type(equiped_item.ItemType.weapon) and animator.current_animation != equiped_item.anim_activate and animator.current_animation != equiped_item.anim_reload: # если соответствует тип
 			if Input.is_action_just_pressed("reload") and equiped_item.ammo_current != equiped_item.ammo_max and equiped_item.ammo_reserve and animator.current_animation != equiped_item.anim_scope:
 				if Scoped:
@@ -113,8 +115,9 @@ func _unhandled_input(event):
 						Update_Fire_Mode.emit(equiped_item.fire_mode_current)
 						break
 
-func initialize(item_slot: InSlotData, slot_index : int): # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
+func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InSlotData): # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
 	if item_slot != null:
+		inventory_data.signal_update_active_slot.emit(inventory_data, slot_index, equiped_slot_index, item_slot, equiped_slot)
 		#-назначаем основные переменные этого класса
 		equiped_slot = item_slot
 		equiped_item = equiped_slot.item
@@ -122,6 +125,10 @@ func initialize(item_slot: InSlotData, slot_index : int): # создаем ли�
 		#-
 		set_mesh_and_loc() # выставляются данные меша, позиции, размер, поворот этой ноды из класса ItemData
 		if equiped_item.item_type == equiped_item.ItemType.weapon:
+			randomize_aimcast_spread()
+			for data in player.weapon_spread_data:
+				if data and data.weapon_data.name == equiped_item.name:
+					player.current_weapon_spread_data = data # выставляется ресурс с данными о разбросе для оружия
 			weapon_hud.show()
 			crosshair.show()
 			reticle.hide()
@@ -134,7 +141,9 @@ func initialize(item_slot: InSlotData, slot_index : int): # создаем ли�
 		else:
 			clear_weapon_attachments() # убираем перекрестие, очищаем меш прицела если он не null
 
-func remove_item(): # убираем предмет из рук
+func remove_item(inventory_data : InventoryData, index : int, slot_data : InSlotData): # убираем предмет из рук
+	inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot)
+	player.current_weapon_spread_data = null
 	reticle.show()
 	item_mesh.mesh = null
 	equiped_slot = null
@@ -221,8 +230,8 @@ func Assault_Rifle_Scope():
 	Scoped = !Scoped
 	
 func toggle_holo_sight():
-	toggle_holo = !toggle_holo
 	if equiped_item.sight_mesh != null:
+		toggle_holo = !toggle_holo
 		if !toggle_holo:
 			ar_sight_mesh.mesh = equiped_item.sight_mesh
 		else:
@@ -255,34 +264,37 @@ func update_weapon_ammo(value : int):
 	Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
 	
 func swap_items(inventory_data : InventoryData, index : int):
-	if equiped_item:
+	if animator and equiped_item:
 		if equiped_item.item_type == equiped_item.ItemType.weapon:
 			if animator.current_animation == equiped_item.anim_reload:
 				animator.stop()
 			elif animator.current_animation == equiped_item.anim_activate:
 				return
+		elif equiped_item.item_type == equiped_item.ItemType.tool:
+			if animator.current_animation == equiped_item.anim_hit:
+				return
 	var slot_data = inventory_data.slots_data[index]
-	inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot)
 	for i in index+1:
 		match[slot_data, equiped_slot, index]:
 			[null, null, i]:
 				print("Niche nety v rykah i slot pystoi")
+				inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot)
 				break 
 			[null, _, i]:
 				print("Item removed")
-				remove_item()
+				remove_item(inventory_data, index, slot_data)
 				break
 			[_, null, i]:
 				print("Item equiped %s" % slot_data.item.name)
-				initialize(slot_data, index)
+				initialize(inventory_data, index, slot_data)
 				break
 			[_,_, i]:
 				if equiped_slot != slot_data:
 					print("Item changed to %s" % slot_data.item.name)
-					initialize(slot_data, index)
+					initialize(inventory_data, index, slot_data)
 				else:
 					print("Item removed")
-					remove_item()
+					remove_item(inventory_data, index, slot_data)
 				break
 
 func _equiped_item_type(equiped_item_type : int) -> bool:

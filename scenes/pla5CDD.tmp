@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=41 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -11,7 +11,6 @@
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
 [ext_resource type="Script" path="res://scripts/interface/ui_debug.gd" id="7_6mltq"]
-[ext_resource type="AnimationLibrary" uid="uid://470qgcq5vcuu" path="res://anims/tools.res" id="7_8lfbf"]
 [ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
 [ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
 [ext_resource type="PackedScene" uid="uid://mdsqpmcb7k53" path="res://scenes/progress_bar.tscn" id="9_bcxkl"]
@@ -183,7 +182,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
 [node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("player", "animator", "weapon_hud", "reticle", "crosshair", "state_machine", "camera_holder", "timer", "aim_cast") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
-transform = Transform3D(-0.359076, -0.369414, 0.192607, -0.395622, 0.382048, -0.0047996, -0.130567, -0.141678, -0.51515, 0.04, -0.61, -0.545)
+transform = Transform3D(-0.261146, -0.268665, 0.140078, -0.287725, 0.277853, -0.00349062, -0.094958, -0.103039, -0.374655, 0.04, -0.61, -0.545)
 player = NodePath("../../..")
 animator = NodePath("../../../AnimItem")
 weapon_hud = NodePath("../../../CanvasLayer/Interface/Control/WeaponHud")
@@ -217,8 +216,7 @@ collide_with_areas = true
 unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_ag73v"),
-"assault_rifle": ExtResource("5_gr4sb"),
-"tools": ExtResource("7_8lfbf")
+"assault_rifle": ExtResource("5_gr4sb")
 }
 
 [node name="AnimPlayerState" type="AnimationPlayer" parent="."]

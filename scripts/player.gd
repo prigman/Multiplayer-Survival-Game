@@ -5,22 +5,30 @@ signal signal_update_player_stats(health : float, hunger : float)
 signal signal_update_player_health(health : float)
 signal signal_update_player_hunger(hunger : float)
 
+# movement
 var camera_holder_position
 var input_dir = Vector2.ZERO
 var direction = Vector3.ZERO
-var gravity = 12.0
+var gravity = 12.0 # ProjectSettings.get_setting("physics/3d/default_gravity")
 
+# stats
 var hunger_value : float = 100.0
 var health_value : float = 100.0
 
+var def_weapon_holder_pos : Vector3
+var mouse_input : Vector2
+
 @export var mouse_sens = 0.15
 
+# inv
 @export var player_inventory : InventoryData
 @export var player_quick_slot : InventoryData
 
-#var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+# spread data
+@export var weapon_spread_data : Array[PlayerWeaponSpread] # массив с данными разброса для всего доступного оружия 
+var current_weapon_spread_data : PlayerWeaponSpread = null # сюда назначается то оружие, которое игрок держит сейчас в руках
 
-#tilt weapon
+# tilt weapon
 @export var weapon_holder : Node3D
 @export var weapon_sway_amount : float = 5
 @export var weapon_rotation_amount : float = 1
@@ -30,24 +38,9 @@ var health_value : float = 100.0
 @onready var camera_holder = %CameraHolder
 @onready var camera = %Camera3D
 @onready var interact_ray = %InteractRay
-
 @onready var inventory_interface = %InventoryInterface
 @onready var item = %Item
-
 @onready var player_stats = %PlayerStats
-
-var def_weapon_holder_pos : Vector3
-var mouse_input : Vector2
-
-# переменные разброса для Assault Rifle
-@export var spread_radius : float = 10
-# spread_radius делит на значения
-@export var in_sight_multiplier : float = 4
-@export var crouch_state_multiplier : float = 2.5
-@export var shooting_state_multiplier : float = 2
-#
-@export var all_factors_multiplier : float = 2
-#--
 
 func _ready():
 	Global.global_player = self

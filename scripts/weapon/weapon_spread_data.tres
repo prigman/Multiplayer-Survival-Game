@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PlayerWeaponSpread" load_steps=2 format=3 uid="uid://ijdpcl8uhxw8"]
+
+[ext_resource type="Script" path="res://scripts/weapon/weapon_spread_data.gd" id="1_y06mc"]
+
+[resource]
+script = ExtResource("1_y06mc")
+spread_radius = 10.0
+in_sight_multiplier = 4.0
+crouch_state_multiplier = 2.5
+shooting_state_multiplier = 2.0
+all_factors_multiplier = 2.0

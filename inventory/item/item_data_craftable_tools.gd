@@ -1,4 +1,3 @@
-class_name ItemDataCraftableTools extends ItemData
+class_name ItemDataCraftableTools extends ItemDataTools
 
-@export var item_type : ItemType = ItemType.tool
 @export var craft_components : Array[CraftComponentData]

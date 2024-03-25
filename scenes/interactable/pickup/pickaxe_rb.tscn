@@ -21,8 +21,9 @@ amount = 1
 
 [sub_resource type="Resource" id="Resource_7jst0"]
 script = ExtResource("7_bd7lw")
-item_type = 4
 craft_components = Array[ExtResource("3_eboer")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
+item_type = 4
+anim_hit = ""
 name = "Pickaxe"
 description = "Pickaxe"
 description_item_panel = "Pickaxe"

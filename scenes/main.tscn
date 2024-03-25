@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=89 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
@@ -7,12 +7,13 @@
 [ext_resource type="Resource" uid="uid://d05wvcamae4du" path="res://inventory/item/objects/canned-food.tres" id="10_5uowv"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
 [ext_resource type="PackedScene" uid="uid://bs0te4ilgfkpw" path="res://scenes/interactable/pickup/canned-food_rigidbody.tscn" id="12_k0p58"]
-[ext_resource type="Resource" uid="uid://d16s5vsgm2o6t" path="res://inventory/item/objects/axe.tres" id="12_kl74d"]
 [ext_resource type="PackedScene" uid="uid://bwwhsm0q1fnnj" path="res://scenes/interactable/pickup/resource_pine_branch_rb.tscn" id="13_77uqr"]
 [ext_resource type="PackedScene" uid="uid://cnw83bbj2p7xk" path="res://scenes/interactable/pickup/stone_resource_rb.tscn" id="14_hv0t3"]
 [ext_resource type="PackedScene" uid="uid://cibfwxpsrgkac" path="res://scenes/interactable/pickup/axe_tool_rb.tscn" id="14_t4uim"]
 [ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="15_i4n86"]
+[ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="15_jti76"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="15_sl5eg"]
+[ext_resource type="ArrayMesh" uid="uid://cxp6bjdall1ug" path="res://models/meshes/axe.res" id="16_ijkd1"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="16_nipej"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="18_7v73m"]
 [ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="19_rekbk"]
@@ -163,9 +164,89 @@ script = ExtResource("11_653sy")
 item = ExtResource("10_5uowv")
 amount_in_slot = 1
 
-[sub_resource type="Resource" id="Resource_cpp6r"]
+[sub_resource type="Resource" id="Resource_1j36k"]
+script = ExtResource("15_sl5eg")
+component = ExtResource("27_2sm5u")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_3yjym"]
+script = ExtResource("15_sl5eg")
+component = ExtResource("16_nipej")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_gsmn2"]
+script = ExtResource("18_7v73m")
+craft_components = Array[ExtResource("15_sl5eg")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
+item_type = 4
+anim_hit = ""
+name = "Axe"
+description = "Axe"
+description_item_panel = "Axe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("15_jti76")
+mesh = ExtResource("16_ijkd1")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
+}
+position = Vector3(0.27, -0.39, -0.395)
+rotation = Vector3(5, 90, 0)
+scale = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_uya34"]
 script = ExtResource("11_653sy")
-item = ExtResource("12_kl74d")
+item = SubResource("Resource_gsmn2")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_fit7g"]
+script = ExtResource("18_7v73m")
+craft_components = Array[ExtResource("15_sl5eg")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
+item_type = 4
+anim_hit = ""
+name = "Axe"
+description = "Axe"
+description_item_panel = "Axe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("15_jti76")
+mesh = ExtResource("16_ijkd1")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
+}
+position = Vector3(0.27, -0.39, -0.395)
+rotation = Vector3(5, 90, 0)
+scale = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_3pfba"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_fit7g")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_4et8d"]
+script = ExtResource("18_7v73m")
+craft_components = Array[ExtResource("15_sl5eg")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
+item_type = 4
+anim_hit = ""
+name = "Axe"
+description = "Axe"
+description_item_panel = "Axe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("15_jti76")
+mesh = ExtResource("16_ijkd1")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
+}
+position = Vector3(0.27, -0.39, -0.395)
+rotation = Vector3(5, 90, 0)
+scale = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_0grdw"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_4et8d")
 amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_ddorj"]
@@ -180,8 +261,9 @@ amount = 1
 
 [sub_resource type="Resource" id="Resource_7jst0"]
 script = ExtResource("18_7v73m")
-item_type = 4
 craft_components = Array[ExtResource("15_sl5eg")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
+item_type = 4
+anim_hit = ""
 name = "Pickaxe"
 description = "Pickaxe"
 description_item_panel = "Pickaxe"
@@ -242,6 +324,21 @@ script = ExtResource("11_653sy")
 item = ExtResource("27_2sm5u")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_nedf1"]
+script = ExtResource("11_653sy")
+item = ExtResource("27_2sm5u")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_87w2r"]
+script = ExtResource("11_653sy")
+item = ExtResource("27_2sm5u")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_bpo0y"]
+script = ExtResource("11_653sy")
+item = ExtResource("27_2sm5u")
+amount_in_slot = 1
+
 [sub_resource type="Resource" id="Resource_jiaap"]
 script = ExtResource("11_653sy")
 item = ExtResource("27_2sm5u")
@@ -258,6 +355,21 @@ item = ExtResource("25_pkm0b")
 amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_mxv24"]
+script = ExtResource("11_653sy")
+item = ExtResource("25_pkm0b")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_t5ipw"]
+script = ExtResource("11_653sy")
+item = ExtResource("25_pkm0b")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_pet5o"]
+script = ExtResource("11_653sy")
+item = ExtResource("25_pkm0b")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_0xw18"]
 script = ExtResource("11_653sy")
 item = ExtResource("25_pkm0b")
 amount_in_slot = 1
@@ -405,15 +517,15 @@ slot_data = SubResource("Resource_rihq1")
 
 [node name="Axe" parent="zone/items_rb" instance=ExtResource("14_t4uim")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.505168, 0.638806, 0.992061)
-slot_data = SubResource("Resource_cpp6r")
+slot_data = SubResource("Resource_uya34")
 
 [node name="Axe2" parent="zone/items_rb" instance=ExtResource("14_t4uim")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177767, 0.638806, 0.992061)
-slot_data = SubResource("Resource_cpp6r")
+slot_data = SubResource("Resource_3pfba")
 
 [node name="Axe3" parent="zone/items_rb" instance=ExtResource("14_t4uim")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.910679, 0.638806, 0.992061)
-slot_data = SubResource("Resource_cpp6r")
+slot_data = SubResource("Resource_0grdw")
 
 [node name="Pickaxe" parent="zone/items_rb" instance=ExtResource("21_pq4m3")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.03082, 0.848744, 0.935694)
@@ -460,6 +572,18 @@ slot_data = SubResource("Resource_kg6nm")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.198, 0.440164, 3.10051)
 slot_data = SubResource("Resource_f34tv")
 
+[node name="Metal-Bar10" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.198, 0.440164, 4.23233)
+slot_data = SubResource("Resource_nedf1")
+
+[node name="Metal-Bar11" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88612, 0.440164, 4.23233)
+slot_data = SubResource("Resource_87w2r")
+
+[node name="Metal-Bar12" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6128, 0.440164, 4.23233)
+slot_data = SubResource("Resource_bpo0y")
+
 [node name="Metal-Bar9" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6343, 0.440164, 3.10051)
 slot_data = SubResource("Resource_jiaap")
@@ -475,6 +599,18 @@ slot_data = SubResource("Resource_1prcj")
 [node name="Resource-Wood3" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0502, 0.299667, 3.07726)
 slot_data = SubResource("Resource_mxv24")
+
+[node name="Resource-Wood10" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0502, 0.299667, 4.19069)
+slot_data = SubResource("Resource_t5ipw")
+
+[node name="Resource-Wood11" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4394, 0.299667, 4.19069)
+slot_data = SubResource("Resource_pet5o")
+
+[node name="Resource-Wood12" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7265, 0.299667, 4.19069)
+slot_data = SubResource("Resource_0xw18")
 
 [node name="Resource-Wood4" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4315, 0.299667, 3.07726)
