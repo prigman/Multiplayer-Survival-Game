@@ -14,7 +14,7 @@ corner_radius_bottom_left = 3
 [node name="CraftItem" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 120)
 offset_right = 300.0
-offset_bottom = 115.0
+offset_bottom = 119.0
 size_flags_vertical = 0
 script = ExtResource("1_sp2vx")
 
@@ -86,6 +86,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
+theme_override_constants/h_separation = 0
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_en5lm")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_476y2")

@@ -38,7 +38,7 @@ amount_in_slot = 54
 [sub_resource type="Resource" id="Resource_u1d15"]
 script = ExtResource("2_jeibw")
 type = 2
-slots_data = Array[ExtResource("4_4nwml")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null])
+slots_data = Array[ExtResource("4_4nwml")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_segvh"]
 points = PackedVector3Array(-1.1, -1.1, -1.1, -1.1, -1.1, 1.1, -1.1, 1.1, -1.1, 1.1, -1.1, -1.1, -1.1, 1.1, 1.1, 1.1, -1.1, 1.1, 1.1, 1.1, -1.1, 1.1, 1.1, 1.1)

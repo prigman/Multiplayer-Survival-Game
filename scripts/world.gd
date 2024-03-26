@@ -29,11 +29,15 @@ func _toggle_inventory_interface(external_inventory_owner = null):
 	player.inventory_interface.visible = not player.inventory_interface.visible
 	if player.inventory_interface.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		player.craft_menu.custom_minimum_size.y = 460
+		player.craft_menu_margin.add_theme_constant_override("margin_bottom", 190)
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if player.inventory_interface.inv_item_info_panel.visible:
 		player.inventory_interface.inv_item_info_panel.hide()
 	if external_inventory_owner and player.inventory_interface.visible:
+		player.craft_menu.custom_minimum_size.y = 260
+		player.craft_menu_margin.add_theme_constant_override("margin_bottom", 390)
 		player.inventory_interface._set_external_inventory(external_inventory_owner)
 	else:
 		player.inventory_interface._clear_external_inventory()

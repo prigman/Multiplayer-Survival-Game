@@ -1,8 +1,6 @@
 class_name ItemScript extends Node3D
 
-signal Weapon_Changed
 signal Update_Ammo
-signal Update_Weapon_Stack(stack)
 signal Update_Fire_Mode(fire_mode : WeaponFireModes)
 
 const BULLET_DECAL = preload("res://scenes/shoot_decal.tscn")
@@ -92,7 +90,6 @@ func _unhandled_input(event):
 	if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
 		if Input.is_action_just_pressed("fire"):
 			if _equiped_item_type(equiped_item.ItemType.tool) and !animator.is_playing():
-				print("play hit")
 				animator.play(equiped_item.anim_hit)
 		if _equiped_item_type(equiped_item.ItemType.weapon) and animator.current_animation != equiped_item.anim_activate and animator.current_animation != equiped_item.anim_reload: # если соответствует тип
 			if Input.is_action_just_pressed("reload") and equiped_item.ammo_current != equiped_item.ammo_max and equiped_item.ammo_reserve and animator.current_animation != equiped_item.anim_scope:
@@ -134,7 +131,6 @@ func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InS
 			crosshair.show()
 			reticle.hide()
 			animator.play(equiped_item.anim_activate)
-			Weapon_Changed.emit(equiped_item.name)
 			Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
 			Update_Fire_Mode.emit(equiped_item.fire_mode_current)
 			update_pos(equiped_item)

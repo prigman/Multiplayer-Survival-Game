@@ -8,17 +8,6 @@ offset_bottom = 50.0
 alignment = 1
 script = ExtResource("1_c1dub")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="HBoxContainer"]
-layout_mode = 2
-text = "Current Weapon:"
-
-[node name="CurrentWeapon" type="Label" parent="HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 2
 

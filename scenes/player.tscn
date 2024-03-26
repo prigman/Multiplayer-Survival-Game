@@ -186,7 +186,7 @@ unique_name_in_owner = true
 transform = Transform3D(-0.359076, -0.369414, 0.192607, -0.395622, 0.382048, -0.0047996, -0.130567, -0.141678, -0.51515, 0.04, -0.61, -0.545)
 player = NodePath("../../..")
 animator = NodePath("../../../AnimItem")
-weapon_hud = NodePath("../../../CanvasLayer/Interface/Control/WeaponHud")
+weapon_hud = NodePath("../../../CanvasLayer/Interface/Control/MarginContainer3/WeaponHud")
 reticle = NodePath("../../../CanvasLayer/Interface/Reticle")
 crosshair = NodePath("../../../CanvasLayer/Interface/Crosshair")
 state_machine = NodePath("../../../StateMachine")
@@ -317,37 +317,41 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="PlayerStats" parent="CanvasLayer/Interface/Control" instance=ExtResource("9_bcxkl")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 90)
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = -122.0
-offset_right = 300.0
-offset_bottom = -32.0
+offset_top = -90.0
+offset_right = 250.0
 grow_vertical = 0
-size_flags_horizontal = 2
-size_flags_vertical = 8
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_bottom = 35
+
+[node name="PlayerStats" parent="CanvasLayer/Interface/Control/MarginContainer" instance=ExtResource("9_bcxkl")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 90)
+layout_mode = 2
 size_flags_stretch_ratio = 5.0
 
-[node name="WeaponHud" parent="CanvasLayer/Interface/Control" instance=ExtResource("12_2ffht")]
-unique_name_in_owner = true
-visible = false
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/Control"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -217.0
-offset_top = -100.0
-offset_right = -26.0
-offset_bottom = -50.0
+offset_left = -137.0
+offset_top = -77.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 35
+
+[node name="WeaponHud" parent="CanvasLayer/Interface/Control/MarginContainer3" instance=ExtResource("12_2ffht")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 10
 size_flags_stretch_ratio = 5.0
@@ -356,15 +360,9 @@ size_flags_stretch_ratio = 5.0
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -576.0
-offset_top = -324.0
-offset_right = 576.0
-offset_bottom = 324.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -373,58 +371,71 @@ size_flags_stretch_ratio = 15.0
 mouse_filter = 1
 script = ExtResource("9_sd5qi")
 
-[node name="CraftMenu" parent="CanvasLayer/Interface/Control/InventoryInterface" instance=ExtResource("13_00r71")]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -338.336
-offset_top = -200.0
-offset_right = -3.33374
-offset_bottom = 200.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="PlayerInventory" parent="CanvasLayer/Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
+[node name="CraftMenuMargin" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface"]
 unique_name_in_owner = true
-self_modulate = Color(1, 1, 1, 0.509804)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = 106.26
-offset_right = 10.0
-offset_bottom = 126.26
+anchor_bottom = 1.0
+offset_left = -542.5
+offset_top = -400.0
+offset_right = 542.5
 grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-size_flags_stretch_ratio = 10.0
+grow_vertical = 0
+theme_override_constants/margin_left = 800
+theme_override_constants/margin_bottom = 390
 
-[node name="ExternalInventory" parent="CanvasLayer/Interface/Control/InventoryInterface" instance=ExtResource("10_51sge")]
+[node name="CraftMenu" parent="CanvasLayer/Interface/Control/InventoryInterface/CraftMenuMargin" instance=ExtResource("13_00r71")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -17.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 799
+theme_override_constants/margin_bottom = 120
+
+[node name="ExternalInventory" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer3" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(1, 1, 1, 0.509804)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -124.0
-offset_right = 10.0
-offset_bottom = -104.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 10
-size_flags_vertical = 6
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 size_flags_stretch_ratio = 5.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -136.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 120
+
+[node name="PlayerInventory" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer" instance=ExtResource("10_51sge")]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.509804)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+size_flags_stretch_ratio = 10.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Interface/Control"]
 layout_mode = 1
@@ -803,13 +814,11 @@ script = ExtResource("11_juquo")
 [node name="Falling" type="Node" parent="StateMachine"]
 script = ExtResource("21_h51by")
 
-[connection signal="signal_update_player_health" from="." to="CanvasLayer/Interface/Control/PlayerStats" method="_on_player_signal_update_player_health"]
-[connection signal="signal_update_player_hunger" from="." to="CanvasLayer/Interface/Control/PlayerStats" method="_on_player_signal_update_player_hunger"]
-[connection signal="signal_update_player_stats" from="." to="CanvasLayer/Interface/Control/PlayerStats" method="_on_player_signal_update_player_stats"]
-[connection signal="Update_Ammo" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/WeaponHud" method="_on_item_update_ammo"]
-[connection signal="Update_Fire_Mode" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/WeaponHud" method="_on_item_update_fire_mode"]
-[connection signal="Update_Weapon_Stack" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/WeaponHud" method="_on_item_update_weapon_stack"]
-[connection signal="Weapon_Changed" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/WeaponHud" method="_on_item_weapon_changed"]
+[connection signal="signal_update_player_health" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_health"]
+[connection signal="signal_update_player_hunger" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_hunger"]
+[connection signal="signal_update_player_stats" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_stats"]
+[connection signal="Update_Ammo" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/MarginContainer3/WeaponHud" method="_on_item_update_ammo"]
+[connection signal="Update_Fire_Mode" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/MarginContainer3/WeaponHud" method="_on_item_update_fire_mode"]
 [connection signal="animation_finished" from="AnimItem" to="CameraHolder/RigHolder/Item" method="_on_anim_item_animation_finished"]
 [connection signal="gui_input" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_gui_input"]
 [connection signal="signal_item_info_panel_set_data" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
