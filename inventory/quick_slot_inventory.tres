@@ -1,12 +1,9 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=24 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=18 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="2_83pcy"]
+[ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://inventory/item/objects/pickaxe.tres" id="2_g34mc"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="3_q7mj1"]
-[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="4_kuqpx"]
-[ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="5_qr5ut"]
-[ext_resource type="ArrayMesh" uid="uid://hmgxq3s6kcv7" path="res://models/meshes/pickaxe.res" id="6_yjyb2"]
-[ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="7_nektd"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="8_qw5vx"]
 [ext_resource type="Resource" uid="uid://dwmpk6d810gkb" path="res://scripts/weapon/fire_modes/fire_mode_full_auto_ar.tres" id="9_ifuvi"]
 [ext_resource type="Resource" uid="uid://duolnhkopt6su" path="res://scripts/weapon/fire_modes/fire_mode_single.tres" id="10_1vbyh"]
@@ -17,39 +14,9 @@
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="15_exx56"]
 [ext_resource type="ArrayMesh" uid="uid://cghrb8l1uuxk5" path="res://models/ar/ar_holo.res" id="16_12wq0"]
 
-[sub_resource type="Resource" id="Resource_ddorj"]
-script = ExtResource("3_q7mj1")
-component = ExtResource("2_83pcy")
-amount = 2
-
-[sub_resource type="Resource" id="Resource_t6tg5"]
-script = ExtResource("3_q7mj1")
-component = ExtResource("4_kuqpx")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_rduqp"]
-script = ExtResource("7_nektd")
-craft_components = Array[ExtResource("3_q7mj1")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
-item_type = 4
-anim_hit = "tools/pickaxe_hit"
-name = "Pickaxe"
-description = "Pickaxe"
-description_item_panel = "Pickaxe"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("5_qr5ut")
-mesh = ExtResource("6_yjyb2")
-dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/pickaxe_rb.tscn"
-}
-position = Vector3(0.29, -0.335, -0.535)
-rotation = Vector3(11, 118, 0)
-scale = Vector3(0.55, 0.55, 0.55)
-
 [sub_resource type="Resource" id="Resource_n38jr"]
 script = ExtResource("8_qw5vx")
-item = SubResource("Resource_rduqp")
+item = ExtResource("2_g34mc")
 amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_aofcs"]

@@ -20,6 +20,7 @@ const BULLET_DECAL = preload("res://scenes/shoot_decal.tscn")
 @export var camera_holder : Node3D
 @export var timer : Timer
 @export var aim_cast : RayCast3D
+@export var melee_cast : RayCast3D
 
 var bullet_instance
 
@@ -90,7 +91,8 @@ func _unhandled_input(event):
 	
 	if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
 		if Input.is_action_just_pressed("fire"):
-			if _equiped_item_type(equiped_item.ItemType.tool):
+			if _equiped_item_type(equiped_item.ItemType.tool) and !animator.is_playing():
+				print("play hit")
 				animator.play(equiped_item.anim_hit)
 		if _equiped_item_type(equiped_item.ItemType.weapon) and animator.current_animation != equiped_item.anim_activate and animator.current_animation != equiped_item.anim_reload: # если соответствует тип
 			if Input.is_action_just_pressed("reload") and equiped_item.ammo_current != equiped_item.ammo_max and equiped_item.ammo_reserve and animator.current_animation != equiped_item.anim_scope:
@@ -125,7 +127,6 @@ func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InS
 		#-
 		set_mesh_and_loc() # выставляются данные меша, позиции, размер, поворот этой ноды из класса ItemData
 		if equiped_item.item_type == equiped_item.ItemType.weapon:
-			randomize_aimcast_spread()
 			for data in player.weapon_spread_data:
 				if data and data.weapon_data.name == equiped_item.name:
 					player.current_weapon_spread_data = data # выставляется ресурс с данными о разбросе для оружия
@@ -172,7 +173,7 @@ func apply_recoil(delta):
 
 func shoot():
 	randomize_aimcast_spread()
-	hitscan()
+	hitscan(aim_cast)
 	update_weapon_ammo(-1) # отнимаем current ammo и обновляем худ
 	equiped_item.recoil_amplitude.x *= -1 if randf() > 0.75 else 1
 	target_rot.z = equiped_item.recoil_rotation_z.sample(0) * equiped_item.recoil_amplitude.y
@@ -187,21 +188,24 @@ func update_pos(weapon_data : ItemData):
 	target_rot.y = weapon_data.rotation.y
 	current_time = 1
 	
-func hitscan():
-	var target = aim_cast.get_collider()
+func hitscan(raycast : RayCast3D):
+	var target = raycast.get_collider()
 	if target:
+		if raycast == melee_cast and target.is_in_group("stone_object"):
+			create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(1, 5))
 		if target.is_in_group("enemy_group"):
 			print("Enemy hit")
 			target.health -= equiped_item.damage
 		else:
 			var decal = BULLET_DECAL.instantiate()
 			target.add_child(decal)
-			decal.global_transform.origin = aim_cast.get_collision_point()
-			if aim_cast.get_collision_normal() == Vector3.DOWN:
+			decal.global_transform.origin = raycast.get_collision_point()
+			if raycast.get_collision_normal() == Vector3.DOWN:
 				decal.rotation_degrees.x = 90
-			elif aim_cast.get_collision_normal() != Vector3.UP:
-				decal.look_at(aim_cast.get_collision_point() - aim_cast.get_collision_normal(), Vector3(0,1,0))
+			elif raycast.get_collision_normal() != Vector3.UP:
+				decal.look_at(raycast.get_collision_point() - raycast.get_collision_normal(), Vector3(0,1,0))
 			print("Hit collider %s" % target.name)
+			
 
 func randomize_aimcast_spread():
 	spread_value = reticle.spread_factors * 10 # умножается на 10 в случае если длина луча 1000+ метров
@@ -271,7 +275,7 @@ func swap_items(inventory_data : InventoryData, index : int):
 			elif animator.current_animation == equiped_item.anim_activate:
 				return
 		elif equiped_item.item_type == equiped_item.ItemType.tool:
-			if animator.current_animation == equiped_item.anim_hit:
+			if animator.is_playing():
 				return
 	var slot_data = inventory_data.slots_data[index]
 	for i in index+1:
@@ -321,3 +325,13 @@ func _on_anim_item_animation_finished(anim_name):
 		if equiped_item.item_type == equiped_item.ItemType.weapon:
 			if anim_name == equiped_item.anim_reload:
 				reload()
+		if equiped_item.item_type == equiped_item.ItemType.tool:
+			if anim_name == equiped_item.anim_hit:
+				hitscan(melee_cast)
+				animator.play(equiped_item.anim_after_hit)
+
+func create_player_item(item_data : ItemData, amount : int):
+	var slot_data = InSlotData.new()
+	slot_data.item = item_data
+	slot_data.amount_in_slot = amount
+	Global.give_player_item(slot_data)

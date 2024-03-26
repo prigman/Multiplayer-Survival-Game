@@ -16,6 +16,7 @@ signal signal_update_active_slot(inventory_data : InventoryData, new_slot_index 
 
 @export var type : InventoryType
 @export var slots_data: Array[InSlotData]
+var slot_copy : InSlotData = null
 
 func _grab_slot_data(index : int) -> InSlotData:
 	var slot = slots_data[index]
@@ -29,11 +30,21 @@ func _grab_slot_data(index : int) -> InSlotData:
 func _drop_slot_data(grabbed_slot_data : InSlotData, index : int) -> InSlotData:
 	var slot = slots_data[index]
 	var return_slot_data : InSlotData
-	if slot and slot._can_fully_stack_with(grabbed_slot_data):
-		slot._stack_with(grabbed_slot_data)
+
+	if slot and slot._can_stack_with(grabbed_slot_data):
+		var space_left = slot.item.max_stack - slot.amount_in_slot
+		var stack_amount = min(space_left, grabbed_slot_data.amount_in_slot)
+		slot.amount_in_slot += stack_amount
+		grabbed_slot_data.amount_in_slot -= stack_amount
+		
+		if grabbed_slot_data.amount_in_slot == 0:
+			return_slot_data = null
+		else:
+			return_slot_data = grabbed_slot_data
 	else:
 		slots_data[index] = grabbed_slot_data
 		return_slot_data = slot
+	
 	signal_inventory_update.emit(self)
 	return return_slot_data
 
@@ -50,18 +61,34 @@ func _drop_single_slot_data(grabbed_slot_data : InSlotData, index : int) -> InSl
 		return null
 	
 func _pick_up_slot_data(slot_data : InSlotData) -> bool:
+	var remaining_amount = slot_data.amount_in_slot
+
 	for i in slots_data.size():
 		if slots_data[i] and slots_data[i]._can_stack_with(slot_data):
-			slots_data[i]._stack_with(slot_data)
-			signal_inventory_update.emit(self)
-			return true
-			
+			var space_left = slots_data[i].item.max_stack - slots_data[i].amount_in_slot
+			var stack_amount = min(space_left, remaining_amount)
+			slots_data[i].amount_in_slot += stack_amount
+			remaining_amount -= stack_amount
+			if remaining_amount == 0:
+				signal_inventory_update.emit(self)
+				return true
+
 	for i in slots_data.size():
 		if not slots_data[i]:
-			slots_data[i] = slot_data
+			slot_copy = slot_data.duplicate()
+			slot_copy.amount_in_slot = remaining_amount
+			slots_data[i] = slot_copy
 			signal_inventory_update.emit(self)
 			return true
-			
+
+	for i in slots_data.size():
+		if not slots_data[i]:
+			slot_copy = slot_data.duplicate()
+			slot_copy.amount_in_slot = remaining_amount
+			slots_data[i] = slot_copy
+			signal_inventory_update.emit(self)
+			return true
+
 	print("Player inventory is full")
 	return false
 	

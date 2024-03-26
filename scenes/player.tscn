@@ -181,7 +181,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
 [node name="RigHolder" type="Node3D" parent="CameraHolder"]
 
-[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("player", "animator", "weapon_hud", "reticle", "crosshair", "state_machine", "camera_holder", "timer", "aim_cast") instance=ExtResource("4_dcn20")]
+[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("player", "animator", "weapon_hud", "reticle", "crosshair", "state_machine", "camera_holder", "timer", "aim_cast", "melee_cast") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
 transform = Transform3D(-0.359076, -0.369414, 0.192607, -0.395622, 0.382048, -0.0047996, -0.130567, -0.141678, -0.51515, 0.04, -0.61, -0.545)
 player = NodePath("../../..")
@@ -193,6 +193,7 @@ state_machine = NodePath("../../../StateMachine")
 camera_holder = NodePath("../..")
 timer = NodePath("../Timer")
 aim_cast = NodePath("../../Camera3D/AimCast")
+melee_cast = NodePath("../../Camera3D/MeleeCast")
 
 [node name="Timer" type="Timer" parent="CameraHolder/RigHolder"]
 one_shot = true
@@ -212,6 +213,10 @@ target_position = Vector3(0, 0, -1000)
 collision_mask = 59
 hit_back_faces = false
 collide_with_areas = true
+
+[node name="MeleeCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 27
 
 [node name="AnimItem" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

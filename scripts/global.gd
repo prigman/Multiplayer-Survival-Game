@@ -24,4 +24,9 @@ func get_player_quick_slots() -> Array[InSlotData]:
 		push_error("Set player_quick_slot in Player node")
 		return []
 	return global_player_quick_slot.slots_data
+	
+func give_player_item(slot_data : InSlotData):
+	if !global_player_inventory._pick_up_slot_data(slot_data) \
+		and !global_player_quick_slot._pick_up_slot_data(slot_data):
+		global_player.inventory_interface.signal_drop_item.emit(slot_data)
 

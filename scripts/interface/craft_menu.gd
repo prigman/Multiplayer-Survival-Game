@@ -126,8 +126,9 @@ func _on_craft_button_pressed(slot_data: InSlotData):
 						break
 		Global.global_player_inventory.signal_inventory_update.emit(Global.global_player_inventory)
 		Global.global_player_quick_slot.signal_inventory_update.emit(Global.global_player_quick_slot)
-		if !Global.global_player_inventory._pick_up_slot_data(slot_data.duplicate()) \
-				and !Global.global_player_quick_slot._pick_up_slot_data(slot_data.duplicate()):
-			Global.global_player.inventory_interface.signal_drop_item.emit(slot_data.duplicate())
+		#if !Global.global_player_inventory._pick_up_slot_data(slot_data.duplicate()) \
+				#and !Global.global_player_quick_slot._pick_up_slot_data(slot_data.duplicate()):
+			#Global.global_player.inventory_interface.signal_drop_item.emit(slot_data.duplicate())
+		Global.give_player_item(slot_data.duplicate())
 	else:
 		print("Not enough components for crafting.")
