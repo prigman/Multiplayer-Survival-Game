@@ -29,15 +29,15 @@ func _toggle_inventory_interface(external_inventory_owner = null):
 	player.inventory_interface.visible = not player.inventory_interface.visible
 	if player.inventory_interface.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		player.craft_menu.custom_minimum_size.y = 460
-		player.craft_menu_margin.add_theme_constant_override("margin_bottom", 190)
+		if !player.craft_menu.visible: 
+			player.craft_menu.show()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if player.inventory_interface.inv_item_info_panel.visible:
 		player.inventory_interface.inv_item_info_panel.hide()
 	if external_inventory_owner and player.inventory_interface.visible:
-		player.craft_menu.custom_minimum_size.y = 260
-		player.craft_menu_margin.add_theme_constant_override("margin_bottom", 390)
+		if player.craft_menu.visible: 
+			player.craft_menu.hide()
 		player.inventory_interface._set_external_inventory(external_inventory_owner)
 	else:
 		player.inventory_interface._clear_external_inventory()
@@ -52,7 +52,6 @@ func _instantiate_dropped_item(dropped_slot : PackedScene, slot_data : InSlotDat
 	obj.slot_data = slot_data
 	obj.position = player.get_drop_position()
 	add_child(obj)
-
 
 func _on_enemy_spawn_timer_timeout():
 	if !enemy1.visible:

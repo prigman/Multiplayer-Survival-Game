@@ -384,11 +384,13 @@ offset_top = -400.0
 offset_right = 542.5
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/margin_left = 800
-theme_override_constants/margin_bottom = 390
+theme_override_constants/margin_left = 765
+theme_override_constants/margin_bottom = 120
 
 [node name="CraftMenu" parent="CanvasLayer/Interface/Control/InventoryInterface/CraftMenuMargin" instance=ExtResource("13_00r71")]
 unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(350, 460)
 layout_mode = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface"]

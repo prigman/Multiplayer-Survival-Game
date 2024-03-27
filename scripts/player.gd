@@ -42,7 +42,6 @@ var current_weapon_spread_data : PlayerWeaponSpread = null # сюда назна
 @onready var item = %Item
 @onready var player_stats = %PlayerStats
 @onready var craft_menu = %CraftMenu
-@onready var craft_menu_margin = %CraftMenuMargin
 
 func _ready():
 	Global.global_player = self

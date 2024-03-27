@@ -1,15 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://cl5wsnsbkbboh"]
+[gd_scene load_steps=5 format=3 uid="uid://cl5wsnsbkbboh"]
 
 [ext_resource type="Texture2D" uid="uid://dmrh54qw3yiue" path="res://icons/crosshaid.png" id="1_gcbup"]
 [ext_resource type="Script" path="res://scripts/weapon/bullet_decal.gd" id="1_y8tbb"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ys04v"]
+transparency = 1
+albedo_texture = ExtResource("1_gcbup")
+
+[sub_resource type="QuadMesh" id="QuadMesh_lvhp3"]
+material = SubResource("StandardMaterial3D_ys04v")
+size = Vector2(0.2, 0.2)
+
 [node name="ShootDecal" type="Node3D"]
 script = ExtResource("1_y8tbb")
 
-[node name="Decal" type="Decal" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-size = Vector3(0.2, 0.2, 0.2)
-texture_albedo = ExtResource("1_gcbup")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.02)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_lvhp3")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 4.0

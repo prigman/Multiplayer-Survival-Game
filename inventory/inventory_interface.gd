@@ -57,8 +57,6 @@ func _clear_external_inventory():
 	
 func _on_inventory_interact(inventory_data : InventoryData, index : int, button : int):
 	#print("START %s %s %s" % [inventory_data, index, button])
-	#inventory_data.signal_slot_mouse_right_clicked.emit(inventory_data, last_inventory_data, index, last_clicked_slot_index, inv_item_info_panel.visible)
-	#last_inventory_data = inventory_data
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]:
 			if inv_item_info_panel.visible:

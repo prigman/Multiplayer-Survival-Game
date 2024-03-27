@@ -115,30 +115,33 @@ func _unhandled_input(event):
 						break
 
 func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InSlotData): # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
-	if item_slot != null:
-		inventory_data.signal_update_active_slot.emit(inventory_data, slot_index, equiped_slot_index, item_slot, equiped_slot)
-		#-назначаем основные переменные этого класса
-		equiped_slot = item_slot
-		equiped_item = equiped_slot.item
-		equiped_slot_index = slot_index
-		#-
-		set_mesh_and_loc() # выставляются данные меша, позиции, размер, поворот этой ноды из класса ItemData
-		if equiped_item.item_type == equiped_item.ItemType.weapon:
-			for data in player.weapon_spread_data:
-				if data and data.weapon_data.name == equiped_item.name:
-					player.current_weapon_spread_data = data # выставляется ресурс с данными о разбросе для оружия
-			weapon_hud.show()
-			crosshair.show()
-			reticle.hide()
-			animator.play(equiped_item.anim_activate)
-			Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
-			Update_Fire_Mode.emit(equiped_item.fire_mode_current)
-			update_pos(equiped_item)
-			set_weapon_attachments() # удаляется или создаются меши из ItemDataWeapon
-		else:
-			clear_weapon_attachments() # убираем перекрестие, очищаем меш прицела если он не null
+	if item_slot == null:
+		return
+	clear_animations() # очистка анимации предмета если проигрывается в данный момент
+	inventory_data.signal_update_active_slot.emit(inventory_data, slot_index, equiped_slot_index, item_slot, equiped_slot)
+	#-назначаем основные переменные этого класса
+	equiped_slot = item_slot
+	equiped_item = equiped_slot.item
+	equiped_slot_index = slot_index
+	#-
+	set_mesh_and_loc() # выставляются данные меша, позиции, размер, поворот этой ноды из класса ItemData
+	if equiped_item.item_type == equiped_item.ItemType.weapon:
+		for data in player.weapon_spread_data:
+			if data and data.weapon_data.name == equiped_item.name:
+				player.current_weapon_spread_data = data # выставляется ресурс с данными о разбросе для оружия
+		weapon_hud.show()
+		crosshair.show()
+		reticle.hide()
+		animator.play(equiped_item.anim_activate)
+		Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
+		Update_Fire_Mode.emit(equiped_item.fire_mode_current)
+		update_pos(equiped_item)
+		set_weapon_attachments() # удаляется или создаются меши из ItemDataWeapon
+	else:
+		clear_weapon_attachments() # убираем перекрестие, очищаем меш прицела если он не null
 
 func remove_item(inventory_data : InventoryData, index : int, slot_data : InSlotData): # убираем предмет из рук
+	clear_animations() # очистка анимации предмета если проигрывается в данный момент
 	inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot)
 	player.current_weapon_spread_data = null
 	reticle.show()
@@ -149,6 +152,13 @@ func remove_item(inventory_data : InventoryData, index : int, slot_data : InSlot
 	rotation_degrees = Vector3.ZERO
 	scale = Vector3.ZERO
 	clear_weapon_attachments() # убираем перекрестие, очищаем меш прицела если он не null
+	
+func clear_animations():
+	if equiped_item:
+		if animator and animator.is_playing():
+			animator.stop()
+		if Scoped:
+			Scoped = false
 
 func apply_recoil(delta):
 	current_time += delta
@@ -190,17 +200,19 @@ func hitscan(raycast : RayCast3D):
 		if raycast == melee_cast and target.is_in_group("stone_object"):
 			create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(1, 5))
 		if target.is_in_group("enemy_group"):
-			print("Enemy hit")
 			target.health -= equiped_item.damage
 		else:
 			var decal = BULLET_DECAL.instantiate()
 			target.add_child(decal)
 			decal.global_transform.origin = raycast.get_collision_point()
-			if raycast.get_collision_normal() == Vector3.DOWN:
-				decal.rotation_degrees.x = 90
-			elif raycast.get_collision_normal() != Vector3.UP:
-				decal.look_at(raycast.get_collision_point() - raycast.get_collision_normal(), Vector3(0,1,0))
-			print("Hit collider %s" % target.name)
+			var side : Vector3
+			if raycast.get_collision_normal() == Vector3.UP:
+				side = Vector3(1,0,0)
+			elif raycast.get_collision_normal() == Vector3.DOWN:
+				side = Vector3(-1,0,0)
+			else:
+				side = Vector3(0,1,0)
+			decal.look_at(raycast.get_collision_point() + raycast.get_collision_normal(), side)
 			
 
 func randomize_aimcast_spread():
@@ -264,15 +276,6 @@ func update_weapon_ammo(value : int):
 	Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
 	
 func swap_items(inventory_data : InventoryData, index : int):
-	if animator and equiped_item:
-		if equiped_item.item_type == equiped_item.ItemType.weapon:
-			if animator.current_animation == equiped_item.anim_reload:
-				animator.stop()
-			elif animator.current_animation == equiped_item.anim_activate:
-				return
-		elif equiped_item.item_type == equiped_item.ItemType.tool:
-			if animator.is_playing():
-				return
 	var slot_data = inventory_data.slots_data[index]
 	for i in index+1:
 		match[slot_data, equiped_slot, index]:
