@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemDataCraftableBuildings" load_steps=3 format=3 uid="uid://bgj5o5u1223mf"]
+
+[ext_resource type="Texture2D" uid="uid://bwfuoa210tn3k" path="res://textures/PNG/Dark/texture_08.png" id="1_6tay0"]
+[ext_resource type="Script" path="res://inventory/item/item_data_craftable_buildings.gd" id="1_xhjng"]
+
+[resource]
+script = ExtResource("1_xhjng")
+item_type = 5
+craft_components = Array[Resource("res://inventory/craft_components.gd")]([])
+name = "Wooden Floor"
+description = "Сonstruction part"
+description_item_panel = "Сonstruction part"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("1_6tay0")
+dictionary = {
+"scene_path": "res://scenes/bulding.tscn"
+}
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0, 0, 0)

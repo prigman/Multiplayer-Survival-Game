@@ -1,0 +1,8 @@
+[gd_resource type="BoxMesh" load_steps=2 format=3 uid="uid://bmm0s4107n6rl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ucr1n"]
+
+[resource]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_ucr1n")
+size = Vector3(4, 4, 4)

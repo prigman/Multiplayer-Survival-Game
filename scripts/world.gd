@@ -7,6 +7,7 @@ class_name World extends Node
 @export var enemy3 : CharacterBody3D
 
 func _ready():
+	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	Global.global_world = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	player.signal_toggle_inventory.connect(_toggle_inventory_interface)
@@ -50,8 +51,8 @@ func _on_inventory_interface_signal_drop_item(slot_data):
 func _instantiate_dropped_item(dropped_slot : PackedScene, slot_data : InSlotData):
 	var obj = dropped_slot.instantiate()
 	obj.slot_data = slot_data
-	obj.position = player.get_drop_position()
 	add_child(obj)
+	obj.position = player.get_drop_position()
 
 func _on_enemy_spawn_timer_timeout():
 	if !enemy1.visible:

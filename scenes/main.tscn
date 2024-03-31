@@ -409,7 +409,7 @@ enemy2 = NodePath("Enemy2")
 enemy3 = NodePath("Enemy3")
 
 [node name="Player" parent="." instance=ExtResource("2_4vywr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10989, -4.76837e-07, -1.7612)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4039, 0, -0.372441)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)

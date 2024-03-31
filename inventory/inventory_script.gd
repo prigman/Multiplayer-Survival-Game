@@ -16,7 +16,7 @@ func _set_inventory_slots(inventory_data : InventoryData):
 	for i in range(inventory_data.slots_data.size()):
 		var slot_data = inventory_data.slots_data[i]
 		if slot_data and slot_data.amount_in_slot == 0:
-			inventory_data.slots_data[i] = null
+			slot_data = null
 			
 	for child in grid_container.get_children():
 		child.queue_free()

@@ -7,6 +7,8 @@ points = PackedVector3Array(-0.611779, 0.449282, -0.580002, -0.880901, 0.423512,
 
 [node name="Stone_2" type="StaticBody3D" groups=["stone_object"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19216, 0, -3.4683)
+collision_layer = 128
+collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("1_14l2k")

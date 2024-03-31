@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=18 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=24 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="2_83pcy"]
@@ -11,8 +11,11 @@
 [ext_resource type="ArrayMesh" uid="uid://b5elooe8irukj" path="res://models/ar/ar_mag.res" id="12_fy180"]
 [ext_resource type="ArrayMesh" uid="uid://cl73ro1sfy3jp" path="res://models/ar/ar_body.res" id="13_hvw0y"]
 [ext_resource type="Curve" uid="uid://bl86an7yiit51" path="res://scripts/weapon/ar_curve.tres" id="14_8ucjf"]
+[ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://inventory/item/objects/wooden_floor.tres" id="14_pvg3i"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="15_exx56"]
+[ext_resource type="Resource" uid="uid://do1v63m4lpun7" path="res://inventory/item/objects/wooden_wall.tres" id="15_yoc83"]
 [ext_resource type="ArrayMesh" uid="uid://cghrb8l1uuxk5" path="res://models/ar/ar_holo.res" id="16_12wq0"]
+[ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://inventory/item/objects/wooden_roof.tres" id="16_vb885"]
 
 [sub_resource type="Resource" id="Resource_n38jr"]
 script = ExtResource("8_qw5vx")
@@ -75,7 +78,22 @@ script = ExtResource("8_qw5vx")
 item = SubResource("Resource_uehp6")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_rrqp3"]
+script = ExtResource("8_qw5vx")
+item = ExtResource("14_pvg3i")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_oh2dd"]
+script = ExtResource("8_qw5vx")
+item = ExtResource("15_yoc83")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_tw15v"]
+script = ExtResource("8_qw5vx")
+item = ExtResource("16_vb885")
+amount_in_slot = 1
+
 [resource]
 script = ExtResource("1_ab8t5")
 type = 1
-slots_data = Array[ExtResource("8_qw5vx")]([SubResource("Resource_n38jr"), SubResource("Resource_iuw2l"), null, null, null, null])
+slots_data = Array[ExtResource("8_qw5vx")]([SubResource("Resource_n38jr"), SubResource("Resource_iuw2l"), SubResource("Resource_rrqp3"), SubResource("Resource_oh2dd"), SubResource("Resource_tw15v"), null])

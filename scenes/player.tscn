@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=41 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -29,9 +29,6 @@
 [ext_resource type="Script" path="res://scripts/player state machine/falling_state.gd" id="21_h51by"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lh2ax"]
-height = 1.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f7gol"]
 
@@ -141,7 +138,7 @@ corner_radius_bottom_left = 2
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
 collision_layer = 2
-collision_mask = 9
+collision_mask = 201
 script = ExtResource("1_adhyr")
 player_inventory = ExtResource("2_xq8ps")
 player_quick_slot = ExtResource("3_nqi44")
@@ -155,13 +152,6 @@ invert_weapon_sway = true
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7qfu8")
-
-[node name="CrouchStateCollision" type="CollisionShape3D" parent="."]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 0.5, -3.72529e-09)
-visible = false
-shape = SubResource("CapsuleShape3D_lh2ax")
-disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00398284, 0.994013, 0.00473261)
@@ -181,19 +171,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
 [node name="RigHolder" type="Node3D" parent="CameraHolder"]
 
-[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("player", "animator", "weapon_hud", "reticle", "crosshair", "state_machine", "camera_holder", "timer", "aim_cast", "melee_cast") instance=ExtResource("4_dcn20")]
+[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("player", "animator", "state_machine", "camera_holder", "timer", "weapon_hud", "reticle", "crosshair", "aim_cast", "melee_cast", "building_cast", "building_point") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
 transform = Transform3D(-0.359076, -0.369414, 0.192607, -0.395622, 0.382048, -0.0047996, -0.130567, -0.141678, -0.51515, 0.04, -0.61, -0.545)
 player = NodePath("../../..")
 animator = NodePath("../../../AnimItem")
-weapon_hud = NodePath("../../../CanvasLayer/Interface/Control/MarginContainer3/WeaponHud")
-reticle = NodePath("../../../CanvasLayer/Interface/Reticle")
-crosshair = NodePath("../../../CanvasLayer/Interface/Crosshair")
 state_machine = NodePath("../../../StateMachine")
 camera_holder = NodePath("../..")
 timer = NodePath("../Timer")
+weapon_hud = NodePath("../../../CanvasLayer/Interface/Control/MarginContainer3/WeaponHud")
+reticle = NodePath("../../../CanvasLayer/Interface/Reticle")
+crosshair = NodePath("../../../CanvasLayer/Interface/Crosshair")
 aim_cast = NodePath("../../Camera3D/AimCast")
 melee_cast = NodePath("../../Camera3D/MeleeCast")
+building_cast = NodePath("../../Camera3D/BuildingCast")
+building_point = NodePath("../../Camera3D/BuildingPoint")
 
 [node name="Timer" type="Timer" parent="CameraHolder/RigHolder"]
 one_shot = true
@@ -210,13 +202,25 @@ collision_mask = 12
 [node name="AimCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -1000)
-collision_mask = 59
+collision_mask = 251
 hit_back_faces = false
 collide_with_areas = true
 
 [node name="MeleeCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
+unique_name_in_owner = true
 target_position = Vector3(0, 0, -2.5)
-collision_mask = 27
+collision_mask = 219
+
+[node name="BuildingCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -5)
+collision_mask = 457
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="BuildingPoint" type="Node3D" parent="CameraHolder/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 
 [node name="AnimItem" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

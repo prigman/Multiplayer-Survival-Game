@@ -17,12 +17,9 @@ func physics_update(delta):
 			transition.emit("Crouch")
 		if Input.is_action_just_pressed("space"):
 			transition.emit("Jump")
-	else:
-		if player.velocity.y < -3.0:
-			transition.emit("Falling")
-	
-	if Input.is_action_pressed("shift"):
-		transition.emit("Sprint")
-	
-	if player.velocity.length() <= 0:
+		if Input.is_action_pressed("shift"):
+			transition.emit("Sprint")
+	elif player.velocity.y < -3.0:
+		transition.emit("Falling")
+	if player.velocity.length() == 0:
 		transition.emit("Idle")

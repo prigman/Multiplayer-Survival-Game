@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemDataCraftableBuildings" load_steps=3 format=3 uid="uid://cickst76e8dus"]
+
+[ext_resource type="Script" path="res://inventory/item/item_data_craftable_buildings.gd" id="1_7rd4d"]
+[ext_resource type="Texture2D" uid="uid://c71ipwr01lvmn" path="res://textures/CUBIC-prototype-pack/Blue/6.png" id="1_oqcxv"]
+
+[resource]
+script = ExtResource("1_7rd4d")
+item_type = 5
+craft_components = Array[Resource("res://inventory/craft_components.gd")]([])
+name = "Wooden Roof"
+description = "Сonstruction part"
+description_item_panel = "Сonstruction part"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("1_oqcxv")
+dictionary = {
+"scene_path": "res://scenes/building_roof.tscn"
+}
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0, 0, 0)

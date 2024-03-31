@@ -5,20 +5,30 @@ signal Update_Fire_Mode(fire_mode : WeaponFireModes)
 
 const BULLET_DECAL = preload("res://scenes/shoot_decal.tscn")
 
+# item childs
 @onready var item_mesh: MeshInstance3D = %ItemMesh # MeshInstance нода айтема куда назначается меш из переменной mesh в ItemData
 @onready var ar_sight_mesh: MeshInstance3D = %AR_sight # дубликат предыдущей ноды, но с иной позицией, сюда назначается меш прицела из ItemDataWeapon
 @onready var ar_mag : MeshInstance3D = %AR_mag
+#
 
 @export var player : CharacterBody3D
 @export var animator : AnimationPlayer
-@export var weapon_hud: VBoxContainer
-@export var reticle: CenterContainer # перекрестие и точка
-@export var crosshair: Control # только перекрестие
 @export var state_machine: StateMachine
 @export var camera_holder : Node3D
 @export var timer : Timer
+
+# ui
+@export var weapon_hud: VBoxContainer
+@export var reticle: CenterContainer # перекрестие и точка
+@export var crosshair: Control # только перекрестие
+#
+
+# raycasts
 @export var aim_cast : RayCast3D
 @export var melee_cast : RayCast3D
+@export var building_cast : RayCast3D
+@export var building_point : Node3D
+#
 
 var bullet_instance
 
@@ -41,31 +51,90 @@ var current_time: float
 
 var spread_value : float
 
+var building_scene
+
+var ground_position : Vector3 = Vector3.ZERO
+
 func _ready():
 	randomize() # чтобы разброс оружия работал
 	Global.global_item_script = self
 
 func _physics_process(delta):
-	if Input.is_action_pressed("right_click"):
+	if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
 		if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
-			if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
+			if Input.is_action_pressed("fire"):
+				if equiped_item.fire_mode_current.mode == WeaponFireModes.FireMode.FULL_AUTO:
+					if can_shoot(equiped_item.fire_mode_current):
+						shoot()
+			if Input.is_action_pressed("right_click"):
 				if state_machine.is_current_state("Sprint") == false:
 					if !Scoped and animator.current_animation != equiped_item.anim_reload and animator.current_animation != equiped_item.anim_activate:
 						Assault_Rifle_Scope()
 						reticle.hide()
 						crosshair.hide()
-	if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
 		if current_time < 1:
 			apply_recoil(delta)
-		if Input.is_action_pressed("fire"):
-			if equiped_item.fire_mode_current.mode == WeaponFireModes.FireMode.FULL_AUTO:
-				if can_shoot(equiped_item.fire_mode_current):
-					shoot()
-				
-	if Scoped:
-		if Global.check_is_inventory_open() == true or state_machine.is_current_state("Sprint"):
-			crosshair.show()
-			Assault_Rifle_Scope()
+		elif Global.check_is_inventory_open() == true or state_machine.is_current_state("Sprint") == true:
+			if Scoped:
+				crosshair.show()
+				Assault_Rifle_Scope()
+	elif _equiped_item_type(equiped_item.ItemType.building):
+		if building_cast and building_scene:
+			if building_cast.is_colliding():
+				if !building_scene.visible:
+					building_scene.show()
+				var collider_interact = building_cast.get_collider()
+				var coll_point = building_cast.get_collision_point()
+				if collider_interact.is_in_group("building_colliders"):
+					if collider_interact.is_in_group("floor_colliders"):
+						if building_scene.is_in_group("building_wall"):
+							#print("floor_colliders, building_wall")
+							if collider_interact.is_in_group("collider_side"):
+								building_scene.rotation_degrees.y = 90
+							else:
+								building_scene.rotation_degrees.y = 0
+							building_scene.global_transform.origin = collider_interact.get_child(1).global_transform.origin
+						elif building_scene.is_in_group("building_floor") and !collider_interact.busy_for_place_floor:
+							#print("floor_colliders, building_floor")
+							building_scene.global_transform.origin = collider_interact.get_child(2).global_transform.origin
+						else:
+							#print("else not building_floor not building_wall")
+							building_scene.hide()
+					if collider_interact.is_in_group("collider_wall"):
+						if building_scene.is_in_group("building_roof"):
+							#print("collider_wall(roof), building_roof")
+							building_scene.global_transform.origin = collider_interact.get_child(1).global_transform.origin
+						else:
+							#print("else not building_roof")
+							building_scene.hide()
+				else:
+					if building_scene.is_in_group("building_wall") or building_scene.is_in_group("building_roof"):
+						building_scene.hide()
+					elif building_scene.is_in_group("building_floor"):
+						building_scene.global_transform.origin = Vector3(coll_point.x, coll_point.y + 0.1, coll_point.z)
+				if building_scene.shape_cast.is_colliding():
+					building_scene.mesh_building.mesh.material.albedo_color = Color(1, 0, 0)
+				elif building_scene.visible:
+					building_scene.mesh_building.mesh.material.albedo_color = Color(0, 1, 0)
+					if Input.is_action_just_pressed("fire"):
+						var path = load(equiped_item.dictionary["scene_path"])
+						var instance = path.instantiate()
+						for area in instance.colliders:
+							if area and area != collider_interact:
+								area.get_child(0).disabled = false # включаем area3d коллайдеры
+						if instance.is_in_group("building_wall") or instance.is_in_group("building_roof"):
+							collider_interact.get_child(0).disabled = true # отключаем area3d коллайдер в который устанавливается строение
+						Global.global_world.add_child(instance)
+						var instance_material = instance.mesh_building.mesh.material.duplicate()
+						instance.global_transform = building_scene.global_transform
+						instance.mesh_building.mesh.material = instance_material
+						instance.mesh_building.mesh.material.albedo_color = Color(1, 1, 1)
+						instance.mesh_building.use_collision = true
+						instance.mesh_building.cast_shadow = 1
+						remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot)
+			else:
+				if building_scene.visible:
+					building_scene.hide()
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
@@ -118,6 +187,7 @@ func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InS
 	if item_slot == null:
 		return
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
+	clear_building()
 	inventory_data.signal_update_active_slot.emit(inventory_data, slot_index, equiped_slot_index, item_slot, equiped_slot)
 	#-назначаем основные переменные этого класса
 	equiped_slot = item_slot
@@ -125,7 +195,7 @@ func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InS
 	equiped_slot_index = slot_index
 	#-
 	set_mesh_and_loc() # выставляются данные меша, позиции, размер, поворот этой ноды из класса ItemData
-	if equiped_item.item_type == equiped_item.ItemType.weapon:
+	if _equiped_item_type(equiped_item.ItemType.weapon):
 		for data in player.weapon_spread_data:
 			if data and data.weapon_data.name == equiped_item.name:
 				player.current_weapon_spread_data = data # выставляется ресурс с данными о разбросе для оружия
@@ -137,11 +207,18 @@ func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InS
 		Update_Fire_Mode.emit(equiped_item.fire_mode_current)
 		update_pos(equiped_item)
 		set_weapon_attachments() # удаляется или создаются меши из ItemDataWeapon
-	else:
+	if _equiped_item_type(equiped_item.ItemType.weapon) == false:
 		clear_weapon_attachments() # убираем перекрестие, очищаем меш прицела если он не null
+	if _equiped_item_type(equiped_item.ItemType.building):
+		if equiped_item.dictionary.has("scene_path"):
+			var path = load(equiped_item.dictionary["scene_path"])
+			building_scene = path.instantiate()
+			Global.global_world.add_child(building_scene)
+			# в process выставляется позиция для building_scene
 
-func remove_item(inventory_data : InventoryData, index : int, slot_data : InSlotData): # убираем предмет из рук
+func remove_active_item(inventory_data : InventoryData, index : int, slot_data : InSlotData): # убираем предмет из рук
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
+	clear_building()
 	inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot)
 	player.current_weapon_spread_data = null
 	reticle.show()
@@ -152,6 +229,11 @@ func remove_item(inventory_data : InventoryData, index : int, slot_data : InSlot
 	rotation_degrees = Vector3.ZERO
 	scale = Vector3.ZERO
 	clear_weapon_attachments() # убираем перекрестие, очищаем меш прицела если он не null
+	
+func clear_building():
+	if building_scene:
+		building_scene.queue_free()
+		building_scene = null
 	
 func clear_animations():
 	if equiped_item:
@@ -285,7 +367,7 @@ func swap_items(inventory_data : InventoryData, index : int):
 				break 
 			[null, _, i]:
 				print("Item removed")
-				remove_item(inventory_data, index, slot_data)
+				remove_active_item(inventory_data, index, slot_data)
 				break
 			[_, null, i]:
 				print("Item equiped %s" % slot_data.item.name)
@@ -297,7 +379,7 @@ func swap_items(inventory_data : InventoryData, index : int):
 					initialize(inventory_data, index, slot_data)
 				else:
 					print("Item removed")
-					remove_item(inventory_data, index, slot_data)
+					remove_active_item(inventory_data, index, slot_data)
 				break
 
 func _equiped_item_type(equiped_item_type : int) -> bool:
@@ -320,14 +402,13 @@ func can_shoot(fire_mode : WeaponFireModes) -> bool:
 		return true
 
 func _on_anim_item_animation_finished(anim_name):
-	if equiped_item:
-		if equiped_item.item_type == equiped_item.ItemType.weapon:
-			if anim_name == equiped_item.anim_reload:
-				reload()
-		if equiped_item.item_type == equiped_item.ItemType.tool:
-			if anim_name == equiped_item.anim_hit:
-				hitscan(melee_cast)
-				animator.play(equiped_item.anim_after_hit)
+	if _equiped_item_type(equiped_item.ItemType.weapon):
+		if anim_name == equiped_item.anim_reload:
+			reload()
+	elif _equiped_item_type(equiped_item.ItemType.tool):
+		if anim_name == equiped_item.anim_hit:
+			hitscan(melee_cast)
+			animator.play(equiped_item.anim_after_hit)
 
 func create_player_item(item_data : ItemData, amount : int):
 	var slot_data = InSlotData.new()
