@@ -53,8 +53,6 @@ var spread_value : float
 
 var building_scene
 
-var ground_position : Vector3 = Vector3.ZERO
-
 func _ready():
 	randomize() # чтобы разброс оружия работал
 	Global.global_item_script = self
@@ -90,9 +88,11 @@ func _physics_process(delta):
 						if building_scene.is_in_group("building_wall"):
 							#print("floor_colliders, building_wall")
 							if collider_interact.is_in_group("collider_side"):
-								building_scene.rotation_degrees.y = 90
-							else:
 								building_scene.rotation_degrees.y = 0
+								#building_scene.mesh_building.mesh = preload("res://models/meshes/wooden_wall_2.res")
+							else:
+								building_scene.rotation_degrees.y = 90
+								#building_scene.mesh_building.mesh = equiped_item.mesh
 							building_scene.global_transform.origin = collider_interact.get_child(1).global_transform.origin
 						elif building_scene.is_in_group("building_floor") and !collider_interact.busy_for_place_floor:
 							#print("floor_colliders, building_floor")
@@ -107,15 +107,17 @@ func _physics_process(delta):
 						else:
 							#print("else not building_roof")
 							building_scene.hide()
+					if collider_interact.is_in_group("collider_roof"):
+						building_scene.hide()
 				else:
 					if building_scene.is_in_group("building_wall") or building_scene.is_in_group("building_roof"):
 						building_scene.hide()
 					elif building_scene.is_in_group("building_floor"):
 						building_scene.global_transform.origin = Vector3(coll_point.x, coll_point.y + 0.1, coll_point.z)
 				if building_scene.shape_cast.is_colliding():
-					building_scene.mesh_building.mesh.material.albedo_color = Color(1, 0, 0)
+					building_scene.mesh_building.material.albedo_color = Color(1, 0, 0)
 				elif building_scene.visible:
-					building_scene.mesh_building.mesh.material.albedo_color = Color(0, 1, 0)
+					building_scene.mesh_building.material.albedo_color = Color(0, 1, 0)
 					if Input.is_action_just_pressed("fire"):
 						var path = load(equiped_item.dictionary["scene_path"])
 						var instance = path.instantiate()
@@ -125,10 +127,11 @@ func _physics_process(delta):
 						if instance.is_in_group("building_wall") or instance.is_in_group("building_roof"):
 							collider_interact.get_child(0).disabled = true # отключаем area3d коллайдер в который устанавливается строение
 						Global.global_world.add_child(instance)
-						var instance_material = instance.mesh_building.mesh.material.duplicate()
+						#var instance_material = instance.mesh_building.material.duplicate()
 						instance.global_transform = building_scene.global_transform
-						instance.mesh_building.mesh.material = instance_material
-						instance.mesh_building.mesh.material.albedo_color = Color(1, 1, 1)
+						instance.mesh_building.mesh = building_scene.mesh_building.mesh
+						instance.mesh_building.material = null
+						#instance.mesh_building.material.albedo_color = Color(1, 1, 1)
 						instance.mesh_building.use_collision = true
 						instance.mesh_building.cast_shadow = 1
 						remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot)
@@ -214,6 +217,7 @@ func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InS
 			var path = load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
 			Global.global_world.add_child(building_scene)
+			#building_scene.mesh_building.mesh = equiped_item.mesh
 			# в process выставляется позиция для building_scene
 
 func remove_active_item(inventory_data : InventoryData, index : int, slot_data : InSlotData): # убираем предмет из рук

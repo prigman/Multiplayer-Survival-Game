@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnm2p00ty7mau"]
+[gd_scene load_steps=8 format=3 uid="uid://bnm2p00ty7mau"]
 
 [ext_resource type="Script" path="res://scripts/building_roof.gd" id="1_h33sd"]
 
@@ -14,18 +14,23 @@ resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_ucr1n")
 size = Vector3(4, 0.3, 4)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxpkd"]
+resource_local_to_scene = true
+albedo_color = Color(1, 1, 1, 0.45098)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_75d74"]
 size = Vector3(4.2, 0.5, 4.2)
 
-[node name="BuildingRoof" type="Node3D" groups=["building_roof"]]
+[node name="BuildingRoof" type="Node3D" node_paths=PackedStringArray("colliders") groups=["building_roof"]]
 script = ExtResource("1_h33sd")
+colliders = [NodePath("coll_1"), NodePath("coll_2"), NodePath("coll_3"), NodePath("coll_4")]
 
-[node name="coll_1" type="Area3D" parent="." groups=["building_colliders"]]
+[node name="coll_1" type="Area3D" parent="." groups=["building_colliders", "collider_roof"]]
 collision_layer = 256
-collision_mask = 0
+collision_mask = 256
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="coll_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.62498)
 shape = SubResource("SphereShape3D_dx31k")
 disabled = true
 
@@ -34,13 +39,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 shape = SubResource("BoxShape3D_80gsg")
 disabled = true
 
-[node name="coll_2" type="Area3D" parent="." groups=["building_colliders"]]
+[node name="coll_2" type="Area3D" parent="." groups=["building_colliders", "collider_roof"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 collision_layer = 256
-collision_mask = 0
+collision_mask = 256
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="coll_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.44952e-08, 0, -1.60542)
 shape = SubResource("SphereShape3D_dx31k")
 disabled = true
 
@@ -49,13 +54,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 shape = SubResource("BoxShape3D_80gsg")
 disabled = true
 
-[node name="coll_3" type="Area3D" parent="." groups=["building_colliders"]]
+[node name="coll_3" type="Area3D" parent="." groups=["building_colliders", "collider_roof"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 collision_layer = 256
-collision_mask = 0
+collision_mask = 256
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="coll_3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.82159e-08, 0, -1.58327)
 shape = SubResource("SphereShape3D_dx31k")
 disabled = true
 
@@ -64,13 +69,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 shape = SubResource("BoxShape3D_80gsg")
 disabled = true
 
-[node name="coll_4" type="Area3D" parent="." groups=["building_colliders"]]
+[node name="coll_4" type="Area3D" parent="." groups=["building_colliders", "collider_roof"]]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 collision_layer = 256
-collision_mask = 0
+collision_mask = 256
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="coll_4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.82159e-08, 0, -1.58327)
 shape = SubResource("SphereShape3D_dx31k")
 disabled = true
 
@@ -84,6 +89,7 @@ unique_name_in_owner = true
 collision_layer = 64
 collision_mask = 0
 mesh = SubResource("BoxMesh_e00x3")
+material = SubResource("StandardMaterial3D_fxpkd")
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="CSGMesh3D"]
 unique_name_in_owner = true

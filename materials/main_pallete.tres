@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d37gvltmegoym" path="res://textures/1024_palette.png" id="1_7qk8w"]
 
 [resource]
+resource_local_to_scene = true
 resource_name = "Material"
 albedo_texture = ExtResource("1_7qk8w")
 texture_filter = 2
