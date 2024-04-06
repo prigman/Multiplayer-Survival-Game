@@ -103,7 +103,7 @@ func _on_visibility_changed():
 
 func _on_item_drop_button_pressed():
 	if Global.global_item_script.equiped_slot == panel_inventory_data.slots_data[panel_index_data]:
-		Global.global_item_script.remove_item(panel_inventory_data, panel_index_data, panel_inventory_data.slots_data[panel_index_data])
+		Global.global_item_script.remove_active_item(panel_inventory_data, panel_index_data, panel_inventory_data.slots_data[panel_index_data])
 	signal_drop_item.emit(panel_inventory_data.slots_data[panel_index_data])
 	panel_inventory_data._grab_slot_data(panel_index_data)
 	hide_inv_item_panel()
