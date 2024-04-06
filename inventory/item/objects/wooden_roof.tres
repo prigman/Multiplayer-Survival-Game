@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_buildings.gd" id="1_7rd4d"]
 [ext_resource type="Texture2D" uid="uid://c71ipwr01lvmn" path="res://textures/CUBIC-prototype-pack/Blue/6.png" id="1_oqcxv"]
-[ext_resource type="ArrayMesh" uid="uid://b3y58qrvvdd0m" path="res://models/meshes/wooden_roof.res" id="2_qic65"]
 
 [resource]
 script = ExtResource("1_7rd4d")
@@ -15,10 +14,6 @@ stackable = false
 max_stack = 0
 quality = 100.0
 icon = ExtResource("1_oqcxv")
-mesh = ExtResource("2_qic65")
-dictionary = {
-"scene_path": "res://scenes/building_roof.tscn"
-}
 position = Vector3(0, 0, 0)
 rotation = Vector3(0, 0, 0)
 scale = Vector3(0, 0, 0)

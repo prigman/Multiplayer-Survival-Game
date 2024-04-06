@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
-[ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_nqi44"]
+[ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_yc7co"]
 [ext_resource type="PackedScene" uid="uid://m8lgl6sgjc8e" path="res://scenes/item.tscn" id="4_dcn20"]
 [ext_resource type="Resource" uid="uid://c0tuqwnt3g8u0" path="res://scripts/weapon/assault_rifle_spread.tres" id="4_qxsc1"]
 [ext_resource type="AnimationLibrary" uid="uid://cbdt7intcw3pe" path="res://anims/player_state.res" id="5_7m1j8"]
@@ -141,7 +141,7 @@ collision_layer = 2
 collision_mask = 201
 script = ExtResource("1_adhyr")
 player_inventory = ExtResource("2_xq8ps")
-player_quick_slot = ExtResource("3_nqi44")
+player_quick_slot = ExtResource("3_yc7co")
 weapon_spread_data = Array[Resource("res://scripts/weapon/weapon_spread_data.gd")]([ExtResource("4_qxsc1")])
 weapon_holder = NodePath("CameraHolder/RigHolder")
 weapon_sway_amount = 0.001
