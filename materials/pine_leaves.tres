@@ -1,0 +1,30 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cad51gex0vg66"]
+
+[ext_resource type="Texture2D" uid="uid://cnf7crw22b5by" path="res://textures/pine_leaves.png" id="1_j7eak"]
+
+[resource]
+resource_name = "pine-leaves_5"
+transparency = 4
+cull_mode = 2
+albedo_color = Color(0.141176, 0.333333, 0.117647, 1)
+albedo_texture = ExtResource("1_j7eak")
+albedo_texture_msdf = true
+metallic_specular = 0.0
+emission = Color(0.141176, 0.333333, 0.117647, 1)
+emission_energy_multiplier = 0.84
+emission_operator = 1
+normal_scale = -1.98
+rim = 0.0
+rim_tint = 1.0
+clearcoat_enabled = true
+clearcoat_roughness = 0.0
+heightmap_scale = 16.0
+subsurf_scatter_strength = 1.0
+subsurf_scatter_skin_mode = true
+backlight_enabled = true
+backlight = Color(1, 1, 1, 1)
+texture_filter = 1
+texture_repeat = false
+billboard_keep_scale = true
+grow_amount = 0.7
+distance_fade_max_distance = 3.0

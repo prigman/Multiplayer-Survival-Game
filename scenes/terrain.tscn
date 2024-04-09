@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://cbajpjkk0hfmn"]
+
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="1_qvpql"]
+[ext_resource type="Resource" path="res://t_data/data.hterrain" id="2_hq5h0"]
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="3_w1a3p"]
+[ext_resource type="Texture2D" uid="uid://carxkqnecw1of" path="res://textures/terrain_slot0_albedo_bump.png" id="4_tvxvy"]
+[ext_resource type="Texture2D" uid="uid://8ndcelq58fvh" path="res://textures/terrain_slot0_normal_roughness.png" id="5_d0kbg"]
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_detail_layer.gd" id="6_wg8dt"]
+[ext_resource type="Texture2D" uid="uid://1w8ebp3jt0vg" path="res://textures/grass_px.png" id="7_y0anv"]
+[ext_resource type="Texture2D" uid="uid://6jmdwj3vn6m0" path="res://addons/zylann.hterrain/tools/icons/icon_detail_layer_node.svg" id="8_ka5wv"]
+
+[sub_resource type="Resource" id="Resource_dvww4"]
+script = ExtResource("3_w1a3p")
+mode = 0
+textures = [[ExtResource("4_tvxvy")], [ExtResource("5_d0kbg")]]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="HTerrain" type="Node3D" parent="."]
+script = ExtResource("1_qvpql")
+map_scale = Vector3(10, 10, 10)
+centered = true
+_terrain_data = ExtResource("2_hq5h0")
+chunk_size = 32
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "Classic4"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource("Resource_dvww4")
+render_layers = 1
+cast_shadow = 1
+shader_params/u_ground_uv_scale_per_texture = Vector4(20, 20, 20, 20)
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = false
+shader_params/u_tile_reduction = Vector4(0, 0, 0, 0)
+shader_params/u_globalmap_blend_start = null
+shader_params/u_globalmap_blend_distance = null
+shader_params/u_colormap_opacity_per_texture = Vector4(0, 0, 0, 0)
+
+[node name="HTerrainDetailLayer" type="Node3D" parent="HTerrain"]
+script = ExtResource("6_wg8dt")
+texture = ExtResource("7_y0anv")
+view_distance = 500.0
+shader_params/u_globalmap_tint_bottom = null
+shader_params/u_globalmap_tint_top = null
+shader_params/u_bottom_ao = null
+shader_params/u_instance_scale = null
+shader_params/u_roughness = null
+metadata/_editor_icon = ExtResource("8_ka5wv")

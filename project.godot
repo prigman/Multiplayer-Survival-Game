@@ -30,7 +30,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/m_terrain/plugin.cfg")
+enabled=PackedStringArray("res://addons/zylann.hterrain/plugin.cfg")
 
 [file_customization]
 
