@@ -39,7 +39,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://models/meshes/grass_1.res"
+"save_to_file/path": "res://models/meshes/grass_1.mesh"
 }
 }
 }

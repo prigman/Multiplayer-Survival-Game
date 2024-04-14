@@ -30,7 +30,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/zylann.hterrain/plugin.cfg")
+enabled=PackedStringArray("res://addons/dreadpon.spatial_gardener/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/zylann.hterrain/plugin.cfg")
 
 [file_customization]
 

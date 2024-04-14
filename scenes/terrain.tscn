@@ -6,13 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://carxkqnecw1of" path="res://textures/terrain_slot0_albedo_bump.png" id="4_tvxvy"]
 [ext_resource type="Texture2D" uid="uid://8ndcelq58fvh" path="res://textures/terrain_slot0_normal_roughness.png" id="5_d0kbg"]
 [ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_detail_layer.gd" id="6_wg8dt"]
-[ext_resource type="Texture2D" uid="uid://1w8ebp3jt0vg" path="res://textures/grass_px.png" id="7_y0anv"]
 [ext_resource type="Texture2D" uid="uid://6jmdwj3vn6m0" path="res://addons/zylann.hterrain/tools/icons/icon_detail_layer_node.svg" id="8_ka5wv"]
 
 [sub_resource type="Resource" id="Resource_dvww4"]
 script = ExtResource("3_w1a3p")
 mode = 0
 textures = [[ExtResource("4_tvxvy")], [ExtResource("5_d0kbg")]]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iv0ug"]
+load_path = "res://.godot/imported/grass_px.png-3b142257c1ec5f9c35ac8ec06a7589e7.s3tc.ctex"
 
 [node name="Node3D" type="Node3D"]
 
@@ -41,7 +43,7 @@ shader_params/u_colormap_opacity_per_texture = Vector4(0, 0, 0, 0)
 
 [node name="HTerrainDetailLayer" type="Node3D" parent="HTerrain"]
 script = ExtResource("6_wg8dt")
-texture = ExtResource("7_y0anv")
+texture = SubResource("CompressedTexture2D_iv0ug")
 view_distance = 500.0
 shader_params/u_globalmap_tint_bottom = null
 shader_params/u_globalmap_tint_top = null
