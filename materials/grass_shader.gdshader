@@ -61,7 +61,7 @@ void fragment() {
 	if (COLOR.a < limit - 0.001) {
 		discard;
 	}
-	ALPHA_ANTIALIASING_EDGE = 0.75;
+	ALPHA_SCISSOR_THRESHOLD = 0.8;
 	
 	float color_noise_at_position = mix(0, texture(color_noise, heightmap_position * color_noise_scale).r, color_noise_intensity);
 	
@@ -91,7 +91,7 @@ void vertex() {
 	vec3 world_position = (MODEL_MATRIX * vec4(VERTEX, 1)).xyz;
 	float camera_distance = distance(world_position, INV_VIEW_MATRIX[3].xyz);
 	float fadeout = clamp(remap(camera_distance, fadeout_envelope.x, fadeout_envelope.y, 1, 0), 0, 1);
-	COLOR.a = fadeout;
+	//COLOR.a = fadeout;
 	
 	vert_normal = unpack_normal(texture(heightmap_normals, heightmap_position));
 	NORMAL = vert_normal;

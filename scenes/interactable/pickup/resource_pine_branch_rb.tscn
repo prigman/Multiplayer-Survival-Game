@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwwhsm0q1fnnj"]
+[gd_scene load_steps=8 format=3 uid="uid://bwwhsm0q1fnnj"]
 
 [ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_eqdxh"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="2_a6lf5"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_hk5bo"]
 [ext_resource type="ArrayMesh" uid="uid://c0weea2bqwhr2" path="res://models/meshes/branch.res" id="4_q1jnh"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="5_foavk"]
 
 [sub_resource type="Resource" id="Resource_6ojqb"]
+resource_local_to_scene = true
 script = ExtResource("3_hk5bo")
 item = ExtResource("2_a6lf5")
 amount_in_slot = 1
@@ -25,6 +27,7 @@ slot_data = SubResource("Resource_6ojqb")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1.5299e-08, -0.35, 0, 0.35, -1.5299e-08, 0, 0, 0, 0.35, 0, 0, 0)
 mesh = ExtResource("4_q1jnh")
+surface_material_override/0 = ExtResource("5_foavk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1.5299e-08, -0.35, 0, 0.35, -1.5299e-08, 0, 0, 0, 0.35, 0, 0, 0)

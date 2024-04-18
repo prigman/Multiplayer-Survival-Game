@@ -30,7 +30,7 @@ mesh/mesh_LOD_max_capacity = 20
 mesh/mesh_LOD_min_size = 120.0
 octree/octree_reconfigure_button = false
 octree/octree_recenter_button = false
-density/density_per_units = 28.0
+density/density_per_units = 12.0
 scale/scale_scaling_type = 1
 scale/scale_range = [Vector3(0.65, 0.65, 0.65), Vector3(0.65, 0.65, 0.65)]
 up_vector/up_vector_primary_type = 2
@@ -110,7 +110,7 @@ metadata/class = "Greenhouse_Plant"
 [sub_resource type="Resource" id="Resource_q16ee"]
 resource_name = "Greenhouse_PlantState"
 script = ExtResource("4_e2j0y")
-plant/plant_brush_active = false
+plant/plant_brush_active = true
 plant/plant_label = ""
 plant/plant = SubResource("Resource_f8qtj")
 metadata/class = "Greenhouse_PlantState"
@@ -161,7 +161,7 @@ metadata/class = "Greenhouse_Plant"
 [sub_resource type="Resource" id="Resource_h11uy"]
 resource_name = "Greenhouse_PlantState"
 script = ExtResource("4_e2j0y")
-plant/plant_brush_active = false
+plant/plant_brush_active = true
 plant/plant_label = ""
 plant/plant = SubResource("Resource_ngm3f")
 metadata/class = "Greenhouse_PlantState"

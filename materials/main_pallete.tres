@@ -5,6 +5,7 @@
 [resource]
 resource_local_to_scene = true
 resource_name = "Material"
+diffuse_mode = 1
 albedo_texture = ExtResource("1_7qk8w")
-metallic_specular = 0.0
-texture_filter = 2
+texture_filter = 0
+texture_repeat = false

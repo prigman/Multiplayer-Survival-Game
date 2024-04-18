@@ -1,13 +1,15 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cad51gex0vg66"]
 
-[ext_resource type="Texture2D" uid="uid://pmfbc2qkl081" path="res://textures/pine_leaves_px.png" id="1_o7cf3"]
+[ext_resource type="Texture2D" uid="uid://nyby2avx3abe" path="res://textures/pine_leaves_128.png" id="1_c0l6j"]
 
 [resource]
 resource_name = "pine-leaves_5"
-transparency = 4
+transparency = 2
+alpha_scissor_threshold = 0.75
+alpha_antialiasing_mode = 0
 cull_mode = 2
-albedo_color = Color(0.113518, 0.274399, 0.0915794, 1)
-albedo_texture = ExtResource("1_o7cf3")
+albedo_color = Color(0.121952, 0.291046, 0.0988936, 1)
+albedo_texture = ExtResource("1_c0l6j")
 albedo_texture_msdf = true
 metallic_specular = 0.0
 roughness = 0.0

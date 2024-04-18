@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bp6c182x8mldk"]
+[gd_scene load_steps=18 format=3 uid="uid://bp6c182x8mldk"]
 
 [ext_resource type="Script" path="res://inventory/chest_staticbody.gd" id="1_xlx1u"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="2_jeibw"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="6_k2jpy"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="7_c2i7u"]
 [ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="8_72suu"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="10_js5jj"]
 
 [sub_resource type="Resource" id="Resource_5ii1q"]
 script = ExtResource("4_4nwml")
@@ -52,6 +53,7 @@ inventory_data = SubResource("Resource_u1d15")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.55, 0)
 mesh = ExtResource("2_ysn2n")
+surface_material_override/0 = ExtResource("10_js5jj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.55, 0)
