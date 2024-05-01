@@ -1,6 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b23yby3v18yb5"]
+[gd_scene load_steps=13 format=3 uid="uid://b23yby3v18yb5"]
 
 [ext_resource type="Script" path="res://scripts/building_wall.gd" id="1_3e0ou"]
+[ext_resource type="Script" path="res://scripts/wall_colliders.gd" id="2_ny6n6"]
+[ext_resource type="Material" uid="uid://o7108osm7jyv" path="res://materials/building_material.tres" id="3_cjlns"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1ugv3"]
 
@@ -9,31 +11,42 @@ size = Vector3(4, 0.3, 4)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tgqlr"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ucr1n"]
-
 [sub_resource type="BoxMesh" id="BoxMesh_nt6br"]
 resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_ucr1n")
 size = Vector3(4, 3, 0.3)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhap3"]
-resource_local_to_scene = true
-albedo_color = Color(1, 1, 1, 0.45098)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_7pqj5"]
-size = Vector3(4.2, 3.2, 0.5)
+size = Vector3(5, 4, 1)
 
-[node name="Building_Wall" type="Node3D" node_paths=PackedStringArray("colliders") groups=["building_wall"]]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4nlfl"]
+size = Vector3(15, 15, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7idhv"]
+size = Vector3(6, 4.2, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jmc22"]
+size = Vector3(6, 4.2, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dc4af"]
+size = Vector3(10, 10, 10)
+
+[node name="Building_Wall" type="Node3D" node_paths=PackedStringArray("disable_building_collider", "building_part_shape", "building_part_area", "private_area", "temporary_building_area", "colliders") groups=["building_group", "building_wall"]]
 script = ExtResource("1_3e0ou")
+disable_building_collider = NodePath("CSGMesh3D12/DisableBuildingCollider")
+building_part_shape = NodePath("CSGMesh3D12/BuildingPartShape")
+building_part_area = NodePath("CSGMesh3D12/BuildingPartArea")
+private_area = NodePath("CSGMesh3D12/PrivateArea")
+temporary_building_area = NodePath("CSGMesh3D12/TemporaryBuildingArea")
 colliders = [NodePath("coll_1"), NodePath("coll_2"), NodePath("coll_3")]
 
-[node name="coll_1" type="Area3D" parent="." groups=["building_colliders", "collider_wall"]]
+[node name="coll_1" type="Area3D" parent="." groups=["building_colliders", "collider_wall", "collider_wall_roof_1"]]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.5, 0)
 collision_layer = 256
 collision_mask = 256
+script = ExtResource("2_ny6n6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="coll_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.608881)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.65)
 shape = SubResource("SphereShape3D_1ugv3")
 disabled = true
 
@@ -42,13 +55,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 shape = SubResource("BoxShape3D_6g1ll")
 disabled = true
 
-[node name="coll_2" type="Area3D" parent="." groups=["building_colliders", "collider_wall"]]
+[node name="coll_2" type="Area3D" parent="." groups=["building_colliders", "collider_wall", "collider_wall_roof_2"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.5, 0)
 collision_layer = 256
 collision_mask = 256
+script = ExtResource("2_ny6n6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="coll_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.89134e-08, 0, 0.673891)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.65)
 shape = SubResource("SphereShape3D_1ugv3")
 disabled = true
 
@@ -57,12 +71,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 shape = SubResource("BoxShape3D_6g1ll")
 disabled = true
 
-[node name="coll_3" type="Area3D" parent="."]
+[node name="coll_3" type="Area3D" parent="." groups=["building_colliders", "wall_connector"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 collision_layer = 256
 collision_mask = 256
+script = ExtResource("2_ny6n6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="coll_3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 shape = SubResource("SphereShape3D_tgqlr")
 disabled = true
 
@@ -70,17 +85,58 @@ disabled = true
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 cast_shadow = 0
-collision_layer = 64
+collision_layer = 2048
 collision_mask = 0
 mesh = SubResource("BoxMesh_nt6br")
-material = SubResource("StandardMaterial3D_hhap3")
+material = ExtResource("3_cjlns")
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="CSGMesh3D12"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_7pqj5")
-collision_mask = 191
+max_results = 3
+collision_mask = 14
+collide_with_areas = true
+
+[node name="PrivateArea" type="Area3D" parent="CSGMesh3D12" groups=["building_private_area"]]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGMesh3D12/PrivateArea"]
+shape = SubResource("BoxShape3D_4nlfl")
+disabled = true
+
+[node name="TemporaryBuildingArea" type="Area3D" parent="CSGMesh3D12"]
+collision_layer = 1024
+collision_mask = 64
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGMesh3D12/TemporaryBuildingArea"]
+shape = SubResource("BoxShape3D_4nlfl")
+
+[node name="BuildingPartArea" type="Area3D" parent="CSGMesh3D12"]
+collision_layer = 512
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGMesh3D12/BuildingPartArea"]
+shape = SubResource("BoxShape3D_7idhv")
+disabled = true
+
+[node name="BuildingPartShape" type="ShapeCast3D" parent="CSGMesh3D12" groups=["building_part_shape"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_jmc22")
+max_results = 1
+collision_mask = 512
+collide_with_areas = true
+
+[node name="DisableBuildingCollider" type="ShapeCast3D" parent="CSGMesh3D12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_dc4af")
+max_results = 2
+collision_mask = 144
+collide_with_areas = true
 
 [connection signal="area_entered" from="coll_1" to="." method="_on_coll_1_area_entered"]
 [connection signal="area_entered" from="coll_2" to="." method="_on_coll_2_area_entered"]
 [connection signal="area_entered" from="coll_3" to="." method="_on_coll_3_area_entered"]
+[connection signal="area_entered" from="CSGMesh3D12/TemporaryBuildingArea" to="." method="_on_temporary_building_area_area_entered"]
+[connection signal="area_exited" from="CSGMesh3D12/TemporaryBuildingArea" to="." method="_on_temporary_building_area_area_exited"]

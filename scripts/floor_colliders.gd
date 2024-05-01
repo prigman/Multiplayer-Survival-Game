@@ -1,4 +1,4 @@
 extends Area3D
 
-var busy_for_place_floor : bool
-var busy_for_place_wall : bool
+var connected_wall : Node3D
+var connected_floor : Node3D

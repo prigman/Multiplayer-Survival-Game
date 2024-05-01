@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Godot Survival"
+config/name="GodotSurvival"
 run/main_scene="res://scenes/main.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icons/icon.svg"
 
 [autoload]
@@ -30,7 +30,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/FastNoiseLiteRuntimeShader/plugin.cfg", "res://addons/m_terrain/plugin.cfg")
 
 [file_customization]
 
@@ -133,9 +133,12 @@ change_fire_mode={
 3d_physics/layer_5="enemy"
 3d_physics/layer_6="skybox"
 3d_physics/layer_7="building"
-3d_physics/layer_8="other"
+3d_physics/layer_8="world_resources"
 3d_physics/layer_9="building_colliders"
-3d_physics/layer_10="building_wall"
+3d_physics/layer_10="building_part"
+3d_physics/layer_11="building_area"
+3d_physics/layer_12="building_mesh"
+3d_physics/layer_13="terrain"
 
 [rendering]
 

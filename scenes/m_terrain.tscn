@@ -1,0 +1,704 @@
+[gd_scene load_steps=9 format=3 uid="uid://cee71nu14xh25"]
+
+[ext_resource type="MTerrainMaterial" uid="uid://1wm6ms1yy2xj" path="res://terrain_data/terrain_mat.res" id="1_0xrxe"]
+[ext_resource type="Script" path="res://scripts/mterrain.gd" id="2_yroeh"]
+[ext_resource type="MGrassData" uid="uid://diydirk7wwo4m" path="res://terrain_data/new_m_grass_data.res" id="3_yhm2t"]
+[ext_resource type="MGrassLodSetting" uid="uid://bwjyy80hfe5nu" path="res://terrain_data/grass_lod_setting.res" id="4_m3ahd"]
+[ext_resource type="ArrayMesh" uid="uid://tdvoiqypm884" path="res://models/meshes/grass_mesh.res" id="5_ggfmm"]
+[ext_resource type="PackedScene" uid="uid://ggat158lkf7j" path="res://addons/object_placer/objects/pine_tree.tscn" id="6_1v26k"]
+[ext_resource type="PackedScene" uid="uid://flv6r52q38pv" path="res://addons/object_placer/objects/stone_1.tscn" id="7_idv3k"]
+[ext_resource type="Script" path="res://scripts/world_resources.gd" id="8_0a7tt"]
+
+[node name="MTerrain" type="MTerrain"]
+dataDir = "res://terrain_data"
+create = true
+terrain_material = ExtResource("1_0xrxe")
+heightmap_layers = PackedStringArray("background")
+update_chunks_interval = 0.01
+distance_update_threshold = 8.0
+min_h_scale = 4
+max_h_scale = 6
+size_info = [[true, true, true], [false, true, true], [false, false, true], [false, false, true], [false, false, true], [false, false, true]]
+lod_distance = PackedInt32Array(10, 6)
+script = ExtResource("2_yroeh")
+
+[node name="_Timer_45528" type="Timer" parent="."]
+wait_time = 0.01
+one_shot = true
+
+[node name="_Timer_45529" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="MGrass" type="MGrass" parent="."]
+grass_data = ExtResource("3_yhm2t")
+grass_count_limit = 9000
+lod_settings = [ExtResource("4_m3ahd"), null, null]
+meshes = [ExtResource("5_ggfmm"), null, null]
+materials = [null, null, null]
+
+[node name="PineTree" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 216.386, 3.22586, 186.009)
+
+[node name="PineTree2" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.657354, 1.14519e-07, 0.753581, 1.3411e-07, 0.999998, -3.49817e-08, -0.753582, 7.80677e-08, -0.657352, 269.8, 6.66429, 98.9799)
+
+[node name="PineTree3" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.657353, -1.1452e-07, -0.753582, 1.3411e-07, 1, -3.49818e-08, 0.753582, -7.80679e-08, 0.657353, 245.355, 2.45388, 100.112)
+
+[node name="PineTree4" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 223.97, 1.32944, 129.287)
+
+[node name="PineTree5" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 197.986, 1.36287, 157.892)
+
+[node name="PineTree6" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 189.276, 2.25632, 217.886)
+
+[node name="PineTree7" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(7.54979e-08, 0, 1, 0, 1, 0, -1, 0, 7.54979e-08, 262.155, 1.89238, 219.797)
+
+[node name="PineTree8" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 309.506, 1.82108, 171.036)
+
+[node name="PineTree9" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-4.37114e-08, 0, -0.999999, 0, 1, 0, 0.999999, 0, -4.37114e-08, 329.307, 3.00415, 121.189)
+
+[node name="PineTree10" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.999999, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -0.999999, 359.981, 2.88102, 154.486)
+
+[node name="PineTree11" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(7.54979e-08, 0, 0.999999, 0, 1, 0, -0.999999, 0, 7.54979e-08, 369.159, 4.12829, 215.419)
+
+[node name="PineTree12" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 360.231, 1.63488, 264.495)
+
+[node name="PineTree13" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 337.871, 2.49504, 320.988)
+
+[node name="PineTree14" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 309.586, 1.48789, 224.095)
+
+[node name="PineTree15" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.999999, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -0.999999, 332.091, 3.01983, 196.792)
+
+[node name="PineTree16" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, -0.258819, 295.948, 2.00702, 263.363)
+
+[node name="PineTree17" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.965925, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965925, 232.121, 1.46217, 278.103)
+
+[node name="PineTree18" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, -0.965925, 0, 1, 0, 0.965925, 0, 0.258819, 183.309, 0.535777, 282.586)
+
+[node name="PineTree19" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965925, 152.704, 2.42064, 206.832)
+
+[node name="PineTree20" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 149.646, 1.78256, 155.791)
+
+[node name="PineTree21" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 154.183, 3.39993, 109.455)
+
+[node name="PineTree22" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 179.006, 1.57503, 73.5089)
+
+[node name="PineTree23" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965925, 217.482, 3.85092, 60.7998)
+
+[node name="PineTree24" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, -0.707106, 313.054, 6.41048, 52.8898)
+
+[node name="PineTree25" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 368.939, 2.29268, 56.1917)
+
+[node name="PineTree26" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 275.635, 9.02535, 62.0891)
+
+[node name="PineTree27" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 405.928, 1.92292, 62.7617)
+
+[node name="PineTree28" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 412.194, 1.07004, 33.2108)
+
+[node name="PineTree29" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, -0.258819, 439.111, 0.536646, 85.1567)
+
+[node name="PineTree30" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, 0.707106, 443.698, 4.31355, 128.518)
+
+[node name="PineTree31" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965925, 392.356, 1.16444, 108.858)
+
+[node name="PineTree32" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, -0.965925, 0, 1, 0, 0.965925, 0, 0.258819, 357.992, 3.16988, 91.1589)
+
+[node name="PineTree33" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, -0.707106, 406.599, 10.1097, 163.165)
+
+[node name="PineTree34" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, -0.707106, 264.762, 1.76036, 158.977)
+
+[node name="PineTree35" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, 0.258819, 290.861, 3.10042, 133.33)
+
+[node name="PineTree36" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 216.496, 2.94866, 222.315)
+
+[node name="PineTree37" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 255.968, 1.94527, 258.833)
+
+[node name="PineTree38" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 268.65, 1.47514, 322.135)
+
+[node name="PineTree39" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 221.181, 2.30368, 319.282)
+
+[node name="PineTree40" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, -0.707106, 170.709, 1.16405, 256.378)
+
+[node name="PineTree41" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, 0.258819, 279.778, 1.96323, 294.128)
+
+[node name="PineTree42" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, 0.707106, 317.61, 1.27531, 361.509)
+
+[node name="PineTree43" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, 0.707106, 237.753, 1.61998, 399.824)
+
+[node name="PineTree44" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.258819, 0, -0.965925, 0, 1, 0, 0.965925, 0, -0.258819, 192.45, 1.71935, 404.509)
+
+[node name="PineTree45" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965925, 146.396, 0.767471, 365.693)
+
+[node name="PineTree46" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, -0.258819, 124.209, 0.570695, 290.621)
+
+[node name="PineTree47" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.999999, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 0.999999, 112.342, 2.4856, 208.69)
+
+[node name="PineTree48" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 100.416, 1.68204, 114.038)
+
+[node name="PineTree49" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 118.634, 2.38003, 70.3426)
+
+[node name="PineTree50" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 70.2454, 3.85762, 57.3945)
+
+[node name="PineTree51" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 43.1115, 5.05797, 54.0193)
+
+[node name="PineTree52" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, 0.707106, 42.7676, 2.64381, 126.46)
+
+[node name="PineTree53" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, -0.707106, 48.7394, 1.77783, 180.999)
+
+[node name="PineTree54" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 61.4387, 3.99853, 215.443)
+
+[node name="PineTree55" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, 0.258819, 35.5538, 4.98505, 246.161)
+
+[node name="PineTree56" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.999999, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 0.999999, 74.0744, 1.4501, 273.524)
+
+[node name="PineTree57" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-4.37114e-08, 0, -0.999999, 0, 1, 0, 0.999999, 0, -4.37114e-08, 102.201, 0.771746, 332.949)
+
+[node name="PineTree58" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 77.215, 2.5731, 379.461)
+
+[node name="PineTree59" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 76.444, 4.34576, 379.248)
+
+[node name="PineTree60" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 130.357, 4.99936, 437.464)
+
+[node name="PineTree62" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 69.9689, 5.08673, 439.068)
+
+[node name="PineTree63" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, -0.965925, 0, 1, 0, 0.965925, 0, 0.258819, 34.1027, 2.13706, 408.167)
+
+[node name="PineTree64" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, -0.707106, 32.2908, 0.642403, 345.896)
+
+[node name="PineTree65" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965925, 44.7823, 1.82739, 306.282)
+
+[node name="PineTree66" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, -0.707106, 30.7139, 3.85184, 283.93)
+
+[node name="PineTree67" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 102.218, 1.39638, 253.79)
+
+[node name="PineTree68" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 172.302, 0.946631, 332.717)
+
+[node name="PineTree69" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 267.617, 1.61308, 364.096)
+
+[node name="PineTree70" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 293.745, 3.29363, 420.078)
+
+[node name="PineTree71" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, 0.258819, 219.965, 3.02462, 439.845)
+
+[node name="PineTree72" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.999999, 0, -4.47035e-08, 0, 1, 0, 4.47035e-08, 0, 0.999999, 178.231, 3.32972, 471.898)
+
+[node name="PineTree73" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, 0.707106, 109.561, 6.67156, 466.238)
+
+[node name="PineTree74" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.258819, 0, -0.965925, 0, 1, 0, 0.965925, 0, -0.258819, 246.841, 3.11855, 468.986)
+
+[node name="PineTree75" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965925, 331.884, 4.88958, 469.419)
+
+[node name="PineTree76" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, -0.707106, 367.395, 4.999, 462.951)
+
+[node name="PineTree77" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 351.878, 1.28991, 413.381)
+
+[node name="PineTree78" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 382.528, 1.45053, 345.828)
+
+[node name="PineTree79" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 400.869, 5.91006, 412.991)
+
+[node name="PineTree80" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 421.844, 8.54297, 198.749)
+
+[node name="PineTree81" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 458.846, 6.96709, 208.968)
+
+[node name="PineTree82" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 400.326, 4.66592, 234.111)
+
+[node name="PineTree83" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 400.627, 4.26996, 265.662)
+
+[node name="PineTree84" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, 0.707106, 404.059, 5.33727, 296.008)
+
+[node name="PineTree85" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.258819, 0, -0.965925, 0, 1, 0, 0.965925, 0, -0.258819, 428.17, 4.89246, 320.911)
+
+[node name="PineTree86" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965925, 468.711, 4.26357, 309.297)
+
+[node name="PineTree87" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 480.71, 3.89935, 254.983)
+
+[node name="PineTree88" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, 0.258819, 469.488, 1.96965, 342.541)
+
+[node name="PineTree89" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 453.172, 3.1783, 395.068)
+
+[node name="PineTree90" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 453.721, 3.8595, 394.485)
+
+[node name="PineTree91" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 475.331, 3.2976, 436.937)
+
+[node name="PineTree92" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 441.831, 3.65378, 464.857)
+
+[node name="PineTree93" parent="." instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, 0.707106, 434.298, 6.83053, 257.912)
+
+[node name="Stone_1" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 234.727, 3.98105, 208.756)
+
+[node name="Stone_2" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 240.243, 3.80152, 194.632)
+
+[node name="Stone_3" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 264.072, 1.81577, 208.434)
+
+[node name="Stone_4" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 238.302, 1.6637, 255.479)
+
+[node name="Stone_5" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 190.405, 1.43025, 263.64)
+
+[node name="Stone_6" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 268.921, 2.0418, 246.369)
+
+[node name="Stone_7" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 194.854, 0.629925, 300.841)
+
+[node name="Stone_8" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.258819, 0, -0.965925, 0, 1, 0, 0.965925, 0, 0.258819, 241.508, 2.41419, 345.418)
+
+[node name="Stone_9" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.707107, 0, -0.707106, 0, 1, 0, 0.707106, 0, -0.707107, 312.486, 2.52523, 325.788)
+
+[node name="Stone_10" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 330.113, 1.80012, 287.52)
+
+[node name="Stone_11" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(1.94707e-07, 0, 0.999999, 0, 1, 0, -0.999999, 0, 1.94707e-07, 347.57, 2.08114, 233.827)
+
+[node name="Stone_12" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.999999, 0, -1.3411e-07, 0, 1, 0, 1.3411e-07, 0, 0.999999, 356.329, 3.68531, 181.574)
+
+[node name="Stone_13" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 333.903, 2.89345, 144.521)
+
+[node name="Stone_14" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, -0.707106, 287.059, 3.22475, 133.229)
+
+[node name="Stone_15" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, -0.707106, 214.654, 1.61962, 149.329)
+
+[node name="Stone_16" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 133.853, 2.90128, 181.687)
+
+[node name="Stone_17" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965925, 67.9586, 0.784443, 138.811)
+
+[node name="Stone_18" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.258819, 0, -0.965925, 0, 1, 0, 0.965925, 0, 0.258819, 152.21, 5.30336, 75.5583)
+
+[node name="Stone_19" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, -0.707106, 233.864, 3.6781, 92.3212)
+
+[node name="Stone_20" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.965925, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965925, 293.904, 6.71632, 95.0015)
+
+[node name="Stone_21" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, 0.707106, 382.28, 2.1094, 309.708)
+
+[node name="Stone_22" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, 0.707106, 380.675, 1.76311, 383.405)
+
+[node name="Stone_23" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 297.258, 2.49, 384.326)
+
+[node name="Stone_24" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 216.855, 1.98518, 405.942)
+
+[node name="Stone_25" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 157.792, 1.32842, 391.764)
+
+[node name="Stone_26" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, 0.258819, 114.092, 2.33787, 382.042)
+
+[node name="Stone_27" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.999999, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 0.999999, 74.0416, 1.08644, 306.184)
+
+[node name="Stone_28" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, 0.707106, 136.235, 0.966164, 250.359)
+
+[node name="Stone_29" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, -0.707106, 79.1389, 3.81462, 226.255)
+
+[node name="Stone_30" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(-0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, -0.707106, 165.448, 2.13846, 121.524)
+
+[node name="Stone_31" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, 0.258819, 385.421, 8.34838, 168.556)
+
+[node name="Stone_32" parent="." instance=ExtResource("7_idv3k")]
+transform = Transform3D(0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965925, 291.868, 1.60708, 180.569)
+
+[node name="_Timer_46601" type="Timer" parent="."]
+wait_time = 0.01
+one_shot = true
+
+[node name="@Timer@46602" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="PineTree61" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 114.52, 1.70235, 122.298)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree94" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 129.678, 1.98092, 158.937)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree95" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 97.4582, 2.20302, 187.503)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree96" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 185.693, 1.18412, 188.084)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree97" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, 0.258819, 197.328, 2.11557, 233.866)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree98" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 150.263, 1.88084, 238.447)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree99" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965925, 147.587, 0.302376, 283.572)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree100" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(7.54979e-08, 0, 0.999999, 0, 1, 0, -0.999999, 0, 7.54979e-08, 141.063, 0.499249, 304.124)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree101" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 209.351, 1.30165, 261.394)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree102" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.258819, 0, -0.965925, 0, 1, 0, 0.965925, 0, -0.258819, 170.416, 1.85096, 166.928)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree103" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 83.4349, 1.00406, 147.482)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree104" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, 0.258819, 87.1829, 2.04066, 213.973)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree105" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 188.98, 0.68721, 117.488)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree106" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 130.107, 2.80306, 202.81)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree107" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 68.3159, 1.60646, 184.993)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree108" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 200.763, 1.31234, 352.488)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree109" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.258819, 0, -0.965925, 0, 1, 0, 0.965925, 0, -0.258819, 241, 2.62886, 230.909)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree110" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, -0.707106, 242.657, 2.35873, 166.764)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree111" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.965925, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965925, 293.684, 1.42337, 210.04)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree112" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, -0.707106, 295.768, 1.55496, 338.41)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree113" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.258819, 0, 0.965925, 0, 1, 0, -0.965925, 0, -0.258819, 269.803, 1.15938, 184.24)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree114" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.999999, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 0.999999, 249.757, 1.95095, 311.675)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree115" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 227.649, 1.5511, 356.62)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree116" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 132.748, 0.729027, 345.511)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree117" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 310.714, 2.39366, 155.816)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree118" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("6_1v26k")]
+transform = Transform3D(-0.965925, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965925, 382.926, 6.32004, 186.409)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("8_0a7tt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0

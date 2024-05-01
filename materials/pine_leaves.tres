@@ -1,6 +1,7 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cad51gex0vg66"]
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cad51gex0vg66"]
 
 [ext_resource type="Texture2D" uid="uid://nyby2avx3abe" path="res://textures/pine_leaves_128.png" id="1_c0l6j"]
+[ext_resource type="Texture2D" uid="uid://cpp21hlqpsw70" path="res://terrain_data/pine_tree_noise.tres" id="2_58sr7"]
 
 [resource]
 resource_name = "pine-leaves_5"
@@ -8,7 +9,7 @@ transparency = 2
 alpha_scissor_threshold = 0.75
 alpha_antialiasing_mode = 0
 cull_mode = 2
-albedo_color = Color(0.121952, 0.291046, 0.0988936, 1)
+albedo_color = Color(0.176471, 0.345098, 0.176471, 1)
 albedo_texture = ExtResource("1_c0l6j")
 albedo_texture_msdf = true
 metallic_specular = 0.0
@@ -21,11 +22,11 @@ rim = 0.0
 rim_tint = 1.0
 clearcoat_roughness = 0.0
 heightmap_scale = 16.0
-subsurf_scatter_strength = 1.0
 subsurf_scatter_skin_mode = true
 backlight_enabled = true
 backlight = Color(1, 1, 1, 1)
-texture_filter = 1
+detail_blend_mode = 3
+detail_albedo = ExtResource("2_58sr7")
 texture_repeat = false
 billboard_keep_scale = true
 grow_amount = 0.7

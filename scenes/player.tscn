@@ -33,7 +33,7 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f7gol"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
-radius = 0.605
+radius = 0.6
 
 [sub_resource type="Animation" id="Animation_wl7o4"]
 length = 0.001
@@ -138,7 +138,7 @@ corner_radius_bottom_left = 2
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
 collision_layer = 2
-collision_mask = 201
+collision_mask = 6345
 script = ExtResource("1_adhyr")
 player_inventory = ExtResource("2_xq8ps")
 player_quick_slot = ExtResource("3_yc7co")
@@ -161,9 +161,11 @@ skeleton = NodePath("../DefaultStateCollision")
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 2.5, -3.72529e-09)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 1.5, -3.72529e-09)
 shape = SubResource("SphereShape3D_c1c83")
-collision_mask = 25
+target_position = Vector3(0, 0, 0)
+max_results = 4
+collision_mask = 6297
 
 [node name="CameraHolder" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -202,19 +204,19 @@ collision_mask = 12
 [node name="AimCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -1000)
-collision_mask = 251
+collision_mask = 6395
 hit_back_faces = false
 collide_with_areas = true
 
 [node name="MeleeCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -2.5)
-collision_mask = 219
+collision_mask = 6363
 
 [node name="BuildingCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -5)
-collision_mask = 457
+collision_mask = 6537
 collide_with_areas = true
 debug_shape_custom_color = Color(0, 1, 0, 1)
 

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemDataCraftableBuildings" load_steps=4 format=3 uid="uid://do1v63m4lpun7"]
+[gd_resource type="Resource" script_class="ItemDataCraftableBuildings" load_steps=3 format=3 uid="uid://do1v63m4lpun7"]
 
 [ext_resource type="Texture2D" uid="uid://dj2gqxo6momil" path="res://textures/PNG/Dark/texture_09.png" id="1_1c3rp"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_buildings.gd" id="1_poij4"]
@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_poij4")
 item_type = 5
+building_type = 1
 craft_components = Array[Resource("res://inventory/craft_components.gd")]([])
 name = "Wooden Wall"
 description = "Сonstruction part"
@@ -14,6 +15,9 @@ stackable = false
 max_stack = 0
 quality = 100.0
 icon = ExtResource("1_1c3rp")
+dictionary = {
+"scene_path": "res://scenes/building_wall.tscn"
+}
 position = Vector3(0, 0, 0)
 rotation = Vector3(90, 0, 0)
 scale = Vector3(0, 0, 0)

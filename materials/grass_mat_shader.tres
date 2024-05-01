@@ -1,22 +1,35 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c7d4xyylcq5p1"]
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://c7d4xyylcq5p1"]
 
 [ext_resource type="Shader" path="res://materials/grass_shader.gdshader" id="1_4gclc"]
 [ext_resource type="Texture2D" uid="uid://dg8pp7ipfa1it" path="res://textures/grass_patches.png" id="2_hiwt5"]
+
+[sub_resource type="Gradient" id="Gradient_6jhie"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7pcl4"]
+noise_type = 3
+frequency = 0.0351
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nf2fn"]
+generate_mipmaps = false
+color_ramp = SubResource("Gradient_6jhie")
+noise = SubResource("FastNoiseLite_7pcl4")
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_4gclc")
 shader_parameter/specular = 0.0
 shader_parameter/roughness = 0.0
-shader_parameter/metallic = null
-shader_parameter/fadeout_envelope = Vector2(1, 0)
-shader_parameter/top_color = Color(0.274475, 0.510656, 0.269361, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/fadeout_envelope = Vector2(2.07, -1.115)
+shader_parameter/top_color = Color(0.27451, 0.509804, 0.270588, 1)
 shader_parameter/bottom_color = Color(0.141176, 0.278431, 0.133333, 1)
 shader_parameter/noise_color = Color(0, 0, 0, 1)
 shader_parameter/heightmap_scale = null
-shader_parameter/color_noise_scale = null
-shader_parameter/color_noise_intensity = null
+shader_parameter/color_noise_scale = 1.0
+shader_parameter/color_noise_intensity = 0.513
 shader_parameter/foliage_texture = ExtResource("2_hiwt5")
+shader_parameter/color_noise = SubResource("NoiseTexture2D_nf2fn")
 shader_parameter/wind = true
 shader_parameter/wind_scale = 1.0
 shader_parameter/wind_intensity = 0.025

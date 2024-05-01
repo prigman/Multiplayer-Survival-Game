@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://ggat158lkf7j"]
+
+[ext_resource type="ArrayMesh" uid="uid://pcfh4qqqwwim" path="res://models/meshes/pine_tree.mesh" id="1_dni8b"]
+[ext_resource type="Script" path="res://scripts/world_resources.gd" id="1_kae3q"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wb0g1"]
+height = 12.0
+radius = 0.7
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fwuxc"]
+radius = 20.0
+height = 60.0
+
+[node name="PineTree" type="StaticBody3D" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"]]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("1_kae3q")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="PineTree2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+visibility_range_end = 200.0
+mesh = ExtResource("1_dni8b")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+shape = SubResource("CylinderShape3D_wb0g1")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+visible = false
+enabled = false
+shape = SubResource("CapsuleShape3D_fwuxc")
+target_position = Vector3(0, 0, 0)
+max_results = 4
+collision_mask = 86
+collide_with_areas = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

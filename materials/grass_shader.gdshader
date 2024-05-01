@@ -14,7 +14,7 @@ uniform vec3 bottom_color : source_color;
 uniform vec3 noise_color : source_color;
 
 group_uniforms maps;
-uniform sampler2D foliage_texture;
+uniform sampler2D foliage_texture : filter_linear_mipmap;
 uniform sampler2D heightmap_normals : hint_normal;
 uniform float heightmap_scale;
 uniform sampler2D color_noise;
@@ -61,7 +61,7 @@ void fragment() {
 	if (COLOR.a < limit - 0.001) {
 		discard;
 	}
-	ALPHA_SCISSOR_THRESHOLD = 0.8;
+	ALPHA_SCISSOR_THRESHOLD = 0.7;
 	
 	float color_noise_at_position = mix(0, texture(color_noise, heightmap_position * color_noise_scale).r, color_noise_intensity);
 	

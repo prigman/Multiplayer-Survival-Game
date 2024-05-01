@@ -21,6 +21,7 @@ amount = 1
 script = ExtResource("1_j1jxh")
 craft_components = Array[ExtResource("2_d12l8")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
 item_type = 4
+tool_type = 0
 anim_hit = "tools/pickaxe_hit"
 anim_after_hit = "tools/pickaxe_after_hit"
 damage = 15

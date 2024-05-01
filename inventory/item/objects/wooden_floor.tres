@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_xhjng")
 item_type = 5
+building_type = 0
 craft_components = Array[Resource("res://inventory/craft_components.gd")]([])
 name = "Wooden Floor"
 description = "Сonstruction part"
@@ -14,7 +15,9 @@ stackable = false
 max_stack = 0
 quality = 100.0
 icon = ExtResource("1_6tay0")
-dictionary = {}
+dictionary = {
+"scene_path": "res://scenes/bulding.tscn"
+}
 position = Vector3(0, 0, 0)
 rotation = Vector3(0, 0, 0)
 scale = Vector3(0, 0, 0)

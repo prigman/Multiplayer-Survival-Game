@@ -28,6 +28,9 @@ var mouse_input : Vector2
 @export var weapon_spread_data : Array[PlayerWeaponSpread] # массив с данными разброса для всего доступного оружия 
 var current_weapon_spread_data : PlayerWeaponSpread = null # сюда назначается то оружие, которое игрок держит сейчас в руках
 
+# buildings
+@export var buildings_in_own : Array[Node3D]
+
 # tilt weapon
 @export var weapon_holder : Node3D
 @export var weapon_sway_amount : float = 5

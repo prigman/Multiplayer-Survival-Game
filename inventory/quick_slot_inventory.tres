@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=18 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=36 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="2_83pcy"]
@@ -11,8 +11,16 @@
 [ext_resource type="ArrayMesh" uid="uid://b5elooe8irukj" path="res://models/ar/ar_mag.res" id="12_fy180"]
 [ext_resource type="ArrayMesh" uid="uid://cl73ro1sfy3jp" path="res://models/ar/ar_body.res" id="13_hvw0y"]
 [ext_resource type="Curve" uid="uid://bl86an7yiit51" path="res://scripts/weapon/ar_curve.tres" id="14_8ucjf"]
+[ext_resource type="Texture2D" uid="uid://dj2gqxo6momil" path="res://textures/PNG/Dark/texture_09.png" id="14_wn42f"]
+[ext_resource type="Script" path="res://inventory/item/item_data_craftable_buildings.gd" id="15_72thu"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="15_exx56"]
 [ext_resource type="ArrayMesh" uid="uid://cghrb8l1uuxk5" path="res://models/ar/ar_holo.res" id="16_12wq0"]
+[ext_resource type="Texture2D" uid="uid://c71ipwr01lvmn" path="res://textures/CUBIC-prototype-pack/Blue/6.png" id="16_ro04u"]
+[ext_resource type="Texture2D" uid="uid://bwfuoa210tn3k" path="res://textures/PNG/Dark/texture_08.png" id="17_hrfaa"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="18_7i7wa"]
+[ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="19_yhjaj"]
+[ext_resource type="ArrayMesh" uid="uid://cxp6bjdall1ug" path="res://models/meshes/axe.res" id="20_3u7r8"]
+[ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="21_agj1q"]
 
 [sub_resource type="Resource" id="Resource_n38jr"]
 script = ExtResource("8_qw5vx")
@@ -75,7 +83,117 @@ script = ExtResource("8_qw5vx")
 item = SubResource("Resource_uehp6")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_pxw71"]
+script = ExtResource("15_72thu")
+item_type = 5
+building_type = 1
+craft_components = Array[ExtResource("3_q7mj1")]([])
+name = "Wooden Wall"
+description = "Сonstruction part"
+description_item_panel = "Сonstruction part"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("14_wn42f")
+dictionary = {
+"scene_path": "res://scenes/building_wall.tscn"
+}
+position = Vector3(0, 0, 0)
+rotation = Vector3(90, 0, 0)
+scale = Vector3(0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_0j2qg"]
+script = ExtResource("8_qw5vx")
+item = SubResource("Resource_pxw71")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_0s65p"]
+script = ExtResource("15_72thu")
+item_type = 5
+building_type = 2
+craft_components = Array[ExtResource("3_q7mj1")]([])
+name = "Wooden Roof"
+description = "Сonstruction part"
+description_item_panel = "Сonstruction part"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("16_ro04u")
+dictionary = {
+"scene_path": "res://scenes/building_roof.tscn"
+}
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_r7ye5"]
+script = ExtResource("8_qw5vx")
+item = SubResource("Resource_0s65p")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_3gmrs"]
+script = ExtResource("15_72thu")
+item_type = 5
+building_type = 0
+craft_components = Array[ExtResource("3_q7mj1")]([])
+name = "Wooden Floor"
+description = "Сonstruction part"
+description_item_panel = "Сonstruction part"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("17_hrfaa")
+dictionary = {
+"scene_path": "res://scenes/bulding.tscn"
+}
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_dkxw3"]
+script = ExtResource("8_qw5vx")
+item = SubResource("Resource_3gmrs")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_1j36k"]
+script = ExtResource("3_q7mj1")
+component = ExtResource("2_83pcy")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_3yjym"]
+script = ExtResource("3_q7mj1")
+component = ExtResource("18_7i7wa")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_i4jmh"]
+script = ExtResource("21_agj1q")
+craft_components = Array[ExtResource("3_q7mj1")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
+item_type = 4
+tool_type = 1
+anim_hit = "tools/pickaxe_hit"
+anim_after_hit = "tools/pickaxe_after_hit"
+damage = 21
+name = "Axe"
+description = "Axe"
+description_item_panel = "Axe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("19_yhjaj")
+mesh = ExtResource("20_3u7r8")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
+}
+position = Vector3(0.27, -0.39, -0.395)
+rotation = Vector3(5, 90, 0)
+scale = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_akr66"]
+script = ExtResource("8_qw5vx")
+item = SubResource("Resource_i4jmh")
+amount_in_slot = 1
+
 [resource]
 script = ExtResource("1_ab8t5")
 type = 1
-slots_data = Array[ExtResource("8_qw5vx")]([SubResource("Resource_n38jr"), SubResource("Resource_iuw2l"), null, null, null, null])
+slots_data = Array[ExtResource("8_qw5vx")]([SubResource("Resource_n38jr"), SubResource("Resource_iuw2l"), SubResource("Resource_0j2qg"), SubResource("Resource_r7ye5"), SubResource("Resource_dkxw3"), SubResource("Resource_akr66")])

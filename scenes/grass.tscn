@@ -1,10 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bvly55g23t1rh"]
 
-[ext_resource type="ArrayMesh" uid="uid://8p2yo7exj0hv" path="res://models/meshes/grass_1.res" id="1_3enus"]
+[ext_resource type="ArrayMesh" uid="uid://5a8s7wlvwpwk" path="res://models/meshes/grass_mesh.mesh" id="1_fr2ag"]
 
 [node name="grass_px_1" type="Node3D"]
 
 [node name="grass_px" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, 0, 0)
 cast_shadow = 0
-mesh = ExtResource("1_3enus")
+mesh = ExtResource("1_fr2ag")

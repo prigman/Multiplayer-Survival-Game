@@ -8,6 +8,7 @@ size = Vector3(1.54, 0.425, 0.16)
 
 [node name="ArRigidbody" type="RigidBody3D"]
 collision_layer = 4
+collision_mask = 6273
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true

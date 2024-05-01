@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://flv6r52q38pv"]
+
+[ext_resource type="ArrayMesh" uid="uid://bvyb645vnuh06" path="res://models/meshes/stone_1.res" id="1_2sl4e"]
+[ext_resource type="Script" path="res://scripts/world_resources.gd" id="1_umi2c"]
+[ext_resource type="Shape3D" uid="uid://dt1bomukkuyvw" path="res://terrain_data/stone_1_shape.res" id="2_1n2v2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u887r"]
+radius = 20.0
+
+[node name="Stone_1" type="StaticBody3D" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"]]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("1_umi2c")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visibility_range_end = 200.0
+mesh = ExtResource("1_2sl4e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = ExtResource("2_1n2v2")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+visible = false
+enabled = false
+shape = SubResource("SphereShape3D_u887r")
+target_position = Vector3(0, 0, 0)
+max_results = 5
+collision_mask = 94
+collide_with_areas = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

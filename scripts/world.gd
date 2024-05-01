@@ -1,7 +1,6 @@
 class_name World extends Node
 
 @onready var player = $Player
-
 @export var enemy1 : CharacterBody3D
 @export var enemy2 : CharacterBody3D
 @export var enemy3 : CharacterBody3D
@@ -19,7 +18,7 @@ func _ready():
 		node.signal_toggle_inventory.connect(_toggle_inventory_interface)
 
 func _process(_delta):
-	if(player.position.y <= -10.0):
+	if(player.position.y <= -50.0):
 		get_tree().reload_current_scene()
 
 func _input(_event):

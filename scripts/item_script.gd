@@ -11,11 +11,13 @@ const BULLET_DECAL = preload("res://scenes/shoot_decal.tscn")
 @onready var ar_mag : MeshInstance3D = %AR_mag
 #
 
+# tree
 @export var player : CharacterBody3D
 @export var animator : AnimationPlayer
 @export var state_machine: StateMachine
 @export var camera_holder : Node3D
 @export var timer : Timer
+#
 
 # ui
 @export var weapon_hud: VBoxContainer
@@ -79,65 +81,88 @@ func _physics_process(delta):
 	elif _equiped_item_type(equiped_item.ItemType.building):
 		if building_cast and building_scene:
 			if building_cast.is_colliding():
-				if !building_scene.visible:
-					building_scene.show()
 				var collider_interact = building_cast.get_collider()
 				var coll_point = building_cast.get_collision_point()
-				if collider_interact.is_in_group("building_colliders"):
+				building_scene.is_in_building_place = false
+				building_scene.hide()
+				if collider_interact:
 					if collider_interact.is_in_group("floor_colliders"):
-						if building_scene.is_in_group("building_wall"):
-							#print("floor_colliders, building_wall")
-							if collider_interact.is_in_group("collider_side"):
-								building_scene.rotation_degrees.y = 0
-								#building_scene.mesh_building.mesh = preload("res://models/meshes/wooden_wall_2.res")
-							else:
-								building_scene.rotation_degrees.y = 90
-								#building_scene.mesh_building.mesh = equiped_item.mesh
-							building_scene.global_transform.origin = collider_interact.get_child(1).global_transform.origin
-						elif building_scene.is_in_group("building_floor") and !collider_interact.busy_for_place_floor:
-							#print("floor_colliders, building_floor")
-							building_scene.global_transform.origin = collider_interact.get_child(2).global_transform.origin
-						else:
-							#print("else not building_floor not building_wall")
-							building_scene.hide()
+						match equiped_item.building_type:
+							equiped_item.BuildingType.floor:
+								if !collider_interact.connected_floor:
+									building_scene.show()
+									building_scene.global_transform.origin = collider_interact.get_child(2).global_transform.origin
+									building_scene.is_in_building_place = true
+							equiped_item.BuildingType.wall:
+								if !collider_interact.connected_wall:
+									if collider_interact.is_in_group("collider_side"):
+										building_scene.rotation_degrees.y = 0
+									else:
+										building_scene.rotation_degrees.y = 90
+									building_scene.show()
+									building_scene.global_transform.origin = collider_interact.get_child(1).global_transform.origin
+									building_scene.is_in_building_place = true
 					if collider_interact.is_in_group("collider_wall"):
-						if building_scene.is_in_group("building_roof"):
-							#print("collider_wall(roof), building_roof")
-							building_scene.global_transform.origin = collider_interact.get_child(1).global_transform.origin
-						else:
-							#print("else not building_roof")
-							building_scene.hide()
-					if collider_interact.is_in_group("collider_roof"):
-						building_scene.hide()
+						match equiped_item.building_type:
+							equiped_item.BuildingType.roof:
+								if !collider_interact.connected_roof:
+									building_scene.show()
+									building_scene.global_transform.origin = collider_interact.get_child(1).global_transform.origin
+									building_scene.is_in_building_place = true
+				else: # если нету контакта луча с коллайдерами построек
+					match equiped_item.building_type:
+						equiped_item.BuildingType.floor:
+							building_scene.show()
+							building_scene.is_in_building_place = false
+							building_scene.global_transform.origin = Vector3(coll_point.x, coll_point.y + 0.1, coll_point.z)
+				if building_scene.is_in_building_place == true:
+					building_scene.building_part_shape.enabled = false
 				else:
-					if building_scene.is_in_group("building_wall") or building_scene.is_in_group("building_roof"):
-						building_scene.hide()
-					elif building_scene.is_in_group("building_floor"):
-						building_scene.global_transform.origin = Vector3(coll_point.x, coll_point.y + 0.1, coll_point.z)
-				if building_scene.shape_cast.is_colliding():
-					building_scene.mesh_building.material.albedo_color = Color(1, 0, 0)
-				elif building_scene.visible:
-					building_scene.mesh_building.material.albedo_color = Color(0, 1, 0)
+					if building_scene.building_part_shape.enabled == false:
+						building_scene.building_part_shape.enabled = true
+				building_scene.can_be_placed = true
+				if building_scene.shape_cast.is_colliding() \
+				# shape_cast который контактирует с player и interactable items
+				or building_scene.building_part_shape.is_colliding() \
+				# building_part_shape который контактирует с подзоной building_part_area чужой постройки чтоб нельзя было ее построить в упор 
+				or building_scene.disable_building_collider.is_colliding() \
+				# disable_building_collider проверяет столковения с указанными слоями
+				or building_scene.able_to_building == false: # проверка на чужую приват зону постройки
+					building_scene.can_be_placed = false
+				if !building_scene.can_be_placed:
+					building_scene.mesh_building.material.albedo_color = Color(1, 0, 0) # красный
+				if building_scene.can_be_placed and building_scene.visible:
+					building_scene.mesh_building.material.albedo_color = Color(0, 1, 0) # зелёный
 					if Input.is_action_just_pressed("fire"):
-						var path = load(equiped_item.dictionary["scene_path"])
-						var instance = path.instantiate()
-						for area in instance.colliders:
-							if area and area != collider_interact:
-								area.get_child(0).disabled = false # включаем area3d коллайдеры
-						if instance.is_in_group("building_wall") or instance.is_in_group("building_roof"):
-							collider_interact.get_child(0).disabled = true # отключаем area3d коллайдер в который устанавливается строение
-						Global.global_world.add_child(instance)
-						#var instance_material = instance.mesh_building.material.duplicate()
-						instance.global_transform = building_scene.global_transform
-						instance.mesh_building.mesh = building_scene.mesh_building.mesh
-						instance.mesh_building.material = null
-						#instance.mesh_building.material.albedo_color = Color(1, 1, 1)
-						instance.mesh_building.use_collision = true
-						instance.mesh_building.cast_shadow = 1
-						remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot)
+						place_building_part()
 			else:
 				if building_scene.visible:
-					building_scene.hide()
+					building_scene.hide() # нет коллайдеров в принципе, поэтому скрываем визуальный объект
+					building_scene.can_be_placed = false
+
+func place_building_part():
+	var path = load(equiped_item.dictionary["scene_path"])
+	var instance = path.instantiate()
+	for coll in instance.colliders:
+		if coll:
+			coll.get_child(0).disabled = false # включаем коллайдеры к которым подсоединяется постройка
+	player.buildings_in_own.append(instance)
+	instance.building_part_owner = player
+	Global.global_world.add_child(instance)
+	instance.global_transform = building_scene.global_transform
+	#instance.mesh_building.mesh = building_scene.mesh_building.mesh
+	instance.mesh_building.material.albedo_color = Color(1, 1, 1)
+	instance.mesh_building.use_collision = true # включаем коллизию меша для того чтобы игрок мог ходить по объекту
+	# pizda
+	instance.temporary_building_area.get_child(0).disabled = true # отключаем коллайдер, который запрещает строить если контактирует с чужой приват зоной
+	instance.building_part_area.get_child(0).disabled = false # включаем коллайдер, в его зоне нельзя разместить объект, но только если он не подсоеденён к коллайдерам остальных объектов
+	instance.building_part_shape.enabled = false # отключаем шейп каст, который контактирует с зоной выше(building_part_area)
+	instance.shape_cast.enabled = false # отключаем шейп каст который контактирует с player и interactable items
+	instance.disable_building_collider.enabled = false # отключаем шейп каст, который контактирует с указанными слоями
+	instance.private_area.get_child(0).disabled = false # включаем приватную зону строительства у этой постройки
+	#
+	instance.mesh_building.cast_shadow = 1
+	remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot)
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
@@ -162,7 +187,8 @@ func _unhandled_input(event):
 	if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
 		if Input.is_action_just_pressed("fire"):
 			if _equiped_item_type(equiped_item.ItemType.tool) and !animator.is_playing():
-				animator.play(equiped_item.anim_hit)
+				if equiped_item.anim_hit:
+					animator.play(equiped_item.anim_hit)
 		if _equiped_item_type(equiped_item.ItemType.weapon) and animator.current_animation != equiped_item.anim_activate and animator.current_animation != equiped_item.anim_reload: # если соответствует тип
 			if Input.is_action_just_pressed("reload") and equiped_item.ammo_current != equiped_item.ammo_max and equiped_item.ammo_reserve and animator.current_animation != equiped_item.anim_scope:
 				if Scoped:
@@ -217,6 +243,7 @@ func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InS
 			var path = load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
 			Global.global_world.add_child(building_scene)
+			building_scene.building_part_owner = player
 			#building_scene.mesh_building.mesh = equiped_item.mesh
 			# в process выставляется позиция для building_scene
 
@@ -282,23 +309,32 @@ func update_pos(weapon_data : ItemData):
 	
 func hitscan(raycast : RayCast3D):
 	var target = raycast.get_collider()
+	var ray_end_point = raycast.get_collision_point()
+	if ray_end_point:
+		var decal = BULLET_DECAL.instantiate()
+		if target:
+			target.add_child(decal)
+		else:
+			Global.global_world.add_child(decal)
+		decal.global_transform.origin = ray_end_point
+		var side : Vector3
+		if raycast.get_collision_normal() == Vector3.UP:
+			side = Vector3(1,0,0)
+		elif raycast.get_collision_normal() == Vector3.DOWN:
+			side = Vector3(-1,0,0)
+		else:
+			side = Vector3(0,1,0)
+		decal.look_at(ray_end_point + raycast.get_collision_normal(), side)
 	if target:
-		if raycast == melee_cast and target.is_in_group("stone_object"):
-			create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(1, 5))
+		if raycast == melee_cast and equiped_item.ItemType.tool:
+			if target.is_in_group("world_resource"):
+				target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
+			if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):
+				create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2,6))
+			if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
+				create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2,6))
 		if target.is_in_group("enemy_group"):
 			target.health -= equiped_item.damage
-		else:
-			var decal = BULLET_DECAL.instantiate()
-			target.add_child(decal)
-			decal.global_transform.origin = raycast.get_collision_point()
-			var side : Vector3
-			if raycast.get_collision_normal() == Vector3.UP:
-				side = Vector3(1,0,0)
-			elif raycast.get_collision_normal() == Vector3.DOWN:
-				side = Vector3(-1,0,0)
-			else:
-				side = Vector3(0,1,0)
-			decal.look_at(raycast.get_collision_point() + raycast.get_collision_normal(), side)
 			
 
 func randomize_aimcast_spread():
@@ -409,7 +445,7 @@ func _on_anim_item_animation_finished(anim_name):
 	if _equiped_item_type(equiped_item.ItemType.weapon):
 		if anim_name == equiped_item.anim_reload:
 			reload()
-	elif _equiped_item_type(equiped_item.ItemType.tool):
+	if _equiped_item_type(equiped_item.ItemType.tool):
 		if anim_name == equiped_item.anim_hit:
 			hitscan(melee_cast)
 			animator.play(equiped_item.anim_after_hit)

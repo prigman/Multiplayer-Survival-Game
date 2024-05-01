@@ -23,6 +23,7 @@ amount = 1
 script = ExtResource("7_bd7lw")
 craft_components = Array[ExtResource("3_eboer")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
 item_type = 4
+tool_type = 0
 anim_hit = ""
 anim_after_hit = ""
 damage = 0
@@ -51,7 +52,7 @@ points = PackedVector3Array(0.0947843, 0.632638, 0.010498, 0.0947843, 0.632638, 
 
 [node name="Pickaxe" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-collision_layer = 4
+collision_layer = 6148
 collision_mask = 9
 axis_lock_linear_x = true
 axis_lock_linear_z = true
