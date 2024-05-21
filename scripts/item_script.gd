@@ -5,10 +5,23 @@ signal Update_Fire_Mode(fire_mode : WeaponFireModes)
 
 const BULLET_DECAL = preload("res://scenes/shoot_decal.tscn")
 
-# item childs
-@onready var item_mesh: MeshInstance3D = %ItemMesh # MeshInstance нода айтема куда назначается меш из переменной mesh в ItemData
-@onready var ar_sight_mesh: MeshInstance3D = %AR_sight # дубликат предыдущей ноды, но с иной позицией, сюда назначается меш прицела из ItemDataWeapon
-@onready var ar_mag : MeshInstance3D = %AR_mag
+@export var fp_items_array : Array[Node3D]
+
+# items group for fp
+@onready var fp_items = $"../fp_player_model2/FP_Items"
+@onready var fp_animator = $"../fp_player_model2/AnimationPlayer"
+@onready var ar_rifle = $"../fp_player_model2/FP_Items/AR_Rifle"
+@onready var fp_player_model = $"../fp_player_model2/fp_player_model"
+#
+
+# IK targets for FP
+@onready var target_l = $"../fp_player_model2/FP_Items/TargetL"
+@onready var target_r = $"../fp_player_model2/FP_Items/TargetR"
+#
+
+# ar attachments
+@onready var holo = $"../fp_player_model2/FP_Items/AR_Rifle/Attachments/Holo"
+@onready var silencer = $"../fp_player_model2/FP_Items/AR_Rifle/Attachments/Silencer"
 #
 
 # tree
@@ -32,14 +45,14 @@ const BULLET_DECAL = preload("res://scenes/shoot_decal.tscn")
 @export var building_point : Node3D
 #
 
-var bullet_instance
-
+var equiped_item_node : Node3D = null # нода оружия (для того чтобы не проходится по массиву каждый раз)
 var equiped_slot: InSlotData = null # слот, который в данный момент выбран
 var equiped_item: ItemData = null # айтем в этом слоте (для удобства, так как айтем можно получить через equiped_slot.item)
 var equiped_slot_index : int # индекс equip слота нужен для переключения активного слота
 
 var Scoped = false
 var toggle_holo = false # переключение прицела
+var toggle_silencer = false # переключение глушителя
 
 var def_pos_holder_z : float
 var def_holder_pos : Vector3
@@ -58,6 +71,15 @@ var building_scene
 func _ready():
 	randomize() # чтобы разброс оружия работал
 	Global.global_item_script = self
+	$"../fp_player_model2/fp_player_model/Skeleton3D/SkeletonIK3DRight".start()
+	$"../fp_player_model2/fp_player_model/Skeleton3D/SkeletonIK3DLeft".start()
+	# для удобства
+	for weapon_node in fp_items_array:
+		if weapon_node and weapon_node.visible:
+			weapon_node.hide()
+	if fp_player_model.visible:
+		fp_player_model.hide()
+	#
 
 func _physics_process(delta):
 	if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
@@ -114,7 +136,7 @@ func _physics_process(delta):
 						equiped_item.BuildingType.floor:
 							building_scene.show()
 							building_scene.is_in_building_place = false
-							building_scene.global_transform.origin = Vector3(coll_point.x, coll_point.y + 0.1, coll_point.z)
+							building_scene.global_transform.origin = Vector3(coll_point.x, coll_point.y + 0.2, coll_point.z)
 				if building_scene.is_in_building_place == true:
 					building_scene.building_part_shape.enabled = false
 				else:
@@ -166,7 +188,7 @@ func place_building_part():
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
-		if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
+		if Global.check_is_inventory_open() == false and !animator.is_playing(): # проверка если закрыт инвентарь
 			match event.keycode:
 				KEY_1:
 					swap_items(Global.global_player_quick_slot, 0)
@@ -182,6 +204,7 @@ func _unhandled_input(event):
 					swap_items(Global.global_player_quick_slot, 5)
 				KEY_0:
 					if _equiped_item_type(equiped_item.ItemType.weapon):
+						pass
 						toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
 	
 	if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
@@ -223,7 +246,18 @@ func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InS
 	equiped_item = equiped_slot.item
 	equiped_slot_index = slot_index
 	#-
-	set_mesh_and_loc() # выставляются данные меша, позиции, размер, поворот этой ноды из класса ItemData
+	set_IK_targets_position() # выставляем позиции для рук
+	for weapon_node in fp_items_array: # все отображаемое оружие в руках находится в этом массиве
+		if weapon_node:
+			if weapon_node.weapon_name == equiped_item.name:
+				fp_animator.play(weapon_node.fp_animation_name)
+				weapon_node.show()
+				equiped_item_node = weapon_node
+			else:
+				if weapon_node.visible:
+					weapon_node.hide()
+	if !fp_player_model.visible: # если нода модельки рук скрыта, отображаем ее 
+		fp_player_model.show()
 	if _equiped_item_type(equiped_item.ItemType.weapon):
 		for data in player.weapon_spread_data:
 			if data and data.weapon_data.name == equiped_item.name:
@@ -231,13 +265,13 @@ func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InS
 		weapon_hud.show()
 		crosshair.show()
 		reticle.hide()
-		animator.play(equiped_item.anim_activate)
 		Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
 		Update_Fire_Mode.emit(equiped_item.fire_mode_current)
-		update_pos(equiped_item)
-		set_weapon_attachments() # удаляется или создаются меши из ItemDataWeapon
+		update_pos(equiped_item) # получение первоначальной позиции для разброса во время стрельбы
+		set_weapon_attachments() # добавляются либо удаляются обвесы на оружие
+		animator.play(equiped_item.anim_activate)
 	if _equiped_item_type(equiped_item.ItemType.weapon) == false:
-		clear_weapon_attachments() # убираем перекрестие, очищаем меш прицела если он не null
+		clear_weapon()
 	if _equiped_item_type(equiped_item.ItemType.building):
 		if equiped_item.dictionary.has("scene_path"):
 			var path = load(equiped_item.dictionary["scene_path"])
@@ -249,18 +283,27 @@ func initialize(inventory_data : InventoryData, slot_index : int, item_slot: InS
 
 func remove_active_item(inventory_data : InventoryData, index : int, slot_data : InSlotData): # убираем предмет из рук
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
+	#
+	if _equiped_item_type(equiped_item.ItemType.weapon):
+		clear_weapon()
+	#
+	fp_player_model.hide()
+	equiped_item_node.hide()
 	clear_building()
 	inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot)
 	player.current_weapon_spread_data = null
 	reticle.show()
-	item_mesh.mesh = null
 	equiped_slot = null
 	equiped_item = null
-	position = Vector3.ZERO
-	rotation_degrees = Vector3.ZERO
-	scale = Vector3.ZERO
-	clear_weapon_attachments() # убираем перекрестие, очищаем меш прицела если он не null
+	equiped_item_node = null
+	clear_weapon_hud() # убираем перекрестие и hud
+	clear_weapon_attachments() # очищаем меш прицела если он не null
 	
+	
+func clear_weapon():
+	clear_weapon_attachments() # очищаем меш прицела если он не null
+	clear_weapon_hud() # убираем перекрестие и hud
+
 func clear_building():
 	if building_scene:
 		building_scene.queue_free()
@@ -273,6 +316,12 @@ func clear_animations():
 		if Scoped:
 			Scoped = false
 
+func set_IK_targets_position():
+	target_l.position = equiped_item.IK_pos_target_left
+	target_l.rotation_degrees = equiped_item.IK_rot_target_left
+	target_r.position = equiped_item.IK_pos_target_right
+	target_r.rotation_degrees = equiped_item.IK_rot_target_right
+
 func apply_recoil(delta):
 	current_time += delta
 	var recoil_speed = current_time * equiped_item.recoil_speed
@@ -280,9 +329,9 @@ func apply_recoil(delta):
 		def_pos_holder_z = def_pos.z
 	else:
 		def_pos_holder_z = def_pos_sight.z
-	position.z = lerp(position.z, def_pos_holder_z + target_pos.z, equiped_item.lerp_speed * delta)
-	rotation.z = lerp(rotation.z, def_rot.z + target_rot.z, equiped_item.lerp_speed * delta)
-	rotation.x = lerp(rotation.x, def_rot.x + target_rot.x, equiped_item.lerp_speed * delta)
+	fp_items.position.z = lerp(fp_items.position.z, def_pos_holder_z + target_pos.z, equiped_item.lerp_speed * delta)
+	fp_items.rotation.z = lerp(fp_items.rotation.z, def_rot.z + target_rot.z, equiped_item.lerp_speed * delta)
+	fp_items.rotation.x = lerp(fp_items.rotation.x, def_rot.x + target_rot.x, equiped_item.lerp_speed * delta)
 	player.rotation.y = lerp(player.rotation.y, player.rotation.y + equiped_item.recoil_rotation_x.sample(current_time) * equiped_item.recoil_amplitude.x * 1.5, equiped_item.lerp_speed * delta)
 	camera_holder.rotation.x = lerp(camera_holder.rotation.x, camera_holder.rotation.x + equiped_item.recoil_rotation_z.sample(current_time) * equiped_item.recoil_amplitude.y * 1.5, equiped_item.lerp_speed * delta)
 	camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad(-85), deg_to_rad(85))
@@ -303,8 +352,8 @@ func shoot():
 func update_pos(weapon_data : ItemData):
 	def_pos = weapon_data.position
 	def_pos_sight = weapon_data.in_sight_position
-	def_rot = weapon_data.rotation
-	target_rot.y = weapon_data.rotation.y
+	def_rot = Vector3.ZERO#weapon_data.rotation
+	target_rot.y = 0.0
 	current_time = 1
 	
 func hitscan(raycast : RayCast3D):
@@ -349,12 +398,6 @@ func reload():
 	equiped_item.ammo_current += ammo_to_reload
 	equiped_item.ammo_reserve -= ammo_to_reload
 	Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
-	
-func set_mesh_and_loc():
-	item_mesh.mesh = equiped_item.mesh
-	position = equiped_item.position
-	rotation_degrees = equiped_item.rotation
-	scale = equiped_item.scale
 
 func Assault_Rifle_Scope():
 	if !Scoped:
@@ -364,29 +407,33 @@ func Assault_Rifle_Scope():
 	Scoped = !Scoped
 	
 func toggle_holo_sight():
-	if equiped_item.sight_mesh != null:
+	if equiped_item.sight_mesh != null and equiped_item.muzzle_mesh != null:
 		toggle_holo = !toggle_holo
+		toggle_silencer = !toggle_silencer
+		if !toggle_silencer:
+			silencer.mesh = equiped_item.muzzle_mesh
 		if !toggle_holo:
-			ar_sight_mesh.mesh = equiped_item.sight_mesh
+			holo.mesh = equiped_item.sight_mesh
 		else:
-			ar_sight_mesh.mesh = null
+			holo.mesh = null
+			silencer.mesh = null
 
 func set_weapon_attachments():
-	if equiped_item.mag_mesh:
-		ar_mag.mesh = equiped_item.mag_mesh
 	if equiped_item.sight_mesh:
-		ar_sight_mesh.mesh = equiped_item.sight_mesh
+		holo.mesh = equiped_item.sight_mesh
+	if equiped_item.muzzle_mesh:
+		silencer.mesh = equiped_item.muzzle_mesh
 	else:
-		if ar_sight_mesh.mesh:
-			ar_sight_mesh.mesh = null
-		if ar_mag.mesh:
-			ar_mag.mesh = null
+		clear_weapon_attachments()
+			
 
 func clear_weapon_attachments():
-	if ar_sight_mesh.mesh != null: # очистка меша прицела
-		ar_sight_mesh.mesh = null
-	if ar_mag.mesh != null:
-		ar_mag.mesh = null
+	if holo.mesh:
+		holo.mesh = null
+	if silencer.mesh:
+		silencer.mesh = null
+
+func clear_weapon_hud():
 	if weapon_hud.visible:
 		weapon_hud.hide()
 	if crosshair.visible: # разделение перекрестия и точки

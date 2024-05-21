@@ -36,6 +36,8 @@ mesh = ExtResource("5_slpus")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
 }
-position = Vector3(0.27, -0.39, -0.395)
-rotation = Vector3(5, 90, 0)
-scale = Vector3(0.5, 0.5, 0.5)
+position = Vector3(-0.29, 1.745, 0.6)
+IK_pos_target_left = Vector3(0, 0, 0)
+IK_rot_target_left = Vector3(0, 0, 0)
+IK_pos_target_right = Vector3(0, 0, 0)
+IK_rot_target_right = Vector3(0, 0, 0)

@@ -21,7 +21,7 @@ class_name ItemDataWeapon extends ItemData
 @export var lerp_speed : float = 1
 @export var recoil_speed : float = 1
 @export var sight_mesh : Mesh
-@export var mag_mesh : Mesh
+@export var muzzle_mesh : Mesh
 
 @export var in_sight_position : Vector3
 

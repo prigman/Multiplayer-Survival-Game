@@ -1,6 +1,6 @@
 @tool
 extends Node3D
-@onready var test_cube:PackedScene = preload("objects/the_cube.tscn")
+@onready var test_cube:PackedScene = preload("objects/pine_tree.tscn")
 #"res://addons/testplugin/objects/the_cube.tscn"
 @onready var marker: MeshInstance3D = MeshInstance3D.new()
 @onready var ray_cast = RayCast3D.new()

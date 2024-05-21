@@ -19,5 +19,7 @@ dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/metal-bar_resource_rb.tscn"
 }
 position = Vector3(0, 0, 0)
-rotation = Vector3(0, 0, 0)
-scale = Vector3(0, 0, 0)
+IK_pos_target_left = Vector3(0, 0, 0)
+IK_rot_target_left = Vector3(0, 0, 0)
+IK_pos_target_right = Vector3(0, 0, 0)
+IK_rot_target_right = Vector3(0, 0, 0)

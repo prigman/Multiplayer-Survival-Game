@@ -20,6 +20,7 @@ enum ItemType {
 
 @export var dictionary : Dictionary
 @export var position : Vector3
-@export var rotation : Vector3
-@export var scale : Vector3
-
+@export var IK_pos_target_left : Vector3
+@export var IK_rot_target_left : Vector3
+@export var IK_pos_target_right : Vector3
+@export var IK_rot_target_right : Vector3

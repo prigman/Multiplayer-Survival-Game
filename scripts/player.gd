@@ -40,6 +40,7 @@ var current_weapon_spread_data : PlayerWeaponSpread = null # сюда назна
 @onready var spherecast = %ShapeCast3D
 @onready var camera_holder = %CameraHolder
 @onready var camera = %Camera3D
+@onready var vp_camera = %vp_camera
 @onready var interact_ray = %InteractRay
 @onready var inventory_interface = %InventoryInterface
 @onready var item = %Item
@@ -62,6 +63,7 @@ func _process(_delta):
 		weapon_tilt(input_dir.x, _delta)
 		weapon_sway(_delta)
 		weapon_bob(velocity.length(), _delta)
+	vp_camera.set_global_transform(camera.get_global_transform())
 		
 func _input(event):
 	if event is InputEventMouseMotion and !inventory_interface.visible:

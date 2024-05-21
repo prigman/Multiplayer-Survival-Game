@@ -25,6 +25,7 @@ size = Vector3(5, 1, 70)
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 use_collision = true
+collision_layer = 4097
 collision_mask = 64
 mesh = SubResource("PlaneMesh_m5ca6")
 material = ExtResource("1_bxbrf")

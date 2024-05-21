@@ -14,8 +14,8 @@ amount_in_slot = 1
 points = PackedVector3Array(-0.275873, 0.000932716, -0.121052, -0.275873, 0.000932716, 0.121052, -0.221865, 0.140793, -0.0959787, 0.275873, 0.000932716, -0.121052, 0.275873, 0.000932716, 0.121052, -0.221865, 0.140793, 0.095955, 0.221811, 0.140793, -0.0959787, 0.221811, 0.140793, 0.095955)
 
 [node name="Metal-Bar" type="RigidBody3D"]
-collision_layer = 6148
-collision_mask = 9
+collision_layer = 4
+collision_mask = 6281
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true

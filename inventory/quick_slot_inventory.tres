@@ -1,93 +1,29 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=36 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=17 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
-[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="2_83pcy"]
 [ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://inventory/item/objects/pickaxe.tres" id="2_g34mc"]
-[ext_resource type="Script" path="res://inventory/craft_components.gd" id="3_q7mj1"]
+[ext_resource type="Resource" uid="uid://dueasdbvrpec2" path="res://inventory/item/objects/assault-rifle.tres" id="4_o4sve"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="8_qw5vx"]
-[ext_resource type="Resource" uid="uid://dwmpk6d810gkb" path="res://scripts/weapon/fire_modes/fire_mode_full_auto_ar.tres" id="9_ifuvi"]
-[ext_resource type="Resource" uid="uid://duolnhkopt6su" path="res://scripts/weapon/fire_modes/fire_mode_single.tres" id="10_1vbyh"]
-[ext_resource type="Texture2D" uid="uid://dr0xbhyn7l23q" path="res://icons/AR_icon_new.png" id="11_yjb3s"]
-[ext_resource type="ArrayMesh" uid="uid://b5elooe8irukj" path="res://models/ar/ar_mag.res" id="12_fy180"]
-[ext_resource type="ArrayMesh" uid="uid://cl73ro1sfy3jp" path="res://models/ar/ar_body.res" id="13_hvw0y"]
-[ext_resource type="Curve" uid="uid://bl86an7yiit51" path="res://scripts/weapon/ar_curve.tres" id="14_8ucjf"]
 [ext_resource type="Texture2D" uid="uid://dj2gqxo6momil" path="res://textures/PNG/Dark/texture_09.png" id="14_wn42f"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_buildings.gd" id="15_72thu"]
-[ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="15_exx56"]
-[ext_resource type="ArrayMesh" uid="uid://cghrb8l1uuxk5" path="res://models/ar/ar_holo.res" id="16_12wq0"]
 [ext_resource type="Texture2D" uid="uid://c71ipwr01lvmn" path="res://textures/CUBIC-prototype-pack/Blue/6.png" id="16_ro04u"]
 [ext_resource type="Texture2D" uid="uid://bwfuoa210tn3k" path="res://textures/PNG/Dark/texture_08.png" id="17_hrfaa"]
-[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="18_7i7wa"]
-[ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="19_yhjaj"]
-[ext_resource type="ArrayMesh" uid="uid://cxp6bjdall1ug" path="res://models/meshes/axe.res" id="20_3u7r8"]
-[ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="21_agj1q"]
 
-[sub_resource type="Resource" id="Resource_n38jr"]
+[sub_resource type="Resource" id="Resource_6y7m6"]
 script = ExtResource("8_qw5vx")
 item = ExtResource("2_g34mc")
 amount_in_slot = 1
 
-[sub_resource type="Resource" id="Resource_aofcs"]
-script = ExtResource("3_q7mj1")
-component = ExtResource("2_83pcy")
-amount = 10
-
-[sub_resource type="Resource" id="Resource_uehp6"]
-resource_local_to_scene = true
-script = ExtResource("15_exx56")
-craft_components = Array[ExtResource("3_q7mj1")]([SubResource("Resource_aofcs")])
-item_type = 0
-weapon_name = "assault_rifle/Assault Rifle"
-anim_activate = "assault_rifle/Assault Rifle Activate"
-anim_scope = "assault_rifle/Assault Rifle Scope"
-anim_reload = "assault_rifle/Assault Rifle Reload"
-ammo_current = 30
-ammo_reserve = 999
-ammo_max = 30
-damage = 21.0
-fire_modes = Array[Resource("res://scripts/weapon/fire_modes/weapon_fire_modes.gd")]([ExtResource("9_ifuvi"), ExtResource("10_1vbyh")])
-fire_mode_current = ExtResource("9_ifuvi")
-recoil_rotation_x = ExtResource("14_8ucjf")
-recoil_rotation_z = ExtResource("14_8ucjf")
-recoil_position_z = ExtResource("14_8ucjf")
-recoil_amplitude = Vector3(0.05, 0.25, 0.3)
-lerp_speed = 6.0
-recoil_speed = 1.5
-sight_mesh = ExtResource("16_12wq0")
-mag_mesh = ExtResource("12_fy180")
-in_sight_position = Vector3(0, -0.315, -0.215)
-name = "Assault Rifle"
-description = "Weapon"
-description_item_panel = "The handy short automatic rifle with supressor and sight.
-
-Ammo type: 5.45 mm
-Damage head: 60 hp
-Damage body: 25 hp
-Damage arms: 15 hp
-Damage legs: 15 hps
-Shoot types: auto, single, burst"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("11_yjb3s")
-mesh = ExtResource("13_hvw0y")
-dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/ar_rigidbody.tscn"
-}
-position = Vector3(0.23, -0.355, -0.34)
-rotation = Vector3(0, 90, 0)
-scale = Vector3(0.4, 0.4, 0.4)
-
 [sub_resource type="Resource" id="Resource_iuw2l"]
 script = ExtResource("8_qw5vx")
-item = SubResource("Resource_uehp6")
+item = ExtResource("4_o4sve")
 amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_pxw71"]
 script = ExtResource("15_72thu")
 item_type = 5
 building_type = 1
-craft_components = Array[ExtResource("3_q7mj1")]([])
+craft_components = Array[Resource("res://inventory/craft_components.gd")]([])
 name = "Wooden Wall"
 description = "Сonstruction part"
 description_item_panel = "Сonstruction part"
@@ -99,8 +35,10 @@ dictionary = {
 "scene_path": "res://scenes/building_wall.tscn"
 }
 position = Vector3(0, 0, 0)
-rotation = Vector3(90, 0, 0)
-scale = Vector3(0, 0, 0)
+IK_pos_target_left = Vector3(0, 0, 0)
+IK_rot_target_left = Vector3(0, 0, 0)
+IK_pos_target_right = Vector3(0, 0, 0)
+IK_rot_target_right = Vector3(0, 0, 0)
 
 [sub_resource type="Resource" id="Resource_0j2qg"]
 script = ExtResource("8_qw5vx")
@@ -111,7 +49,7 @@ amount_in_slot = 1
 script = ExtResource("15_72thu")
 item_type = 5
 building_type = 2
-craft_components = Array[ExtResource("3_q7mj1")]([])
+craft_components = Array[Resource("res://inventory/craft_components.gd")]([])
 name = "Wooden Roof"
 description = "Сonstruction part"
 description_item_panel = "Сonstruction part"
@@ -123,8 +61,10 @@ dictionary = {
 "scene_path": "res://scenes/building_roof.tscn"
 }
 position = Vector3(0, 0, 0)
-rotation = Vector3(0, 0, 0)
-scale = Vector3(0, 0, 0)
+IK_pos_target_left = Vector3(0, 0, 0)
+IK_rot_target_left = Vector3(0, 0, 0)
+IK_pos_target_right = Vector3(0, 0, 0)
+IK_rot_target_right = Vector3(0, 0, 0)
 
 [sub_resource type="Resource" id="Resource_r7ye5"]
 script = ExtResource("8_qw5vx")
@@ -135,7 +75,7 @@ amount_in_slot = 1
 script = ExtResource("15_72thu")
 item_type = 5
 building_type = 0
-craft_components = Array[ExtResource("3_q7mj1")]([])
+craft_components = Array[Resource("res://inventory/craft_components.gd")]([])
 name = "Wooden Floor"
 description = "Сonstruction part"
 description_item_panel = "Сonstruction part"
@@ -147,53 +87,17 @@ dictionary = {
 "scene_path": "res://scenes/bulding.tscn"
 }
 position = Vector3(0, 0, 0)
-rotation = Vector3(0, 0, 0)
-scale = Vector3(0, 0, 0)
+IK_pos_target_left = Vector3(0, 0, 0)
+IK_rot_target_left = Vector3(0, 0, 0)
+IK_pos_target_right = Vector3(0, 0, 0)
+IK_rot_target_right = Vector3(0, 0, 0)
 
 [sub_resource type="Resource" id="Resource_dkxw3"]
 script = ExtResource("8_qw5vx")
 item = SubResource("Resource_3gmrs")
 amount_in_slot = 1
 
-[sub_resource type="Resource" id="Resource_1j36k"]
-script = ExtResource("3_q7mj1")
-component = ExtResource("2_83pcy")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_3yjym"]
-script = ExtResource("3_q7mj1")
-component = ExtResource("18_7i7wa")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_i4jmh"]
-script = ExtResource("21_agj1q")
-craft_components = Array[ExtResource("3_q7mj1")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
-item_type = 4
-tool_type = 1
-anim_hit = "tools/pickaxe_hit"
-anim_after_hit = "tools/pickaxe_after_hit"
-damage = 21
-name = "Axe"
-description = "Axe"
-description_item_panel = "Axe"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("19_yhjaj")
-mesh = ExtResource("20_3u7r8")
-dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
-}
-position = Vector3(0.27, -0.39, -0.395)
-rotation = Vector3(5, 90, 0)
-scale = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="Resource" id="Resource_akr66"]
-script = ExtResource("8_qw5vx")
-item = SubResource("Resource_i4jmh")
-amount_in_slot = 1
-
 [resource]
 script = ExtResource("1_ab8t5")
 type = 1
-slots_data = Array[ExtResource("8_qw5vx")]([SubResource("Resource_n38jr"), SubResource("Resource_iuw2l"), SubResource("Resource_0j2qg"), SubResource("Resource_r7ye5"), SubResource("Resource_dkxw3"), SubResource("Resource_akr66")])
+slots_data = Array[ExtResource("8_qw5vx")]([SubResource("Resource_6y7m6"), SubResource("Resource_iuw2l"), SubResource("Resource_0j2qg"), SubResource("Resource_r7ye5"), SubResource("Resource_dkxw3"), null])

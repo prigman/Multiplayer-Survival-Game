@@ -3,16 +3,20 @@
     "tasks": [
         {
             "label": "build",
-            "command": "C:/Steam/steamapps/common/Godot Engine/godot.windows.opt.tools.64.exe",
+            "command": "dotnet",
             "type": "process",
             "args": [
-                "--build-solutions",
-                "--path",
-                "${workspaceRoot}",
-                "--no-window",
-                "-q"
+                "build"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
         }
     ]
 }

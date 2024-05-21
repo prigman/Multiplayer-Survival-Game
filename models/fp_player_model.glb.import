@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bkm48a1bly1pd"
-path="res://.godot/imported/FPS_Arms_lp_Glock.glb-9755ee61a054ded102824c4baf56973e.scn"
+uid="uid://df35j4g7twpc0"
+path="res://.godot/imported/fp_player_model.glb-d340030eaa5dc2307f1cffd4fbb8d8ff.scn"
 
 [deps]
 
-source_file="res://models/FPS_Arms_lp_Glock.glb"
-dest_files=["res://.godot/imported/FPS_Arms_lp_Glock.glb-9755ee61a054ded102824c4baf56973e.scn"]
+source_file="res://models/fp_player_model.glb"
+dest_files=["res://.godot/imported/fp_player_model.glb-d340030eaa5dc2307f1cffd4fbb8d8ff.scn"]
 
 [params]
 

@@ -38,9 +38,11 @@ mesh = ExtResource("1_e3ayi")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/pickaxe_rb.tscn"
 }
-position = Vector3(0.29, -0.335, -0.535)
-rotation = Vector3(11, 118, 0)
-scale = Vector3(0.55, 0.55, 0.55)
+position = Vector3(0, 0, 0)
+IK_pos_target_left = Vector3(0, 0, 0)
+IK_rot_target_left = Vector3(0, 0, 0)
+IK_pos_target_right = Vector3(0, 0, 0)
+IK_rot_target_right = Vector3(0, 0, 0)
 
 [sub_resource type="Resource" id="Resource_aohpx"]
 script = ExtResource("8_jr624")
@@ -52,8 +54,8 @@ points = PackedVector3Array(0.0947843, 0.632638, 0.010498, 0.0947843, 0.632638, 
 
 [node name="Pickaxe" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-collision_layer = 6148
-collision_mask = 9
+collision_layer = 4
+collision_mask = 6281
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
