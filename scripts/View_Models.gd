@@ -8,7 +8,7 @@ extends Node3D
 
 signal UpdateFOV
 
-@export var viewmodelfov: float = 50.0 :set = set_viewmodelfov
+@export var viewmodelfov: float = 55.0: set = set_viewmodelfov
 
 func _ready():
 	if not Engine.is_editor_hint():
@@ -19,9 +19,8 @@ func set_viewmodelfov(val: float):
 	SetMeshFOV(viewmodelfov)
 		
 func SetMeshFOV(val):
-	RenderingServer.global_shader_parameter_set("viewmodel_fov",val)
+	RenderingServer.global_shader_parameter_set("viewmodel_fov", val)
 
 func _on_fov_value_changed(value):
 	viewmodelfov = value
 	UpdateFOV.emit(viewmodelfov)
-

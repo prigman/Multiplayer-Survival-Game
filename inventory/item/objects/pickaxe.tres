@@ -36,8 +36,8 @@ mesh = ExtResource("5_8myt5")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/pickaxe_rb.tscn"
 }
-position = Vector3(-0.29, 1.745, 0.6)
-IK_pos_target_left = Vector3(0.616, -0.2, -0.021)
-IK_rot_target_left = Vector3(-36.8, -111.9, -60.7)
-IK_pos_target_right = Vector3(-0.225, -0.131, 0.05)
-IK_rot_target_right = Vector3(-117.5, 92, 80.5)
+position = Vector3(-0.28, 0.055, 0.262)
+IK_pos_target_left = Vector3(0.248, -0.909, -0.941)
+IK_rot_target_left = Vector3(-44.8, -28.9, -60.7)
+IK_pos_target_right = Vector3(-0.101, -0.301, 0.056)
+IK_rot_target_right = Vector3(-68.1, -27.3, -77.2)

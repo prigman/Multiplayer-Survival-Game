@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx,unshaded;
 
 global uniform float viewmodel_fov = 50.0f;
 
@@ -19,6 +19,7 @@ uniform vec3 uv1_offset = vec3(0.0f);
 
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
+	
 	/* begin shader magic*/
 	float onetanfov = 1.0f / tan(0.5f * (viewmodel_fov * PI / 180.0f));
 	float aspect = VIEWPORT_SIZE.x / VIEWPORT_SIZE.y;
@@ -43,6 +44,7 @@ void fragment() {
 	SPECULAR = specular;
 	NORMAL_MAP = texture(texture_normal,base_uv).rgb;
 	NORMAL_MAP_DEPTH = normal_scale;
+	ALPHA = 0.02;
 	//vec3 emission_tex = texture(texture_emission,base_uv).rgb;
 	//EMISSION = (emission.rgb+emission_tex)*emission_energy;
 }
