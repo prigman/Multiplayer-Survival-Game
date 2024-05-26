@@ -274,6 +274,8 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 	if !equiped_item_node:
 		if fp_player_model.visible:
 			fp_player_model.hide()
+	if _equiped_item_type(equiped_item.ItemType.weapon) or _equiped_item_type(equiped_item.ItemType. tool ):
+		animator.play(equiped_item.anim_activate)
 	if _equiped_item_type(equiped_item.ItemType.weapon):
 		for data in player.weapon_spread_data:
 			if data and data.weapon_data.name == equiped_item.name:
@@ -286,7 +288,6 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		Update_Fire_Mode.emit(equiped_item.fire_mode_current)
 		update_pos(equiped_item) # получение первоначальной позиции для разброса во время стрельбы
 		set_weapon_attachments() # добавляются либо удаляются обвесы на оружие
-		animator.play(equiped_item.anim_activate)
 	if _equiped_item_type(equiped_item.ItemType.building):
 		if equiped_item.dictionary.has("scene_path"):
 			var path = load(equiped_item.dictionary["scene_path"])
@@ -501,8 +502,8 @@ func _on_anim_item_animation_finished(anim_name):
 			reload()
 	if _equiped_item_type(equiped_item.ItemType. tool ):
 		if anim_name == equiped_item.anim_hit:
-			hitscan(melee_cast)
 			animator.play(equiped_item.anim_after_hit)
+			hitscan(melee_cast)
 
 func create_player_item(item_data: ItemData, amount: int):
 	var slot_data = InSlotData.new()
