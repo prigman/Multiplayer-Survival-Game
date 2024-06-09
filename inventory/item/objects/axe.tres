@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="ItemDataCraftableTools" load_steps=9 format=3 uid="uid://d16s5vsgm2o6t"]
+[gd_resource type="Resource" script_class="ItemDataCraftableTools" load_steps=8 format=3 uid="uid://d16s5vsgm2o6t"]
 
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="1_6ssit"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="1_xry5s"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="2_5cqwt"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="3_mklod"]
 [ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="4_rq7ah"]
-[ext_resource type="ArrayMesh" uid="uid://cxp6bjdall1ug" path="res://models/meshes/axe.res" id="5_slpus"]
 
 [sub_resource type="Resource" id="Resource_1j36k"]
 script = ExtResource("2_5cqwt")
@@ -22,9 +21,12 @@ script = ExtResource("1_6ssit")
 craft_components = Array[ExtResource("2_5cqwt")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
 item_type = 4
 tool_type = 1
-anim_activate = "tools/Axe_Player_Equip"
-anim_hit = "tools/Axe_Player_Hit"
-anim_after_hit = "tools/Axe_Player_After_Hit"
+anim_activate = "Axe_Anims/Axe_Equip"
+anim_hit = "Axe_Anims/Axe_Hit"
+anim_after_hit = "Axe_Anims/Axe_After_Hit"
+anim_player_activate = "Axe_Player_Anims/Pickaxe_Player_Equip"
+anim_player_hit = "Axe_Player_Anims/Axe_Player_Hit"
+anim_player_after_hit = "Axe_Player_Anims/Axe_Player_After_Hit"
 damage = 21
 name = "Axe"
 description = "Axe"
@@ -33,12 +35,6 @@ stackable = false
 max_stack = 0
 quality = 100.0
 icon = ExtResource("4_rq7ah")
-mesh = ExtResource("5_slpus")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
 }
-position = Vector3(-0.29, 1.745, 0.6)
-IK_pos_target_left = Vector3(0, 0, 0)
-IK_rot_target_left = Vector3(0, 0, 0)
-IK_pos_target_right = Vector3(0, 0, 0)
-IK_rot_target_right = Vector3(0, 0, 0)

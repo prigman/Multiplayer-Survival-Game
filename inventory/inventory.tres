@@ -1,15 +1,26 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=5 format=3 uid="uid://w5yuvrpdvx3k"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=8 format=3 uid="uid://w5yuvrpdvx3k"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_n2del"]
 [ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://inventory/item/objects/pickaxe.tres" id="2_qt7ap"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_vrley"]
+[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo_ar.tres" id="4_vs5i5"]
 
 [sub_resource type="Resource" id="Resource_fcj01"]
 script = ExtResource("3_vrley")
 item = ExtResource("2_qt7ap")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_tyily"]
+script = ExtResource("3_vrley")
+item = ExtResource("4_vs5i5")
+amount_in_slot = 120
+
+[sub_resource type="Resource" id="Resource_21pvt"]
+script = ExtResource("3_vrley")
+item = ExtResource("4_vs5i5")
+amount_in_slot = 100
+
 [resource]
 script = ExtResource("1_n2del")
 type = 0
-slots_data = Array[ExtResource("3_vrley")]([SubResource("Resource_fcj01"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slots_data = Array[ExtResource("3_vrley")]([SubResource("Resource_fcj01"), SubResource("Resource_tyily"), SubResource("Resource_21pvt"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])

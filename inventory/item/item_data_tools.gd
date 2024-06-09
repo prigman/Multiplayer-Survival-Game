@@ -10,4 +10,7 @@ enum ToolType {
 @export var anim_activate: String
 @export var anim_hit: String
 @export var anim_after_hit: String
+@export var anim_player_activate: String
+@export var anim_player_hit: String
+@export var anim_player_after_hit: String
 @export var damage: int

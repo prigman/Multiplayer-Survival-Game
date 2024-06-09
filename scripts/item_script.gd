@@ -8,29 +8,15 @@ const BULLET_HIT_DECAL = preload ("res://scenes/shoot_decal.tscn")
 # все предметы, которые можно взять в руки
 @export var fp_items_array: Array[Node3D]
 
-# items group for fp
-@onready var fp_animator = $"../fp_player_model2/AnimationPlayer"
-@onready var ar_rifle = $"../fp_player_model2/FP_Items/AR_Rifle"
-@onready var fp_player_model = $"../fp_player_model2/fp_player_model"
-#
-
-# IK skeleton 3D
-@onready var fp_model_IK_l = $"../fp_player_model2/fp_player_model/Skeleton3D/SkeletonIK3DLeft"
-@onready var fp_model_IK_r = $"../fp_player_model2/fp_player_model/Skeleton3D/SkeletonIK3DRight"
-#
-
-# ar attachments
-@onready var holo = $"../fp_player_model2/FP_Items/AR_Rifle/AR_Rifle_rig/Attachments/Holo"
-@onready var silencer = $"../fp_player_model2/FP_Items/AR_Rifle/AR_Rifle_rig/Attachments/Silencer"
-#
-
-@onready var rig_holder = $"../../RigHolder"
+@export var rig_holder: Node3D
+@export var fp_player_node: Node3D
+@export var fp_player_animator: AnimationPlayer
+var fp_item_animator: AnimationPlayer
+@export var camera_holder: Node3D
 
 # tree
 @export var player: CharacterBody3D
-@export var animator: AnimationPlayer
 @export var state_machine: StateMachine
-@export var camera_holder: Node3D
 @export var timer: Timer
 #
 
@@ -58,6 +44,8 @@ var equiped_slot_index: int # индекс equip слота нужен для п
 var Scoped = false
 var toggle_holo = false # переключение прицела
 var toggle_silencer = false # переключение глушителя
+var ammo_reserve: int
+var ammo_data: Array[InSlotData]
 #
 
 # отдача оружия
@@ -80,15 +68,6 @@ var building_scene
 func _ready():
 	randomize() # чтобы разброс оружия работал
 	Global.global_item_script = self
-	fp_model_IK_r.start() # включается SkeletonIK3D
-	fp_model_IK_l.start()
-	# для удобства
-	for weapon_node in fp_items_array:
-		if weapon_node and weapon_node.visible:
-			weapon_node.hide()
-	if fp_player_model.visible:
-		fp_player_model.hide()
-	#
 
 func _physics_process(delta):
 	if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
@@ -99,7 +78,7 @@ func _physics_process(delta):
 						shoot()
 			if Input.is_action_pressed("right_click"):
 				if state_machine.is_current_state("Sprint") == false:
-					if !Scoped and animator.current_animation != equiped_item.anim_reload and animator.current_animation != equiped_item.anim_activate:
+					if !Scoped and fp_item_animator.current_animation != equiped_item.anim_reload and fp_item_animator.current_animation != equiped_item.anim_activate:
 						Assault_Rifle_Scope()
 						reticle.hide()
 						crosshair.hide()
@@ -197,7 +176,7 @@ func place_building_part():
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
-		if Global.check_is_inventory_open() == false and !animator.is_playing(): # проверка если закрыт инвентарь
+		if Global.check_is_inventory_open() == false and is_fp_animator_playing() == false: # проверка если закрыт инвентарь
 			match event.keycode:
 				KEY_1:
 					swap_items(Global.global_player_quick_slot, 0)
@@ -218,16 +197,16 @@ func _unhandled_input(event):
 	
 	if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
 		if Input.is_action_just_pressed("fire"):
-			if _equiped_item_type(equiped_item.ItemType. tool ) and !animator.is_playing():
-				if equiped_item.anim_hit:
-					animator.play(equiped_item.anim_hit)
-		if _equiped_item_type(equiped_item.ItemType.weapon) and animator.current_animation != equiped_item.anim_activate and animator.current_animation != equiped_item.anim_reload: # если соответствует тип
-			if Input.is_action_just_pressed("reload") and equiped_item.ammo_current != equiped_item.ammo_max and equiped_item.ammo_reserve and animator.current_animation != equiped_item.anim_scope:
-				if Scoped:
-					Assault_Rifle_Scope()
+			if _equiped_item_type(equiped_item.ItemType. tool ) and is_fp_animator_playing() == false:
+				if equiped_item.anim_hit and equiped_item.anim_player_hit:
+					fp_item_animator.play(equiped_item.anim_hit)
+					fp_player_animator.play(equiped_item.anim_player_hit)
+		if _equiped_item_type(equiped_item.ItemType.weapon) and fp_item_animator.current_animation != equiped_item.anim_activate and fp_item_animator.current_animation != equiped_item.anim_reload: # если соответствует тип
+			if Input.is_action_just_pressed("reload") and equiped_item.ammo_current != equiped_item.ammo_max and Input.is_action_pressed("right_click") == false:
 				reticle.show()
 				crosshair.hide()
-				animator.play(equiped_item.anim_reload)
+				fp_item_animator.play(equiped_item.anim_reload)
+				fp_player_animator.play(equiped_item.anim_player_reload)
 			if Input.is_action_just_released("right_click"):
 				if Scoped:
 					Assault_Rifle_Scope()
@@ -261,21 +240,22 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		if equiped_item_node.visible:
 			equiped_item_node.hide()
 		equiped_item_node = null
-	for weapon_node in fp_items_array: # все отображаемое оружие в руках находится в этом массиве
-		if weapon_node:
-			if weapon_node.weapon_name == equiped_item.name:
-				if !fp_player_model.visible: # если нода модельки рук скрыта, отображаем ее
-					fp_player_model.show()
-				fp_animator.play(weapon_node.fp_animation_name)
-				weapon_node.show()
-				equiped_item_node = weapon_node
-				set_IK_targets(equiped_item_node) # выставляем позиции для рук
-				break
+	for item_node in fp_items_array: # все отображаемое оружие в руках находится в этом массиве
+		if item_node and item_node.item_name == equiped_item.name:
+			if !fp_player_node.visible: # если нода модельки рук скрыта, отображаем ее
+				fp_player_node.show()
+			equiped_item_node = item_node
+			fp_item_animator = equiped_item_node.animator
+			fp_player_animator.play(equiped_item.anim_player_activate)
+			fp_item_animator.play(equiped_item.anim_activate)
+			item_node.show()
+			break
 	if !equiped_item_node:
-		if fp_player_model.visible:
-			fp_player_model.hide()
+		if fp_player_node.visible:
+			fp_player_node.hide()
 	if _equiped_item_type(equiped_item.ItemType.weapon) or _equiped_item_type(equiped_item.ItemType. tool ):
-		animator.play(equiped_item.anim_activate)
+		fp_item_animator.play(equiped_item.anim_activate)
+		fp_player_animator.play(equiped_item.anim_player_activate)
 	if _equiped_item_type(equiped_item.ItemType.weapon):
 		for data in player.weapon_spread_data:
 			if data and data.weapon_data.name == equiped_item.name:
@@ -284,9 +264,9 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		weapon_hud.show()
 		crosshair.show()
 		reticle.hide()
-		Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
+		Update_Ammo.emit(equiped_item.ammo_current)
 		Update_Fire_Mode.emit(equiped_item.fire_mode_current)
-		update_pos(equiped_item) # получение первоначальной позиции для разброса во время стрельбы
+		update_pos() # получение первоначальной позиции для разброса во время стрельбы
 		set_weapon_attachments() # добавляются либо удаляются обвесы на оружие
 	if _equiped_item_type(equiped_item.ItemType.building):
 		if equiped_item.dictionary.has("scene_path"):
@@ -302,8 +282,8 @@ func remove_active_item(inventory_data: InventoryData, index: int, slot_data: In
 	clear_building()
 	if _equiped_item_type(equiped_item.ItemType.weapon):
 		clear_weapon()
-	if fp_player_model.visible:
-		fp_player_model.hide()
+	if fp_player_node.visible:
+		fp_player_node.hide()
 	if equiped_item_node:
 		equiped_item_node.hide()
 	inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot) # сигнал инвентарю быстрого доступа обновить активность данному слоту
@@ -323,32 +303,33 @@ func clear_building():
 		building_scene = null
 	
 func clear_animations():
-	if equiped_item:
-		if animator and animator.is_playing():
-			animator.stop()
-		if Scoped:
-			Scoped = false
+	if fp_player_animator and fp_player_animator.is_playing():
+		fp_player_animator.stop()
+	if fp_item_animator and fp_item_animator.is_playing():
+		fp_item_animator.stop()
+	if Scoped:
+		Scoped = false
 
-func set_IK_targets(equiped_node):
-	fp_model_IK_l.set_target_node(equiped_node.ik_target_left_path)
-	fp_model_IK_r.set_target_node(equiped_node.ik_target_right_path)
+func is_fp_animator_playing():
+	if fp_player_animator and fp_player_animator.is_playing():
+		return true
+	if fp_item_animator and fp_item_animator.is_playing():
+		return true
+	else:
+		return false
 
 func apply_recoil(delta):
 	current_time += delta
 	var recoil_speed = current_time * equiped_item.recoil_speed
-	if !Scoped:
-		def_pos_holder_z = def_pos.z
-	else:
-		def_pos_holder_z = def_pos_sight.z
-	equiped_item_node.position.z = lerp(equiped_item_node.position.z, def_pos_holder_z - target_pos.z, equiped_item.lerp_speed * delta)
-	equiped_item_node.rotation.z = lerp(equiped_item_node.rotation.z, def_rot.z - target_rot.z, equiped_item.lerp_speed * delta)
-	equiped_item_node.rotation.x = lerp(equiped_item_node.rotation.x, def_rot.x - target_rot.x, equiped_item.lerp_speed * delta)
+	rig_holder.position.z = lerp(rig_holder.position.z, def_pos_holder_z + target_pos.z, equiped_item.lerp_speed * delta)
+	rig_holder.rotation.z = lerp(rig_holder.rotation.z, def_rot.z - target_rot.z, equiped_item.lerp_speed * delta)
+	rig_holder.rotation.x = lerp(rig_holder.rotation.x, def_rot.x - target_rot.x, equiped_item.lerp_speed * delta)
 	camera_holder.rotation.x = lerp(camera_holder.rotation.x, camera_holder.rotation.x + equiped_item.recoil_rotation_z.sample(current_time) * equiped_item.recoil_amplitude.y, equiped_item.lerp_speed * delta)
 	camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad( - 85), deg_to_rad(85))
 	player.rotation.y = lerp(player.rotation.y, player.rotation.y + equiped_item.recoil_rotation_x.sample(current_time) * equiped_item.recoil_amplitude.x, equiped_item.lerp_speed * delta)
 	target_pos.z = equiped_item.recoil_position_z.sample(recoil_speed) * equiped_item.recoil_amplitude.z
-	target_rot.z = equiped_item.recoil_rotation_z.sample(recoil_speed) * equiped_item.recoil_amplitude.x / 1.5
-	target_rot.x = equiped_item.recoil_rotation_x.sample(recoil_speed) * equiped_item.recoil_amplitude.y / 2
+	target_rot.z = equiped_item.recoil_rotation_z.sample(recoil_speed) * equiped_item.recoil_amplitude.x
+	target_rot.x = equiped_item.recoil_rotation_x.sample(recoil_speed) * - equiped_item.recoil_amplitude.y
 
 func shoot():
 	randomize_aimcast_spread()
@@ -360,10 +341,9 @@ func shoot():
 	target_rot.x = equiped_item.recoil_rotation_x.sample(0) * equiped_item.recoil_amplitude.y / 2
 	current_time = 0
 
-func update_pos(weapon_data: ItemData):
-	def_pos = weapon_data.position
-	def_pos_sight = weapon_data.in_sight_position
-	def_rot = Vector3.ZERO # weapon_data.rotation
+func update_pos():
+	def_pos = rig_holder.position
+	def_rot = rig_holder.rotation
 	target_rot.y = 0.0
 	current_time = 1
 	
@@ -400,20 +380,14 @@ func randomize_aimcast_spread():
 	spread_value = reticle.spread_factors * 10 # умножается на 10 в случае если длина луча 1000+ метров
 	aim_cast.target_position.x = randf_range( - spread_value, spread_value)
 	aim_cast.target_position.y = randf_range( - spread_value, spread_value)
-	
-func reload():
-	reticle.hide()
-	crosshair.show()
-	var ammo_to_reload = min(equiped_item.ammo_reserve, equiped_item.ammo_max - equiped_item.ammo_current)
-	equiped_item.ammo_current += ammo_to_reload
-	equiped_item.ammo_reserve -= ammo_to_reload
-	Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
 
 func Assault_Rifle_Scope():
 	if !Scoped:
-		animator.play(equiped_item.anim_scope)
+		fp_item_animator.play(equiped_item.anim_scope)
+		fp_player_animator.play(equiped_item.anim_player_scope)
 	else:
-		animator.play_backwards(equiped_item.anim_scope)
+		fp_item_animator.play_backwards(equiped_item.anim_scope)
+		fp_player_animator.play_backwards(equiped_item.anim_player_scope)
 	Scoped = !Scoped
 	
 func toggle_holo_sight():
@@ -421,26 +395,32 @@ func toggle_holo_sight():
 		toggle_holo = !toggle_holo
 		toggle_silencer = !toggle_silencer
 		if !toggle_silencer:
-			silencer.mesh = equiped_item.muzzle_mesh
+			#silencer.mesh = equiped_item.muzzle_mesh
+			pass
 		if !toggle_holo:
-			holo.mesh = equiped_item.sight_mesh
+			#holo.mesh = equiped_item.sight_mesh
+			pass
 		else:
-			holo.mesh = null
-			silencer.mesh = null
+			#holo.mesh = null
+			#silencer.mesh = null
+			pass
 
 func set_weapon_attachments():
 	if equiped_item.sight_mesh:
-		holo.mesh = equiped_item.sight_mesh
+		#holo.mesh = equiped_item.sight_mesh
+		pass
 	if equiped_item.muzzle_mesh:
-		silencer.mesh = equiped_item.muzzle_mesh
+		#silencer.mesh = equiped_item.muzzle_mesh
+		pass
 	else:
 		clear_weapon_attachments()
 
 func clear_weapon_attachments():
-	if holo.mesh:
-		holo.mesh = null
-	if silencer.mesh:
-		silencer.mesh = null
+	#if holo.mesh:
+		#holo.mesh = null
+	#if silencer.mesh:
+		#silencer.mesh = null
+		pass
 
 func clear_weapon_hud():
 	if weapon_hud.visible:
@@ -449,10 +429,35 @@ func clear_weapon_hud():
 		crosshair.hide()
 	reticle.show()
 
+func reload():
+	reticle.hide()
+	crosshair.show()
+	var ammo_to_reload
+	var ammo_slots: Array[InSlotData] = find_ammo_in_inventories()
+	for ammo_slot in ammo_slots:
+		if ammo_slot and ammo_slot.amount_in_slot >= 1:
+			ammo_to_reload = min(ammo_slot.amount_in_slot, equiped_item.ammo_max - equiped_item.ammo_current)
+			ammo_slot.amount_in_slot -= ammo_to_reload
+			equiped_item.ammo_current += ammo_to_reload
+	Update_Ammo.emit(equiped_item.ammo_current)
+	player.player_inventory.signal_inventory_update.emit(player.player_inventory)
+	player.player_quick_slot.signal_inventory_update.emit(player.player_quick_slot)
+
 func update_weapon_ammo(value: int):
 	equiped_item.ammo_current += value
-	Update_Ammo.emit([equiped_item.ammo_current, equiped_item.ammo_reserve])
-	
+	Update_Ammo.emit(equiped_item.ammo_current)
+
+func find_ammo_in_inventories():
+	if !player.player_inventory or !player.player_quick_slot:
+		return
+	for slot in player.player_inventory.slots_data:
+		if slot and slot.item.item_type == slot.item.ItemType.ammo and slot.item.weapon_type == equiped_item.weapon_type and slot.amount_in_slot >= 1:
+			ammo_data.append(slot)
+	for slot in player.player_quick_slot.slots_data:
+		if slot and slot.item.item_type == slot.item.ItemType.ammo and slot.item.weapon_type == equiped_item.weapon_type and slot.amount_in_slot >= 1:
+			ammo_data.append(slot)
+	return ammo_data
+
 func swap_items(inventory_data: InventoryData, index: int):
 	var slot_data = inventory_data.slots_data[index]
 	for i in index + 1:
@@ -490,21 +495,31 @@ func _equiped_item_type(equiped_item_type: int) -> bool:
 func can_shoot(fire_mode: WeaponFireModes) -> bool:
 	if Global.check_is_inventory_open() or state_machine.is_current_state("Sprint") \
 		or timer.is_stopped() == false or equiped_item.ammo_current == 0 \
-		or animator.current_animation == equiped_item.anim_reload or animator.current_animation == equiped_item.anim_activate:
+		or fp_item_animator.current_animation == equiped_item.anim_reload or fp_item_animator.current_animation == equiped_item.anim_activate:
 		return false
 	else:
 		timer.start(fire_mode.fire_rate)
 		return true
 
-func _on_anim_item_animation_finished(anim_name):
+func _on_animation_player_pickaxe_animation_finished(anim_name):
+	if _equiped_item_type(equiped_item.ItemType. tool ):
+		if anim_name == equiped_item.anim_hit:
+			fp_item_animator.play(equiped_item.anim_after_hit)
+			fp_player_animator.play(equiped_item.anim_player_after_hit)
+			hitscan(melee_cast)
+
+func _on_animation_player_m_4_rifle_animation_finished(anim_name):
 	if _equiped_item_type(equiped_item.ItemType.weapon):
 		if anim_name == equiped_item.anim_reload:
 			reload()
+
+func _on_animation_player_axe_animation_finished(anim_name):
 	if _equiped_item_type(equiped_item.ItemType. tool ):
 		if anim_name == equiped_item.anim_hit:
-			animator.play(equiped_item.anim_after_hit)
+			fp_item_animator.play(equiped_item.anim_after_hit)
+			fp_player_animator.play(equiped_item.anim_player_after_hit)
 			hitscan(melee_cast)
-
+			
 func create_player_item(item_data: ItemData, amount: int):
 	var slot_data = InSlotData.new()
 	slot_data.item = item_data

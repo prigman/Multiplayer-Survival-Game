@@ -3,8 +3,8 @@ render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlic
 
 global uniform float viewmodel_fov = 50.0f;
 
-uniform vec4 albedo : source_color = vec4(1.0f);
-uniform sampler2D texture_albedo : source_color;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_nearest_mipmap,repeat_enable;
 uniform float specular = 0.5f;
 uniform float metallic = 0.0f;
 uniform float roughness : hint_range(0,1) = 1.0f;

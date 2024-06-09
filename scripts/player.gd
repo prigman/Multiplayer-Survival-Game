@@ -55,13 +55,13 @@ func _ready():
 	spherecast.add_exception($".")
 	signal_update_player_stats.emit(health_value, hunger_value)
 
-func _process(_delta):
+func _process(delta):
 	var velocity_string = "%.2f" % velocity.length()
 	Global.global_debug.add_property("velocity", velocity_string, + 1)
-	if item.equiped_slot:
-		weapon_tilt(input_dir.x, _delta)
-		weapon_sway(_delta)
-		weapon_bob(velocity.length(), _delta)
+	if item.equiped_item_node:
+		weapon_tilt(input_dir.x, delta)
+		weapon_sway(delta)
+		weapon_bob(velocity.length(), delta)
 		
 func _input(event):
 	if event is InputEventMouseMotion and !inventory_interface.visible:

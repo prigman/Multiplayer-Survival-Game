@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="ItemDataCraftableTools" load_steps=9 format=3 uid="uid://cmhctfq2qq820"]
+[gd_resource type="Resource" script_class="ItemDataCraftableTools" load_steps=8 format=3 uid="uid://cmhctfq2qq820"]
 
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="1_cr0lm"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="1_j1jxh"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="2_d12l8"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="3_w2ahp"]
 [ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="4_dlhhj"]
-[ext_resource type="ArrayMesh" uid="uid://hmgxq3s6kcv7" path="res://models/meshes/pickaxe.res" id="5_8myt5"]
 
 [sub_resource type="Resource" id="Resource_ddorj"]
 script = ExtResource("2_d12l8")
@@ -22,9 +21,12 @@ script = ExtResource("1_j1jxh")
 craft_components = Array[ExtResource("2_d12l8")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
 item_type = 4
 tool_type = 0
-anim_activate = "tools/Pickaxe_Player_Equip"
-anim_hit = "tools/Pickaxe_Player_Hit"
-anim_after_hit = "tools/Pickaxe_Player_After_Hit"
+anim_activate = "Pickaxe_Anims/Pickaxe_Equip"
+anim_hit = "Pickaxe_Anims/Pickaxe_Hit"
+anim_after_hit = "Pickaxe_Anims/Pickaxe_After_Hit"
+anim_player_activate = "Pickaxe_Player_Anims/Pickaxe_Player_Equip"
+anim_player_hit = "Pickaxe_Player_Anims/Pickaxe_Player_Hit"
+anim_player_after_hit = "Pickaxe_Player_Anims/Pickaxe_Player_After_Hit"
 damage = 15
 name = "Pickaxe"
 description = "Pickaxe"
@@ -33,12 +35,6 @@ stackable = false
 max_stack = 0
 quality = 100.0
 icon = ExtResource("4_dlhhj")
-mesh = ExtResource("5_8myt5")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/pickaxe_rb.tscn"
 }
-position = Vector3(-0.28, 0.055, 0.262)
-IK_pos_target_left = Vector3(0.248, -0.909, -0.941)
-IK_rot_target_left = Vector3(-44.8, -28.9, -60.7)
-IK_pos_target_right = Vector3(-0.101, -0.301, 0.056)
-IK_rot_target_right = Vector3(-68.1, -27.3, -77.2)

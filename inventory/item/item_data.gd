@@ -1,26 +1,31 @@
 class_name ItemData extends Resource
 
 enum ItemType {
-	weapon = 0,
-	consumable = 1,
-	other = 2,
-	resource = 3,
-	tool = 4,
-	building = 5
+	weapon,
+	consumable,
+	other,
+	resource,
+	tool ,
+	building,
+	ammo
 }
 
-@export var name : String
-@export_multiline var description : String
-@export_multiline var description_item_panel : String
-@export var stackable : bool = false
-@export var max_stack : int
-@export var quality : float = 100
-@export var icon : Texture
-@export var mesh : Mesh
+enum WeaponType {
+	assault_rifle,
+	pistol,
+	shotgun,
+	revolver,
+	rifle,
+	submachine_gun,
+	machine_gun
+}
 
-@export var dictionary : Dictionary
-@export var position : Vector3
-@export var IK_pos_target_left : Vector3
-@export var IK_rot_target_left : Vector3
-@export var IK_pos_target_right : Vector3
-@export var IK_rot_target_right : Vector3
+@export var name: String
+@export_multiline var description: String
+@export_multiline var description_item_panel: String
+@export var stackable: bool = false
+@export var max_stack: int
+@export var quality: float = 100
+@export var icon: Texture
+
+@export var dictionary: Dictionary

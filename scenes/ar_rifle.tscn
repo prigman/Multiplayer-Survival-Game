@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk5pb8yvfw8qk"]
+
+[ext_resource type="PackedScene" uid="uid://b0hp7xbx0ax6o" path="res://models/ar_rifle.glb" id="1_dsoce"]
+[ext_resource type="Shader" path="res://materials/viewmodel.gdshader" id="2_qc6pb"]
+[ext_resource type="Texture2D" uid="uid://cslvdpvrqk0wa" path="res://models/ar_rifle_AR_Texture_high.png" id="3_v0ys0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sbcl7"]
+resource_name = "AR.Body"
+render_priority = 0
+shader = ExtResource("2_qc6pb")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/roughness_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/normal_scale = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("3_v0ys0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7e7go"]
+resource_name = "AR.Body"
+render_priority = 0
+shader = ExtResource("2_qc6pb")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/roughness_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/normal_scale = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("3_v0ys0")
+
+[node name="ar_rifle" instance=ExtResource("1_dsoce")]
+
+[node name="AR_Trigger_AR_Body2_0_001" parent="AR_Rifle" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_sbcl7")
+
+[node name="AR_Trigger_AR_Body2_0_002" parent="AR_Rifle/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_7e7go")

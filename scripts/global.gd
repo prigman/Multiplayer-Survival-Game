@@ -1,11 +1,11 @@
 extends Node
 
 var global_debug
-var global_player : Player
-var global_player_quick_slot : InventoryData
-var global_player_inventory : InventoryData
-var global_item_script : ItemScript
-var global_world : World 
+var global_player: Player
+var global_player_quick_slot: InventoryData
+var global_player_inventory: InventoryData
+var global_item_script: ItemScript
+var global_world: World
 
 func get_global_position() -> Vector3:
 	return global_player.global_position
@@ -25,8 +25,7 @@ func get_player_quick_slots() -> Array[InSlotData]:
 		return []
 	return global_player_quick_slot.slots_data
 	
-func give_player_item(slot_data : InSlotData):
+func give_player_item(slot_data: InSlotData):
 	if !global_player_inventory._pick_up_slot_data(slot_data) \
 		and !global_player_quick_slot._pick_up_slot_data(slot_data):
 		global_player.inventory_interface.signal_drop_item.emit(slot_data)
-

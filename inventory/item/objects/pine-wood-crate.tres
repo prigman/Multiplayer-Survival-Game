@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="ItemDataCraftableBuildings" load_steps=7 format=3 uid="uid://bhaf4mm6sq7pn"]
+[gd_resource type="Resource" script_class="ItemDataCraftableBuildings" load_steps=6 format=3 uid="uid://bhaf4mm6sq7pn"]
 
 [ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="1_2yuex"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_buildings.gd" id="1_epkxx"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="2_xbifh"]
 [ext_resource type="Texture2D" uid="uid://by08p3rg4lhpe" path="res://icons/pine_wood_crate.png" id="3_3a4cd"]
-[ext_resource type="ArrayMesh" uid="uid://c0yho8pq4oj4l" path="res://models/meshes/pine_wood_crate.res" id="4_mpye1"]
 
 [sub_resource type="Resource" id="Resource_or310"]
 script = ExtResource("2_xbifh")
@@ -23,12 +22,6 @@ stackable = false
 max_stack = 0
 quality = 100.0
 icon = ExtResource("3_3a4cd")
-mesh = ExtResource("4_mpye1")
 dictionary = {
 "static_scene": "res://scenes/interactable/pine-wood-crate_staticbody.tscn"
 }
-position = Vector3(0, 0, 0)
-IK_pos_target_left = Vector3(0, 0, 0)
-IK_rot_target_left = Vector3(0, 0, 0)
-IK_pos_target_right = Vector3(0, 0, 0)
-IK_rot_target_right = Vector3(0, 0, 0)

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpuockgojkn1w"]
+
+[ext_resource type="ArrayMesh" uid="uid://igcmuna1ilc8" path="res://models/meshes/m4_rifle.res" id="1_7nadk"]
+[ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_vmli6"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="2_y2usy"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gwtad"]
+points = PackedVector3Array(-0.14464, -0.0979556, -0.0238342, -0.406657, 0.177378, 0.0154838, -0.406657, 0.177378, -0.0107282, 0.261856, 0.124904, 0.0285897, 0.261856, 0.124904, -0.0238342, -0.367396, 0.0855551, 0.0417034, 0.261856, -0.00615981, 0.0154838, -0.511628, 0.0855551, -0.0238342, -0.18382, -0.0848303, 0.0154838, -0.367396, 0.124904, -0.0369479, -0.577256, 0.0855551, 0.0154838, 0.261856, -0.00615981, -0.0238342, 0.025794, 0.0724568, 0.0417034, 0.025794, 0.164226, 0.0285897, 0.025794, 0.0724568, -0.0369479, 0.025794, 0.164226, -0.0107282, -0.367396, 0.111779, 0.0417034, -0.367396, 0.0724568, -0.0369479, -0.577256, 0.0855551, -0.0107282, -0.577256, 0.111779, -0.0107282, 0.025794, 0.111779, 0.0417034, 0.025794, 0.151127, -0.0238342, -0.577256, 0.111779, 0.0154838, -0.118439, -0.0979556, -0.0238342, 0.261856, 0.0724568, 0.0285897, -0.18382, -0.0848303, -0.0238342, -0.419799, 0.177378, 0.0154838, -0.18382, 0.0724568, 0.0417034, -0.511628, 0.111779, -0.0238342, -0.419799, 0.177378, -0.0107282, -0.00040774, 0.164226, 0.0285897)
+
+[node name="RigidBody3D" type="RigidBody3D"]
+collision_layer = 4
+collision_mask = 6281
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+lock_rotation = true
+script = ExtResource("1_vmli6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-6.55671e-08, -1.5, -6.55671e-08, 0, -6.55671e-08, 1.5, -1.5, 6.55671e-08, 2.86603e-15, 0, 0, -0.153878)
+mesh = ExtResource("1_7nadk")
+surface_material_override/0 = ExtResource("2_y2usy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-6.55671e-08, -1.5, -6.55671e-08, 0, -6.55671e-08, 1.5, -1.5, 6.55671e-08, 2.86603e-15, 0, 0, -0.153878)
+shape = SubResource("ConvexPolygonShape3D_gwtad")
