@@ -1,10 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://kemhnw23qkgq"]
-
-[ext_resource type="ArrayMesh" uid="uid://ccpiurb234gor" path="res://models/meshes/grass_2.res" id="1_2aj6q"]
+[gd_scene format=3 uid="uid://kemhnw23qkgq"]
 
 [node name="grass_2" type="Node3D"]
 
 [node name="grass_px_005" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, 0, 0)
 cast_shadow = 0
-mesh = ExtResource("1_2aj6q")

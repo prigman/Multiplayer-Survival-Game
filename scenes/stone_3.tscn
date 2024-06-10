@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://v0urs1mkfuuy"]
+[gd_scene load_steps=4 format=3 uid="uid://v0urs1mkfuuy"]
 
-[ext_resource type="ArrayMesh" uid="uid://det0dd58gajci" path="res://models/meshes/stone_3.res" id="1_hcxax"]
+[ext_resource type="ArrayMesh" uid="uid://b2q3l65d2hfd7" path="res://models/meshes/stone_3.mesh" id="1_1qaif"]
+[ext_resource type="Material" uid="uid://c6w8g20kpdi7h" path="res://materials/rocks_mat.tres" id="2_nw2f2"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3f0hy"]
 points = PackedVector3Array(-0.205014, 0.311315, -0.735345, -0.30944, 0.777407, -0.685411, 0.54975, 0.510053, -0.505016, 0.224684, 0.27778, -0.628503, -1.07392, 0.111187, -0.319231, -0.729627, 1.01292, -0.48425, 0.510668, 0.804915, -0.466337, 0.876676, 0.364477, 0.399496, 0.593795, 0.06807, 0.485889, 0.287754, -0.0935784, 0.252231, -0.758783, -0.140249, 0.294873, -1.23584, 0.240536, 0.173764, -1.23584, 0.240536, -0.241557, -1.09956, 0.609886, -0.307025, -0.589013, 1.37857, 0.0066846, 0.568567, 1.02606, -0.175454, -0.272426, -0.0214084, 0.769797, 0.807403, 0.820523, 0.432943, -0.571643, 0.636467, 0.88409, -0.512089, -0.200211, 0.452441, -1.19158, 0.360459, 0.292654, -0.92235, 1.09019, 0.363512, -0.681239, 1.33329, 0.196432, 0.108885, 1.05171, 0.668979, 0.342759, 1.22047, 0.0179395, -0.553033, 0.455037, 0.873627, 0.571049, 1.0239, 0.515691, -0.999274, 0.881412, 0.540895)
@@ -10,7 +11,8 @@ collision_layer = 128
 collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_hcxax")
+mesh = ExtResource("1_1qaif")
+surface_material_override/0 = ExtResource("2_nw2f2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_3f0hy")

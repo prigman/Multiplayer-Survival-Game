@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbh30efrwiakh"]
+[gd_scene load_steps=8 format=3 uid="uid://bbh30efrwiakh"]
 
 [ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_a6hh4"]
 [ext_resource type="ArrayMesh" uid="uid://bm2fa23ycbw8" path="res://models/meshes/metal_bar.res" id="1_q1uh1"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="2_31knv"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_ldplm"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="5_bbmu1"]
 
 [sub_resource type="Resource" id="Resource_4tuwe"]
 script = ExtResource("3_ldplm")
@@ -24,6 +25,7 @@ slot_data = SubResource("Resource_4tuwe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("1_q1uh1")
+surface_material_override/0 = ExtResource("5_bbmu1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_5l7e4")

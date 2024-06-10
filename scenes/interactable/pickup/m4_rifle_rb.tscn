@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cpuockgojkn1w"]
 
-[ext_resource type="ArrayMesh" uid="uid://igcmuna1ilc8" path="res://models/meshes/m4_rifle.res" id="1_7nadk"]
 [ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_vmli6"]
+[ext_resource type="ArrayMesh" uid="uid://b4443bmc762ax" path="res://models/meshes/m4_rifle_default.res" id="2_2nyo8"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="2_y2usy"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gwtad"]
@@ -17,7 +17,7 @@ script = ExtResource("1_vmli6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-6.55671e-08, -1.5, -6.55671e-08, 0, -6.55671e-08, 1.5, -1.5, 6.55671e-08, 2.86603e-15, 0, 0, -0.153878)
-mesh = ExtResource("1_7nadk")
+mesh = ExtResource("2_2nyo8")
 surface_material_override/0 = ExtResource("2_y2usy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnw83bbj2p7xk"]
+[gd_scene load_steps=8 format=3 uid="uid://cnw83bbj2p7xk"]
 
 [ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_oft30"]
 [ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="2_tifde"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_gusdw"]
 [ext_resource type="ArrayMesh" uid="uid://dn36yp2mvwg2q" path="res://models/meshes/stone_dropped.res" id="4_dl3h3"]
+[ext_resource type="Material" uid="uid://c6w8g20kpdi7h" path="res://materials/rocks_mat.tres" id="5_jgap4"]
 
 [sub_resource type="Resource" id="Resource_c3cue"]
 script = ExtResource("3_gusdw")
@@ -25,6 +26,7 @@ slot_data = SubResource("Resource_c3cue")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 mesh = ExtResource("4_dl3h3")
+surface_material_override/0 = ExtResource("5_jgap4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

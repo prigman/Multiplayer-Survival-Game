@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://flv6r52q38pv"]
+[gd_scene load_steps=6 format=3 uid="uid://flv6r52q38pv"]
 
-[ext_resource type="ArrayMesh" uid="uid://bvyb645vnuh06" path="res://models/meshes/stone_1.res" id="1_2sl4e"]
 [ext_resource type="Script" path="res://scripts/world_resources.gd" id="1_umi2c"]
 [ext_resource type="Shape3D" uid="uid://dt1bomukkuyvw" path="res://terrain_data/stone_1_shape.res" id="2_1n2v2"]
+[ext_resource type="ArrayMesh" uid="uid://dntlisr0x8wtb" path="res://models/meshes/stone_1.mesh" id="2_64tc6"]
+[ext_resource type="Material" uid="uid://c6w8g20kpdi7h" path="res://materials/rocks_mat.tres" id="3_qbrv2"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_u887r"]
 radius = 20.0
@@ -19,7 +20,8 @@ start_health = 100.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visibility_range_end = 200.0
-mesh = ExtResource("1_2sl4e")
+mesh = ExtResource("2_64tc6")
+surface_material_override/0 = ExtResource("3_qbrv2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = ExtResource("2_1n2v2")

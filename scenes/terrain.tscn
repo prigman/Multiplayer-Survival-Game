@@ -17,240 +17,104 @@ mesh = ExtResource("1_1lm1b")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConcavePolygonShape3D_y1h2x")
 
-[node name="PineTree" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3826, 6.66133, 144.876)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree2" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree2" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.4745, 10.7519, 162.533)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree3" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree3" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.025, 4.52598, 105.667)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree4" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree4" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.8176, 5.91621, 28.1143)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree5" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree5" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.0999, 5.36814, 59.8872)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree6" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree6" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.0532, 4.27148, 90.7831)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree7" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree7" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.5769, 7.54536, 12.9253)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree8" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree8" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.226089, 8.99808, 23.141)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree9" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree9" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0996, 7.35435, 83.9854)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree10" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree10" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.9534, 6.52599, 79.6493)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree11" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree11" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.793, 5.27547, 42.9753)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree12" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree12" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.8029, 7.26469, 4.28452)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree13" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree13" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 136.309, 4.75601, 96.4288)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree14" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree14" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.3114, 11.1147, -55.5018)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree15" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree15" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.1927, 6.07584, -67.8435)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree16" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree16" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 133.945, 7.30231, -20.2614)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree17" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree17" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.546, 9.0439, -22.7111)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree18" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree18" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.9578, 7.98073, -44.8266)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree19" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree19" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.0202, 6.54573, -44.8456)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree20" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree20" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.7325, 6.1008, -82.9474)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree21" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree21" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.366, 5.91419, -86.8459)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree22" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree22" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.8897, 5.86985, -109.354)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree23" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree23" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 159.509, 11.193, -70.4464)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree24" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree24" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 176.833, 4.78107, 43.2455)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree25" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree25" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88.5766, 5.08116, 155.004)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree26" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree26" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -138.969, 5.43174, -78.1758)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree27" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree27" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -144.31, 4.72984, -16.5259)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree28" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree28" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.205, 5.57024, 43.5221)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree29" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree29" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -151.75, 4.41423, 94.2827)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree30" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree30" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.1409, 5.59027, 122.866)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree31" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree31" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.32, 8.92191, -138.173)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree32" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree32" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.8495, 6.06119, -151.937)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree33" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree33" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9599, 7.62975, -156.796)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")
 
-[node name="PineTree34" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("2_faxpo")]
+[node name="PineTree34" parent="." instance=ExtResource("2_faxpo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 117.963, 5.31324, -170.486)
-timer = NodePath("")
-zone = NodePath("")
-mesh = NodePath("")
-collision = NodePath("")

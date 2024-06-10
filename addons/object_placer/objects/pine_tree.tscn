@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ggat158lkf7j"]
+[gd_scene load_steps=7 format=3 uid="uid://ggat158lkf7j"]
 
 [ext_resource type="ArrayMesh" uid="uid://pcfh4qqqwwim" path="res://models/meshes/pine_tree.mesh" id="1_dni8b"]
 [ext_resource type="Script" path="res://scripts/world_resources.gd" id="1_kae3q"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="3_fof44"]
+[ext_resource type="Material" uid="uid://cad51gex0vg66" path="res://materials/pine_leaves.tres" id="4_87ey7"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wb0g1"]
 height = 12.0
@@ -26,6 +28,8 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 visibility_range_end = 200.0
 mesh = ExtResource("1_dni8b")
 skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_fof44")
+surface_material_override/1 = ExtResource("4_87ey7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cee71nu14xh25"]
+[gd_scene load_steps=9 format=3 uid="uid://cee71nu14xh25"]
 
 [ext_resource type="MTerrainMaterial" uid="uid://1wm6ms1yy2xj" path="res://terrain_data/terrain_mat.res" id="1_0xrxe"]
 [ext_resource type="Script" path="res://scripts/mterrain.gd" id="2_yroeh"]
@@ -6,6 +6,7 @@
 [ext_resource type="MGrassLodSetting" uid="uid://bwjyy80hfe5nu" path="res://terrain_data/grass_lod_setting.res" id="4_m3ahd"]
 [ext_resource type="ArrayMesh" uid="uid://tdvoiqypm884" path="res://models/meshes/grass_mesh.res" id="5_ggfmm"]
 [ext_resource type="PackedScene" uid="uid://ggat158lkf7j" path="res://addons/object_placer/objects/pine_tree.tscn" id="6_1v26k"]
+[ext_resource type="Material" uid="uid://c7d4xyylcq5p1" path="res://materials/grass_mat_shader.tres" id="6_qb4k4"]
 [ext_resource type="PackedScene" uid="uid://flv6r52q38pv" path="res://addons/object_placer/objects/stone_1.tscn" id="7_idv3k"]
 
 [node name="MTerrain" type="MTerrain"]
@@ -33,7 +34,7 @@ grass_data = ExtResource("3_yhm2t")
 grass_count_limit = 9000
 lod_settings = [ExtResource("4_m3ahd"), null, null]
 meshes = [ExtResource("5_ggfmm"), null, null]
-materials = [null, null, null]
+materials = [ExtResource("6_qb4k4"), null, null]
 
 [node name="PineTree" parent="." instance=ExtResource("6_1v26k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 216.386, 3.22586, 186.009)

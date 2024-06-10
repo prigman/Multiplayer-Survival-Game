@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=94 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
@@ -26,7 +26,6 @@
 [ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="27_2sm5u"]
 [ext_resource type="PackedScene" uid="uid://cee71nu14xh25" path="res://scenes/m_terrain.tscn" id="28_7q1f0"]
-[ext_resource type="ArrayMesh" uid="uid://5a8s7wlvwpwk" path="res://models/meshes/grass_mesh.mesh" id="29_lniwo"]
 [ext_resource type="Script" path="res://scripts/world_resources.gd" id="30_i6lvt"]
 [ext_resource type="ArrayMesh" uid="uid://pcfh4qqqwwim" path="res://models/meshes/pine_tree.mesh" id="31_nluff"]
 
@@ -687,13 +686,6 @@ autostart = true
 [node name="MTerrain" parent="." instance=ExtResource("28_7q1f0")]
 collision_layer = 4096
 unique_name_in_owner = true
-
-[node name="grass_px_1" type="Node3D" parent="."]
-visible = false
-
-[node name="grass_px" type="MeshInstance3D" parent="grass_px_1"]
-cast_shadow = 0
-mesh = ExtResource("29_lniwo")
 
 [node name="PineTree" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["world_resource"]]
 script = ExtResource("30_i6lvt")
