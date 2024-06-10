@@ -310,7 +310,7 @@ func clear_animations():
 	if Scoped:
 		Scoped = false
 
-func is_fp_animator_playing():
+func is_fp_animator_playing() -> bool:
 	if fp_player_animator and fp_player_animator.is_playing():
 		return true
 	if fp_item_animator and fp_item_animator.is_playing():
