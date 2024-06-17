@@ -1,14 +1,17 @@
-[gd_scene load_steps=94 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=111 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
-[ext_resource type="PackedScene" uid="uid://dukxkjfwv4sap" path="res://scenes/player.tscn" id="2_4vywr"]
 [ext_resource type="PackedScene" uid="uid://cu78wr4f7155s" path="res://scenes/scene_template.tscn" id="5_xsqmg"]
+[ext_resource type="Script" path="res://inventory/inventory_data.gd" id="6_t2uit"]
 [ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/pine-wood-crate_staticbody.tscn" id="8_upg36"]
 [ext_resource type="Resource" uid="uid://d05wvcamae4du" path="res://inventory/item/objects/canned-food.tres" id="10_5uowv"]
+[ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="10_6xi46"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
 [ext_resource type="PackedScene" uid="uid://bs0te4ilgfkpw" path="res://scenes/interactable/pickup/canned-food_rigidbody.tscn" id="12_k0p58"]
+[ext_resource type="Texture2D" uid="uid://v6d4v1xl51pp" path="res://icons/545x39.png" id="13_6s8qv"]
 [ext_resource type="PackedScene" uid="uid://bwwhsm0q1fnnj" path="res://scenes/interactable/pickup/resource_pine_branch_rb.tscn" id="13_77uqr"]
 [ext_resource type="PackedScene" uid="uid://cnw83bbj2p7xk" path="res://scenes/interactable/pickup/stone_resource_rb.tscn" id="14_hv0t3"]
+[ext_resource type="Script" path="res://inventory/item/item_data_ammo.gd" id="14_spjwe"]
 [ext_resource type="PackedScene" uid="uid://cibfwxpsrgkac" path="res://scenes/interactable/pickup/axe_tool_rb.tscn" id="14_t4uim"]
 [ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="15_i4n86"]
 [ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="15_jti76"]
@@ -47,6 +50,36 @@ tonemap_exposure = 2.3
 glow_enabled = true
 fog_density = 0.0001
 adjustment_enabled = true
+
+[sub_resource type="Resource" id="Resource_5ii1q"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_xwpok"]
+script = ExtResource("11_653sy")
+item = ExtResource("15_i4n86")
+amount_in_slot = 46
+
+[sub_resource type="Resource" id="Resource_k3qvb"]
+script = ExtResource("11_653sy")
+item = ExtResource("10_6xi46")
+amount_in_slot = 24
+
+[sub_resource type="Resource" id="Resource_nupsf"]
+script = ExtResource("11_653sy")
+item = ExtResource("27_2sm5u")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_m4fgc"]
+script = ExtResource("11_653sy")
+item = ExtResource("25_pkm0b")
+amount_in_slot = 54
+
+[sub_resource type="Resource" id="Resource_gisbm"]
+script = ExtResource("6_t2uit")
+type = 2
+slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_upq5e"]
 script = ExtResource("11_653sy")
@@ -410,6 +443,64 @@ script = ExtResource("11_653sy")
 item = ExtResource("25_pkm0b")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_4c7e5"]
+script = ExtResource("6_t2uit")
+type = 2
+slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="Resource" id="Resource_uxc18"]
+script = ExtResource("6_t2uit")
+type = 2
+slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="Resource" id="Resource_iufdr"]
+script = ExtResource("14_spjwe")
+item_type = 6
+weapon_type = 0
+name = "5.45 Ammo"
+description = ""
+description_item_panel = "
+"
+stackable = true
+max_stack = 120
+quality = 100.0
+icon = ExtResource("13_6s8qv")
+dictionary = {}
+
+[sub_resource type="Resource" id="Resource_xr3ib"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_iufdr")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_twykt"]
+script = ExtResource("6_t2uit")
+type = 2
+slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_xr3ib"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="Resource" id="Resource_sri82"]
+script = ExtResource("14_spjwe")
+item_type = 6
+weapon_type = 0
+name = "5.45 Ammo"
+description = ""
+description_item_panel = "
+"
+stackable = true
+max_stack = 120
+quality = 100.0
+icon = ExtResource("13_6s8qv")
+dictionary = {}
+
+[sub_resource type="Resource" id="Resource_cwc4i"]
+script = ExtResource("11_653sy")
+item = SubResource("Resource_sri82")
+amount_in_slot = 100
+
+[sub_resource type="Resource" id="Resource_gstfx"]
+script = ExtResource("6_t2uit")
+type = 2
+slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_cwc4i"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wb0g1"]
 height = 12.0
 radius = 0.7
@@ -418,14 +509,21 @@ radius = 0.7
 radius = 20.0
 height = 60.0
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3")]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3") groups=["world"]]
 script = ExtResource("1_7fa2s")
 enemy1 = NodePath("Enemy")
 enemy2 = NodePath("Enemy2")
 enemy3 = NodePath("Enemy3")
 
-[node name="Player" parent="." instance=ExtResource("2_4vywr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 232.152, 3.92226, 196.944)
+[node name="Players" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.04596, 4.29622, 7.90834)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+unique_name_in_owner = true
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 4
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -452,6 +550,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 292, 0)
 
 [node name="Pine-Wood-Crate" parent="zone" instance=ExtResource("8_upg36")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.35348, 0, -0.590063)
+inventory_data = SubResource("Resource_gisbm")
 
 [node name="items_rb" type="Node3D" parent="zone"]
 
@@ -687,7 +786,24 @@ autostart = true
 collision_layer = 4096
 unique_name_in_owner = true
 
+[node name="Pine-Wood-Crate3" parent="." instance=ExtResource("8_upg36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 231.731, 3.80188, 190.535)
+inventory_data = SubResource("Resource_4c7e5")
+
+[node name="Pine-Wood-Crate4" parent="." instance=ExtResource("8_upg36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7347, 1.36418, 12.6735)
+inventory_data = SubResource("Resource_uxc18")
+
+[node name="Pine-Wood-Crate5" parent="." instance=ExtResource("8_upg36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7347, 1.36418, 14.7818)
+inventory_data = SubResource("Resource_twykt")
+
+[node name="Pine-Wood-Crate2" parent="." instance=ExtResource("8_upg36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 233.642, 3.79102, 190.411)
+inventory_data = SubResource("Resource_gstfx")
+
 [node name="PineTree" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["world_resource"]]
+visible = false
 script = ExtResource("30_i6lvt")
 timer = NodePath("Timer")
 zone = NodePath("ShapeCast3D")
@@ -717,5 +833,8 @@ collision_mask = 94
 
 [node name="Timer" type="Timer" parent="PineTree"]
 wait_time = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1168.06, 0, 0)
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

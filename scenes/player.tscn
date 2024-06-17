@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=63 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://c0tuqwnt3g8u0" path="res://scripts/weapon/assault_rifle_spread.tres" id="4_qxsc1"]
 [ext_resource type="AnimationLibrary" uid="uid://cbdt7intcw3pe" path="res://anims/player_state.res" id="5_7m1j8"]
 [ext_resource type="Script" path="res://scripts/interface/reticle.gd" id="5_8lwt1"]
+[ext_resource type="Script" path="res://scripts/player_input_synchronizer.gd" id="5_d8soy"]
 [ext_resource type="Script" path="res://scripts/View_Models.gd" id="5_fwk6d"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
@@ -17,7 +18,6 @@
 [ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
 [ext_resource type="AnimationLibrary" uid="uid://vlrhvjddwkvd" path="res://anims/player_fp_anims/Axe/Axe_Player_Anims.res" id="7_u4bc2"]
 [ext_resource type="AnimationLibrary" uid="uid://klxtl5jvpkhp" path="res://anims/player_fp_anims/Pickaxe/Pickaxe_Player_Anims.res" id="8_4v63h"]
-[ext_resource type="Texture2D" uid="uid://d37gvltmegoym" path="res://textures/1024_palette.png" id="8_nscv5"]
 [ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
 [ext_resource type="PackedScene" uid="uid://mdsqpmcb7k53" path="res://scenes/progress_bar.tscn" id="9_bcxkl"]
 [ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="9_sd5qi"]
@@ -25,7 +25,6 @@
 [ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
 [ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://inventory/inventory_scenes/main_inventory.tscn" id="10_51sge"]
 [ext_resource type="Script" path="res://inventory/item/inv_item_info_panel.gd" id="10_pwj6i"]
-[ext_resource type="Texture2D" uid="uid://cbvnhy77ekjad" path="res://icons/AR_icon.png" id="11_bwrnu"]
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
 [ext_resource type="PackedScene" uid="uid://c0vow3q82yehc" path="res://scenes/weapon_hud.tscn" id="12_2ffht"]
 [ext_resource type="AnimationLibrary" uid="uid://dmkk5nftmxg6" path="res://anims/item_fp_anims/pickaxe/Pickaxe_Anims.res" id="12_2kaya"]
@@ -33,6 +32,7 @@
 [ext_resource type="Script" path="res://scripts/interface/slot.gd" id="12_vifhc"]
 [ext_resource type="PackedScene" uid="uid://cq5gdhexp333" path="res://inventory/craft_menu_scenes/craft_menu.tscn" id="13_00r71"]
 [ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="13_6ejrl"]
+[ext_resource type="Texture2D" uid="uid://d37gvltmegoym" path="res://textures/1024_palette.png" id="14_rjuv0"]
 [ext_resource type="AnimationLibrary" uid="uid://dcl0nhikpge30" path="res://anims/item_fp_anims/axe/Axe_Anims.res" id="15_1ws1i"]
 [ext_resource type="ArrayMesh" uid="uid://c0qee1sc38nvk" path="res://models/meshes/axe_animated.res" id="15_yc44n"]
 [ext_resource type="ArrayMesh" uid="uid://igcmuna1ilc8" path="res://models/meshes/m4_rifle.res" id="17_87spy"]
@@ -40,9 +40,34 @@
 [ext_resource type="AnimationLibrary" uid="uid://daohau8af7uyl" path="res://anims/item_fp_anims/m4_rifle/M4_Rifle_Anims.res" id="41_aeuon"]
 [ext_resource type="AnimationLibrary" uid="uid://c5ohgn7l2bmpy" path="res://anims/player_fp_anims/m4_rifle/FP_Armature.res" id="42_0yrtw"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
+properties/0/path = NodePath(".:input_direction")
+properties/0/spawn = false
+properties/0/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n3lfe"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("CameraHolder:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:player")
+properties/4/spawn = true
+properties/4/replication_mode = 0
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f7gol"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g0hrd"]
+albedo_color = Color(1, 1, 0, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
 radius = 0.6
@@ -245,7 +270,7 @@ shader_parameter/roughness_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/normal_scale = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("8_nscv5")
+shader_parameter/texture_albedo = ExtResource("14_rjuv0")
 
 [sub_resource type="Skin" id="Skin_u0wcu"]
 resource_name = "Skin"
@@ -268,7 +293,7 @@ shader_parameter/roughness_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/normal_scale = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("8_nscv5")
+shader_parameter/texture_albedo = ExtResource("14_rjuv0")
 
 [sub_resource type="Skin" id="Skin_06u7v"]
 resource_name = "Skin"
@@ -297,7 +322,7 @@ shader_parameter/roughness_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/normal_scale = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("8_nscv5")
+shader_parameter/texture_albedo = ExtResource("14_rjuv0")
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yqpty"]
 
@@ -382,6 +407,16 @@ weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.001
 invert_weapon_sway = true
 
+[node name="InputSync" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+root_path = NodePath(".")
+replication_config = SubResource("SceneReplicationConfig_8ul1l")
+script = ExtResource("5_d8soy")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_n3lfe")
+
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -389,9 +424,10 @@ shape = SubResource("CapsuleShape3D_7qfu8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00398284, 0.994013, 0.00473261)
-visible = false
+cast_shadow = 0
 mesh = SubResource("CapsuleMesh_f7gol")
 skeleton = NodePath("../DefaultStateCollision")
+surface_material_override/0 = SubResource("StandardMaterial3D_g0hrd")
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true
@@ -828,6 +864,7 @@ bones/52/rotation = Quaternion(-0.366599, -0.604653, 0.604653, 0.366599)
 bones/52/scale = Vector3(1, 1, 1)
 
 [node name="arms" type="MeshInstance3D" parent="CameraHolder/RigHolder/Node3D/correct_fp_arms/arms_armature/Skeleton3D"]
+cast_shadow = 0
 mesh = ExtResource("6_a0imf")
 skin = SubResource("Skin_jlae2")
 surface_material_override/0 = SubResource("ShaderMaterial_mujtk")
@@ -857,6 +894,7 @@ bones/0/rotation = Quaternion(0.168909, -0.660334, -0.0304849, 0.731095)
 bones/0/scale = Vector3(0.203522, 0.203522, 0.203522)
 
 [node name="Cylinder" type="MeshInstance3D" parent="CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/Pickaxe/Skeleton3D"]
+cast_shadow = 0
 mesh = ExtResource("12_fkleo")
 skin = SubResource("Skin_illik")
 surface_material_override/0 = SubResource("ShaderMaterial_xspd5")
@@ -885,6 +923,7 @@ bones/0/rotation = Quaternion(0.0771204, -0.633985, 0.054486, 0.767559)
 bones/0/scale = Vector3(1, 1, 1)
 
 [node name="Axe" type="MeshInstance3D" parent="CameraHolder/RigHolder/Node3D/Item_axe_animated/Axe_001/Skeleton3D"]
+cast_shadow = 0
 mesh = ExtResource("15_yc44n")
 skin = SubResource("Skin_u0wcu")
 surface_material_override/0 = SubResource("ShaderMaterial_x4ycf")
@@ -907,8 +946,8 @@ bones/0/name = "Body_2"
 bones/0/parent = -1
 bones/0/rest = Transform3D(-2.38419e-07, -4.76837e-07, 1, 0.938353, -0.34568, 0, 0.34568, 0.938353, 4.76838e-07, 7.15512e-09, 0.0132001, -0.0367481)
 bones/0/enabled = true
-bones/0/position = Vector3(-0.128764, 1.4711, 0.219458)
-bones/0/rotation = Quaternion(0.202288, 0.677554, 0.202288, 0.677554)
+bones/0/position = Vector3(-0.128764, 1.3568, -0.22846)
+bones/0/rotation = Quaternion(0.622142, 0.336064, 0.622142, 0.336064)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Barrel"
 bones/1/parent = 0
@@ -926,6 +965,7 @@ bones/2/rotation = Quaternion(-8.00614e-08, -1.41361e-07, -0.366364, 0.930472)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="M4_Rifle_Mesh" type="MeshInstance3D" parent="CameraHolder/RigHolder/Node3D/Item_M4_Rifle/M4_Rifle/Skeleton3D"]
+cast_shadow = 0
 mesh = ExtResource("17_87spy")
 skin = SubResource("Skin_06u7v")
 surface_material_override/0 = SubResource("ShaderMaterial_j48hl")
@@ -1337,7 +1377,6 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
-texture = ExtResource("11_bwrnu")
 expand_mode = 1
 stretch_mode = 5
 
@@ -1524,8 +1563,9 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
 text = "Drop"
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
 script = ExtResource("6_28k2k")
+player = NodePath("..")
 current_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]

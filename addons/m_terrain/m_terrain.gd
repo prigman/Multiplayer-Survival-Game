@@ -1,6 +1,6 @@
 @tool
 extends EditorPlugin
-var version:String="0.12.0 alpha"
+var version:String="0.13.0 alpha"
 var import_window_res = preload("res://addons/m_terrain/gui/import_window.tscn")
 var image_creator_window_res = preload("res://addons/m_terrain/gui/image_creator_window.tscn")
 var tools= null
@@ -32,6 +32,9 @@ const max_mask_brush_resize_speed:float=16.0
 
 var current_window_info=null
 
+
+var gizmo_moctmesh = preload("res://addons/m_terrain/gizmos/moct_mesh_gizmo.gd").new()
+
 func _enter_tree():
 	if Engine.is_editor_hint():
 		add_tool_menu_item("MTerrain import/export", Callable(self,"show_import_window"))
@@ -62,6 +65,11 @@ func _enter_tree():
 		human_male = load("res://addons/m_terrain/gui/human_male.tscn").instantiate()
 		get_editor_interface().get_editor_main_screen().add_child(human_male)
 		paint_panel.brush_masks.load_images(stencil_decal)
+		MTool.enable_editor_plugin()
+		###### GIZMO
+		add_node_3d_gizmo_plugin(gizmo_moctmesh)
+
+
 
 func _exit_tree():
 	if Engine.is_editor_hint():
@@ -75,7 +83,8 @@ func _exit_tree():
 		tsnap.queue_free()
 		human_male.queue_free()
 		stencil_decal.queue_free()
-		
+		###### GIZMO
+		remove_node_3d_gizmo_plugin(gizmo_moctmesh)
 
 func show_import_window():
 	var window = import_window_res.instantiate()

@@ -18,6 +18,3 @@ icon = ExtResource("1_1c3rp")
 dictionary = {
 "scene_path": "res://scenes/building_wall.tscn"
 }
-position = Vector3(0, 0, 0)
-rotation = Vector3(90, 0, 0)
-scale = Vector3(0, 0, 0)

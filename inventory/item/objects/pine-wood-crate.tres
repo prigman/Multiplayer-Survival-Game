@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="1_2yuex"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_buildings.gd" id="1_epkxx"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="2_xbifh"]
-[ext_resource type="Texture2D" uid="uid://by08p3rg4lhpe" path="res://icons/pine_wood_crate.png" id="3_3a4cd"]
+[ext_resource type="Texture2D" uid="uid://by08p3rg4lhpe" path="res://icons/pine_wood_crate.png" id="3_aqlbk"]
 
 [sub_resource type="Resource" id="Resource_or310"]
 script = ExtResource("2_xbifh")
@@ -21,7 +21,7 @@ description_item_panel = "Pine wood crate"
 stackable = false
 max_stack = 0
 quality = 100.0
-icon = ExtResource("3_3a4cd")
+icon = ExtResource("3_aqlbk")
 dictionary = {
 "static_scene": "res://scenes/interactable/pine-wood-crate_staticbody.tscn"
 }

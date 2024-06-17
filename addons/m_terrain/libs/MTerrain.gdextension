@@ -6,8 +6,6 @@ compatibility_minimum = 4.1
 [libraries]
 macos.debug = "res://addons/m_terrain/libs/libMTerrain.macos.template_debug.universal.dylib"
 macos.release = "res://addons/m_terrain/libs/libMTerrain.macos.template_release.universal.dylib"
-ios.debug = "res://addons/m_terrain/libs/libMTerrain.ios.template_debug.universal.dylib"
-ios.release = "res://addons/m_terrain/libs/libMTerrain.ios.template_release.universal.dylib"
 linux.debug.x86_64 = "res://addons/m_terrain/libs/libMTerrain.linux.template_debug.x86_64.so"
 linux.release.x86_64 = "res://addons/m_terrain/libs/libMTerrain.linux.template_release.x86_64.so"
 linux.debug.x86_32 = "res://addons/m_terrain/libs/libMTerrain.linux.template_debug.x86_32.so"
@@ -26,6 +24,7 @@ MTerrain = "res://addons/m_terrain/icons/M-terrain_icon.png"
 MGrass = "res://addons/m_terrain/icons/foilage_icon.png"
 MNavigationRegion3D = "res://addons/m_terrain/icons/MNavigationRegion3D.png"
 MObstacle = "res://addons/m_terrain/icons/obstacle_icon.png"
-
+MOctMesh = "res://addons/m_terrain/icons/MOctMesh.svg"
+MOctree = "res://addons/m_terrain/icons/MOctree.svg"
 
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="1_8yl1t"]
 [ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_full_auto.gd" id="1_070kf"]
 [ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_single.gd" id="2_d8h62"]
-[ext_resource type="Texture2D" uid="uid://dkv3vtbo8ejnw" path="res://icons/m4_rifle_icon.png" id="3_3rybl"]
+[ext_resource type="Texture2D" uid="uid://dkv3vtbo8ejnw" path="res://icons/m4_rifle_icon.png" id="3_basm5"]
 [ext_resource type="Curve" uid="uid://bl86an7yiit51" path="res://scripts/weapon/ar_curve.tres" id="4_7lyle"]
 
 [sub_resource type="Resource" id="Resource_qtfbu"]
@@ -56,7 +56,7 @@ Shoot types: auto, single, burst"
 stackable = false
 max_stack = 0
 quality = 100.0
-icon = ExtResource("3_3rybl")
+icon = ExtResource("3_basm5")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/m4_rifle_rb.tscn"
 }

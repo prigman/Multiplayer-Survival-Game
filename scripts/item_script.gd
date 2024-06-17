@@ -8,13 +8,12 @@ const BULLET_HIT_DECAL = preload ("res://scenes/shoot_decal.tscn")
 # все предметы, которые можно взять в руки
 @export var fp_items_array: Array[Node3D]
 
+# tree
 @export var rig_holder: Node3D
 @export var fp_player_node: Node3D
 @export var fp_player_animator: AnimationPlayer
 var fp_item_animator: AnimationPlayer
 @export var camera_holder: Node3D
-
-# tree
 @export var player: CharacterBody3D
 @export var state_machine: StateMachine
 @export var timer: Timer
@@ -71,7 +70,7 @@ func _ready():
 
 func _physics_process(delta):
 	if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
-		if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
+		if player.inventory_interface.visible == false: # проверка если закрыт инвентарь
 			if Input.is_action_pressed("fire"):
 				if equiped_item.fire_mode_current.mode == WeaponFireModes.FireMode.FULL_AUTO:
 					if can_shoot(equiped_item.fire_mode_current):
@@ -84,7 +83,7 @@ func _physics_process(delta):
 						crosshair.hide()
 		if current_time < 1:
 			apply_recoil(delta)
-		elif Global.check_is_inventory_open() == true or state_machine.is_current_state("Sprint") == true:
+		elif player.inventory_interface.visible == true or state_machine.is_current_state("Sprint") == true:
 			if Scoped:
 				crosshair.show()
 				Assault_Rifle_Scope()
@@ -158,7 +157,7 @@ func place_building_part():
 			coll.get_child(0).disabled = false # включаем коллайдеры к которым подсоединяется постройка
 	player.buildings_in_own.append(instance)
 	instance.building_part_owner = player
-	Global.global_world.add_child(instance)
+	get_tree().get_first_node_in_group("world").add_child(instance)
 	instance.global_transform = building_scene.global_transform
 	#instance.mesh_building.mesh = building_scene.mesh_building.mesh
 	instance.mesh_building.material.albedo_color = Color(1, 1, 1)
@@ -176,26 +175,26 @@ func place_building_part():
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
-		if Global.check_is_inventory_open() == false and is_fp_animator_playing() == false: # проверка если закрыт инвентарь
+		if player.inventory_interface.visible == false and is_fp_animator_playing() == false: # проверка если закрыт инвентарь
 			match event.keycode:
 				KEY_1:
-					swap_items(Global.global_player_quick_slot, 0)
+					swap_items(player.player_quick_slot, 0)
 				KEY_2:
-					swap_items(Global.global_player_quick_slot, 1)
+					swap_items(player.player_quick_slot, 1)
 				KEY_3:
-					swap_items(Global.global_player_quick_slot, 2)
+					swap_items(player.player_quick_slot, 2)
 				KEY_4:
-					swap_items(Global.global_player_quick_slot, 3)
+					swap_items(player.player_quick_slot, 3)
 				KEY_5:
-					swap_items(Global.global_player_quick_slot, 4)
+					swap_items(player.player_quick_slot, 4)
 				KEY_6:
-					swap_items(Global.global_player_quick_slot, 5)
+					swap_items(player.player_quick_slot, 5)
 				KEY_0:
 					if _equiped_item_type(equiped_item.ItemType.weapon):
 						pass
 						toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
 	
-	if Global.check_is_inventory_open() == false: # проверка если закрыт инвентарь
+	if player.inventory_interface.visible == false: # проверка если закрыт инвентарь
 		if Input.is_action_just_pressed("fire"):
 			if _equiped_item_type(equiped_item.ItemType. tool ) and is_fp_animator_playing() == false:
 				if equiped_item.anim_hit and equiped_item.anim_player_hit:
@@ -272,7 +271,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		if equiped_item.dictionary.has("scene_path"):
 			var path = load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
-			Global.global_world.add_child(building_scene)
+			get_tree().get_first_node_in_group("world").add_child(building_scene)
 			building_scene.building_part_owner = player
 			#building_scene.mesh_building.mesh = equiped_item.mesh
 			# в process выставляется позиция для building_scene
@@ -355,7 +354,7 @@ func hitscan(raycast: RayCast3D):
 		if target:
 			target.add_child(decal)
 		else:
-			Global.global_world.add_child(decal)
+			get_tree().get_first_node_in_group("world").add_child(decal)
 		decal.global_transform.origin = ray_end_point
 		var side: Vector3
 		if raycast.get_collision_normal() == Vector3.UP:
@@ -494,7 +493,7 @@ func _equiped_item_type(equiped_item_type: int) -> bool:
 		return false
 
 func can_shoot(fire_mode: WeaponFireModes) -> bool:
-	if Global.check_is_inventory_open() or state_machine.is_current_state("Sprint") \
+	if player.inventory_interface.visible or state_machine.is_current_state("Sprint") \
 		or timer.is_stopped() == false or equiped_item.ammo_current == 0 \
 		or fp_item_animator.current_animation == equiped_item.anim_reload or fp_item_animator.current_animation == equiped_item.anim_activate:
 		return false
@@ -525,4 +524,6 @@ func create_player_item(item_data: ItemData, amount: int):
 	var slot_data = InSlotData.new()
 	slot_data.item = item_data
 	slot_data.amount_in_slot = amount
-	Global.give_player_item(slot_data)
+	if !player.player_inventory._pick_up_slot_data(slot_data) \
+		and !player.player_quick_slot._pick_up_slot_data(slot_data):
+		player.inventory_interface.signal_drop_item.emit(slot_data)

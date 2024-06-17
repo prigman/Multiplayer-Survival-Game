@@ -1,18 +1,18 @@
 extends Control
 class_name InventoryInterface
 
-signal signal_drop_item(slot_data : InSlotData)
+signal signal_drop_item(slot_data: InSlotData)
 signal signal_force_close
-signal signal_item_info_panel_set_data(item_data : ItemData)
+signal signal_item_info_panel_set_data(item_data: ItemData)
 
 #- set inventory
 var external_inventory_owner
 
 #- _on_inventory_interact
-var grabbed_slot_data : InSlotData
+var grabbed_slot_data: InSlotData
 var panel_index_data
-var panel_inventory_data : InventoryData
-var last_clicked_slot_data : InSlotData
+var panel_inventory_data: InventoryData
+var last_clicked_slot_data: InSlotData
 
 @onready var player_inventory = %PlayerInventory
 @onready var player_quick_slot = %PlayerQuickSlot
@@ -22,18 +22,18 @@ var last_clicked_slot_data : InSlotData
 
 func _physics_process(_delta):
 	if grabbed_slot.visible:
-		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5,5)
+		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
 	
 	if external_inventory_owner \
 		and external_inventory_owner.global_position.distance_to(Global.get_global_position()) > 4:
 			signal_force_close.emit()
 
-func _set_player_inventory_data(inventory_data : InventoryData):
+func _set_player_inventory_data(inventory_data: InventoryData):
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
 	#inventory_data.signal_slot_mouse_right_clicked.connect(player_inventory._on_item_panel_visibility_changed)
 	player_inventory._set_inventory_data(inventory_data)
 	
-func _set_quick_slot_data(inventory_data : InventoryData):
+func _set_quick_slot_data(inventory_data: InventoryData):
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
 	inventory_data.signal_update_active_slot.connect(player_quick_slot._set_active_slot)
 	#inventory_data.signal_slot_mouse_right_clicked.connect(player_quick_slot._on_item_panel_visibility_changed)
@@ -55,7 +55,7 @@ func _clear_external_inventory():
 		external_inventory.hide()
 		external_inventory_owner = null
 	
-func _on_inventory_interact(inventory_data : InventoryData, index : int, button : int):
+func _on_inventory_interact(inventory_data: InventoryData, index: int, button: int):
 	#print("START %s %s %s" % [inventory_data, index, button])
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]:
@@ -73,7 +73,7 @@ func _on_inventory_interact(inventory_data : InventoryData, index : int, button 
 				else:
 					if !inv_item_info_panel.visible:
 						inv_item_info_panel.show()
-					inv_item_info_panel.global_position = get_global_mouse_position() + Vector2(5,-170) 
+					inv_item_info_panel.global_position = get_global_mouse_position() + Vector2(5, -170)
 					panel_index_data = index
 					panel_inventory_data = inventory_data
 					signal_item_info_panel_set_data.emit(inventory_data.slots_data[index].item)

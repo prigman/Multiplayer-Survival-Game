@@ -1,57 +1,50 @@
 class_name World extends Node
 
-@onready var player = $Player
-@export var enemy1 : CharacterBody3D
-@export var enemy2 : CharacterBody3D
-@export var enemy3 : CharacterBody3D
+const PLAYER_SCENE = preload("res://scenes/player.tscn")
+
+@export var enemy1: CharacterBody3D
+@export var enemy2: CharacterBody3D
+@export var enemy3: CharacterBody3D
+
+@onready var players = %Players
+
+func _enter_tree():
+	var spawner := $MultiplayerSpawner
+	spawner.spawn_function = _spawn_player
 
 func _ready():
-	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	multiplayer.peer_connected.connect(add_player_character)
+	multiplayer.peer_disconnected.connect(delete_player_character)
 	Global.global_world = self
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	player.signal_toggle_inventory.connect(_toggle_inventory_interface)
-	player.inventory_interface._set_player_inventory_data(player.player_inventory)
-	player.inventory_interface._set_quick_slot_data(player.player_quick_slot)
-	player.inventory_interface.signal_drop_item.connect(_on_inventory_interface_signal_drop_item)
-	player.inventory_interface.signal_force_close.connect(_toggle_inventory_interface)
-	for node in get_tree().get_nodes_in_group("external_inventory"):
-		node.signal_toggle_inventory.connect(_toggle_inventory_interface)
 
-func _process(_delta):
-	if(player.position.y <= -50.0):
-		get_tree().reload_current_scene()
+func _exit_tree():
+	if not multiplayer.is_server():
+		return
+	multiplayer.peer_connected.disconnect(add_player_character)
+	multiplayer.peer_disconnected.disconnect(delete_player_character)
 
-func _input(_event):
-	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
+func _spawn_player(id: int):
+	var player := PLAYER_SCENE.instantiate()
 
-func _toggle_inventory_interface(external_inventory_owner = null):
-	player.inventory_interface.visible = not player.inventory_interface.visible
-	if player.inventory_interface.visible:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		if !player.craft_menu.visible: 
-			player.craft_menu.show()
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	if player.inventory_interface.inv_item_info_panel.visible:
-		player.inventory_interface.inv_item_info_panel.hide()
-	if external_inventory_owner and player.inventory_interface.visible:
-		if player.craft_menu.visible: 
-			player.craft_menu.hide()
-		player.inventory_interface._set_external_inventory(external_inventory_owner)
-	else:
-		player.inventory_interface._clear_external_inventory()
+	player.set_multiplayer_authority(id)
 
-func _on_inventory_interface_signal_drop_item(slot_data):
-	if slot_data.item.dictionary.has("dropped_item"):
-		var dropped_slot = load(slot_data.item.dictionary["dropped_item"])
-		_instantiate_dropped_item(dropped_slot, slot_data)
+	player.peer_id = id
+	player.name = str(id)
+	return player
 
-func _instantiate_dropped_item(dropped_slot : PackedScene, slot_data : InSlotData):
-	var obj = dropped_slot.instantiate()
-	obj.slot_data = slot_data
-	add_child(obj)
-	obj.position = player.get_drop_position()
+
+func add_player_character(id: int):
+	$MultiplayerSpawner.spawn(id)
+
+func exit_game(id: int):
+	delete_player_character(id)
+
+func delete_player_character(id: int):
+	rpc("RPC_delete_player", id)
+
+@rpc("any_peer", "call_local")
+func RPC_delete_player(id: int):
+	players.get_node(str(id)).queue_free()
 
 func _on_enemy_spawn_timer_timeout():
 	if !enemy1.visible:

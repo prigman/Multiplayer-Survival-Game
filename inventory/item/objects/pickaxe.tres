@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="1_j1jxh"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="2_d12l8"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="3_w2ahp"]
-[ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="4_dlhhj"]
+[ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="4_624cf"]
 
 [sub_resource type="Resource" id="Resource_ddorj"]
 script = ExtResource("2_d12l8")
@@ -34,7 +34,7 @@ description_item_panel = "Pickaxe"
 stackable = false
 max_stack = 0
 quality = 100.0
-icon = ExtResource("4_dlhhj")
+icon = ExtResource("4_624cf")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/pickaxe_rb.tscn"
 }
