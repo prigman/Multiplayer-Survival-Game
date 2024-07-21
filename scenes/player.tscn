@@ -40,11 +40,6 @@
 [ext_resource type="AnimationLibrary" uid="uid://daohau8af7uyl" path="res://anims/item_fp_anims/m4_rifle/M4_Rifle_Anims.res" id="41_aeuon"]
 [ext_resource type="AnimationLibrary" uid="uid://c5ohgn7l2bmpy" path="res://anims/player_fp_anims/m4_rifle/FP_Armature.res" id="42_0yrtw"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
-properties/0/path = NodePath(".:input_direction")
-properties/0/spawn = false
-properties/0/replication_mode = 1
-
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n3lfe"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -58,9 +53,14 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:velocity")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath(".:player")
+properties/4/path = NodePath(".:peer_id")
 properties/4/spawn = true
 properties/4/replication_mode = 0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
+properties/0/path = NodePath(".:input_direction")
+properties/0/spawn = false
+properties/0/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
 
@@ -407,15 +407,15 @@ weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.001
 invert_weapon_sway = true
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_n3lfe")
+
 [node name="InputSync" type="MultiplayerSynchronizer" parent="."]
 unique_name_in_owner = true
 root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_8ul1l")
 script = ExtResource("5_d8soy")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-unique_name_in_owner = true
-replication_config = SubResource("SceneReplicationConfig_n3lfe")
 
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true

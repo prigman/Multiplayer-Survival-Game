@@ -8,6 +8,7 @@ signal signal_update_player_hunger(hunger: float)
 # movement
 var camera_holder_position
 var direction = Vector3.ZERO
+# var input_direction
 var gravity = 12.0 # ProjectSettings.get_setting("physics/3d/default_gravity")
 
 # stats
@@ -17,7 +18,10 @@ var health_value: float = 100.0
 var def_weapon_holder_pos: Vector3
 var mouse_input: Vector2
 
-@export var peer_id: int
+@export var peer_id: int :
+	set(id):
+		peer_id = id
+		%InputSync.set_multiplayer_authority(id)
 
 @export var mouse_sens = 0.15
 
@@ -38,7 +42,6 @@ var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назна�
 @export var weapon_rotation_amount: float = 1
 @export var invert_weapon_sway: bool = false
 
-#@onready var input_synchronizer = %InputSynchronizer
 @onready var spherecast = %ShapeCast3D
 @onready var camera_holder = %CameraHolder
 @onready var camera = %Camera3D
@@ -49,18 +52,14 @@ var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назна�
 @onready var craft_menu = %CraftMenu
 @onready var input_sync = %InputSync
 
-
-# func _enter_tree():
-# 	name = str(multiplayer.get_unique_id())
-# 	peer_id = str(name).to_int()
-# 	set_multiplayer_authority(peer_id)
-
 func _ready():
-	# if not is_multiplayer_authority():
-	# 	return
-	# if peer_id == multiplayer.get_unique_id():
-	# 	print("current camera is true")
-	# 	camera.current = true
+	if not is_multiplayer_authority():
+		set_process_input(false)
+		set_physics_process(false)
+	if is_multiplayer_authority():
+		camera.make_current()
+	else:
+		camera.clear_current(false)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Global.global_player = self
 	Global.global_player_quick_slot = player_quick_slot
@@ -79,8 +78,6 @@ func _ready():
 	signal_update_player_stats.emit(health_value, hunger_value)
 
 func _process(delta):
-	# if not is_multiplayer_authority():
-	# 	return
 	var velocity_string = "%.2f" % velocity.length()
 	Global.global_debug.add_property("velocity", velocity_string, + 1)
 	if item.equiped_item_node:
@@ -91,8 +88,6 @@ func _process(delta):
 	# 	get_tree().reload_current_scene()
 		
 func _input(event):
-	# if not is_multiplayer_authority():
-	# 	return
 	if event is InputEventMouseMotion and !inventory_interface.visible:
 		rotate_y(deg_to_rad( - event.relative.x * mouse_sens))
 		camera_holder.rotate_x(deg_to_rad( - event.relative.y * mouse_sens))
@@ -100,10 +95,7 @@ func _input(event):
 		mouse_input = event.relative
 
 func _unhandled_input(event):
-	# if not is_multiplayer_authority():
-	# 	return
 	if Input.is_action_just_pressed("quit"):
-		get_tree().get_first_node_in_group("world").exit_game(name.to_int())
 		get_tree().quit()
 	if event.is_action_pressed("inv_toggle"):
 		signal_toggle_inventory.emit()
@@ -145,6 +137,7 @@ func update_gravity(delta):
 		velocity.y -= gravity * delta
 	
 func update_input(speed, acceleration, decceleration):
+	#input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	direction = transform.basis * Vector3(input_sync.input_direction.x, 0, input_sync.input_direction.y).normalized()
 	if direction:
 		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)

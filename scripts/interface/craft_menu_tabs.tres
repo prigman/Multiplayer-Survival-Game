@@ -1,11 +1,15 @@
-[gd_resource type="Resource" script_class="CraftMenuTab" load_steps=16 format=3 uid="uid://cva3usl6n6x60"]
+[gd_resource type="Resource" script_class="CraftMenuTab" load_steps=20 format=3 uid="uid://cva3usl6n6x60"]
 
 [ext_resource type="Script" path="res://scripts/interface/craft_menu_tab.gd" id="1_abixw"]
+[ext_resource type="Texture2D" uid="uid://dfbnyymoh4a7j" path="res://icons/stone-crafting.svg" id="1_trslv"]
 [ext_resource type="Script" path="res://scripts/interface/tab_data.gd" id="2_nnf74"]
 [ext_resource type="Resource" uid="uid://d16s5vsgm2o6t" path="res://inventory/item/objects/axe.tres" id="3_ej5ix"]
 [ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://inventory/item/objects/pickaxe.tres" id="5_b5dth"]
-[ext_resource type="Resource" uid="uid://dueasdbvrpec2" path="res://inventory/item/objects/assault-rifle.tres" id="5_vj2so"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="6_ivxpo"]
+[ext_resource type="Texture2D" uid="uid://d0ietromxua3r" path="res://icons/health-normal.svg" id="6_mni5c"]
+[ext_resource type="Texture2D" uid="uid://cosm6l6ycyqya" path="res://icons/crossbow.svg" id="7_aws7o"]
+[ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://inventory/item/objects/m4_rifle.tres" id="8_mwu1m"]
+[ext_resource type="Texture2D" uid="uid://osho7g83kvo" path="res://icons/house.svg" id="9_x16go"]
 [ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://inventory/item/objects/pine-wood-crate.tres" id="10_u0bfv"]
 
 [sub_resource type="Resource" id="Resource_ipw8q"]
@@ -20,21 +24,24 @@ amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_ygrwm"]
 script = ExtResource("2_nnf74")
+icon = ExtResource("1_trslv")
 type = 3
 slot_in_tab = Array[ExtResource("6_ivxpo")]([SubResource("Resource_ipw8q"), SubResource("Resource_38tgk")])
 
 [sub_resource type="Resource" id="Resource_0bv8n"]
 script = ExtResource("2_nnf74")
+icon = ExtResource("6_mni5c")
 type = 0
 slot_in_tab = Array[ExtResource("6_ivxpo")]([])
 
 [sub_resource type="Resource" id="Resource_ti32n"]
 script = ExtResource("6_ivxpo")
-item = ExtResource("5_vj2so")
+item = ExtResource("8_mwu1m")
 amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_yjhey"]
 script = ExtResource("2_nnf74")
+icon = ExtResource("7_aws7o")
 type = 1
 slot_in_tab = Array[ExtResource("6_ivxpo")]([SubResource("Resource_ti32n")])
 
@@ -45,6 +52,7 @@ amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_phucr"]
 script = ExtResource("2_nnf74")
+icon = ExtResource("9_x16go")
 type = 2
 slot_in_tab = Array[ExtResource("6_ivxpo")]([SubResource("Resource_nihb6")])
 

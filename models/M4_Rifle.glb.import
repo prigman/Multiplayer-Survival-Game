@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cbig581gk6fr4"
-path="res://.godot/imported/m4_rifle.glb-45a472aedda1d973a555f6fa07d6b6e5.scn"
+path="res://.godot/imported/M4_Rifle.glb-9765c8bfdb3498ce08ab52fcb7936ad4.scn"
 
 [deps]
 
-source_file="res://models/m4_rifle.glb"
-dest_files=["res://.godot/imported/m4_rifle.glb-45a472aedda1d973a555f6fa07d6b6e5.scn"]
+source_file="res://models/M4_Rifle.glb"
+dest_files=["res://.godot/imported/M4_Rifle.glb-9765c8bfdb3498ce08ab52fcb7936ad4.scn"]
 
 [params]
 

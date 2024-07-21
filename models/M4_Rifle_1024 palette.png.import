@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://carjrviipvpch"
-path.s3tc="res://.godot/imported/m4_rifle_1024 palette.png-60d9370ef9520e95dbf29230fc335eea.s3tc.ctex"
+path.s3tc="res://.godot/imported/M4_Rifle_1024 palette.png-bcf0da14b34dc159137bc4f8cc2f2ac2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://models/m4_rifle_1024 palette.png"
-dest_files=["res://.godot/imported/m4_rifle_1024 palette.png-60d9370ef9520e95dbf29230fc335eea.s3tc.ctex"]
+source_file="res://models/M4_Rifle_1024 palette.png"
+dest_files=["res://.godot/imported/M4_Rifle_1024 palette.png-bcf0da14b34dc159137bc4f8cc2f2ac2.s3tc.ctex"]
 
 [params]
 

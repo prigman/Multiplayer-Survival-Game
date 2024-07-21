@@ -509,21 +509,21 @@ radius = 0.7
 radius = 20.0
 height = 60.0
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3") groups=["world"]]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3", "multiplayer_spawner") groups=["world"]]
 script = ExtResource("1_7fa2s")
 enemy1 = NodePath("Enemy")
 enemy2 = NodePath("Enemy2")
 enemy3 = NodePath("Enemy3")
+spawn_point = Vector3(230.474, 7.578, 196.478)
+multiplayer_spawner = NodePath("MultiplayerSpawner")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
+spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.04596, 4.29622, 7.90834)
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-unique_name_in_owner = true
-_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
-spawn_path = NodePath("../Players")
-spawn_limit = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.31235, 333.491, -1.29993)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -837,4 +837,61 @@ wait_time = 2.0
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1168.06, 0, 0)
 
+[node name="StartupUI" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="PanelContainer" parent="StartupUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 420.0
+offset_top = 236.0
+offset_right = -419.0
+offset_bottom = -236.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="StartupUI/MainMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartupUI/MainMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="StartupUI/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu
+"
+horizontal_alignment = 1
+
+[node name="HostMode" type="Button" parent="StartupUI/MainMenu/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Host mode"
+
+[node name="ConnectClient" type="Button" parent="StartupUI/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="AddressEntry" type="LineEdit" parent="StartupUI/MainMenu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "localhost"
+placeholder_text = "Server IP"
+alignment = 1
+
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="pressed" from="StartupUI/MainMenu/MarginContainer/VBoxContainer/ConnectClient" to="." method="_on_connect_client_pressed"]
