@@ -5,7 +5,6 @@ const PLAYER_SCENE = preload("res://scenes/player.tscn")
 @export var enemy1: CharacterBody3D
 @export var enemy2: CharacterBody3D
 @export var enemy3: CharacterBody3D
-@export var spawn_point : Vector3
 @export var multiplayer_spawner : MultiplayerSpawner
 
 @onready var players_spawn_node = %Players
@@ -24,7 +23,7 @@ func _on_enemy_spawn_timer_timeout():
 	if !enemy3.visible:
 		enemy3.show()
 
-
+#------old
 # func add_player(id: int):
 # 	print("SERVER: add_player function called")
 # 	var player := PLAYER_SCENE.instantiate()
@@ -33,6 +32,7 @@ func _on_enemy_spawn_timer_timeout():
 # 	player.set_multiplayer_authority(id)
 # 	players_spawn_node.add_child(player, true)
 # 	print("SERVER: player ", player.name, " with authority ", player.get_multiplayer_authority())
+
 func add_player(id: int):
 	if not multiplayer.is_server(): return
 	
@@ -40,6 +40,7 @@ func add_player(id: int):
 	multiplayer_spawner.spawn([id, spawn_position])
 	print("Player %d spawned at " % [id] + str(spawn_position))
 
+#------old
 # func delete_player(id: int):
 # 	print("SERVER: delete_player function called")
 # 	if not has_node(str(id)):
@@ -48,7 +49,8 @@ func add_player(id: int):
 
 func delete_player(id: int):
 	if not multiplayer.is_server(): return
-	get_node(multiplayer_spawner.spawn_path).get_node(str(id)).queue_free()
+	print("SERVER: delete_player function called")
+	players_spawn_node.get_node(str(id)).queue_free()
 
 func custom_spawn(vars) -> Node:
 	var id = vars[0]

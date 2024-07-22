@@ -514,7 +514,6 @@ script = ExtResource("1_7fa2s")
 enemy1 = NodePath("Enemy")
 enemy2 = NodePath("Enemy2")
 enemy3 = NodePath("Enemy3")
-spawn_point = Vector3(230.474, 7.578, 196.478)
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -523,7 +522,7 @@ spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.31235, 333.491, -1.29993)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8714, 293.934, -3.47343)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

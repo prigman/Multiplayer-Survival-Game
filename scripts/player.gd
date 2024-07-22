@@ -16,14 +16,11 @@ var hunger_value: float = 100.0
 var health_value: float = 100.0
 
 var def_weapon_holder_pos: Vector3
-var mouse_input: Vector2
 
 @export var peer_id: int :
 	set(id):
 		peer_id = id
-		%InputSync.set_multiplayer_authority(id)
-
-@export var mouse_sens = 0.15
+		# %InputSync.set_multiplayer_authority(id)
 
 # inv
 @export var player_inventory: InventoryData
@@ -53,13 +50,15 @@ var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назна�
 @onready var input_sync = %InputSync
 
 func _ready():
-	if not is_multiplayer_authority():
-		set_process_input(false)
-		set_physics_process(false)
-	if is_multiplayer_authority():
-		camera.make_current()
-	else:
-		camera.clear_current(false)
+	if not multiplayer.is_server():
+		set_process(false)
+	# if not is_multiplayer_authority():
+	# 	set_process(false)
+	# 	set_process_input(false)
+	# if is_multiplayer_authority():
+	# 	camera.make_current()
+	# else:
+	# 	camera.clear_current(false)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Global.global_player = self
 	Global.global_player_quick_slot = player_quick_slot
@@ -86,13 +85,7 @@ func _process(delta):
 		weapon_bob(velocity.length(), delta)
 	# if (position.y <= - 50.0):
 	# 	get_tree().reload_current_scene()
-		
-func _input(event):
-	if event is InputEventMouseMotion and !inventory_interface.visible:
-		rotate_y(deg_to_rad( - event.relative.x * mouse_sens))
-		camera_holder.rotate_x(deg_to_rad( - event.relative.y * mouse_sens))
-		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad( - 85), deg_to_rad(85))
-		mouse_input = event.relative
+
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("quit"):
@@ -165,9 +158,9 @@ func weapon_tilt(input_x, delta):
 		weapon_holder.rotation.z = lerp(weapon_holder.rotation.z, -input_x * weapon_rotation_amount * 10, 10 * delta)
 
 func weapon_sway(delta):
-	mouse_input = lerp(mouse_input, Vector2.ZERO, 10 * delta)
-	weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, mouse_input.y * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
-	weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, mouse_input.x * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
+	input_sync.mouse_input = lerp(input_sync.mouse_input, Vector2.ZERO, 10 * delta)
+	weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, input_sync.mouse_input.y * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
+	weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, input_sync.mouse_input.x * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
 	
 func weapon_bob(vel: float, delta):
 	if weapon_holder:
