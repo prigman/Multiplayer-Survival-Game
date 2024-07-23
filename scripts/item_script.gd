@@ -65,6 +65,8 @@ var spread_value: float
 var building_scene
 
 func _ready():
+	if not is_multiplayer_authority():
+		return
 	randomize() # чтобы разброс оружия работал
 	Global.global_item_script = self
 
@@ -174,6 +176,8 @@ func place_building_part():
 	remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot)
 
 func _unhandled_input(event):
+	if not is_multiplayer_authority():
+		return
 	if event is InputEventKey and event.pressed:
 		if player.inventory_interface.visible == false and is_fp_animator_playing() == false: # проверка если закрыт инвентарь
 			match event.keycode:
@@ -223,6 +227,8 @@ func _unhandled_input(event):
 						break
 
 func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlotData): # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
+	if not is_multiplayer_authority():
+			return
 	if item_slot == null:
 		return
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
@@ -277,6 +283,8 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 			# в process выставляется позиция для building_scene
 
 func remove_active_item(inventory_data: InventoryData, index: int, slot_data: InSlotData): # убираем предмет из рук
+	if not is_multiplayer_authority():
+			return
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
 	clear_building()
 	if _equiped_item_type(equiped_item.ItemType.weapon):
@@ -459,6 +467,8 @@ func find_ammo_in_inventories():
 	return ammo_data
 
 func swap_items(inventory_data: InventoryData, index: int):
+	if not is_multiplayer_authority():
+		return
 	var slot_data = inventory_data.slots_data[index]
 	for i in index + 1:
 		match [slot_data, equiped_slot, index]:

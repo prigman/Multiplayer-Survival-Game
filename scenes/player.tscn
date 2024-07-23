@@ -407,12 +407,11 @@ invert_weapon_sway = true
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_n3lfe")
 
-[node name="InputSync" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("player")]
+[node name="InputSync" type="MultiplayerSynchronizer" parent="."]
 unique_name_in_owner = true
 root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_8ul1l")
 script = ExtResource("5_d8soy")
-player = NodePath("..")
 
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
@@ -1004,6 +1003,7 @@ libraries = {
 }
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 
 [node name="Interface" type="Control" parent="CanvasLayer"]
 layout_mode = 3

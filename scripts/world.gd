@@ -59,6 +59,7 @@ func custom_spawn(vars) -> Node:
 	var p: Player = PLAYER_SCENE.instantiate()
 	p.set_multiplayer_authority(id)
 	p.name = str(id)
+	p.peer_id = id
 	p.position = pos
 	return p
 

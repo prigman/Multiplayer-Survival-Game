@@ -6,6 +6,7 @@ signal signal_update_player_health(health: float)
 signal signal_update_player_hunger(hunger: float)
 
 # movement
+var mouse_input
 var camera_holder_position
 var direction = Vector3.ZERO
 # var input_direction
@@ -17,10 +18,12 @@ var health_value: float = 100.0
 
 var def_weapon_holder_pos: Vector3
 
-@export var peer_id: int :
-	set(id):
-		peer_id = id
-		# %InputSync.set_multiplayer_authority(id)
+@export var peer_id: int
+	# set(id):
+	# 	peer_id = id
+	# 	%InputSync.set_multiplayer_authority(id)
+
+@export var mouse_sens = 0.15
 
 # inv
 @export var player_inventory: InventoryData
@@ -48,8 +51,17 @@ var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назна�
 @onready var player_stats = %PlayerStats
 @onready var craft_menu = %CraftMenu
 @onready var input_sync = %InputSync
+@onready var canvas_layer = %CanvasLayer
+
+@rpc("any_peer","call_local")
+func hide_canvas_layer():
+	print("canvas hided")
+	%CanvasLayer.hide()
 
 func _ready():
+	if not is_multiplayer_authority():
+		rpc("hide_canvas_layer")
+		return
 	if not multiplayer.is_server():
 		set_process(false)
 	# if not is_multiplayer_authority():
@@ -77,6 +89,8 @@ func _ready():
 	signal_update_player_stats.emit(health_value, hunger_value)
 
 func _process(delta):
+	if not is_multiplayer_authority():
+		return
 	var velocity_string = "%.2f" % velocity.length()
 	Global.global_debug.add_property("velocity", velocity_string, + 1)
 	if item.equiped_item_node:
@@ -86,8 +100,19 @@ func _process(delta):
 	# if (position.y <= - 50.0):
 	# 	get_tree().reload_current_scene()
 
+func _input(event):
+	if not is_multiplayer_authority():
+		return
+	if event is InputEventMouseMotion and !inventory_interface.visible:
+		rotate_y(deg_to_rad( - event.relative.x * mouse_sens))
+		camera_holder.rotate_x(deg_to_rad( - event.relative.y * mouse_sens))
+		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad( - 85), deg_to_rad(85))
+		mouse_input = event.relative
+
 
 func _unhandled_input(event):
+	if not is_multiplayer_authority():
+		return
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	if event.is_action_pressed("inv_toggle"):
@@ -126,10 +151,14 @@ func _toggle_inventory_interface(external_inventory_owner=null):
 ### Player states
 
 func update_gravity(delta):
+	if not is_multiplayer_authority():
+		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
 func update_input(speed, acceleration, decceleration):
+	if not is_multiplayer_authority():
+		return
 	#input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	direction = transform.basis * Vector3(input_sync.input_direction.x, 0, input_sync.input_direction.y).normalized()
 	if direction:
@@ -140,6 +169,8 @@ func update_input(speed, acceleration, decceleration):
 		velocity.z = move_toward(velocity.z, 0, decceleration)
 	
 func update_velocity():
+	if not is_multiplayer_authority():
+		return
 	move_and_slide()
 
 ### Inventory items interaction
@@ -158,9 +189,9 @@ func weapon_tilt(input_x, delta):
 		weapon_holder.rotation.z = lerp(weapon_holder.rotation.z, -input_x * weapon_rotation_amount * 10, 10 * delta)
 
 func weapon_sway(delta):
-	input_sync.mouse_input = lerp(input_sync.mouse_input, Vector2.ZERO, 10 * delta)
-	weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, input_sync.mouse_input.y * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
-	weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, input_sync.mouse_input.x * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
+	mouse_input = lerp(mouse_input, Vector2.ZERO, 10 * delta)
+	weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, mouse_input.y * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
+	weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, mouse_input.x * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
 	
 func weapon_bob(vel: float, delta):
 	if weapon_holder:
