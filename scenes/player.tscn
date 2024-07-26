@@ -43,13 +43,13 @@
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n3lfe"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
-properties/1/replication_mode = 1
+properties/1/replication_mode = 2
 properties/2/path = NodePath(".:velocity")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 2
 properties/3/path = NodePath(".:peer_id")
 properties/3/spawn = true
 properties/3/replication_mode = 0
@@ -407,11 +407,12 @@ invert_weapon_sway = true
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_n3lfe")
 
-[node name="InputSync" type="MultiplayerSynchronizer" parent="."]
+[node name="InputSync" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
 root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_8ul1l")
 script = ExtResource("5_d8soy")
+player = NodePath("..")
 
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
@@ -1587,6 +1588,16 @@ script = ExtResource("11_juquo")
 
 [node name="Falling" type="Node" parent="StateMachine"]
 script = ExtResource("21_h51by")
+
+[node name="Label3D" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45884, 0)
+visible = false
+billboard = 1
+double_sided = false
+outline_modulate = Color(0, 0, 0, 0)
+text = "Player"
+font_size = 96
 
 [connection signal="signal_update_player_health" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_health"]
 [connection signal="signal_update_player_hunger" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_hunger"]

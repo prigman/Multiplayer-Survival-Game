@@ -1,14 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkqmkkyqb6scy"]
+[gd_scene load_steps=7 format=3 uid="uid://dkqmkkyqb6scy"]
 
+[ext_resource type="Script" path="res://scripts/world_resources.gd" id="1_bd4rp"]
 [ext_resource type="ArrayMesh" uid="uid://bv5lr8c72j614" path="res://models/meshes/stone_2.mesh" id="1_c5jql"]
 [ext_resource type="Material" uid="uid://c6w8g20kpdi7h" path="res://materials/rocks_mat.tres" id="2_f6e4o"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pa3la"]
 points = PackedVector3Array(-0.611779, 0.449282, -0.580002, -0.880901, 0.423512, -0.49776, -0.474085, 0.828165, -0.42951, -0.26475, 0.767574, -0.535882, 0.460981, 0.817229, -0.36226, 0.645759, 0.417101, -0.263454, 0.00708193, 0.183033, -0.391101, -0.798251, -0.181016, 0.188593, -0.863118, 0.635707, -0.392244, -0.750998, 0.782785, 0.4189, -0.0798025, 1.09353, 0.164177, 0.521106, 1.04438, 0.119344, 0.849336, 0.31025, 0.265124, 0.271292, -0.0571941, 0.567679, -0.406339, -0.190696, 0.123627, -0.738465, -0.0644851, 0.615797, -0.709673, 0.208678, 0.795131, -0.411081, 0.274046, 0.878658, -0.412436, 0.957393, 0.450741, -0.105207, 0.762169, 0.700752, 0.642372, 0.897556, 0.329947, -0.0814962, -0.0187275, 0.736447)
 
-[node name="Stone_2" type="StaticBody3D" groups=["stone_object"]]
+[sub_resource type="SphereShape3D" id="SphereShape3D_8q555"]
+radius = 20.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dro46"]
+properties/0/path = NodePath(".:health")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("MeshInstance3D:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="Stone_2" type="StaticBody3D" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"]]
 collision_layer = 128
 collision_mask = 0
+script = ExtResource("1_bd4rp")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("1_c5jql")
@@ -16,3 +34,19 @@ surface_material_override/0 = ExtResource("2_f6e4o")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_pa3la")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+visible = false
+enabled = false
+shape = SubResource("SphereShape3D_8q555")
+target_position = Vector3(0, 0, 0)
+max_results = 5
+collision_mask = 94
+collide_with_areas = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_dro46")

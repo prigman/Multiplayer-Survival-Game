@@ -1,0 +1,614 @@
+[gd_scene load_steps=79 format=3 uid="uid://t50jr3i3u3lh"]
+
+[ext_resource type="PackedScene" uid="uid://cnw83bbj2p7xk" path="res://scenes/interactable/pickup/stone_resource_rb.tscn" id="1_yoqu2"]
+[ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="2_bcxpa"]
+[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_1qcvl"]
+[ext_resource type="PackedScene" uid="uid://bwwhsm0q1fnnj" path="res://scenes/interactable/pickup/resource_pine_branch_rb.tscn" id="4_1jjct"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="5_g1186"]
+[ext_resource type="PackedScene" uid="uid://bs0te4ilgfkpw" path="res://scenes/interactable/pickup/canned-food_rigidbody.tscn" id="6_vrvjq"]
+[ext_resource type="Resource" uid="uid://d05wvcamae4du" path="res://inventory/item/objects/canned-food.tres" id="7_ucs0j"]
+[ext_resource type="PackedScene" uid="uid://cibfwxpsrgkac" path="res://scenes/interactable/pickup/axe_tool_rb.tscn" id="8_j22xk"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="9_j5mhi"]
+[ext_resource type="Script" path="res://inventory/craft_components.gd" id="10_wifcm"]
+[ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="11_fgqea"]
+[ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="12_kj2u0"]
+[ext_resource type="PackedScene" uid="uid://sk2v3l3djkvl" path="res://scenes/interactable/pickup/pickaxe_rb.tscn" id="13_1os84"]
+[ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="14_wt4pd"]
+[ext_resource type="PackedScene" uid="uid://flv6r52q38pv" path="res://addons/object_placer/objects/stone_1.tscn" id="15_4x8w1"]
+[ext_resource type="PackedScene" uid="uid://dkqmkkyqb6scy" path="res://scenes/stone_2.tscn" id="16_48k3w"]
+[ext_resource type="PackedScene" uid="uid://v0urs1mkfuuy" path="res://scenes/stone_3.tscn" id="17_luncc"]
+[ext_resource type="PackedScene" uid="uid://bbh30efrwiakh" path="res://scenes/interactable/pickup/metal-bar_resource_rb.tscn" id="18_atpbg"]
+[ext_resource type="PackedScene" uid="uid://cdqhup4cicysi" path="res://scenes/interactable/pickup/pine_wood_resource_rb.tscn" id="19_r4v00"]
+[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="20_fs3it"]
+
+[sub_resource type="Resource" id="Resource_upq5e"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("2_bcxpa")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_qedj0"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("2_bcxpa")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ig517"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("2_bcxpa")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ti7ai"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("2_bcxpa")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_mmp13"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("2_bcxpa")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ppgxd"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("2_bcxpa")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_2ched"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("2_bcxpa")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_lgob4"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("2_bcxpa")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_k7sol"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("2_bcxpa")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_0pahu"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("5_g1186")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_y1iu7"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("5_g1186")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ws0ve"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("5_g1186")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_h7q80"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("5_g1186")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_nfrpf"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("5_g1186")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_1re34"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("5_g1186")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_obblm"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("5_g1186")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ffp3a"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("5_g1186")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_3324h"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("5_g1186")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_wfeiv"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("7_ucs0j")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_jyskr"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("7_ucs0j")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_o4e6y"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("7_ucs0j")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_4h4rd"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("7_ucs0j")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_3rt7i"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("7_ucs0j")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_rihq1"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("7_ucs0j")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_1j36k"]
+script = ExtResource("10_wifcm")
+component = ExtResource("9_j5mhi")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_3yjym"]
+script = ExtResource("10_wifcm")
+component = ExtResource("5_g1186")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_gsmn2"]
+script = ExtResource("12_kj2u0")
+craft_components = Array[ExtResource("10_wifcm")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
+item_type = 4
+tool_type = 0
+anim_activate = ""
+anim_hit = ""
+anim_after_hit = ""
+anim_player_activate = ""
+anim_player_hit = ""
+anim_player_after_hit = ""
+damage = 0
+name = "Axe"
+description = "Axe"
+description_item_panel = "Axe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("11_fgqea")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
+}
+
+[sub_resource type="Resource" id="Resource_uya34"]
+script = ExtResource("3_1qcvl")
+item = SubResource("Resource_gsmn2")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_fit7g"]
+script = ExtResource("12_kj2u0")
+craft_components = Array[ExtResource("10_wifcm")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
+item_type = 4
+tool_type = 0
+anim_activate = ""
+anim_hit = ""
+anim_after_hit = ""
+anim_player_activate = ""
+anim_player_hit = ""
+anim_player_after_hit = ""
+damage = 0
+name = "Axe"
+description = "Axe"
+description_item_panel = "Axe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("11_fgqea")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
+}
+
+[sub_resource type="Resource" id="Resource_3pfba"]
+script = ExtResource("3_1qcvl")
+item = SubResource("Resource_fit7g")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_4et8d"]
+script = ExtResource("12_kj2u0")
+craft_components = Array[ExtResource("10_wifcm")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
+item_type = 4
+tool_type = 0
+anim_activate = ""
+anim_hit = ""
+anim_after_hit = ""
+anim_player_activate = ""
+anim_player_hit = ""
+anim_player_after_hit = ""
+damage = 0
+name = "Axe"
+description = "Axe"
+description_item_panel = "Axe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("11_fgqea")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
+}
+
+[sub_resource type="Resource" id="Resource_0grdw"]
+script = ExtResource("3_1qcvl")
+item = SubResource("Resource_4et8d")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ddorj"]
+script = ExtResource("10_wifcm")
+component = ExtResource("2_bcxpa")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_t6tg5"]
+script = ExtResource("10_wifcm")
+component = ExtResource("5_g1186")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_7jst0"]
+script = ExtResource("12_kj2u0")
+craft_components = Array[ExtResource("10_wifcm")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
+item_type = 4
+tool_type = 0
+anim_activate = ""
+anim_hit = ""
+anim_after_hit = ""
+anim_player_activate = ""
+anim_player_hit = ""
+anim_player_after_hit = ""
+damage = 0
+name = "Pickaxe"
+description = "Pickaxe"
+description_item_panel = "Pickaxe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("14_wt4pd")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/pickaxe_rb.tscn"
+}
+
+[sub_resource type="Resource" id="Resource_g006r"]
+script = ExtResource("3_1qcvl")
+item = SubResource("Resource_7jst0")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_rq25i"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_jtkih"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_i30o5"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_l4eed"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_sbn1y"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_qy4k7"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_kg6nm"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_f34tv"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_nedf1"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_87w2r"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_bpo0y"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_jiaap"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("9_j5mhi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_qep2h"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("20_fs3it")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_1prcj"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("20_fs3it")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_mxv24"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("20_fs3it")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_t5ipw"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("20_fs3it")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_pet5o"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("20_fs3it")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_0xw18"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("20_fs3it")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_7a803"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("20_fs3it")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_j0aw3"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("20_fs3it")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_q6oic"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("20_fs3it")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_u3hcj"]
+script = ExtResource("3_1qcvl")
+item = ExtResource("20_fs3it")
+amount_in_slot = 1
+
+[node name="items_rb" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.771149, 0)
+
+[node name="Stone resource" parent="." instance=ExtResource("1_yoqu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67936, 0.447675, 2.09793)
+slot_data = SubResource("Resource_upq5e")
+
+[node name="Stone resource2" parent="." instance=ExtResource("1_yoqu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.711, 0.447675, 0.913855)
+slot_data = SubResource("Resource_qedj0")
+
+[node name="Stone resource6" parent="." instance=ExtResource("1_yoqu2")]
+transform = Transform3D(1, 0.000785398, 0, -0.000785398, 1, 0, 0, 0, 1, -2.87711, 0.447675, 3.46433)
+slot_data = SubResource("Resource_ig517")
+
+[node name="Stone resource7" parent="." instance=ExtResource("1_yoqu2")]
+transform = Transform3D(1, 0.000785398, 0, -0.000785398, 1, 0, 0, 0, 1, -4.19638, 0.447675, 3.48794)
+slot_data = SubResource("Resource_ti7ai")
+
+[node name="Stone resource8" parent="." instance=ExtResource("1_yoqu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66166, 0.447675, 3.42055)
+slot_data = SubResource("Resource_mmp13")
+
+[node name="Stone resource9" parent="." instance=ExtResource("1_yoqu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.16589, 0.447675, 2.09209)
+slot_data = SubResource("Resource_ppgxd")
+
+[node name="Stone resource10" parent="." instance=ExtResource("1_yoqu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.08055, 0.447675, 0.903152)
+slot_data = SubResource("Resource_2ched")
+
+[node name="Stone resource3" parent="." instance=ExtResource("1_yoqu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.89011, 0.447675, 0.914113)
+slot_data = SubResource("Resource_lgob4")
+
+[node name="Stone resource4" parent="." instance=ExtResource("1_yoqu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.88294, 0.447675, 2.10172)
+slot_data = SubResource("Resource_k7sol")
+
+[node name="Wood resource2" parent="." instance=ExtResource("4_1jjct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.30632, 0.431647, 3.59193)
+slot_data = SubResource("Resource_0pahu")
+
+[node name="Wood resource3" parent="." instance=ExtResource("4_1jjct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.75897, 0.696564, 0.955646)
+slot_data = SubResource("Resource_y1iu7")
+
+[node name="Wood resource4" parent="." instance=ExtResource("4_1jjct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3965, 0.428991, 0.965275)
+slot_data = SubResource("Resource_ws0ve")
+
+[node name="Wood resource5" parent="." instance=ExtResource("4_1jjct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.35504, 0.473281, 2.25874)
+slot_data = SubResource("Resource_h7q80")
+
+[node name="Wood resource" parent="." instance=ExtResource("4_1jjct")]
+transform = Transform3D(0.999982, 0, 0.00593408, 0, 1, 0, -0.00593408, 0, 0.999982, -6.72718, 0.39722, 2.23388)
+slot_data = SubResource("Resource_nfrpf")
+
+[node name="Wood resource6" parent="." instance=ExtResource("4_1jjct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.17218, 0.39722, 2.20525)
+slot_data = SubResource("Resource_1re34")
+
+[node name="Wood resource9" parent="." instance=ExtResource("4_1jjct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.15891, 0.39722, 3.5547)
+slot_data = SubResource("Resource_obblm")
+
+[node name="Wood resource7" parent="." instance=ExtResource("4_1jjct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.1654, 0.39722, 0.953659)
+slot_data = SubResource("Resource_ffp3a")
+
+[node name="Wood resource8" parent="." instance=ExtResource("4_1jjct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.70862, 0.39722, 3.56362)
+slot_data = SubResource("Resource_3324h")
+
+[node name="Canned-food" parent="." instance=ExtResource("6_vrvjq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9699, 0.5779, 3.07232)
+slot_data = SubResource("Resource_wfeiv")
+
+[node name="Canned-food2" parent="." instance=ExtResource("6_vrvjq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.202999, 0.5779, 2.23108)
+slot_data = SubResource("Resource_jyskr")
+
+[node name="Canned-food3" parent="." instance=ExtResource("6_vrvjq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.586219, 0.5779, 2.23188)
+slot_data = SubResource("Resource_o4e6y")
+
+[node name="Canned-food4" parent="." instance=ExtResource("6_vrvjq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.930719, 0.5779, 2.22469)
+slot_data = SubResource("Resource_4h4rd")
+
+[node name="Canned-food5" parent="." instance=ExtResource("6_vrvjq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.550274, 0.5779, 3.07663)
+slot_data = SubResource("Resource_3rt7i")
+
+[node name="Canned-food6" parent="." instance=ExtResource("6_vrvjq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.198696, 0.5779, 3.08349)
+slot_data = SubResource("Resource_rihq1")
+
+[node name="Axe" parent="." instance=ExtResource("8_j22xk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.501002, 0.644254, 0.98927)
+slot_data = SubResource("Resource_uya34")
+
+[node name="Axe2" parent="." instance=ExtResource("8_j22xk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177767, 0.638806, 0.992061)
+slot_data = SubResource("Resource_3pfba")
+
+[node name="Axe3" parent="." instance=ExtResource("8_j22xk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.910679, 0.638806, 0.992061)
+slot_data = SubResource("Resource_0grdw")
+
+[node name="Pickaxe" parent="." instance=ExtResource("13_1os84")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.03082, 0.848744, 0.935694)
+slot_data = SubResource("Resource_g006r")
+
+[node name="Stone_1" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("15_4x8w1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.54778)
+timer = NodePath("")
+zone = NodePath("")
+mesh = NodePath("")
+collision = NodePath("")
+
+[node name="Stone_2" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("16_48k3w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19216, 0, 6.54778)
+timer = NodePath("")
+zone = NodePath("")
+mesh = NodePath("")
+collision = NodePath("")
+
+[node name="Stone_3" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") instance=ExtResource("17_luncc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.71128, 0, 6.54778)
+timer = NodePath("")
+zone = NodePath("")
+mesh = NodePath("")
+collision = NodePath("")
+
+[node name="Metal-Bar" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0365, 0.440164, 0.997136)
+slot_data = SubResource("Resource_rq25i")
+
+[node name="Metal-Bar2" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2797, 0.440164, 0.997136)
+slot_data = SubResource("Resource_jtkih")
+
+[node name="Metal-Bar3" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6343, 0.440164, 0.997136)
+slot_data = SubResource("Resource_i30o5")
+
+[node name="Metal-Bar4" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6343, 0.440164, 2.03062)
+slot_data = SubResource("Resource_l4eed")
+
+[node name="Metal-Bar5" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2127, 0.440164, 2.03062)
+slot_data = SubResource("Resource_sbn1y")
+
+[node name="Metal-Bar6" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.99623, 0.440164, 2.03062)
+slot_data = SubResource("Resource_qy4k7")
+
+[node name="Metal-Bar7" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.99623, 0.440164, 3.10051)
+slot_data = SubResource("Resource_kg6nm")
+
+[node name="Metal-Bar8" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.198, 0.440164, 3.10051)
+slot_data = SubResource("Resource_f34tv")
+
+[node name="Metal-Bar10" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.198, 0.440164, 4.23233)
+slot_data = SubResource("Resource_nedf1")
+
+[node name="Metal-Bar11" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88612, 0.440164, 4.23233)
+slot_data = SubResource("Resource_87w2r")
+
+[node name="Metal-Bar12" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6128, 0.440164, 4.23233)
+slot_data = SubResource("Resource_bpo0y")
+
+[node name="Metal-Bar9" parent="." instance=ExtResource("18_atpbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6343, 0.440164, 3.10051)
+slot_data = SubResource("Resource_jiaap")
+
+[node name="Resource-Wood" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0502, 0.327785, 1.02523)
+slot_data = SubResource("Resource_qep2h")
+
+[node name="Resource-Wood2" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0502, 0.299667, 2.08767)
+slot_data = SubResource("Resource_1prcj")
+
+[node name="Resource-Wood3" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0502, 0.299667, 3.07726)
+slot_data = SubResource("Resource_mxv24")
+
+[node name="Resource-Wood10" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0502, 0.299667, 4.19069)
+slot_data = SubResource("Resource_t5ipw")
+
+[node name="Resource-Wood11" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4394, 0.299667, 4.19069)
+slot_data = SubResource("Resource_pet5o")
+
+[node name="Resource-Wood12" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7265, 0.299667, 4.19069)
+slot_data = SubResource("Resource_0xw18")
+
+[node name="Resource-Wood4" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4315, 0.299667, 3.07726)
+slot_data = SubResource("Resource_7a803")
+
+[node name="Resource-Wood9" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7241, 0.299667, 3.07726)
+slot_data = SubResource("Resource_j0aw3")
+
+[node name="Resource-Wood5" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4315, 0.299667, 2.04685)
+slot_data = SubResource("Resource_q6oic")
+
+[node name="Resource-Wood8" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7396, 0.299667, 2.04685)
+slot_data = SubResource("Resource_u3hcj")
+
+[node name="Resource-Wood6" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4315, 0.299667, 1.02976)
+
+[node name="Resource-Wood7" parent="." instance=ExtResource("19_r4v00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7739, 0.299667, 1.02976)

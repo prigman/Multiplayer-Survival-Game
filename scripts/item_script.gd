@@ -3,7 +3,7 @@ class_name ItemScript extends Node3D
 signal Update_Ammo
 signal Update_Fire_Mode(fire_mode: WeaponFireModes)
 
-const BULLET_HIT_DECAL = preload ("res://scenes/shoot_decal.tscn")
+const HIT_DECAL := preload ("res://scenes/shoot_decal.tscn")
 
 # все предметы, которые можно взять в руки
 @export var fp_items_array: Array[Node3D]
@@ -40,9 +40,9 @@ var equiped_slot_index: int # индекс equip слота нужен для п
 #
 
 # для оружия
-var Scoped = false
-var toggle_holo = false # переключение прицела
-var toggle_silencer = false # переключение глушителя
+var Scoped := false
+var toggle_holo := false # переключение прицела
+var toggle_silencer := false # переключение глушителя
 var ammo_reserve: int
 var ammo_data: Array[InSlotData]
 #
@@ -64,16 +64,16 @@ var spread_value: float
 # хранит в себе сцену со строительным объектом
 var building_scene
 
-func _ready():
+func _ready() -> void:
 	if not is_multiplayer_authority():
 		return
 	randomize() # чтобы разброс оружия работал
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	if not is_multiplayer_authority():
 		return
 	if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
-		if player.inventory_interface.visible == false: # проверка если закрыт инвентарь
+		if !player.is_inventory_open(): # проверка если закрыт инвентарь
 			if Input.is_action_pressed("fire"):
 				if equiped_item.fire_mode_current.mode == WeaponFireModes.FireMode.FULL_AUTO:
 					if can_shoot(equiped_item.fire_mode_current):
@@ -86,7 +86,7 @@ func _physics_process(delta):
 						crosshair.hide()
 		if current_time < 1:
 			apply_recoil(delta)
-		elif player.inventory_interface.visible == true or state_machine.is_current_state("Sprint") == true:
+		elif player.is_inventory_open() or state_machine.is_current_state("Sprint") == true:
 			if Scoped:
 				crosshair.show()
 				Assault_Rifle_Scope()
@@ -152,7 +152,7 @@ func _physics_process(delta):
 					building_scene.hide() # нет коллайдеров в принципе, поэтому скрываем визуальный объект
 					building_scene.can_be_placed = false
 
-func place_building_part():
+func place_building_part() -> void:
 	var path = load(equiped_item.dictionary["scene_path"])
 	var instance = path.instantiate()
 	for coll in instance.colliders:
@@ -176,11 +176,11 @@ func place_building_part():
 	instance.mesh_building.cast_shadow = 1
 	remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot)
 
-func _unhandled_input(event):
+func _unhandled_input(event) -> void:
 	if not is_multiplayer_authority():
 		return
 	if event is InputEventKey and event.pressed:
-		if player.inventory_interface.visible == false and is_fp_animator_playing() == false: # проверка если закрыт инвентарь
+		if !player.is_inventory_open() and is_fp_animator_playing() == false: # проверка если закрыт инвентарь
 			match event.keycode:
 				KEY_1:
 					swap_items(player.player_quick_slot, 0)
@@ -199,7 +199,7 @@ func _unhandled_input(event):
 						pass
 						# toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
 	
-	if player.inventory_interface.visible == false: # проверка если закрыт инвентарь
+	if !player.is_inventory_open(): # проверка если закрыт инвентарь
 		if Input.is_action_just_pressed("fire"):
 			if _equiped_item_type(equiped_item.ItemType. tool ) and is_fp_animator_playing() == false:
 				if equiped_item.anim_hit and equiped_item.anim_player_hit:
@@ -227,7 +227,7 @@ func _unhandled_input(event):
 						Update_Fire_Mode.emit(equiped_item.fire_mode_current)
 						break
 
-func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlotData): # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
+func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlotData) -> void: # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
 	if not is_multiplayer_authority():
 			return
 	if item_slot == null:
@@ -283,7 +283,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 			#building_scene.mesh_building.mesh = equiped_item.mesh
 			# в process выставляется позиция для building_scene
 
-func remove_active_item(inventory_data: InventoryData, index: int, slot_data: InSlotData): # убираем предмет из рук
+func remove_active_item(inventory_data: InventoryData, index: int, slot_data: InSlotData) -> void: # убираем предмет из рук
 	if not is_multiplayer_authority():
 			return
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
@@ -301,18 +301,18 @@ func remove_active_item(inventory_data: InventoryData, index: int, slot_data: In
 	equiped_item = null
 	equiped_item_node = null
 
-func clear_weapon():
+func clear_weapon() -> void:
 	if not is_multiplayer_authority():
 		return
 	clear_weapon_attachments() # очищаем меш прицела если он не null
 	clear_weapon_hud() # убираем перекрестие и hud
 
-func clear_building():
+func clear_building() -> void:
 	if building_scene:
 		building_scene.queue_free()
 		building_scene = null
 	
-func clear_animations():
+func clear_animations() -> void:
 	if fp_player_animator and fp_player_animator.is_playing():
 		fp_player_animator.stop()
 	if fp_item_animator and fp_item_animator.is_playing():
@@ -330,7 +330,7 @@ func is_fp_animator_playing() -> bool:
 	else:
 		return false
 
-func apply_recoil(delta):
+func apply_recoil(delta) -> void:
 	if not is_multiplayer_authority():
 		return
 	current_time += delta
@@ -345,7 +345,7 @@ func apply_recoil(delta):
 	target_rot.z = equiped_item.recoil_rotation_z.sample(recoil_speed) * equiped_item.recoil_amplitude.x
 	target_rot.x = equiped_item.recoil_rotation_x.sample(recoil_speed) * - equiped_item.recoil_amplitude.y
 
-func shoot():
+func shoot() -> void:
 	if not is_multiplayer_authority():
 		return
 	randomize_aimcast_spread()
@@ -357,7 +357,7 @@ func shoot():
 	target_rot.x = equiped_item.recoil_rotation_x.sample(0) * equiped_item.recoil_amplitude.y / 2
 	current_time = 0
 
-func update_pos():
+func update_pos() -> void:
 	if not is_multiplayer_authority():
 		return
 	def_pos = rig_holder.position
@@ -365,13 +365,13 @@ func update_pos():
 	target_rot.y = 0.0
 	current_time = 1
 	
-func hitscan(raycast: RayCast3D):
+func hitscan(raycast: RayCast3D) -> void:
 	if not is_multiplayer_authority():
 		return
 	var target = raycast.get_collider()
 	var ray_end_point = raycast.get_collision_point()
 	if ray_end_point:
-		var decal = BULLET_HIT_DECAL.instantiate()
+		var decal = HIT_DECAL.instantiate()
 		if target:
 			target.add_child(decal)
 		else:
@@ -397,14 +397,14 @@ func hitscan(raycast: RayCast3D):
 		if target.is_in_group("enemy_group"):
 			target.health -= equiped_item.damage
 
-func randomize_aimcast_spread():
+func randomize_aimcast_spread() -> void:
 	if not is_multiplayer_authority():
 		return
 	spread_value = reticle.spread_factors * 10 # умножается на 10 в случае если длина луча 1000+ метров
 	aim_cast.target_position.x = randf_range( - spread_value, spread_value)
 	aim_cast.target_position.y = randf_range( - spread_value, spread_value)
 
-func Assault_Rifle_Scope():
+func Assault_Rifle_Scope() -> void:
 	if not is_multiplayer_authority():
 		return
 	if !Scoped:
@@ -415,7 +415,7 @@ func Assault_Rifle_Scope():
 		fp_player_animator.play_backwards(equiped_item.anim_player_scope)
 	Scoped = !Scoped
 	
-func toggle_holo_sight():
+func toggle_holo_sight() -> void:
 	if equiped_item.sight_mesh != null and equiped_item.muzzle_mesh != null:
 		toggle_holo = !toggle_holo
 		toggle_silencer = !toggle_silencer
@@ -430,7 +430,7 @@ func toggle_holo_sight():
 			#silencer.mesh = null
 			pass
 
-func set_weapon_attachments():
+func set_weapon_attachments() -> void:
 	if equiped_item.sight_mesh:
 		#holo.mesh = equiped_item.sight_mesh
 		pass
@@ -447,14 +447,14 @@ func clear_weapon_attachments():
 		#silencer.mesh = null
 		pass
 
-func clear_weapon_hud():
+func clear_weapon_hud() -> void:
 	if weapon_hud.visible:
 		weapon_hud.hide()
 	if crosshair.visible: # разделение перекрестия и точки
 		crosshair.hide()
 	reticle.show()
 
-func reload():
+func reload() -> void:
 	if not is_multiplayer_authority():
 		return
 	reticle.hide()
@@ -470,13 +470,13 @@ func reload():
 	player.player_inventory.signal_inventory_update.emit(player.player_inventory)
 	player.player_quick_slot.signal_inventory_update.emit(player.player_quick_slot)
 
-func update_weapon_ammo(value: int):
+func update_weapon_ammo(value: int) -> void:
 	equiped_item.ammo_current += value
 	Update_Ammo.emit(equiped_item.ammo_current)
 
-func find_ammo_in_inventories():
+func find_ammo_in_inventories() -> Array[InSlotData]:
 	if !player.player_inventory or !player.player_quick_slot:
-		return
+		pass
 	for slot in player.player_inventory.slots_data:
 		if slot and slot.item.item_type == slot.item.ItemType.ammo and slot.item.weapon_type == equiped_item.weapon_type and slot.amount_in_slot >= 1:
 			ammo_data.append(slot)
@@ -485,7 +485,7 @@ func find_ammo_in_inventories():
 			ammo_data.append(slot)
 	return ammo_data
 
-func swap_items(inventory_data: InventoryData, index: int):
+func swap_items(inventory_data: InventoryData, index: int) -> void:
 	if not is_multiplayer_authority():
 		return
 	var slot_data = inventory_data.slots_data[index]
@@ -511,6 +511,7 @@ func swap_items(inventory_data: InventoryData, index: int):
 					print("Item removed")
 					remove_active_item(inventory_data, index, slot_data)
 				break
+
 func _equiped_item_type(equiped_item_type: int) -> bool:
 	if equiped_item:
 		match equiped_item.item_type:
@@ -524,7 +525,7 @@ func _equiped_item_type(equiped_item_type: int) -> bool:
 func can_shoot(fire_mode: WeaponFireModes) -> bool:
 	if not is_multiplayer_authority():
 		pass
-	if player.inventory_interface.visible or state_machine.is_current_state("Sprint") \
+	if player.is_inventory_open() or state_machine.is_current_state("Sprint") \
 		or timer.is_stopped() == false or equiped_item.ammo_current == 0 \
 		or fp_item_animator.current_animation == equiped_item.anim_reload or fp_item_animator.current_animation == equiped_item.anim_activate:
 		return false
@@ -532,26 +533,26 @@ func can_shoot(fire_mode: WeaponFireModes) -> bool:
 		timer.start(fire_mode.fire_rate)
 		return true
 
-func _on_animation_player_pickaxe_animation_finished(anim_name):
+func _on_animation_player_pickaxe_animation_finished(anim_name) -> void:
 	if _equiped_item_type(equiped_item.ItemType. tool ):
 		if anim_name == equiped_item.anim_hit:
 			fp_item_animator.play(equiped_item.anim_after_hit)
 			fp_player_animator.play(equiped_item.anim_player_after_hit)
 			hitscan(melee_cast)
 
-func _on_animation_player_m_4_rifle_animation_finished(anim_name):
+func _on_animation_player_m_4_rifle_animation_finished(anim_name) -> void:
 	if _equiped_item_type(equiped_item.ItemType.weapon):
 		if anim_name == equiped_item.anim_reload:
 			reload()
 
-func _on_animation_player_axe_animation_finished(anim_name):
+func _on_animation_player_axe_animation_finished(anim_name) -> void:
 	if _equiped_item_type(equiped_item.ItemType. tool ):
 		if anim_name == equiped_item.anim_hit:
 			fp_item_animator.play(equiped_item.anim_after_hit)
 			fp_player_animator.play(equiped_item.anim_player_after_hit)
 			hitscan(melee_cast)
 			
-func create_player_item(item_data: ItemData, amount: int):
+func create_player_item(item_data: ItemData, amount: int) -> void:
 	if not is_multiplayer_authority():
 		return
 	var slot_data = InSlotData.new()

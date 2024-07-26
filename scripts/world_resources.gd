@@ -1,6 +1,6 @@
 extends StaticBody3D
 
-var health : float
+@export var health : float
 @export var timer : Timer
 @export var zone : ShapeCast3D
 @export var mesh : MeshInstance3D

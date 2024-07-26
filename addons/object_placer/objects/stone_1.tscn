@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://flv6r52q38pv"]
+[gd_scene load_steps=7 format=3 uid="uid://flv6r52q38pv"]
 
 [ext_resource type="Script" path="res://scripts/world_resources.gd" id="1_umi2c"]
 [ext_resource type="Shape3D" uid="uid://dt1bomukkuyvw" path="res://terrain_data/stone_1_shape.res" id="2_1n2v2"]
@@ -7,6 +7,14 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_u887r"]
 radius = 20.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d11b4"]
+properties/0/path = NodePath(".:health")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("MeshInstance3D:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [node name="Stone_1" type="StaticBody3D" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"]]
 collision_layer = 128
@@ -38,5 +46,8 @@ collide_with_areas = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_d11b4")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

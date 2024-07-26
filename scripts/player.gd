@@ -5,12 +5,12 @@ signal signal_update_player_stats(health: float, hunger: float)
 signal signal_update_player_health(health: float)
 signal signal_update_player_hunger(hunger: float)
 
+
 # movement
-var mouse_input
-var camera_holder_position
-var direction = Vector3.ZERO
+# var camera_holder_position
+var direction := Vector3.ZERO
 # var input_direction
-var gravity = 12.0 # ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity := 12.0 # ProjectSettings.get_setting("physics/3d/default_gravity")
 
 # stats
 var hunger_value: float = 100.0
@@ -22,8 +22,6 @@ var def_weapon_holder_pos: Vector3
 	# set(id):
 	# 	peer_id = id
 	# 	%InputSync.set_multiplayer_authority(id)
-
-@export var mouse_sens := 0.15
 
 # inv
 @export var player_inventory: InventoryData
@@ -43,7 +41,6 @@ var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назна�
 @export var invert_weapon_sway: bool = false
 
 @onready var spherecast := %ShapeCast3D
-@onready var camera_holder := %CameraHolder
 @onready var camera := %Camera3D
 @onready var interact_ray := %InteractRay
 @onready var inventory_interface := %InventoryInterface
@@ -53,23 +50,19 @@ var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назна�
 @onready var input_sync := %InputSync
 @onready var canvas_layer := %CanvasLayer
 @onready var debug_ui := %Debug
+@onready var label_3d := %Label3D
 
 # @rpc("any_peer","call_local")
 # func hide_canvas_layer():
 # 	print("canvas hided")
 # 	%CanvasLayer.hide()
 
-func _ready():
+func _ready() -> void:
 	if not is_multiplayer_authority():
+		label_3d.show()
+		label_3d.text = name
 		return
-	# if not is_multiplayer_authority():
-	# 	set_process(false)
-	# 	set_process_input(false)
-	# if is_multiplayer_authority():
-	# 	camera.make_current()
-	# else:
-	# 	camera.clear_current(false)
-	%CanvasLayer.show()
+	canvas_layer.show()
 	signal_toggle_inventory.connect(_toggle_inventory_interface)
 	inventory_interface._set_player_inventory_data(player_inventory)
 	inventory_interface._set_quick_slot_data(player_quick_slot)
@@ -77,49 +70,36 @@ func _ready():
 	inventory_interface.signal_force_close.connect(_toggle_inventory_interface)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.signal_toggle_inventory.connect(_toggle_inventory_interface)
-	camera_holder_position = camera_holder.position.y
+	# camera_holder_position = camera_holder.position.y
 	def_weapon_holder_pos = weapon_holder.position
 	spherecast.add_exception($".")
 	signal_update_player_stats.emit(health_value, hunger_value)
+	# var world = get_parent().get_parent()
+	# world.rpc_id(1, "request_spawn_item")
 
-func _process(delta):
+
+func _process(delta) -> void:
 	var velocity_string = "%.2f" % velocity.length()
 	debug_ui.add_property("velocity", velocity_string, + 1)
 	if item.equiped_item_node:
 		weapon_tilt(input_sync.input_direction.x, delta)
 		weapon_sway(delta)
 		weapon_bob(velocity.length(), delta)
-	# if (position.y <= - 50.0):
-	# 	get_tree().reload_current_scene()
+	if (position.y <= -50.0):
+		get_tree().reload_current_scene()
 
-func _input(event):
-	if event is InputEventMouseMotion and !inventory_interface.visible:
-		rotate_y(deg_to_rad( - event.relative.x * mouse_sens))
-		camera_holder.rotate_x(deg_to_rad( - event.relative.y * mouse_sens))
-		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad( - 85), deg_to_rad(85))
-		mouse_input = event.relative
-
-
-func _unhandled_input(event):
-	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
-	if event.is_action_pressed("inv_toggle"):
-		signal_toggle_inventory.emit()
-	if event.is_action_pressed("interact"):
-		interact()
-
-func _on_inventory_interface_signal_drop_item(slot_data: InSlotData):
+func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
 	if slot_data.item.dictionary.has("dropped_item"):
 		var dropped_slot = load(slot_data.item.dictionary["dropped_item"])
 		_instantiate_dropped_item(dropped_slot, slot_data)
 
-func _instantiate_dropped_item(dropped_slot: PackedScene, slot_data: InSlotData):
+func _instantiate_dropped_item(dropped_slot: PackedScene, slot_data: InSlotData) -> void:
 	var obj = dropped_slot.instantiate()
 	obj.slot_data = slot_data
 	get_tree().get_first_node_in_group("world").add_child(obj)
 	obj.position = get_drop_position()
 
-func _toggle_inventory_interface(external_inventory_owner=null):
+func _toggle_inventory_interface(external_inventory_owner=null) -> void:
 	inventory_interface.visible = not inventory_interface.visible
 	if inventory_interface.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -138,13 +118,13 @@ func _toggle_inventory_interface(external_inventory_owner=null):
 
 ### Player states
 
-func update_gravity(delta):
+func update_gravity(delta) -> void:
 	if not is_multiplayer_authority():
 		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
-func update_input(speed, acceleration, decceleration):
+func update_input(speed, acceleration, decceleration) -> void:
 	if not is_multiplayer_authority():
 		return
 	#input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
@@ -156,14 +136,14 @@ func update_input(speed, acceleration, decceleration):
 		velocity.x = move_toward(velocity.x, 0, decceleration)
 		velocity.z = move_toward(velocity.z, 0, decceleration)
 	
-func update_velocity():
+func update_velocity() -> void:
 	if not is_multiplayer_authority():
 		return
 	move_and_slide()
 
 ### Inventory items interaction
 
-func interact():
+func interact() -> void:
 	if interact_ray.is_colliding():
 		interact_ray.get_collider()._player_interact(player_inventory, player_quick_slot)
 
@@ -172,16 +152,16 @@ func get_drop_position() -> Vector3:
 	return camera.global_position + drop_direction
 
 #-Camera and weapon tilt
-func weapon_tilt(input_x, delta):
+func weapon_tilt(input_x, delta) -> void:
 	if weapon_holder:
 		weapon_holder.rotation.z = lerp(weapon_holder.rotation.z, -input_x * weapon_rotation_amount * 10, 10 * delta)
 
-func weapon_sway(delta):
-	mouse_input = lerp(mouse_input, Vector2.ZERO, 10 * delta)
-	weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, mouse_input.y * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
-	weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, mouse_input.x * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
+func weapon_sway(delta) -> void:
+	input_sync.mouse_input = lerp(input_sync.mouse_input, Vector2.ZERO, 10 * delta)
+	weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, input_sync.mouse_input.y * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
+	weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, input_sync.mouse_input.x * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
 	
-func weapon_bob(vel: float, delta):
+func weapon_bob(vel: float, delta) -> void:
 	if weapon_holder:
 		if vel > 0 and is_on_floor() and !item.Scoped:
 			var bob_amount: float = 0.01
@@ -194,7 +174,7 @@ func weapon_bob(vel: float, delta):
 			weapon_holder.position.x = lerp(weapon_holder.position.x, def_weapon_holder_pos.x, 10 * delta)
 #-------
 	
-func check_is_inventory_open() -> bool:
+func is_inventory_open() -> bool:
 	return inventory_interface.visible
 	
 func get_inventory_slots() -> Array[InSlotData]:
@@ -209,7 +189,7 @@ func get_quick_slots() -> Array[InSlotData]:
 		return []
 	return player_quick_slot.slots_data
 	
-func give_item(slot_data: InSlotData):
+func give_item(slot_data: InSlotData) -> void:
 	if !player_inventory._pick_up_slot_data(slot_data) \
 		and !player_quick_slot._pick_up_slot_data(slot_data):
 		inventory_interface.signal_drop_item.emit(slot_data)

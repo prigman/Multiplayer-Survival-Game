@@ -8,6 +8,7 @@ const PLAYER_SCENE = preload("res://scenes/player.tscn")
 @export var multiplayer_spawner : MultiplayerSpawner
 
 @onready var players_spawn_node := %Players
+@onready var zone_items := %ZoneItems
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

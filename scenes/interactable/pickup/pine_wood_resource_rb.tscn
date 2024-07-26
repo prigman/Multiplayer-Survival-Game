@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdqhup4cicysi"]
+[gd_scene load_steps=9 format=3 uid="uid://cdqhup4cicysi"]
 
 [ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_83t4n"]
 [ext_resource type="ArrayMesh" uid="uid://cgt5eylewmdwk" path="res://models/meshes/resourceWood.res" id="1_p2vbp"]
@@ -13,6 +13,11 @@ amount_in_slot = 1
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tny83"]
 points = PackedVector3Array(-2.41399e-06, -0.157825, -0.483252, -0.0487889, -0.150131, -0.483252, 0.0487532, -0.150131, -0.483252, -2.41399e-06, -0.157825, 0.483252, -0.0487889, -0.150131, 0.483252, -0.0927864, -0.1277, -0.483252, 0.0927506, -0.1277, -0.483252, 0.0487532, -0.150131, 0.483252, -0.0927864, -0.1277, 0.483252, -0.1277, -0.0927863, -0.483252, 0.127664, -0.0927863, -0.483252, 0.0927506, -0.1277, 0.483252, -0.1277, -0.0927863, 0.483252, -0.150131, -0.0487888, -0.483252, 0.150096, -0.0487888, -0.483252, 0.127664, -0.0927863, 0.483252, -0.150131, -0.0487888, 0.483252, -0.157825, -2.20537e-06, -0.483252, 0.15782, -2.20537e-06, -0.483252, 0.150096, -0.0487888, 0.483252, -0.157825, -2.20537e-06, 0.483252, -0.150131, 0.0487535, -0.483252, 0.150096, 0.0487535, -0.483252, 0.15782, -2.20537e-06, 0.483252, -0.150131, 0.0487535, 0.483252, -0.1277, 0.092751, -0.483252, 0.127664, 0.092751, -0.483252, 0.150096, 0.0487535, 0.483252, -0.1277, 0.092751, 0.483252, -0.0927864, 0.127665, -0.483252, 0.0927506, 0.127665, -0.483252, 0.127664, 0.092751, 0.483252, -0.0927864, 0.127665, 0.483252, -0.0487889, 0.150096, -0.483252, 0.0487532, 0.150096, -0.483252, 0.0927506, 0.127665, 0.483252, -0.0487889, 0.150096, 0.483252, -2.41399e-06, 0.15782, -0.483252, 0.0487532, 0.150096, 0.483252, -2.41399e-06, 0.15782, 0.483252)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2kxj4"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
 
 [node name="Resource-Wood" type="RigidBody3D"]
 collision_layer = 4
@@ -31,3 +36,6 @@ surface_material_override/0 = ExtResource("5_jajv5")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.175046, 0)
 shape = SubResource("ConvexPolygonShape3D_tny83")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_2kxj4")

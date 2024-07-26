@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwwhsm0q1fnnj"]
+[gd_scene load_steps=9 format=3 uid="uid://bwwhsm0q1fnnj"]
 
 [ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_eqdxh"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="2_a6lf5"]
@@ -14,6 +14,11 @@ amount_in_slot = 1
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ok0xm"]
 points = PackedVector3Array(-0.00907935, 1.10483, 0.757597, 0.128487, 1.10755, 0.749575, 0.120744, 1.29709, 0.681601, -0.0145121, 1.29437, 0.689332, -0.103996, 1.55222, 0.116075, -0.121543, 1.55645, 0.0091545, -0.130223, 1.01989, 0.0167396, -0.136373, -0.371541, 0.13635, -0.138965, -0.643902, 0.143352, -0.134344, -1.52719, 0.153709, -0.00573856, -1.52719, 0.171942, 0.121961, 1.55645, 0.0091545, 0.122867, -1.52719, 0.154438, 0.14441, -1.52719, 0.0218449, 0.158117, -0.638461, 0.0047785, 0.157617, -0.371541, -3.51071e-05, 0.0531158, 1.29588, 0.685393, 0.103946, 1.55222, 0.116075, -2.48402e-05, 1.55222, 0.128911, -0.106993, 1.56068, -0.0979118, -0.0643431, -0.438649, -0.731703, -0.15723, -0.371541, -3.51071e-05, -0.160852, -0.640275, 0.0047785, -0.157136, -1.52719, 0.0218449, 0.106975, 1.56068, -0.0979118, 0.128081, -0.239139, -0.684151, 0.126926, -1.52719, -0.110748, 0.123616, -0.44137, -0.732579, -2.48402e-05, 1.56068, -0.113519, -0.0565999, -0.235209, -0.682838, 0.0296365, -0.439858, -0.732141, -0.00567611, -1.52719, -0.127669, -0.138278, -1.52719, -0.110019)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1fjkx"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
 
 [node name="Pine-Branch" type="RigidBody3D"]
 collision_layer = 4
@@ -32,3 +37,6 @@ surface_material_override/0 = ExtResource("5_foavk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1.5299e-08, -0.35, 0, 0.35, -1.5299e-08, 0, 0, 0, 0.35, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_ok0xm")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1fjkx")

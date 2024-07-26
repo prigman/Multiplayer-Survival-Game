@@ -1,30 +1,15 @@
-[gd_scene load_steps=111 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=38 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="PackedScene" uid="uid://cu78wr4f7155s" path="res://scenes/scene_template.tscn" id="5_xsqmg"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="6_t2uit"]
 [ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/pine-wood-crate_staticbody.tscn" id="8_upg36"]
-[ext_resource type="Resource" uid="uid://d05wvcamae4du" path="res://inventory/item/objects/canned-food.tres" id="10_5uowv"]
 [ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="10_6xi46"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
-[ext_resource type="PackedScene" uid="uid://bs0te4ilgfkpw" path="res://scenes/interactable/pickup/canned-food_rigidbody.tscn" id="12_k0p58"]
 [ext_resource type="Texture2D" uid="uid://v6d4v1xl51pp" path="res://icons/545x39.png" id="13_6s8qv"]
-[ext_resource type="PackedScene" uid="uid://bwwhsm0q1fnnj" path="res://scenes/interactable/pickup/resource_pine_branch_rb.tscn" id="13_77uqr"]
-[ext_resource type="PackedScene" uid="uid://cnw83bbj2p7xk" path="res://scenes/interactable/pickup/stone_resource_rb.tscn" id="14_hv0t3"]
 [ext_resource type="Script" path="res://inventory/item/item_data_ammo.gd" id="14_spjwe"]
-[ext_resource type="PackedScene" uid="uid://cibfwxpsrgkac" path="res://scenes/interactable/pickup/axe_tool_rb.tscn" id="14_t4uim"]
 [ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="15_i4n86"]
-[ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="15_jti76"]
-[ext_resource type="Script" path="res://inventory/craft_components.gd" id="15_sl5eg"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="16_nipej"]
-[ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="18_7v73m"]
-[ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="19_rekbk"]
-[ext_resource type="PackedScene" uid="uid://sk2v3l3djkvl" path="res://scenes/interactable/pickup/pickaxe_rb.tscn" id="21_pq4m3"]
-[ext_resource type="PackedScene" uid="uid://flv6r52q38pv" path="res://addons/object_placer/objects/stone_1.tscn" id="22_7qvd4"]
-[ext_resource type="PackedScene" uid="uid://dkqmkkyqb6scy" path="res://scenes/stone_2.tscn" id="23_oaavq"]
-[ext_resource type="PackedScene" uid="uid://v0urs1mkfuuy" path="res://scenes/stone_3.tscn" id="24_pvpiy"]
-[ext_resource type="PackedScene" uid="uid://cdqhup4cicysi" path="res://scenes/interactable/pickup/pine_wood_resource_rb.tscn" id="24_xaetn"]
-[ext_resource type="PackedScene" uid="uid://bbh30efrwiakh" path="res://scenes/interactable/pickup/metal-bar_resource_rb.tscn" id="25_8vwtk"]
 [ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="25_pkm0b"]
 [ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="27_2sm5u"]
@@ -80,368 +65,6 @@ amount_in_slot = 54
 script = ExtResource("6_t2uit")
 type = 2
 slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
-
-[sub_resource type="Resource" id="Resource_upq5e"]
-script = ExtResource("11_653sy")
-item = ExtResource("15_i4n86")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_qedj0"]
-script = ExtResource("11_653sy")
-item = ExtResource("15_i4n86")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_ig517"]
-script = ExtResource("11_653sy")
-item = ExtResource("15_i4n86")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_ti7ai"]
-script = ExtResource("11_653sy")
-item = ExtResource("15_i4n86")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_mmp13"]
-script = ExtResource("11_653sy")
-item = ExtResource("15_i4n86")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_ppgxd"]
-script = ExtResource("11_653sy")
-item = ExtResource("15_i4n86")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_2ched"]
-script = ExtResource("11_653sy")
-item = ExtResource("15_i4n86")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_lgob4"]
-script = ExtResource("11_653sy")
-item = ExtResource("15_i4n86")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_k7sol"]
-script = ExtResource("11_653sy")
-item = ExtResource("15_i4n86")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_0pahu"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_y1iu7"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_ws0ve"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_h7q80"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_nfrpf"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_1re34"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_obblm"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_ffp3a"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_3324h"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_wfeiv"]
-script = ExtResource("11_653sy")
-item = ExtResource("10_5uowv")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_jyskr"]
-script = ExtResource("11_653sy")
-item = ExtResource("10_5uowv")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_o4e6y"]
-script = ExtResource("11_653sy")
-item = ExtResource("10_5uowv")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_4h4rd"]
-script = ExtResource("11_653sy")
-item = ExtResource("10_5uowv")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_3rt7i"]
-script = ExtResource("11_653sy")
-item = ExtResource("10_5uowv")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_rihq1"]
-script = ExtResource("11_653sy")
-item = ExtResource("10_5uowv")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_1j36k"]
-script = ExtResource("15_sl5eg")
-component = ExtResource("27_2sm5u")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_3yjym"]
-script = ExtResource("15_sl5eg")
-component = ExtResource("16_nipej")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_gsmn2"]
-script = ExtResource("18_7v73m")
-craft_components = Array[ExtResource("15_sl5eg")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
-item_type = 4
-tool_type = 0
-anim_activate = ""
-anim_hit = ""
-anim_after_hit = ""
-anim_player_activate = ""
-anim_player_hit = ""
-anim_player_after_hit = ""
-damage = 0
-name = "Axe"
-description = "Axe"
-description_item_panel = "Axe"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("15_jti76")
-dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
-}
-
-[sub_resource type="Resource" id="Resource_uya34"]
-script = ExtResource("11_653sy")
-item = SubResource("Resource_gsmn2")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_fit7g"]
-script = ExtResource("18_7v73m")
-craft_components = Array[ExtResource("15_sl5eg")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
-item_type = 4
-tool_type = 0
-anim_activate = ""
-anim_hit = ""
-anim_after_hit = ""
-anim_player_activate = ""
-anim_player_hit = ""
-anim_player_after_hit = ""
-damage = 0
-name = "Axe"
-description = "Axe"
-description_item_panel = "Axe"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("15_jti76")
-dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
-}
-
-[sub_resource type="Resource" id="Resource_3pfba"]
-script = ExtResource("11_653sy")
-item = SubResource("Resource_fit7g")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_4et8d"]
-script = ExtResource("18_7v73m")
-craft_components = Array[ExtResource("15_sl5eg")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
-item_type = 4
-tool_type = 0
-anim_activate = ""
-anim_hit = ""
-anim_after_hit = ""
-anim_player_activate = ""
-anim_player_hit = ""
-anim_player_after_hit = ""
-damage = 0
-name = "Axe"
-description = "Axe"
-description_item_panel = "Axe"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("15_jti76")
-dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
-}
-
-[sub_resource type="Resource" id="Resource_0grdw"]
-script = ExtResource("11_653sy")
-item = SubResource("Resource_4et8d")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_ddorj"]
-script = ExtResource("15_sl5eg")
-component = ExtResource("15_i4n86")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_t6tg5"]
-script = ExtResource("15_sl5eg")
-component = ExtResource("16_nipej")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_7jst0"]
-script = ExtResource("18_7v73m")
-craft_components = Array[ExtResource("15_sl5eg")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
-item_type = 4
-tool_type = 0
-anim_activate = ""
-anim_hit = ""
-anim_after_hit = ""
-anim_player_activate = ""
-anim_player_hit = ""
-anim_player_after_hit = ""
-damage = 0
-name = "Pickaxe"
-description = "Pickaxe"
-description_item_panel = "Pickaxe"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("19_rekbk")
-dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/pickaxe_rb.tscn"
-}
-
-[sub_resource type="Resource" id="Resource_g006r"]
-script = ExtResource("11_653sy")
-item = SubResource("Resource_7jst0")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_rq25i"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_jtkih"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_i30o5"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_l4eed"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_sbn1y"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_qy4k7"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_kg6nm"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_f34tv"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_nedf1"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_87w2r"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_bpo0y"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_jiaap"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_qep2h"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_1prcj"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_mxv24"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_t5ipw"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_pet5o"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_0xw18"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_7a803"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_j0aw3"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_q6oic"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_u3hcj"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_4c7e5"]
 script = ExtResource("6_t2uit")
@@ -511,10 +134,15 @@ height = 60.0
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3", "multiplayer_spawner") groups=["world"]]
 script = ExtResource("1_7fa2s")
-enemy1 = NodePath("Enemy")
-enemy2 = NodePath("Enemy2")
-enemy3 = NodePath("Enemy3")
+enemy1 = NodePath("zone/Enemy")
+enemy2 = NodePath("zone/Enemy2")
+enemy3 = NodePath("zone/Enemy3")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
+
+[node name="ItemSpawner" type="MultiplayerSpawner" parent="."]
+unique_name_in_owner = true
+_spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn")
+spawn_path = NodePath("../zone/ZoneItems")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
@@ -522,7 +150,7 @@ spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8714, 293.934, -3.47343)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -198.78, 156.671, 242.326)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -545,237 +173,24 @@ directional_shadow_mode = 1
 environment = SubResource("Environment_o00h3")
 
 [node name="zone" parent="." instance=ExtResource("5_xsqmg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 292, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -182.214, 154.859, 247.707)
 
 [node name="Pine-Wood-Crate" parent="zone" instance=ExtResource("8_upg36")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.35348, 0, -0.590063)
 inventory_data = SubResource("Resource_gisbm")
 
-[node name="items_rb" type="Node3D" parent="zone"]
+[node name="Enemy" parent="zone" instance=ExtResource("26_pxx8e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 0, 0)
 
-[node name="Stone resource" parent="zone/items_rb" instance=ExtResource("14_hv0t3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67936, 0.447675, 2.09793)
-slot_data = SubResource("Resource_upq5e")
+[node name="Enemy2" parent="zone" instance=ExtResource("26_pxx8e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 0, -2.48857)
 
-[node name="Stone resource2" parent="zone/items_rb" instance=ExtResource("14_hv0t3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.711, 0.447675, 0.913855)
-slot_data = SubResource("Resource_qedj0")
+[node name="Enemy3" parent="zone" instance=ExtResource("26_pxx8e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 0, -4.99677)
 
-[node name="Stone resource6" parent="zone/items_rb" instance=ExtResource("14_hv0t3")]
-transform = Transform3D(1, 0.000785398, 0, -0.000785398, 1, 0, 0, 0, 1, -2.87711, 0.447675, 3.46433)
-slot_data = SubResource("Resource_ig517")
-
-[node name="Stone resource7" parent="zone/items_rb" instance=ExtResource("14_hv0t3")]
-transform = Transform3D(1, 0.000785398, 0, -0.000785398, 1, 0, 0, 0, 1, -4.19638, 0.447675, 3.48794)
-slot_data = SubResource("Resource_ti7ai")
-
-[node name="Stone resource8" parent="zone/items_rb" instance=ExtResource("14_hv0t3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66166, 0.447675, 3.42055)
-slot_data = SubResource("Resource_mmp13")
-
-[node name="Stone resource9" parent="zone/items_rb" instance=ExtResource("14_hv0t3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.16589, 0.447675, 2.09209)
-slot_data = SubResource("Resource_ppgxd")
-
-[node name="Stone resource10" parent="zone/items_rb" instance=ExtResource("14_hv0t3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.08055, 0.447675, 0.903152)
-slot_data = SubResource("Resource_2ched")
-
-[node name="Stone resource3" parent="zone/items_rb" instance=ExtResource("14_hv0t3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.89011, 0.447675, 0.914113)
-slot_data = SubResource("Resource_lgob4")
-
-[node name="Stone resource4" parent="zone/items_rb" instance=ExtResource("14_hv0t3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.88294, 0.447675, 2.10172)
-slot_data = SubResource("Resource_k7sol")
-
-[node name="Wood resource2" parent="zone/items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.30632, 0.431647, 3.59193)
-slot_data = SubResource("Resource_0pahu")
-
-[node name="Wood resource3" parent="zone/items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.75897, 0.696564, 0.955646)
-slot_data = SubResource("Resource_y1iu7")
-
-[node name="Wood resource4" parent="zone/items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3965, 0.428991, 0.965275)
-slot_data = SubResource("Resource_ws0ve")
-
-[node name="Wood resource5" parent="zone/items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.35504, 0.473281, 2.25874)
-slot_data = SubResource("Resource_h7q80")
-
-[node name="Wood resource" parent="zone/items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(0.999982, 0, 0.00593408, 0, 1, 0, -0.00593408, 0, 0.999982, -6.72718, 0.39722, 2.23388)
-slot_data = SubResource("Resource_nfrpf")
-
-[node name="Wood resource6" parent="zone/items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.17218, 0.39722, 2.20525)
-slot_data = SubResource("Resource_1re34")
-
-[node name="Wood resource9" parent="zone/items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.15891, 0.39722, 3.5547)
-slot_data = SubResource("Resource_obblm")
-
-[node name="Wood resource7" parent="zone/items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.1654, 0.39722, 0.953659)
-slot_data = SubResource("Resource_ffp3a")
-
-[node name="Wood resource8" parent="zone/items_rb" instance=ExtResource("13_77uqr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.70862, 0.39722, 3.56362)
-slot_data = SubResource("Resource_3324h")
-
-[node name="Canned-food" parent="zone/items_rb" instance=ExtResource("12_k0p58")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9699, 0.5779, 3.07232)
-slot_data = SubResource("Resource_wfeiv")
-
-[node name="Canned-food2" parent="zone/items_rb" instance=ExtResource("12_k0p58")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.202999, 0.5779, 2.23108)
-slot_data = SubResource("Resource_jyskr")
-
-[node name="Canned-food3" parent="zone/items_rb" instance=ExtResource("12_k0p58")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.586219, 0.5779, 2.23188)
-slot_data = SubResource("Resource_o4e6y")
-
-[node name="Canned-food4" parent="zone/items_rb" instance=ExtResource("12_k0p58")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.930719, 0.5779, 2.22469)
-slot_data = SubResource("Resource_4h4rd")
-
-[node name="Canned-food5" parent="zone/items_rb" instance=ExtResource("12_k0p58")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.550274, 0.5779, 3.07663)
-slot_data = SubResource("Resource_3rt7i")
-
-[node name="Canned-food6" parent="zone/items_rb" instance=ExtResource("12_k0p58")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.198696, 0.5779, 3.08349)
-slot_data = SubResource("Resource_rihq1")
-
-[node name="Axe" parent="zone/items_rb" instance=ExtResource("14_t4uim")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.501002, 0.644254, 0.98927)
-slot_data = SubResource("Resource_uya34")
-
-[node name="Axe2" parent="zone/items_rb" instance=ExtResource("14_t4uim")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177767, 0.638806, 0.992061)
-slot_data = SubResource("Resource_3pfba")
-
-[node name="Axe3" parent="zone/items_rb" instance=ExtResource("14_t4uim")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.910679, 0.638806, 0.992061)
-slot_data = SubResource("Resource_0grdw")
-
-[node name="Pickaxe" parent="zone/items_rb" instance=ExtResource("21_pq4m3")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.03082, 0.848744, 0.935694)
-slot_data = SubResource("Resource_g006r")
-
-[node name="Stone_1" parent="zone/items_rb" instance=ExtResource("22_7qvd4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.54778)
-
-[node name="Stone_2" parent="zone/items_rb" instance=ExtResource("23_oaavq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19216, 0, 6.54778)
-
-[node name="Stone_3" parent="zone/items_rb" instance=ExtResource("24_pvpiy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.71128, 0, 6.54778)
-
-[node name="Metal-Bar" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0365, 0.440164, 0.997136)
-slot_data = SubResource("Resource_rq25i")
-
-[node name="Metal-Bar2" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2797, 0.440164, 0.997136)
-slot_data = SubResource("Resource_jtkih")
-
-[node name="Metal-Bar3" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6343, 0.440164, 0.997136)
-slot_data = SubResource("Resource_i30o5")
-
-[node name="Metal-Bar4" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6343, 0.440164, 2.03062)
-slot_data = SubResource("Resource_l4eed")
-
-[node name="Metal-Bar5" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2127, 0.440164, 2.03062)
-slot_data = SubResource("Resource_sbn1y")
-
-[node name="Metal-Bar6" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.99623, 0.440164, 2.03062)
-slot_data = SubResource("Resource_qy4k7")
-
-[node name="Metal-Bar7" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.99623, 0.440164, 3.10051)
-slot_data = SubResource("Resource_kg6nm")
-
-[node name="Metal-Bar8" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.198, 0.440164, 3.10051)
-slot_data = SubResource("Resource_f34tv")
-
-[node name="Metal-Bar10" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.198, 0.440164, 4.23233)
-slot_data = SubResource("Resource_nedf1")
-
-[node name="Metal-Bar11" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88612, 0.440164, 4.23233)
-slot_data = SubResource("Resource_87w2r")
-
-[node name="Metal-Bar12" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6128, 0.440164, 4.23233)
-slot_data = SubResource("Resource_bpo0y")
-
-[node name="Metal-Bar9" parent="zone/items_rb" instance=ExtResource("25_8vwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6343, 0.440164, 3.10051)
-slot_data = SubResource("Resource_jiaap")
-
-[node name="Resource-Wood" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0502, 0.327785, 1.02523)
-slot_data = SubResource("Resource_qep2h")
-
-[node name="Resource-Wood2" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0502, 0.299667, 2.08767)
-slot_data = SubResource("Resource_1prcj")
-
-[node name="Resource-Wood3" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0502, 0.299667, 3.07726)
-slot_data = SubResource("Resource_mxv24")
-
-[node name="Resource-Wood10" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0502, 0.299667, 4.19069)
-slot_data = SubResource("Resource_t5ipw")
-
-[node name="Resource-Wood11" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4394, 0.299667, 4.19069)
-slot_data = SubResource("Resource_pet5o")
-
-[node name="Resource-Wood12" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7265, 0.299667, 4.19069)
-slot_data = SubResource("Resource_0xw18")
-
-[node name="Resource-Wood4" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4315, 0.299667, 3.07726)
-slot_data = SubResource("Resource_7a803")
-
-[node name="Resource-Wood9" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7241, 0.299667, 3.07726)
-slot_data = SubResource("Resource_j0aw3")
-
-[node name="Resource-Wood5" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4315, 0.299667, 2.04685)
-slot_data = SubResource("Resource_q6oic")
-
-[node name="Resource-Wood8" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7396, 0.299667, 2.04685)
-slot_data = SubResource("Resource_u3hcj")
-
-[node name="Resource-Wood6" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4315, 0.299667, 1.02976)
-
-[node name="Resource-Wood7" parent="zone/items_rb" instance=ExtResource("24_xaetn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7739, 0.299667, 1.02976)
-
-[node name="Enemy" parent="." instance=ExtResource("26_pxx8e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 292, 0)
-
-[node name="Enemy2" parent="." instance=ExtResource("26_pxx8e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 292, -2.48857)
-
-[node name="Enemy3" parent="." instance=ExtResource("26_pxx8e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 292, -4.99677)
+[node name="ZoneItems" type="Node3D" parent="zone"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01271, 0)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -834,7 +249,6 @@ collision_mask = 94
 wait_time = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1168.06, 0, 0)
 
 [node name="StartupUI" type="Control" parent="."]
 unique_name_in_owner = true
