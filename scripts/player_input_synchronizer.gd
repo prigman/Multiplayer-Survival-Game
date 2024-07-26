@@ -2,10 +2,7 @@ extends MultiplayerSynchronizer
 
 @export var input_direction := Vector2()
 
-@onready var camera = %Camera3D
-
-
-
+@onready var camera := %Camera3D
 
 func _ready():
 	if get_multiplayer_authority() == multiplayer.get_unique_id():

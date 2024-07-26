@@ -68,9 +68,10 @@ func _ready():
 	if not is_multiplayer_authority():
 		return
 	randomize() # чтобы разброс оружия работал
-	Global.global_item_script = self
 
 func _physics_process(delta):
+	if not is_multiplayer_authority():
+		return
 	if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
 		if player.inventory_interface.visible == false: # проверка если закрыт инвентарь
 			if Input.is_action_pressed("fire"):
@@ -196,7 +197,7 @@ func _unhandled_input(event):
 				KEY_0:
 					if _equiped_item_type(equiped_item.ItemType.weapon):
 						pass
-						toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
+						# toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
 	
 	if player.inventory_interface.visible == false: # проверка если закрыт инвентарь
 		if Input.is_action_just_pressed("fire"):
@@ -301,6 +302,8 @@ func remove_active_item(inventory_data: InventoryData, index: int, slot_data: In
 	equiped_item_node = null
 
 func clear_weapon():
+	if not is_multiplayer_authority():
+		return
 	clear_weapon_attachments() # очищаем меш прицела если он не null
 	clear_weapon_hud() # убираем перекрестие и hud
 
@@ -318,6 +321,8 @@ func clear_animations():
 		Scoped = false
 
 func is_fp_animator_playing() -> bool:
+	if not is_multiplayer_authority():
+		pass
 	if fp_player_animator and fp_player_animator.is_playing():
 		return true
 	if fp_item_animator and fp_item_animator.is_playing():
@@ -326,6 +331,8 @@ func is_fp_animator_playing() -> bool:
 		return false
 
 func apply_recoil(delta):
+	if not is_multiplayer_authority():
+		return
 	current_time += delta
 	var recoil_speed = current_time * equiped_item.recoil_speed
 	rig_holder.position.z = lerp(rig_holder.position.z, def_pos_holder_z + target_pos.z, equiped_item.lerp_speed * delta)
@@ -339,6 +346,8 @@ func apply_recoil(delta):
 	target_rot.x = equiped_item.recoil_rotation_x.sample(recoil_speed) * - equiped_item.recoil_amplitude.y
 
 func shoot():
+	if not is_multiplayer_authority():
+		return
 	randomize_aimcast_spread()
 	hitscan(aim_cast)
 	update_weapon_ammo( - 1) # отнимаем current ammo и обновляем худ
@@ -349,12 +358,16 @@ func shoot():
 	current_time = 0
 
 func update_pos():
+	if not is_multiplayer_authority():
+		return
 	def_pos = rig_holder.position
 	def_rot = rig_holder.rotation
 	target_rot.y = 0.0
 	current_time = 1
 	
 func hitscan(raycast: RayCast3D):
+	if not is_multiplayer_authority():
+		return
 	var target = raycast.get_collider()
 	var ray_end_point = raycast.get_collision_point()
 	if ray_end_point:
@@ -385,11 +398,15 @@ func hitscan(raycast: RayCast3D):
 			target.health -= equiped_item.damage
 
 func randomize_aimcast_spread():
+	if not is_multiplayer_authority():
+		return
 	spread_value = reticle.spread_factors * 10 # умножается на 10 в случае если длина луча 1000+ метров
 	aim_cast.target_position.x = randf_range( - spread_value, spread_value)
 	aim_cast.target_position.y = randf_range( - spread_value, spread_value)
 
 func Assault_Rifle_Scope():
+	if not is_multiplayer_authority():
+		return
 	if !Scoped:
 		fp_item_animator.play(equiped_item.anim_scope)
 		fp_player_animator.play(equiped_item.anim_player_scope)
@@ -438,6 +455,8 @@ func clear_weapon_hud():
 	reticle.show()
 
 func reload():
+	if not is_multiplayer_authority():
+		return
 	reticle.hide()
 	crosshair.show()
 	var ammo_to_reload
@@ -503,6 +522,8 @@ func _equiped_item_type(equiped_item_type: int) -> bool:
 		return false
 
 func can_shoot(fire_mode: WeaponFireModes) -> bool:
+	if not is_multiplayer_authority():
+		pass
 	if player.inventory_interface.visible or state_machine.is_current_state("Sprint") \
 		or timer.is_stopped() == false or equiped_item.ammo_current == 0 \
 		or fp_item_animator.current_animation == equiped_item.anim_reload or fp_item_animator.current_animation == equiped_item.anim_activate:
@@ -531,9 +552,9 @@ func _on_animation_player_axe_animation_finished(anim_name):
 			hitscan(melee_cast)
 			
 func create_player_item(item_data: ItemData, amount: int):
+	if not is_multiplayer_authority():
+		return
 	var slot_data = InSlotData.new()
 	slot_data.item = item_data
 	slot_data.amount_in_slot = amount
-	if !player.player_inventory._pick_up_slot_data(slot_data) \
-		and !player.player_quick_slot._pick_up_slot_data(slot_data):
-		player.inventory_interface.signal_drop_item.emit(slot_data)
+	player.give_item(slot_data)

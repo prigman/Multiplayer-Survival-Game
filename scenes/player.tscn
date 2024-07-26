@@ -1004,6 +1004,7 @@ libraries = {
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+visible = false
 
 [node name="Interface" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -1058,6 +1059,7 @@ player = NodePath("../../..")
 item_script = NodePath("../../../CameraHolder/RigHolder/Item")
 
 [node name="Debug" type="PanelContainer" parent="CanvasLayer/Interface"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 0
 offset_left = 15.0
@@ -1125,7 +1127,7 @@ size_flags_horizontal = 10
 size_flags_vertical = 10
 size_flags_stretch_ratio = 5.0
 
-[node name="InventoryInterface" type="Control" parent="CanvasLayer/Interface/Control"]
+[node name="InventoryInterface" type="Control" parent="CanvasLayer/Interface/Control" node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -1139,6 +1141,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 mouse_filter = 1
 script = ExtResource("9_sd5qi")
+player = NodePath("../../../..")
 
 [node name="CraftMenuMargin" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface"]
 unique_name_in_owner = true
@@ -1156,11 +1159,12 @@ grow_vertical = 0
 theme_override_constants/margin_left = 765
 theme_override_constants/margin_bottom = 120
 
-[node name="CraftMenu" parent="CanvasLayer/Interface/Control/InventoryInterface/CraftMenuMargin" instance=ExtResource("13_00r71")]
+[node name="CraftMenu" parent="CanvasLayer/Interface/Control/InventoryInterface/CraftMenuMargin" node_paths=PackedStringArray("player") instance=ExtResource("13_00r71")]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(350, 460)
 layout_mode = 2
+player = NodePath("../../../../../..")
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface"]
 layout_mode = 1
@@ -1560,10 +1564,10 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
 text = "Drop"
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "current_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "debug_ui")]
 script = ExtResource("6_28k2k")
-player = NodePath("..")
 current_state = NodePath("Idle")
+debug_ui = NodePath("../CanvasLayer/Interface/Debug")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("7_pfe0v")

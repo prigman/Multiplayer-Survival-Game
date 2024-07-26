@@ -10,36 +10,38 @@ var external_inventory_owner
 
 #- _on_inventory_interact
 var grabbed_slot_data: InSlotData
-var panel_index_data
+var panel_index_data : int
 var panel_inventory_data: InventoryData
 var last_clicked_slot_data: InSlotData
 
-@onready var player_inventory = %PlayerInventory
-@onready var player_quick_slot = %PlayerQuickSlot
-@onready var grabbed_slot = %GrabbedSlot
-@onready var external_inventory = %ExternalInventory
-@onready var inv_item_info_panel = %InvItemInfoPanel
+@export var player: Player
 
-func _physics_process(_delta):
+@onready var player_inventory := %PlayerInventory
+@onready var player_quick_slot := %PlayerQuickSlot
+@onready var grabbed_slot := %GrabbedSlot
+@onready var external_inventory := %ExternalInventory
+@onready var inv_item_info_panel := %InvItemInfoPanel
+
+func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
 	
 	if external_inventory_owner \
-		and external_inventory_owner.global_position.distance_to(Global.get_global_position()) > 4:
+		and external_inventory_owner.global_position.distance_to(player.get_global_position()) > 4:
 			signal_force_close.emit()
 
-func _set_player_inventory_data(inventory_data: InventoryData):
+func _set_player_inventory_data(inventory_data: InventoryData) -> void:
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
 	#inventory_data.signal_slot_mouse_right_clicked.connect(player_inventory._on_item_panel_visibility_changed)
 	player_inventory._set_inventory_data(inventory_data)
 	
-func _set_quick_slot_data(inventory_data: InventoryData):
+func _set_quick_slot_data(inventory_data: InventoryData) -> void:
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
 	inventory_data.signal_update_active_slot.connect(player_quick_slot._set_active_slot)
 	#inventory_data.signal_slot_mouse_right_clicked.connect(player_quick_slot._on_item_panel_visibility_changed)
 	player_quick_slot._set_inventory_data(inventory_data)
 
-func _set_external_inventory(inventory_owner):
+func _set_external_inventory(inventory_owner) -> void:
 	external_inventory_owner = inventory_owner
 	var inventory_data = external_inventory_owner.inventory_data
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
@@ -47,7 +49,7 @@ func _set_external_inventory(inventory_owner):
 	external_inventory._set_inventory_data(inventory_data)
 	external_inventory.show()
 	
-func _clear_external_inventory():
+func _clear_external_inventory() -> void:
 	if external_inventory_owner:
 		var inventory_data = external_inventory_owner.inventory_data
 		inventory_data.signal_inventory_interact.disconnect(_on_inventory_interact)
@@ -55,7 +57,7 @@ func _clear_external_inventory():
 		external_inventory.hide()
 		external_inventory_owner = null
 	
-func _on_inventory_interact(inventory_data: InventoryData, index: int, button: int):
+func _on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
 	#print("START %s %s %s" % [inventory_data, index, button])
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]:
@@ -85,30 +87,30 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 			grabbed_slot_data = inventory_data._drop_single_slot_data(grabbed_slot_data, index)
 	_update_grabbed_slot()
 	if inventory_data.type == inventory_data.InventoryType.quick_slot \
-		and Global.global_item_script.equiped_slot and Global.global_item_script.equiped_slot == grabbed_slot_data:
-		Global.global_item_script.swap_items(inventory_data, index)
+		and player.item.equiped_slot and player.item.equiped_slot == grabbed_slot_data:
+		player.item.swap_items(inventory_data, index)
 
-func _update_grabbed_slot():
+func _update_grabbed_slot() -> void:
 	if grabbed_slot_data:
 		grabbed_slot.show()
 		grabbed_slot._set_slot_data(grabbed_slot_data)
 	else:
 		grabbed_slot.hide()
 
-func _on_visibility_changed():
+func _on_visibility_changed() -> void:
 	if not visible and grabbed_slot_data:
 		signal_drop_item.emit(grabbed_slot_data)
 		grabbed_slot_data = null
 		_update_grabbed_slot()
 
-func _on_item_drop_button_pressed():
-	if Global.global_item_script.equiped_slot == panel_inventory_data.slots_data[panel_index_data]:
-		Global.global_item_script.remove_active_item(panel_inventory_data, panel_index_data, panel_inventory_data.slots_data[panel_index_data])
+func _on_item_drop_button_pressed() -> void:
+	if player.item.equiped_slot == panel_inventory_data.slots_data[panel_index_data]:
+		player.item.remove_active_item(panel_inventory_data, panel_index_data, panel_inventory_data.slots_data[panel_index_data])
 	signal_drop_item.emit(panel_inventory_data.slots_data[panel_index_data])
 	panel_inventory_data._grab_slot_data(panel_index_data)
 	hide_inv_item_panel()
 
-func _on_gui_input(event):
+func _on_gui_input(event) -> void:
 	if event is InputEventMouseButton \
 			and event.is_pressed():
 		match event.button_index:
@@ -120,7 +122,7 @@ func _on_gui_input(event):
 					hide_inv_item_panel()
 		_update_grabbed_slot()
 
-func hide_inv_item_panel():
+func hide_inv_item_panel() -> void:
 	inv_item_info_panel.hide()
-	panel_index_data = null
+	panel_index_data = 0
 	panel_inventory_data = null

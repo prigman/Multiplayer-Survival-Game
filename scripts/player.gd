@@ -23,7 +23,7 @@ var def_weapon_holder_pos: Vector3
 	# 	peer_id = id
 	# 	%InputSync.set_multiplayer_authority(id)
 
-@export var mouse_sens = 0.15
+@export var mouse_sens := 0.15
 
 # inv
 @export var player_inventory: InventoryData
@@ -38,32 +38,30 @@ var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назна�
 
 # tilt weapon
 @export var weapon_holder: Node3D
-@export var weapon_sway_amount: float = 5
-@export var weapon_rotation_amount: float = 1
+@export var weapon_sway_amount: float = 5.0
+@export var weapon_rotation_amount: float = 1.0
 @export var invert_weapon_sway: bool = false
 
-@onready var spherecast = %ShapeCast3D
-@onready var camera_holder = %CameraHolder
-@onready var camera = %Camera3D
-@onready var interact_ray = %InteractRay
-@onready var inventory_interface = %InventoryInterface
-@onready var item = %Item
-@onready var player_stats = %PlayerStats
-@onready var craft_menu = %CraftMenu
-@onready var input_sync = %InputSync
-@onready var canvas_layer = %CanvasLayer
+@onready var spherecast := %ShapeCast3D
+@onready var camera_holder := %CameraHolder
+@onready var camera := %Camera3D
+@onready var interact_ray := %InteractRay
+@onready var inventory_interface := %InventoryInterface
+@onready var item := %Item
+@onready var player_stats := %PlayerStats
+@onready var craft_menu := %CraftMenu
+@onready var input_sync := %InputSync
+@onready var canvas_layer := %CanvasLayer
+@onready var debug_ui := %Debug
 
-@rpc("any_peer","call_local")
-func hide_canvas_layer():
-	print("canvas hided")
-	%CanvasLayer.hide()
+# @rpc("any_peer","call_local")
+# func hide_canvas_layer():
+# 	print("canvas hided")
+# 	%CanvasLayer.hide()
 
 func _ready():
 	if not is_multiplayer_authority():
-		rpc("hide_canvas_layer")
 		return
-	if not multiplayer.is_server():
-		set_process(false)
 	# if not is_multiplayer_authority():
 	# 	set_process(false)
 	# 	set_process_input(false)
@@ -71,11 +69,7 @@ func _ready():
 	# 	camera.make_current()
 	# else:
 	# 	camera.clear_current(false)
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	Global.global_player = self
-	Global.global_player_quick_slot = player_quick_slot
-	Global.global_player_inventory = player_inventory
-	#
+	%CanvasLayer.show()
 	signal_toggle_inventory.connect(_toggle_inventory_interface)
 	inventory_interface._set_player_inventory_data(player_inventory)
 	inventory_interface._set_quick_slot_data(player_quick_slot)
@@ -89,10 +83,8 @@ func _ready():
 	signal_update_player_stats.emit(health_value, hunger_value)
 
 func _process(delta):
-	if not is_multiplayer_authority():
-		return
 	var velocity_string = "%.2f" % velocity.length()
-	Global.global_debug.add_property("velocity", velocity_string, + 1)
+	debug_ui.add_property("velocity", velocity_string, + 1)
 	if item.equiped_item_node:
 		weapon_tilt(input_sync.input_direction.x, delta)
 		weapon_sway(delta)
@@ -101,8 +93,6 @@ func _process(delta):
 	# 	get_tree().reload_current_scene()
 
 func _input(event):
-	if not is_multiplayer_authority():
-		return
 	if event is InputEventMouseMotion and !inventory_interface.visible:
 		rotate_y(deg_to_rad( - event.relative.x * mouse_sens))
 		camera_holder.rotate_x(deg_to_rad( - event.relative.y * mouse_sens))
@@ -111,8 +101,6 @@ func _input(event):
 
 
 func _unhandled_input(event):
-	if not is_multiplayer_authority():
-		return
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	if event.is_action_pressed("inv_toggle"):
@@ -205,3 +193,23 @@ func weapon_bob(vel: float, delta):
 			weapon_holder.position.y = lerp(weapon_holder.position.y, def_weapon_holder_pos.y, 10 * delta)
 			weapon_holder.position.x = lerp(weapon_holder.position.x, def_weapon_holder_pos.x, 10 * delta)
 #-------
+	
+func check_is_inventory_open() -> bool:
+	return inventory_interface.visible
+	
+func get_inventory_slots() -> Array[InSlotData]:
+	if !player_inventory:
+		push_error("Set player_inventory in Player node")
+		return []
+	return player_inventory.slots_data
+
+func get_quick_slots() -> Array[InSlotData]:
+	if !player_quick_slot:
+		push_error("Set player_quick_slot in Player node")
+		return []
+	return player_quick_slot.slots_data
+	
+func give_item(slot_data: InSlotData):
+	if !player_inventory._pick_up_slot_data(slot_data) \
+		and !player_quick_slot._pick_up_slot_data(slot_data):
+		inventory_interface.signal_drop_item.emit(slot_data)

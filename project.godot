@@ -19,7 +19,7 @@ config/icon="res://icons/icon.svg"
 [autoload]
 
 Server="*res://scripts/server.gd"
-Global="*res://scripts/global.gd"
+Global="res://scripts/global.gd"
 
 [dotnet]
 

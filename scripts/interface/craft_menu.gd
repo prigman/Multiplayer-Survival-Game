@@ -3,34 +3,35 @@ extends PanelContainer
 const TAB_SCENE = preload("res://inventory/craft_menu_scenes/craft_menu_tab.tscn")
 const CRAFT_ITEM_SCENE = preload("res://inventory/craft_menu_scenes/craft_item.tscn")
 
-@onready var tab_container = %TabContainer
+@onready var tab_container := %TabContainer
 
-@onready var item_weapon_container = %ItemWeaponContainer
-@onready var item_heal_container = %ItemHealContainer
-@onready var item_buildings_container = %ItemBuildingsContainer
-@onready var item_tools_container = %ItemToolsContainer
+@onready var item_weapon_container := %ItemWeaponContainer
+@onready var item_heal_container := %ItemHealContainer
+@onready var item_buildings_container := %ItemBuildingsContainer
+@onready var item_tools_container := %ItemToolsContainer
 
-@onready var tools_page = %Tools
-@onready var weapon_page = %Weapon
-@onready var heal_page = %Heal
-@onready var buildings_page = %Buildings
-@onready var page_name = %PageName
+@onready var tools_page := %Tools
+@onready var weapon_page := %Weapon
+@onready var heal_page := %Heal
+@onready var buildings_page := %Buildings
+@onready var page_name := %PageName
 
 @export var tabs_resource : CraftMenuTab
+@export var player: CharacterBody3D
 
 var player_inventory_slots : Array[InSlotData]
 var player_quick_slots : Array[InSlotData]
 
-var current_page = null
+var current_page: ScrollContainer
 
-func _ready():
+func _ready() -> void:
 	if tabs_resource:
 		set_craft_menu_tabs(tabs_resource)
 		set_current_page(tools_page)
 	else:
 		push_error("Set tab_resource in node CraftMenu")
 
-func set_craft_menu_tabs(craft_menu_tab : CraftMenuTab):
+func set_craft_menu_tabs(craft_menu_tab : CraftMenuTab) -> void:
 	for tab_data in craft_menu_tab.list:
 		if tab_data:
 			var tab = TAB_SCENE.instantiate()
@@ -39,7 +40,7 @@ func set_craft_menu_tabs(craft_menu_tab : CraftMenuTab):
 			tab.signal_tab_clicked.connect(_on_tab_clicked)
 			set_craftable_items(tab_data.slot_in_tab)
 
-func _on_tab_clicked(tab_data):
+func _on_tab_clicked(tab_data) -> void:
 	match tab_data.type:
 		tab_data.TabType.weapon:
 			set_current_page(weapon_page)
@@ -50,7 +51,7 @@ func _on_tab_clicked(tab_data):
 		tab_data.TabType.tool:
 			set_current_page(tools_page)
 
-func set_craftable_items(slots_in_tab : Array[InSlotData]):
+func set_craftable_items(slots_in_tab : Array[InSlotData]) -> void:
 	for slot_data in slots_in_tab:
 		var craft_item = CRAFT_ITEM_SCENE.instantiate()
 		match slot_data.item.item_type:
@@ -65,7 +66,7 @@ func set_craftable_items(slots_in_tab : Array[InSlotData]):
 		craft_item.set_craft_item_data(slot_data)
 		craft_item.signal_craft_button_pressed.connect(_on_craft_button_pressed)
 		
-func set_current_page(page : ScrollContainer):
+func set_current_page(page : ScrollContainer) -> void:
 	if current_page:
 		current_page.hide()
 	if !page.visible:
@@ -73,11 +74,11 @@ func set_current_page(page : ScrollContainer):
 		current_page = page
 		page_name.text = "CRAFTING: %s" % page.name
 	
-func _on_craft_button_pressed(slot_data: InSlotData):
+func _on_craft_button_pressed(slot_data: InSlotData) -> void:
 	var item_data = slot_data.item
 	var craft_possible = true
-	player_inventory_slots = Global.get_player_inventory_slots()
-	player_quick_slots = Global.get_player_quick_slots()
+	player_inventory_slots = player.get_inventory_slots()
+	player_quick_slots = player.get_quick_slots()
 	if !player_inventory_slots or !player_quick_slots:
 		return
 	# Проверяем, есть ли у игрока все необходимые компоненты для крафта
@@ -124,11 +125,11 @@ func _on_craft_button_pressed(slot_data: InSlotData):
 						remaining_amount = 0
 					if remaining_amount == 0:
 						break
-		Global.global_player_inventory.signal_inventory_update.emit(Global.global_player_inventory)
-		Global.global_player_quick_slot.signal_inventory_update.emit(Global.global_player_quick_slot)
+		player.player_inventory.signal_inventory_update.emit(player.player_inventory)
+		player.player_quick_slot.signal_inventory_update.emit(player.player_quick_slot)
 		#if !Global.global_player_inventory._pick_up_slot_data(slot_data.duplicate()) \
 				#and !Global.global_player_quick_slot._pick_up_slot_data(slot_data.duplicate()):
 			#Global.global_player.inventory_interface.signal_drop_item.emit(slot_data.duplicate())
-		Global.give_player_item(slot_data.duplicate())
+		player.give_item(slot_data.duplicate())
 	else:
 		print("Not enough components for crafting.")

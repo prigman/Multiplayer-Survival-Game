@@ -5,9 +5,6 @@ var fps_string : String
 
 @onready var property_container = %VBoxContainer
 
-func _ready():
-	Global.global_debug = self
-
 func _process(delta):
 	add_property("fps", fps_string, 0)
 	if visible:
