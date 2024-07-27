@@ -64,11 +64,6 @@ var spread_value: float
 # хранит в себе сцену со строительным объектом
 var building_scene
 
-func _ready() -> void:
-	if not is_multiplayer_authority():
-		return
-	randomize() # чтобы разброс оружия работал
-
 func _physics_process(delta) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -398,15 +393,12 @@ func hitscan(raycast: RayCast3D) -> void:
 			target.health -= equiped_item.damage
 
 func randomize_aimcast_spread() -> void:
-	if not is_multiplayer_authority():
-		return
+	var rng = RandomNumberGenerator.new()
 	spread_value = reticle.spread_factors * 10 # умножается на 10 в случае если длина луча 1000+ метров
-	aim_cast.target_position.x = randf_range( - spread_value, spread_value)
-	aim_cast.target_position.y = randf_range( - spread_value, spread_value)
+	aim_cast.target_position.x = rng.randf_range( - spread_value, spread_value)
+	aim_cast.target_position.y = rng.randf_range( - spread_value, spread_value)
 
 func Assault_Rifle_Scope() -> void:
-	if not is_multiplayer_authority():
-		return
 	if !Scoped:
 		fp_item_animator.play(equiped_item.anim_scope)
 		fp_player_animator.play(equiped_item.anim_player_scope)

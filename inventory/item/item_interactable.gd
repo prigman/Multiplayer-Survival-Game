@@ -1,16 +1,18 @@
 extends RigidBody3D
 
 @export var slot_data : InSlotData
+@export var synchronizer : MultiplayerSynchronizer
+@export var network_id : int
 
-@rpc("any_peer")
-func request_free():
-		queue_free()
-
-func _player_interact(inventory_data : InventoryData, quick_slot_data : InventoryData):
-	if !inventory_data._pick_up_slot_data(slot_data):
-		if quick_slot_data._pick_up_slot_data(slot_data):
-			rpc('request_free')
-		else:
-			print("Inventories are full")
+func _player_interact(player: Player) -> bool:
+	if player.give_item(slot_data) == true:
+		return true
 	else:
-		queue_free()
+		return false
+
+# @rpc("any_peer", "reliable", "call_local")
+# func delete_item() -> void:
+# 	if not is_multiplayer_authority(): return
+# 	print("SERVER: delete_item function called on item %s" % get_node(get_path()).name)
+# 	queue_free()
+

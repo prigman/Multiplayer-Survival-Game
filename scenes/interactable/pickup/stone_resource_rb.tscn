@@ -1,32 +1,50 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnw83bbj2p7xk"]
+[gd_scene load_steps=11 format=3 uid="uid://cnw83bbj2p7xk"]
 
 [ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_oft30"]
-[ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="2_tifde"]
+[ext_resource type="Texture2D" uid="uid://ca52nm4h3yfln" path="res://icons/stone_icon.png" id="2_locbn"]
+[ext_resource type="Script" path="res://inventory/item/item_data_resource.gd" id="3_784by"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_gusdw"]
 [ext_resource type="ArrayMesh" uid="uid://dn36yp2mvwg2q" path="res://models/meshes/stone_dropped.res" id="4_dl3h3"]
 [ext_resource type="Material" uid="uid://c6w8g20kpdi7h" path="res://materials/rocks_mat.tres" id="5_jgap4"]
 
-[sub_resource type="Resource" id="Resource_c3cue"]
+[sub_resource type="Resource" id="Resource_w1s03"]
+resource_local_to_scene = true
+script = ExtResource("3_784by")
+item_type = 3
+name = "Stone"
+description = "Crafting resource"
+description_item_panel = "Crafting resource"
+stackable = true
+max_stack = 54
+quality = 100.0
+icon = ExtResource("2_locbn")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/stone_resource_rb.tscn"
+}
+
+[sub_resource type="Resource" id="Resource_aess8"]
+resource_local_to_scene = true
 script = ExtResource("3_gusdw")
-item = ExtResource("2_tifde")
+item = SubResource("Resource_w1s03")
 amount_in_slot = 1
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xhi2c"]
-points = PackedVector3Array(-0.329583, 0.585082, -0.536773, -0.809377, 0.806203, -0.36715, 0.682882, 0.596667, -0.294378, -0.285672, 0.251134, -0.480232, -0.93743, 0.0023098, -0.122972, -1.23584, 0.240556, -0.0403902, -1.15629, 0.456305, -0.126718, -0.745926, 1.30167, 0.723894, -0.588906, 1.37857, 0.401414, 0.915078, 0.727795, -0.0774896, 1.11279, 0.557715, 0.115142, 1.0183, 0.28018, 0.033452, 0.697596, 0.500965, -0.277612, 0.100554, 0.151739, -0.373393, 0.252976, 0.0147342, -0.205197, -0.621322, -0.249872, 0.18506, -0.51258, -0.336675, 0.497016, -0.600631, -0.266494, 0.729779, -1.23584, 0.240556, 0.56854, -1.1917, 0.360435, 0.687329, -0.979041, 0.936659, 0.962008, -0.907313, 1.13075, 0.814858, -0.583619, 0.750797, 1.28538, -0.176242, 1.06879, 1.15821, 0.570923, 1.02397, 0.910461, 0.342635, 1.22057, 0.412651, 1.11279, 0.557715, 0.720683, 0.899905, -0.0688787, 0.34737, 0.921745, -0.00423822, 0.162943, 0.959218, 0.105735, 0.760815, -0.272338, -0.0213638, 1.16463, -0.553042, 0.454961, 1.26826)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_noyc4"]
+points = PackedVector3Array(-0.166886, 0.713804, 1.14699, -0.377536, 0.538181, -0.503863, -0.587079, 0.643256, -0.431649, -0.525118, -0.317809, 0.553191, 1.08343, 0.503113, 0.0889509, -0.630185, 1.35631, 0.481436, -1.20495, 0.324275, 0.625017, 1.08057, 0.574089, 0.731822, 0.884063, -0.0220296, 0.199373, -0.273229, -0.0266534, 1.1515, -0.944905, 0.00839115, -0.119873, 0.360015, 1.20578, 0.444589, -1.12141, 0.503168, -0.119797, 0.182022, 0.0853319, -0.287706, 0.638156, 0.60797, -0.290359, -0.0615, 1.06592, 1.07785, 0.938824, 0.109941, 0.767855, -0.806364, 0.822225, -0.33458, -0.95408, 0.967082, 0.55335, -0.593062, 0.290485, 1.11896, 0.577974, 1.00031, 0.90768, -0.622554, -0.233442, 0.164059, 0.861235, 0.742777, -0.0707619, -0.575901, 1.32675, 0.339265, -0.23725, 0.257094, -0.469284, -1.19499, 0.219736, 0.587077, -1.19954, 0.218527, -0.0519089, 0.746322, -0.0938504, 0.374254, 1.00415, 0.289936, 0.0197689, -0.626607, -0.238889, 0.7279, -0.382728, 0.609928, -0.517715, 0.288005, 0.0136654, -0.185157)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5g8po"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[node name="Stone resource" type="RigidBody3D"]
+[node name="Stone resource" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
 collision_layer = 4
 collision_mask = 6281
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
 script = ExtResource("1_oft30")
-slot_data = SubResource("Resource_c3cue")
+slot_data = SubResource("Resource_aess8")
+synchronizer = NodePath("MultiplayerSynchronizer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
@@ -35,7 +53,7 @@ surface_material_override/0 = ExtResource("5_jgap4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_xhi2c")
+shape = SubResource("ConvexPolygonShape3D_noyc4")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5g8po")

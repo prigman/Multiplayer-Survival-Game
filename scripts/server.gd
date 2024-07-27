@@ -60,4 +60,3 @@ func _peer_connected(peer_id) -> void:
 
 func _peer_disconnected(peer_id) -> void:
 	print("SERVER: Peer " + str(peer_id) + " disconnected")
-

@@ -1,6 +1,7 @@
-[gd_scene load_steps=38 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=39 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
+[ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
 [ext_resource type="PackedScene" uid="uid://cu78wr4f7155s" path="res://scenes/scene_template.tscn" id="5_xsqmg"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="6_t2uit"]
 [ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/pine-wood-crate_staticbody.tscn" id="8_upg36"]
@@ -132,17 +133,20 @@ radius = 0.7
 radius = 20.0
 height = 60.0
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3", "multiplayer_spawner") groups=["world"]]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3", "multiplayer_spawner", "item_spawner") groups=["world"]]
 script = ExtResource("1_7fa2s")
 enemy1 = NodePath("zone/Enemy")
 enemy2 = NodePath("zone/Enemy2")
 enemy3 = NodePath("zone/Enemy3")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
+item_spawner = NodePath("ItemSpawner")
 
-[node name="ItemSpawner" type="MultiplayerSpawner" parent="."]
+[node name="ItemSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("node_position")]
 unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn")
 spawn_path = NodePath("../zone/ZoneItems")
+script = ExtResource("2_6apke")
+node_position = NodePath("../zone/ZoneItems/SpawnPosition")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
@@ -175,6 +179,14 @@ environment = SubResource("Environment_o00h3")
 [node name="zone" parent="." instance=ExtResource("5_xsqmg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -182.214, 154.859, 247.707)
 
+[node name="ZoneItems" type="Node3D" parent="zone"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2538, 0)
+
+[node name="SpawnPosition" type="Node3D" parent="zone/ZoneItems"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.719971, -4.20944)
+
 [node name="Pine-Wood-Crate" parent="zone" instance=ExtResource("8_upg36")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.35348, 0, -0.590063)
 inventory_data = SubResource("Resource_gisbm")
@@ -187,10 +199,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 0, -2.48857)
 
 [node name="Enemy3" parent="zone" instance=ExtResource("26_pxx8e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 0, -4.99677)
-
-[node name="ZoneItems" type="Node3D" parent="zone"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01271, 0)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 5.0

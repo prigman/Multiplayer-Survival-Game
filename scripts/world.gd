@@ -6,15 +6,16 @@ const PLAYER_SCENE = preload("res://scenes/player.tscn")
 @export var enemy2: CharacterBody3D
 @export var enemy3: CharacterBody3D
 @export var multiplayer_spawner : MultiplayerSpawner
+@export var item_spawner : MultiplayerSpawner
 
 @onready var players_spawn_node := %Players
-@onready var zone_items := %ZoneItems
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	multiplayer_spawner.spawn_function = custom_spawn
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(delete_player)
+	Server.main_scene = get_node(get_path())
 
 func _on_enemy_spawn_timer_timeout() -> void:
 	if !enemy1.visible:
@@ -53,14 +54,14 @@ func delete_player(id: int) -> void:
 	print("SERVER: delete_player function called")
 	players_spawn_node.get_node(str(id)).queue_free()
 
-func custom_spawn(vars) -> Node:
-	var id = vars[0]
-	var pos = vars[1]
+func custom_spawn(data) -> Node:
+	var id = data[0]
+	var pos = data[1]
 
 	var player: Player = PLAYER_SCENE.instantiate()
 	player.set_multiplayer_authority(id)
-	player.name = str(id)
 	player.peer_id = id
+	player.name = 'Player_' + str(id)
 	player.position = pos
 	return player
 
