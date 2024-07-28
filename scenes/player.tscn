@@ -395,6 +395,7 @@ corner_radius_bottom_left = 2
 collision_layer = 2
 collision_mask = 6345
 script = ExtResource("1_adhyr")
+peer_id = null
 player_inventory = ExtResource("2_xq8ps")
 player_quick_slot = ExtResource("3_yc7co")
 weapon_spread_data = Array[Resource("res://scripts/weapon/weapon_spread_data.gd")]([ExtResource("4_qxsc1")])

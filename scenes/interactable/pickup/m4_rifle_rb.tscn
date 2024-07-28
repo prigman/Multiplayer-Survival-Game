@@ -1,8 +1,74 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpuockgojkn1w"]
+[gd_scene load_steps=16 format=3 uid="uid://cpuockgojkn1w"]
 
 [ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_vmli6"]
 [ext_resource type="ArrayMesh" uid="uid://b4443bmc762ax" path="res://models/meshes/m4_rifle_default.res" id="2_2nyo8"]
+[ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_full_auto.gd" id="2_i4o6b"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="2_y2usy"]
+[ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_single.gd" id="3_mnvhj"]
+[ext_resource type="Texture2D" uid="uid://dkv3vtbo8ejnw" path="res://icons/m4_rifle_icon.png" id="4_468nc"]
+[ext_resource type="Curve" uid="uid://bl86an7yiit51" path="res://scripts/weapon/ar_curve.tres" id="5_ol6jx"]
+[ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="6_fbk3j"]
+[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="7_dcd8e"]
+
+[sub_resource type="Resource" id="Resource_qtfbu"]
+script = ExtResource("2_i4o6b")
+name = "Full Auto"
+mode = 1
+fire_rate = 0.14
+
+[sub_resource type="Resource" id="Resource_yonya"]
+script = ExtResource("3_mnvhj")
+name = "Single"
+mode = 0
+fire_rate = 0.14
+
+[sub_resource type="Resource" id="Resource_qmim2"]
+script = ExtResource("6_fbk3j")
+craft_components = Array[Resource("res://inventory/craft_components.gd")]([])
+item_type = 0
+anim_activate = "M4_Rifle_Anims/M4_Rifle_Equip"
+anim_scope = "M4_Rifle_Anims/M4_Rifle_Scope"
+anim_reload = "M4_Rifle_Anims/M4_Rifle_Reload"
+anim_idle = "M4_Rifle_Anims/M4_Rifle_Idle"
+anim_player_activate = "FP_Armature/M4_Rifle_Player_Equip"
+anim_player_scope = "FP_Armature/M4_Rifle_Player_Scope"
+anim_player_reload = "FP_Armature/M4_Rifle_Player_Reload"
+anim_player_idle = "FP_Armature/M4_Rifle_Player_Idle"
+ammo_current = 30
+ammo_max = 30
+damage = 24.0
+weapon_type = 0
+fire_modes = Array[Resource("res://scripts/weapon/fire_modes/weapon_fire_modes.gd")]([SubResource("Resource_yonya"), SubResource("Resource_qtfbu")])
+fire_mode_current = SubResource("Resource_qtfbu")
+recoil_rotation_x = ExtResource("5_ol6jx")
+recoil_rotation_z = ExtResource("5_ol6jx")
+recoil_position_z = ExtResource("5_ol6jx")
+recoil_amplitude = Vector3(0.05, 0.2, 0.02)
+lerp_speed = 5.0
+recoil_speed = 1.0
+position = Vector3(0, 0, 0)
+name = "Assault Rifle"
+description = "Weapon"
+description_item_panel = "The handy short automatic rifle with supressor and sight.
+
+Ammo type: 5.45 mm
+Damage head: 60 hp
+Damage body: 25 hp
+Damage arms: 15 hp
+Damage legs: 15 hps
+Shoot types: auto, single, burst"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("4_468nc")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/m4_rifle_rb.tscn"
+}
+
+[sub_resource type="Resource" id="Resource_vhvsq"]
+script = ExtResource("7_dcd8e")
+item = SubResource("Resource_qmim2")
+amount_in_slot = 1
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gwtad"]
 points = PackedVector3Array(-0.14464, -0.0979556, -0.0238342, -0.406657, 0.177378, 0.0154838, -0.406657, 0.177378, -0.0107282, 0.261856, 0.124904, 0.0285897, 0.261856, 0.124904, -0.0238342, -0.367396, 0.0855551, 0.0417034, 0.261856, -0.00615981, 0.0154838, -0.511628, 0.0855551, -0.0238342, -0.18382, -0.0848303, 0.0154838, -0.367396, 0.124904, -0.0369479, -0.577256, 0.0855551, 0.0154838, 0.261856, -0.00615981, -0.0238342, 0.025794, 0.0724568, 0.0417034, 0.025794, 0.164226, 0.0285897, 0.025794, 0.0724568, -0.0369479, 0.025794, 0.164226, -0.0107282, -0.367396, 0.111779, 0.0417034, -0.367396, 0.0724568, -0.0369479, -0.577256, 0.0855551, -0.0107282, -0.577256, 0.111779, -0.0107282, 0.025794, 0.111779, 0.0417034, 0.025794, 0.151127, -0.0238342, -0.577256, 0.111779, 0.0154838, -0.118439, -0.0979556, -0.0238342, 0.261856, 0.0724568, 0.0285897, -0.18382, -0.0848303, -0.0238342, -0.419799, 0.177378, 0.0154838, -0.18382, 0.0724568, 0.0417034, -0.511628, 0.111779, -0.0238342, -0.419799, 0.177378, -0.0107282, -0.00040774, 0.164226, 0.0285897)
@@ -19,6 +85,7 @@ axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
 script = ExtResource("1_vmli6")
+slot_data = SubResource("Resource_vhvsq")
 synchronizer = NodePath("MultiplayerSynchronizer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

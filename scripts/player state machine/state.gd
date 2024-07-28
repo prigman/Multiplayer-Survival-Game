@@ -8,7 +8,7 @@ func enter(_previous_state) -> void:
 	
 func exit() -> void:
 	pass
-	
+
 func update(_delta: float) -> void:
 	pass
 

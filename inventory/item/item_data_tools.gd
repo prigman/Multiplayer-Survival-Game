@@ -14,3 +14,15 @@ enum ToolType {
 @export var anim_player_hit: String
 @export var anim_player_after_hit: String
 @export var damage: int
+
+func serialize_item_data() -> Dictionary:
+	return {
+		"quality": quality,
+		"damage": damage
+	}
+
+static func deserialize_item_data(data: Dictionary) -> ItemDataTools:
+	var item_data = ItemDataTools.new()
+	item_data.quality = data["quality"]
+	item_data.damage = data["damage"]
+	return item_data

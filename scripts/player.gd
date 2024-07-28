@@ -68,9 +68,7 @@ func _ready() -> void:
 	def_weapon_holder_pos = weapon_holder.position
 	spherecast.add_exception($".")
 	signal_update_player_stats.emit(health_value, hunger_value)
-	main_scene = get_node('/root/Main')
-
-
+	main_scene = get_parent().get_parent()
 func _process(delta) -> void:
 	var velocity_string = "%.2f" % velocity.length()
 	debug_ui.add_property("velocity", velocity_string, + 1)
@@ -128,29 +126,12 @@ func update_velocity() -> void:
 # ------------ Inventory items interaction
 
 func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
-	#rpc('create_item', slot_data)
-	var serialized_data = SerializationUtils.serialize_in_slot_data(slot_data)
-	get_node('/root/Main').item_spawner.rpc_id(1, 'spawn_inventory_item', RandomNumberGenerator.new().randi_range(1000, 9999), get_drop_position(), serialized_data)
-	# if slot_data.item.dictionary.has("dropped_item"):
-	# 	var dropped_inventory_item = load(slot_data.item.dictionary["dropped_item"])
-	# 	_instantiate_dropped_item(dropped_inventory_item, slot_data)
-
-# func _instantiate_dropped_item(dropped_inventory_item: PackedScene, slot_data: InSlotData) -> void:
-# 	#var obj := dropped_inventory_item.instantiate()
-# 	#obj.slot_data = slot_data
-# 	#main_scene.add_child(obj)
-# 	main_scene.item_spawner.spawn_inventory_item(RandomNumberGenerator.new().randi_range(1000,9999), get_drop_position(), slot_data)
-# 	#obj.position = get_drop_position()
-
-#@rpc("any_peer", "reliable", "call_local")
-# func create_item(slot_data : InSlotData) -> void:
-# 	rpc_id(1, "request_spawn_item", RandomNumberGenerator.new().randi_range(1000, 9999), get_drop_position(), slot_data)
-	# Server.main_scene.item_spawner.spawn_inventory_item(RandomNumberGenerator.new().randi_range(1000,9999), get_drop_position(), slot_data)
-
-# @rpc("any_peer", "call_remote", "reliable")
-# func request_spawn_item(id, spawn_position, slot_data) -> void:
-# 	if multiplayer.is_server():
-# 		item_spawner.spawn_inventory_item(id, spawn_position, slot_data)
+	var dict_slot_data := slot_data.serialize_data()
+	var dict_item_data := slot_data.item.serialize_item_data()
+	var item_data_scene := slot_data.item.dictionary
+	var random_number := RandomNumberGenerator.new().randi_range(1000, 9999)
+	var drop_position := get_drop_position()
+	main_scene.item_spawner.rpc_id(1, 'request_spawn_item', random_number, drop_position, dict_slot_data, dict_item_data, item_data_scene)
 
 func interact() -> void:
 	if interact_ray.is_colliding():

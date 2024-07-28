@@ -20,7 +20,6 @@ config/icon="res://icons/icon.svg"
 
 Server="*res://scripts/server.gd"
 Global="res://scripts/global.gd"
-SerializationUtils="*res://scripts/serialization_utils.gd"
 
 [dotnet]
 

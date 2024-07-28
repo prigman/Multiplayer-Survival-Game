@@ -31,26 +31,12 @@ enum WeaponType {
 @export var dictionary: Dictionary
 
 
-func serialize() -> Dictionary:
+func serialize_item_data() -> Dictionary:
 	return {
-		"name": name,
-		"description": description,
-		"description_item_panel": description_item_panel,
-		"stackable": stackable,
-		"max_stack": max_stack,
-		"quality": quality,
-		"icon": icon.resource_path, # передаем путь к текстуре, так как сами текстуры не передаются через RPC
-		"dictionary": dictionary
+		"quality": quality
 	}
 
-static func deserialize(data: Dictionary) -> ItemData:
+static func deserialize_item_data(data: Dictionary) -> ItemData:
 	var item_data = ItemData.new()
-	item_data.name = data["name"]
-	item_data.description = data["description"]
-	item_data.description_item_panel = data["description_item_panel"]
-	item_data.stackable = data["stackable"]
-	item_data.max_stack = data["max_stack"]
 	item_data.quality = data["quality"]
-	item_data.icon = load(data["icon"]) # загружаем текстуру из пути
-	item_data.dictionary = data["dictionary"]
 	return item_data
