@@ -18,7 +18,7 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[node name="Canned-food" type="RigidBody3D"]
+[node name="Canned-food" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
 collision_layer = 4
 collision_mask = 6281
 axis_lock_linear_x = true
@@ -26,6 +26,7 @@ axis_lock_linear_z = true
 lock_rotation = true
 script = ExtResource("1_fn2sq")
 slot_data = SubResource("Resource_e0diy")
+synchronizer = NodePath("MultiplayerSynchronizer")
 
 [node name="Canned_food_A_01" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)

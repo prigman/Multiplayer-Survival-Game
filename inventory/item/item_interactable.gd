@@ -8,6 +8,7 @@ func _player_interact(player: Player) -> bool:
 	if player.give_item(slot_data) == true:
 		return true
 	else:
+		print("Inventory and quick slots are full")
 		return false
 
 # @rpc("any_peer", "reliable", "call_local")

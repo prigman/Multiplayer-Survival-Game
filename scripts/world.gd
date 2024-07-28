@@ -52,7 +52,7 @@ func add_player(id: int) -> void:
 func delete_player(id: int) -> void:
 	if not multiplayer.is_server(): return
 	print("SERVER: delete_player function called")
-	players_spawn_node.get_node(str(id)).queue_free()
+	players_spawn_node.get_node('Player_' + str(id)).queue_free()
 
 func custom_spawn(data) -> Node:
 	var id = data[0]

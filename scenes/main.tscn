@@ -144,7 +144,7 @@ item_spawner = NodePath("ItemSpawner")
 [node name="ItemSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("node_position")]
 unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn")
-spawn_path = NodePath("../zone/ZoneItems")
+spawn_path = NodePath("..")
 script = ExtResource("2_6apke")
 node_position = NodePath("../zone/ZoneItems/SpawnPosition")
 

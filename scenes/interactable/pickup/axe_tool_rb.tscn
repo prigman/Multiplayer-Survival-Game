@@ -19,7 +19,7 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[node name="Axe" type="RigidBody3D"]
+[node name="Axe" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
 collision_layer = 4
 collision_mask = 6281
 axis_lock_linear_x = true
@@ -27,6 +27,7 @@ axis_lock_linear_z = true
 lock_rotation = true
 script = ExtResource("1_glkrd")
 slot_data = SubResource("Resource_ot8mr")
+synchronizer = NodePath("MultiplayerSynchronizer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.55, 0, 0, 0, -2.40413e-08, 0.55, 0, -0.55, -2.40413e-08, 0, 0, 0)

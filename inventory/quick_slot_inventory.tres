@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=9 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=16 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
 [ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://inventory/item/objects/pickaxe.tres" id="2_g34mc"]
 [ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://inventory/item/objects/m4_rifle.tres" id="4_jbb6h"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="5_d3ahr"]
+[ext_resource type="Script" path="res://inventory/craft_components.gd" id="6_e5bmh"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="7_kxqb2"]
+[ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="8_f0b3b"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="8_qw5vx"]
-[ext_resource type="Resource" uid="uid://d16s5vsgm2o6t" path="res://inventory/item/objects/axe.tres" id="9_1hye6"]
+[ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="9_3utid"]
 
 [sub_resource type="Resource" id="Resource_6y7m6"]
 resource_local_to_scene = true
@@ -18,10 +22,42 @@ script = ExtResource("8_qw5vx")
 item = ExtResource("4_jbb6h")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_1j36k"]
+script = ExtResource("6_e5bmh")
+component = ExtResource("5_d3ahr")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_3yjym"]
+script = ExtResource("6_e5bmh")
+component = ExtResource("7_kxqb2")
+amount = 1
+
+[sub_resource type="Resource" id="Resource_vsgwy"]
+script = ExtResource("9_3utid")
+craft_components = Array[ExtResource("6_e5bmh")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
+item_type = 4
+tool_type = 1
+anim_activate = "Axe_Anims/Axe_Equip"
+anim_hit = "Axe_Anims/Axe_Hit"
+anim_after_hit = "Axe_Anims/Axe_After_Hit"
+anim_player_activate = "Axe_Player_Anims/Pickaxe_Player_Equip"
+anim_player_hit = "Axe_Player_Anims/Axe_Player_Hit"
+anim_player_after_hit = "Axe_Player_Anims/Axe_Player_After_Hit"
+damage = 21
+name = "Axe"
+description = "Axe"
+description_item_panel = "Axe"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("8_f0b3b")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
+}
+
 [sub_resource type="Resource" id="Resource_lid3v"]
-resource_local_to_scene = true
 script = ExtResource("8_qw5vx")
-item = ExtResource("9_1hye6")
+item = SubResource("Resource_vsgwy")
 amount_in_slot = 1
 
 [resource]

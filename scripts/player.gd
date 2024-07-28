@@ -128,10 +128,9 @@ func update_velocity() -> void:
 # ------------ Inventory items interaction
 
 func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
-	if not is_multiplayer_authority():
-		return
 	#rpc('create_item', slot_data)
-	create_item(slot_data)
+	var serialized_data = SerializationUtils.serialize_in_slot_data(slot_data)
+	get_node('/root/Main').item_spawner.rpc_id(1, 'spawn_inventory_item', RandomNumberGenerator.new().randi_range(1000, 9999), get_drop_position(), serialized_data)
 	# if slot_data.item.dictionary.has("dropped_item"):
 	# 	var dropped_inventory_item = load(slot_data.item.dictionary["dropped_item"])
 	# 	_instantiate_dropped_item(dropped_inventory_item, slot_data)
@@ -144,23 +143,23 @@ func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
 # 	#obj.position = get_drop_position()
 
 #@rpc("any_peer", "reliable", "call_local")
-func create_item(slot_data : InSlotData) -> void:
-	rpc_id(1, "request_spawn_item", RandomNumberGenerator.new().randi_range(1000, 9999), get_drop_position(), slot_data)
+# func create_item(slot_data : InSlotData) -> void:
+# 	rpc_id(1, "request_spawn_item", RandomNumberGenerator.new().randi_range(1000, 9999), get_drop_position(), slot_data)
 	# Server.main_scene.item_spawner.spawn_inventory_item(RandomNumberGenerator.new().randi_range(1000,9999), get_drop_position(), slot_data)
 
-@rpc("any_peer", "reliable")
-func request_spawn_item(id: int, spawn_position: Vector3, slot_data: InSlotData) -> void:
-	if multiplayer.is_server():
-		main_scene.item_spawner.spawn_inventory_item(id, spawn_position, slot_data)
-
+# @rpc("any_peer", "call_remote", "reliable")
+# func request_spawn_item(id, spawn_position, slot_data) -> void:
+# 	if multiplayer.is_server():
+# 		item_spawner.spawn_inventory_item(id, spawn_position, slot_data)
 
 func interact() -> void:
 	if interact_ray.is_colliding():
 		var collider : Object = interact_ray.get_collider()
-		if collider._player_interact(self) == true:
-			rpc('delete_item', collider.get_path())
+		if collider.is_in_group('external_inventory'):
+			collider._player_interact(player_inventory, player_quick_slot)
 		else:
-			print("Inventory and quick slots are full")
+			if collider._player_interact(self) == true:
+				rpc('delete_item', collider.get_path())
 
 @rpc("any_peer", "reliable", "call_local")
 func delete_item(inventory_item_interacted_path : NodePath) -> void:

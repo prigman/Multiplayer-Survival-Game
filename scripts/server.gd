@@ -60,3 +60,7 @@ func _peer_connected(peer_id) -> void:
 
 func _peer_disconnected(peer_id) -> void:
 	print("SERVER: Peer " + str(peer_id) + " disconnected")
+
+# @rpc("authority", "call_remote", "reliable")
+# func request_spawn_item(id: int, spawn_position: Vector3, slot_data: InSlotData) -> void:
+# 	main_scene.item_spawner.spawn_inventory_item(id, spawn_position, slot_data)
