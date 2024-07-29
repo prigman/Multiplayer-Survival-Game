@@ -28,8 +28,8 @@ script = ExtResource("3_gusdw")
 item = SubResource("Resource_w1s03")
 amount_in_slot = 1
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_noyc4"]
-points = PackedVector3Array(-0.166886, 0.713804, 1.14699, -0.377536, 0.538181, -0.503863, -0.587079, 0.643256, -0.431649, -0.525118, -0.317809, 0.553191, 1.08343, 0.503113, 0.0889509, -0.630185, 1.35631, 0.481436, -1.20495, 0.324275, 0.625017, 1.08057, 0.574089, 0.731822, 0.884063, -0.0220296, 0.199373, -0.273229, -0.0266534, 1.1515, -0.944905, 0.00839115, -0.119873, 0.360015, 1.20578, 0.444589, -1.12141, 0.503168, -0.119797, 0.182022, 0.0853319, -0.287706, 0.638156, 0.60797, -0.290359, -0.0615, 1.06592, 1.07785, 0.938824, 0.109941, 0.767855, -0.806364, 0.822225, -0.33458, -0.95408, 0.967082, 0.55335, -0.593062, 0.290485, 1.11896, 0.577974, 1.00031, 0.90768, -0.622554, -0.233442, 0.164059, 0.861235, 0.742777, -0.0707619, -0.575901, 1.32675, 0.339265, -0.23725, 0.257094, -0.469284, -1.19499, 0.219736, 0.587077, -1.19954, 0.218527, -0.0519089, 0.746322, -0.0938504, 0.374254, 1.00415, 0.289936, 0.0197689, -0.626607, -0.238889, 0.7279, -0.382728, 0.609928, -0.517715, 0.288005, 0.0136654, -0.185157)
+[sub_resource type="BoxShape3D" id="BoxShape3D_hxlns"]
+size = Vector3(2.63, 1.9, 2.03)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5g8po"]
 properties/0/path = NodePath(".:position")
@@ -52,8 +52,8 @@ mesh = ExtResource("4_dl3h3")
 surface_material_override/0 = ExtResource("5_jgap4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_noyc4")
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.102682, 0.0755653)
+shape = SubResource("BoxShape3D_hxlns")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5g8po")

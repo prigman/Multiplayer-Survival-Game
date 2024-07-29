@@ -67,8 +67,10 @@ horizontal_alignment = 1
 [node name="AddressEntry" type="LineEdit" parent="CanvasLayer/StartupUI/MainMenu/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "localhost"
 placeholder_text = "Server IP"
 alignment = 1
+max_length = 16
 
 [node name="ConnectClient" type="Button" parent="CanvasLayer/StartupUI/MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2

@@ -11,8 +11,8 @@ script = ExtResource("3_ldplm")
 item = ExtResource("2_31knv")
 amount_in_slot = 1
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5l7e4"]
-points = PackedVector3Array(-0.275873, 0.000932716, -0.121052, -0.275873, 0.000932716, 0.121052, -0.221865, 0.140793, -0.0959787, 0.275873, 0.000932716, -0.121052, 0.275873, 0.000932716, 0.121052, -0.221865, 0.140793, 0.095955, 0.221811, 0.140793, -0.0959787, 0.221811, 0.140793, 0.095955)
+[sub_resource type="BoxShape3D" id="BoxShape3D_6sr60"]
+size = Vector3(0.565, 0.185, 0.225)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8gs06"]
 properties/0/path = NodePath(".:position")
@@ -34,7 +34,8 @@ mesh = ExtResource("1_q1uh1")
 surface_material_override/0 = ExtResource("5_bbmu1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_5l7e4")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0735603, 0)
+shape = SubResource("BoxShape3D_6sr60")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_8gs06")
