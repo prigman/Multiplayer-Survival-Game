@@ -1,8 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cu78wr4f7155s"]
+[gd_scene load_steps=11 format=3 uid="uid://cu78wr4f7155s"]
 
 [ext_resource type="Material" uid="uid://cdw6pxne8q3rh" path="res://materials/template.tres" id="1_bxbrf"]
 [ext_resource type="Material" uid="uid://dtcreppnl8gdd" path="res://materials/template_3.tres" id="3_nif0k"]
 [ext_resource type="Material" uid="uid://c0e3kssjfljtm" path="res://materials/template_2.tres" id="4_lg25a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5fepe"]
+size = Vector3(100, 0.1, 100)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_m5ca6"]
 size = Vector2(100, 100)
@@ -23,8 +26,12 @@ size = Vector3(5, 1, 70)
 
 [node name="Node3D" type="Node3D"]
 
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_5fepe")
+
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
-use_collision = true
 collision_layer = 4097
 collision_mask = 64
 mesh = SubResource("PlaneMesh_m5ca6")

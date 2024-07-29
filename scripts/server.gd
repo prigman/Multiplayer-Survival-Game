@@ -1,16 +1,19 @@
 extends Node
 
+signal signal_start_game(ui : Control, change_scene)
+
 var port := 8080
-var connection_ip := "127.0.0.1"
+var connection_ip := "localhost"
 var max_players := 20
 var main_scene : Node3D
 var status
 
 func _ready() -> void:
-	if OS.has_feature("dedicated_server"):
-		start_server()
-	else:
-		connect_to_server()
+	signal_start_game.connect(start_game)
+	# if OS.has_feature("dedicated_server"):
+	# 	start_server()
+	# else:
+	# 	connect_to_server()
 
 
 func _exit_tree() -> void:
@@ -20,10 +23,10 @@ func _exit_tree() -> void:
 	multiplayer.connection_failed.disconnect(_on_connected_fail)
 	multiplayer.server_disconnected.disconnect(_on_server_disconnected)
 
-	
-func connect_to_server():
+
+func connect_to_server(ip_connect : String, port_connect: int):
 	var client_peer = ENetMultiplayerPeer.new()
-	status = client_peer.create_client(connection_ip, port)
+	status = client_peer.create_client(ip_connect, port_connect)
 	if status != OK:
 		OS.alert("CLIENT: Failed to connect")
 		return status
@@ -54,7 +57,12 @@ func start_server():
 	multiplayer.multiplayer_peer = server_peer
 	multiplayer.peer_connected.connect(_peer_connected)
 	multiplayer.peer_disconnected.connect(_peer_disconnected)
-	
+
+func start_game(change_scene):
+	if OS.has_feature("dedicated_server"):
+		start_server()
+		change_scene.call_deferred(load("res://scenes/main.tscn"))
+
 func _peer_connected(peer_id) -> void:
 	print("SERVER: Peer " + str(peer_id) + " connected")
 

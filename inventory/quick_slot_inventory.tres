@@ -1,20 +1,30 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=16 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=25 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
 [ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://inventory/item/objects/pickaxe.tres" id="2_g34mc"]
 [ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_full_auto.gd" id="4_opwfq"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="4_qktfq"]
 [ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_single.gd" id="5_d7an1"]
 [ext_resource type="Resource" uid="uid://d16s5vsgm2o6t" path="res://inventory/item/objects/axe.tres" id="5_p17sb"]
+[ext_resource type="Script" path="res://inventory/craft_components.gd" id="5_q40wr"]
 [ext_resource type="Texture2D" uid="uid://dkv3vtbo8ejnw" path="res://icons/m4_rifle_icon.png" id="6_axc0n"]
 [ext_resource type="Curve" uid="uid://bl86an7yiit51" path="res://scripts/weapon/ar_curve.tres" id="7_ox1ng"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="8_i2deb"]
+[ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://inventory/item/objects/wooden_floor.tres" id="8_mv40l"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="8_qw5vx"]
+[ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://inventory/item/objects/wooden_roof.tres" id="9_5u2b2"]
+[ext_resource type="Resource" uid="uid://do1v63m4lpun7" path="res://inventory/item/objects/wooden_wall.tres" id="10_kjisi"]
 
 [sub_resource type="Resource" id="Resource_6y7m6"]
 resource_local_to_scene = true
 script = ExtResource("8_qw5vx")
 item = ExtResource("2_g34mc")
 amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_bgt2a"]
+script = ExtResource("5_q40wr")
+component = ExtResource("4_qktfq")
+amount = 1
 
 [sub_resource type="Resource" id="Resource_qtfbu"]
 script = ExtResource("4_opwfq")
@@ -28,9 +38,9 @@ name = "Single"
 mode = 0
 fire_rate = 0.14
 
-[sub_resource type="Resource" id="Resource_r54pm"]
+[sub_resource type="Resource" id="Resource_88g5k"]
 script = ExtResource("8_i2deb")
-craft_components = Array[Resource("res://inventory/craft_components.gd")]([])
+craft_components = Array[ExtResource("5_q40wr")]([SubResource("Resource_bgt2a")])
 item_type = 0
 anim_activate = "M4_Rifle_Anims/M4_Rifle_Equip"
 anim_scope = "M4_Rifle_Anims/M4_Rifle_Scope"
@@ -71,10 +81,24 @@ dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/m4_rifle_rb.tscn"
 }
 
-[sub_resource type="Resource" id="Resource_iuw2l"]
-resource_local_to_scene = true
+[sub_resource type="Resource" id="Resource_1rlk4"]
 script = ExtResource("8_qw5vx")
-item = SubResource("Resource_r54pm")
+item = SubResource("Resource_88g5k")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_lq44m"]
+script = ExtResource("8_qw5vx")
+item = ExtResource("8_mv40l")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_jxxtv"]
+script = ExtResource("8_qw5vx")
+item = ExtResource("9_5u2b2")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_3egev"]
+script = ExtResource("8_qw5vx")
+item = ExtResource("10_kjisi")
 amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_lid3v"]
@@ -86,4 +110,4 @@ amount_in_slot = 1
 resource_local_to_scene = true
 script = ExtResource("1_ab8t5")
 type = 1
-slots_data = Array[ExtResource("8_qw5vx")]([SubResource("Resource_6y7m6"), SubResource("Resource_iuw2l"), null, null, null, SubResource("Resource_lid3v")])
+slots_data = Array[ExtResource("8_qw5vx")]([SubResource("Resource_6y7m6"), SubResource("Resource_1rlk4"), SubResource("Resource_lq44m"), SubResource("Resource_jxxtv"), SubResource("Resource_3egev"), SubResource("Resource_lid3v")])

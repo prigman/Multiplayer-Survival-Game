@@ -17,6 +17,7 @@ component = ExtResource("3_w2ahp")
 amount = 1
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_j1jxh")
 craft_components = Array[ExtResource("2_d12l8")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
 item_type = 4

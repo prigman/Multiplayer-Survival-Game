@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cew85wh0wtvs4" path="res://icons/metal_bar_icon.png" id="1_na7t1"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_83hwu")
 item_type = 3
 name = "Metal Bar"

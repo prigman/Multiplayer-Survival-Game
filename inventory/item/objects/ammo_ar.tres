@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://v6d4v1xl51pp" path="res://icons/545x39.png" id="1_skttc"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_l2fm4")
 item_type = 6
 weapon_type = 0

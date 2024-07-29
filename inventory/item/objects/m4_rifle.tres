@@ -1,10 +1,18 @@
-[gd_resource type="Resource" script_class="ItemDataCraftableWeapon" load_steps=8 format=3 uid="uid://bt3e0omgksjpr"]
+[gd_resource type="Resource" script_class="ItemDataCraftableWeapon" load_steps=11 format=3 uid="uid://bt3e0omgksjpr"]
 
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="1_8yl1t"]
 [ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_full_auto.gd" id="1_070kf"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="1_rtq2x"]
 [ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_single.gd" id="2_d8h62"]
+[ext_resource type="Script" path="res://inventory/craft_components.gd" id="2_kg6g8"]
 [ext_resource type="Texture2D" uid="uid://dkv3vtbo8ejnw" path="res://icons/m4_rifle_icon.png" id="3_basm5"]
 [ext_resource type="Curve" uid="uid://bl86an7yiit51" path="res://scripts/weapon/ar_curve.tres" id="4_7lyle"]
+
+[sub_resource type="Resource" id="Resource_bgt2a"]
+resource_local_to_scene = true
+script = ExtResource("2_kg6g8")
+component = ExtResource("1_rtq2x")
+amount = 1
 
 [sub_resource type="Resource" id="Resource_qtfbu"]
 script = ExtResource("1_070kf")
@@ -19,8 +27,9 @@ mode = 0
 fire_rate = 0.14
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_8yl1t")
-craft_components = Array[Resource("res://inventory/craft_components.gd")]([])
+craft_components = Array[ExtResource("2_kg6g8")]([SubResource("Resource_bgt2a")])
 item_type = 0
 anim_activate = "M4_Rifle_Anims/M4_Rifle_Equip"
 anim_scope = "M4_Rifle_Anims/M4_Rifle_Scope"

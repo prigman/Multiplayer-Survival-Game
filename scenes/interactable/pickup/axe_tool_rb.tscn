@@ -1,51 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://cibfwxpsrgkac"]
+[gd_scene load_steps=9 format=3 uid="uid://cibfwxpsrgkac"]
 
 [ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_glkrd"]
 [ext_resource type="ArrayMesh" uid="uid://cxp6bjdall1ug" path="res://models/meshes/axe.res" id="1_reov1"]
-[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="2_b1kdi"]
+[ext_resource type="Resource" uid="uid://d16s5vsgm2o6t" path="res://inventory/item/objects/axe.tres" id="2_5tgsn"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_jx5nu"]
-[ext_resource type="Script" path="res://inventory/craft_components.gd" id="3_uvt2q"]
-[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="4_vplyv"]
-[ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="5_ej0ii"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="5_qvo0i"]
-[ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="6_updmn"]
-
-[sub_resource type="Resource" id="Resource_1j36k"]
-script = ExtResource("3_uvt2q")
-component = ExtResource("2_b1kdi")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_3yjym"]
-script = ExtResource("3_uvt2q")
-component = ExtResource("4_vplyv")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_niv6g"]
-script = ExtResource("6_updmn")
-craft_components = Array[ExtResource("3_uvt2q")]([SubResource("Resource_1j36k"), SubResource("Resource_3yjym")])
-item_type = 4
-tool_type = 1
-anim_activate = "Axe_Anims/Axe_Equip"
-anim_hit = "Axe_Anims/Axe_Hit"
-anim_after_hit = "Axe_Anims/Axe_After_Hit"
-anim_player_activate = "Axe_Player_Anims/Pickaxe_Player_Equip"
-anim_player_hit = "Axe_Player_Anims/Axe_Player_Hit"
-anim_player_after_hit = "Axe_Player_Anims/Axe_Player_After_Hit"
-damage = 21
-name = "Axe"
-description = "Axe"
-description_item_panel = "Axe"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("5_ej0ii")
-dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/axe_tool_rb.tscn"
-}
 
 [sub_resource type="Resource" id="Resource_lk8em"]
 script = ExtResource("3_jx5nu")
-item = SubResource("Resource_niv6g")
+item = ExtResource("2_5tgsn")
 amount_in_slot = 1
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ljwwh"]

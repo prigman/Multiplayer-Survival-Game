@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=46 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://v6d4v1xl51pp" path="res://icons/545x39.png" id="13_6s8qv"]
 [ext_resource type="Script" path="res://inventory/item/item_data_ammo.gd" id="14_spjwe"]
 [ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="15_i4n86"]
+[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo_ar.tres" id="16_0rsnr"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="16_nipej"]
 [ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="25_pkm0b"]
 [ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
@@ -101,29 +102,50 @@ script = ExtResource("6_t2uit")
 type = 2
 slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_xr3ib"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
-[sub_resource type="Resource" id="Resource_sri82"]
-script = ExtResource("14_spjwe")
-item_type = 6
-weapon_type = 0
-name = "5.45 Ammo"
-description = ""
-description_item_panel = "
-"
-stackable = true
-max_stack = 120
-quality = 100.0
-icon = ExtResource("13_6s8qv")
-dictionary = {}
-
 [sub_resource type="Resource" id="Resource_cwc4i"]
 script = ExtResource("11_653sy")
-item = SubResource("Resource_sri82")
+item = ExtResource("16_0rsnr")
 amount_in_slot = 100
+
+[sub_resource type="Resource" id="Resource_7dovj"]
+script = ExtResource("11_653sy")
+item = ExtResource("27_2sm5u")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_wg2or"]
+script = ExtResource("11_653sy")
+item = ExtResource("27_2sm5u")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_8fxkg"]
+script = ExtResource("11_653sy")
+item = ExtResource("27_2sm5u")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ecvwl"]
+script = ExtResource("11_653sy")
+item = ExtResource("27_2sm5u")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_pkyy6"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_yu4y2"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_bq1xs"]
+script = ExtResource("11_653sy")
+item = ExtResource("16_nipej")
+amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_gstfx"]
 script = ExtResource("6_t2uit")
 type = 2
-slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_cwc4i"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_cwc4i"), SubResource("Resource_7dovj"), SubResource("Resource_wg2or"), SubResource("Resource_8fxkg"), SubResource("Resource_ecvwl"), SubResource("Resource_pkyy6"), SubResource("Resource_yu4y2"), SubResource("Resource_bq1xs"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wb0g1"]
 height = 12.0
@@ -143,7 +165,7 @@ item_spawner = NodePath("ItemSpawner")
 
 [node name="ItemSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("node_position")]
 unique_name_in_owner = true
-_spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn", "res://scenes/interactable/pickup/axe_tool_rb.tscn", "res://scenes/interactable/pickup/canned-food_rigidbody.tscn", "res://scenes/interactable/pickup/m4_rifle_rb.tscn", "res://scenes/interactable/pickup/metal-bar_resource_rb.tscn", "res://scenes/interactable/pickup/pickaxe_rb.tscn", "res://scenes/interactable/pickup/pine_wood_resource_rb.tscn", "res://scenes/interactable/pickup/resource_pine_branch_rb.tscn")
 spawn_path = NodePath("..")
 script = ExtResource("2_6apke")
 node_position = NodePath("../zone/ZoneItems/SpawnPosition")
@@ -154,7 +176,7 @@ spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -198.78, 156.671, 242.326)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 229.948, 6.41593, 195.435)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -258,61 +280,4 @@ wait_time = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 
-[node name="StartupUI" type="Control" parent="."]
-unique_name_in_owner = true
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MainMenu" type="PanelContainer" parent="StartupUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 420.0
-offset_top = 236.0
-offset_right = -419.0
-offset_bottom = -236.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="StartupUI/MainMenu"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
-
-[node name="VBoxContainer" type="VBoxContainer" parent="StartupUI/MainMenu/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="StartupUI/MainMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Main Menu
-"
-horizontal_alignment = 1
-
-[node name="HostMode" type="Button" parent="StartupUI/MainMenu/MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Host mode"
-
-[node name="ConnectClient" type="Button" parent="StartupUI/MainMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Join"
-
-[node name="AddressEntry" type="LineEdit" parent="StartupUI/MainMenu/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "localhost"
-placeholder_text = "Server IP"
-alignment = 1
-
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
-[connection signal="pressed" from="StartupUI/MainMenu/MarginContainer/VBoxContainer/ConnectClient" to="." method="_on_connect_client_pressed"]

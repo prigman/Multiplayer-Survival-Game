@@ -1,51 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://sk2v3l3djkvl"]
+[gd_scene load_steps=9 format=3 uid="uid://sk2v3l3djkvl"]
 
 [ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_cft26"]
 [ext_resource type="ArrayMesh" uid="uid://hmgxq3s6kcv7" path="res://models/meshes/pickaxe.res" id="1_e3ayi"]
-[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="2_diffk"]
-[ext_resource type="Script" path="res://inventory/craft_components.gd" id="3_eboer"]
-[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="4_3jmxv"]
-[ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="5_7rr3n"]
-[ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="7_bd7lw"]
+[ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://inventory/item/objects/pickaxe.tres" id="2_685im"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="8_jr624"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="9_52gya"]
 
-[sub_resource type="Resource" id="Resource_ddorj"]
-script = ExtResource("3_eboer")
-component = ExtResource("2_diffk")
-amount = 2
-
-[sub_resource type="Resource" id="Resource_t6tg5"]
-script = ExtResource("3_eboer")
-component = ExtResource("4_3jmxv")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_p0w7c"]
-script = ExtResource("7_bd7lw")
-craft_components = Array[ExtResource("3_eboer")]([SubResource("Resource_ddorj"), SubResource("Resource_t6tg5")])
-item_type = 4
-tool_type = 0
-anim_activate = "Pickaxe_Anims/Pickaxe_Equip"
-anim_hit = "Pickaxe_Anims/Pickaxe_Hit"
-anim_after_hit = "Pickaxe_Anims/Pickaxe_After_Hit"
-anim_player_activate = "Pickaxe_Player_Anims/Pickaxe_Player_Equip"
-anim_player_hit = "Pickaxe_Player_Anims/Pickaxe_Player_Hit"
-anim_player_after_hit = "Pickaxe_Player_Anims/Pickaxe_Player_After_Hit"
-damage = 15
-name = "Pickaxe"
-description = "Pickaxe"
-description_item_panel = "Pickaxe"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("5_7rr3n")
-dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/pickaxe_rb.tscn"
-}
-
 [sub_resource type="Resource" id="Resource_aohpx"]
 script = ExtResource("8_jr624")
-item = SubResource("Resource_p0w7c")
+item = ExtResource("2_685im")
 amount_in_slot = 1
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ls6f3"]

@@ -25,29 +25,12 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	if !enemy3.visible:
 		enemy3.show()
 
-#------old
-# func add_player(id: int):
-# 	print("SERVER: add_player function called")
-# 	var player := PLAYER_SCENE.instantiate()
-# 	player.peer_id = id
-# 	player.name = str(id)
-# 	player.set_multiplayer_authority(id)
-# 	players_spawn_node.add_child(player, true)
-# 	print("SERVER: player ", player.name, " with authority ", player.get_multiplayer_authority())
-
 func add_player(id: int) -> void:
 	if not multiplayer.is_server(): return
 	
 	var spawn_position = Vector3.ZERO
 	multiplayer_spawner.spawn([id, spawn_position])
 	print("Player %d spawned at " % [id] + str(spawn_position))
-
-#------old
-# func delete_player(id: int):
-# 	print("SERVER: delete_player function called")
-# 	if not has_node(str(id)):
-# 		return
-# 	get_node(str(id)).queue_free()
 
 func delete_player(id: int) -> void:
 	if not multiplayer.is_server(): return
@@ -64,7 +47,3 @@ func custom_spawn(data) -> Node:
 	player.name = 'Player_' + str(id)
 	player.position = pos
 	return player
-
-
-func _on_connect_client_pressed() -> void:
-	pass # Replace with function body.
