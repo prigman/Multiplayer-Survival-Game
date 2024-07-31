@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=64 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -37,6 +37,7 @@
 [ext_resource type="ArrayMesh" uid="uid://c0qee1sc38nvk" path="res://models/meshes/axe_animated.res" id="15_yc44n"]
 [ext_resource type="ArrayMesh" uid="uid://igcmuna1ilc8" path="res://models/meshes/m4_rifle.res" id="17_87spy"]
 [ext_resource type="Script" path="res://scripts/player state machine/falling_state.gd" id="21_h51by"]
+[ext_resource type="AudioStream" uid="uid://brxytt3kvafrm" path="res://sounds/404562__superphat__assaultrifle_compressed.mp3" id="40_s6fls"]
 [ext_resource type="AnimationLibrary" uid="uid://daohau8af7uyl" path="res://anims/item_fp_anims/m4_rifle/M4_Rifle_Anims.res" id="41_aeuon"]
 [ext_resource type="AnimationLibrary" uid="uid://c5ohgn7l2bmpy" path="res://anims/player_fp_anims/m4_rifle/FP_Armature.res" id="42_0yrtw"]
 
@@ -973,7 +974,7 @@ libraries = {
 "Pickaxe_Anims": SubResource("AnimationLibrary_yqpty")
 }
 
-[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "aim_cast", "melee_cast", "building_cast", "building_point") instance=ExtResource("4_dcn20")]
+[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "aim_cast", "melee_cast", "building_cast", "building_point", "gun_shot") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
 transform = Transform3D(-0.652866, -0.671662, 0.350194, -0.719312, 0.694632, -0.00872654, -0.237395, -0.257596, -0.936636, 0.04, -0.61, -0.545)
 fp_items_array = [NodePath("../Node3D/Item_M4_Rifle"), NodePath("../Node3D/Item_pickaxe_animated"), NodePath("../Node3D/Item_axe_animated")]
@@ -991,6 +992,7 @@ aim_cast = NodePath("../../Camera3D/AimCast")
 melee_cast = NodePath("../../Camera3D/MeleeCast")
 building_cast = NodePath("../../Camera3D/BuildingCast")
 building_point = NodePath("../../Camera3D/BuildingPoint")
+gun_shot = NodePath("../../../GunShot")
 
 [node name="Timer" type="Timer" parent="CameraHolder/RigHolder"]
 one_shot = true
@@ -1598,6 +1600,10 @@ double_sided = false
 outline_modulate = Color(0, 0, 0, 0)
 text = "Player"
 font_size = 96
+
+[node name="GunShot" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("40_s6fls")
 
 [connection signal="signal_update_player_health" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_health"]
 [connection signal="signal_update_player_hunger" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_hunger"]

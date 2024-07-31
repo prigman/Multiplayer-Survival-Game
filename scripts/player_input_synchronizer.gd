@@ -32,7 +32,8 @@ func _input(event):
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
+		# get_tree().quit()
+		player.signal_toggle_inventory.emit()
 	if event.is_action_pressed("inv_toggle"):
 		player.signal_toggle_inventory.emit()
 	if event.is_action_pressed("interact"):
