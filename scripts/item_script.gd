@@ -32,7 +32,7 @@ var fp_item_animator: AnimationPlayer
 @export var building_point: Node3D
 #
 
-@export var gun_shot : AudioStreamPlayer3D
+@export var audio_queue : Node3D
 
 # информация о предмете в руках в данный момент
 var equiped_item_node: Node3D = null # нода оружия (для того чтобы не проходится по массиву каждый раз)
@@ -345,7 +345,7 @@ func apply_recoil(delta) -> void:
 func shoot() -> void:
 	if not is_multiplayer_authority():
 		return
-	gun_shot.play()
+	audio_queue.play_sound()
 	randomize_aimcast_spread()
 	hitscan(aim_cast)
 	update_weapon_ammo( - 1) # отнимаем current ammo и обновляем худ

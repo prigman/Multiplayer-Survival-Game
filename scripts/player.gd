@@ -5,6 +5,15 @@ signal signal_update_player_stats(health: float, hunger: float)
 signal signal_update_player_health(health: float)
 signal signal_update_player_hunger(hunger: float)
 
+var footstep_wait_time : float = 0.3
+
+var last_position_x : float
+var last_position_z : float
+var distance_travelled_x : float = 0.0
+var distance_travelled_z : float = 0.0
+
+@export var sound_footstep_pool : SoundPool
+
 # movement
 # var camera_holder_position
 var direction := Vector3.ZERO
@@ -18,6 +27,8 @@ var health_value: float = 100.0
 var def_weapon_holder_pos: Vector3
 
 var main_scene : Node3D
+
+@export var footstep_timer : Timer
 
 @export var peer_id: int
 
@@ -69,6 +80,7 @@ func _ready() -> void:
 	spherecast.add_exception($".")
 	signal_update_player_stats.emit(health_value, hunger_value)
 	main_scene = get_parent().get_parent()
+
 func _process(delta) -> void:
 	var velocity_string = "%.2f" % velocity.length()
 	debug_ui.add_property("velocity", velocity_string, + 1)
@@ -117,6 +129,23 @@ func update_input(speed, acceleration, decceleration) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, decceleration)
 		velocity.z = move_toward(velocity.z, 0, decceleration)
+	# if velocity.x or velocity.z:
+	# 	if footstep_timer.is_stopped(): footstep_timer.start(footstep_wait_time)
+	# else:
+	# 	footstep_timer.stop()
+	var current_position_x = global_transform.origin.x
+	var current_position_z = global_transform.origin.z
+
+	distance_travelled_x += abs(current_position_x - last_position_x)
+	distance_travelled_z += abs(current_position_z - last_position_z)
+
+	last_position_x = current_position_x
+	last_position_z = current_position_z
+
+	if distance_travelled_x >= 1.5 or distance_travelled_z >= 1.5:
+		sound_footstep_pool.play_random_sound()
+		distance_travelled_x = 0.0
+		distance_travelled_z = 0.0
 	
 func update_velocity() -> void:
 	if not is_multiplayer_authority():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=69 format=3 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -37,9 +37,14 @@
 [ext_resource type="ArrayMesh" uid="uid://c0qee1sc38nvk" path="res://models/meshes/axe_animated.res" id="15_yc44n"]
 [ext_resource type="ArrayMesh" uid="uid://igcmuna1ilc8" path="res://models/meshes/m4_rifle.res" id="17_87spy"]
 [ext_resource type="Script" path="res://scripts/player state machine/falling_state.gd" id="21_h51by"]
-[ext_resource type="AudioStream" uid="uid://brxytt3kvafrm" path="res://sounds/404562__superphat__assaultrifle_compressed.mp3" id="40_s6fls"]
+[ext_resource type="PackedScene" uid="uid://wgdfogfntkn0" path="res://scenes/soundpool.tscn" id="40_fcwqi"]
+[ext_resource type="Script" path="res://scripts/footstep_timer.gd" id="40_lcs76"]
+[ext_resource type="AudioStream" uid="uid://dvod3v0n2x1hg" path="res://sounds/m4_rifle_shot_2.mp3" id="40_v4bxt"]
+[ext_resource type="PackedScene" uid="uid://mojf4gd1jn1c" path="res://scenes/sound_queue.tscn" id="40_yvvnj"]
 [ext_resource type="AnimationLibrary" uid="uid://daohau8af7uyl" path="res://anims/item_fp_anims/m4_rifle/M4_Rifle_Anims.res" id="41_aeuon"]
 [ext_resource type="AnimationLibrary" uid="uid://c5ohgn7l2bmpy" path="res://anims/player_fp_anims/m4_rifle/FP_Armature.res" id="42_0yrtw"]
+[ext_resource type="AudioStream" uid="uid://bb3v7j1n01531" path="res://sounds/footstep_grass.mp3" id="42_s3n7o"]
+[ext_resource type="AudioStream" uid="uid://wr52318gt57c" path="res://sounds/footstep_grass_2.mp3" id="43_65qyp"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n3lfe"]
 properties/0/path = NodePath(".:position")
@@ -392,10 +397,12 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqr46"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sound_footstep_pool", "footstep_timer", "weapon_holder")]
 collision_layer = 2
 collision_mask = 6345
 script = ExtResource("1_adhyr")
+sound_footstep_pool = NodePath("Soundpool")
+footstep_timer = NodePath("FootstepTimer")
 player_inventory = ExtResource("2_xq8ps")
 player_quick_slot = ExtResource("3_yc7co")
 weapon_spread_data = Array[Resource("res://scripts/weapon/weapon_spread_data.gd")]([ExtResource("4_qxsc1")])
@@ -974,7 +981,7 @@ libraries = {
 "Pickaxe_Anims": SubResource("AnimationLibrary_yqpty")
 }
 
-[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "aim_cast", "melee_cast", "building_cast", "building_point", "gun_shot") instance=ExtResource("4_dcn20")]
+[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "aim_cast", "melee_cast", "building_cast", "building_point", "audio_queue") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
 transform = Transform3D(-0.652866, -0.671662, 0.350194, -0.719312, 0.694632, -0.00872654, -0.237395, -0.257596, -0.936636, 0.04, -0.61, -0.545)
 fp_items_array = [NodePath("../Node3D/Item_M4_Rifle"), NodePath("../Node3D/Item_pickaxe_animated"), NodePath("../Node3D/Item_axe_animated")]
@@ -992,7 +999,7 @@ aim_cast = NodePath("../../Camera3D/AimCast")
 melee_cast = NodePath("../../Camera3D/MeleeCast")
 building_cast = NodePath("../../Camera3D/BuildingCast")
 building_point = NodePath("../../Camera3D/BuildingPoint")
-gun_shot = NodePath("../../../GunShot")
+audio_queue = NodePath("../../../SoundQueue")
 
 [node name="Timer" type="Timer" parent="CameraHolder/RigHolder"]
 one_shot = true
@@ -1601,9 +1608,29 @@ outline_modulate = Color(0, 0, 0, 0)
 text = "Player"
 font_size = 96
 
-[node name="GunShot" type="AudioStreamPlayer3D" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("40_s6fls")
+[node name="FootstepTimer" type="Timer" parent="." node_paths=PackedStringArray("sound_footstep_pool")]
+wait_time = 0.3
+script = ExtResource("40_lcs76")
+sound_footstep_pool = NodePath("../Soundpool")
+
+[node name="Soundpool" parent="." instance=ExtResource("40_fcwqi")]
+
+[node name="SoundQueue" parent="Soundpool" instance=ExtResource("40_yvvnj")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Soundpool/SoundQueue"]
+stream = ExtResource("42_s3n7o")
+
+[node name="SoundQueue2" parent="Soundpool" instance=ExtResource("40_yvvnj")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Soundpool/SoundQueue2"]
+stream = ExtResource("43_65qyp")
+
+[node name="SoundQueue" parent="." instance=ExtResource("40_yvvnj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13305, -0.481854)
+count = 5
+
+[node name="GunShot" type="AudioStreamPlayer3D" parent="SoundQueue"]
+stream = ExtResource("40_v4bxt")
 
 [connection signal="signal_update_player_health" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_health"]
 [connection signal="signal_update_player_hunger" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_hunger"]
@@ -1620,3 +1647,4 @@ stream = ExtResource("40_s6fls")
 [connection signal="mouse_entered" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_item_drop_button_pressed"]
+[connection signal="timeout" from="FootstepTimer" to="FootstepTimer" method="_on_timeout"]
