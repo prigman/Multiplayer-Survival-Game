@@ -9,6 +9,5 @@ func _ready():
 			sound_list.append(child)
 
 func play_random_sound():
-	print("play random sound")
 	var index : int = RandomNumberGenerator.new().randi_range(0, sound_list.size() -1)
 	sound_list[index].play_sound()

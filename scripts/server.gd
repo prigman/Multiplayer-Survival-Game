@@ -3,7 +3,7 @@ extends Node
 signal signal_start_game(ui : Control, change_scene)
 
 var port := 8080
-var connection_ip := "localhost"
+var connection_ip := "26.80.75.54"
 var max_players := 20
 var main_scene : Node3D
 var status

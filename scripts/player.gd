@@ -75,7 +75,6 @@ func _ready() -> void:
 	inventory_interface.signal_force_close.connect(_toggle_inventory_interface)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.signal_toggle_inventory.connect(_toggle_inventory_interface)
-	# camera_holder_position = camera_holder.position.y
 	def_weapon_holder_pos = weapon_holder.position
 	spherecast.add_exception($".")
 	signal_update_player_stats.emit(health_value, hunger_value)
@@ -121,7 +120,6 @@ func update_gravity(delta) -> void:
 func update_input(speed, acceleration, decceleration) -> void:
 	if not is_multiplayer_authority():
 		return
-	#input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	direction = transform.basis * Vector3(input_sync.input_direction.x, 0, input_sync.input_direction.y).normalized()
 	if direction:
 		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)
@@ -129,10 +127,10 @@ func update_input(speed, acceleration, decceleration) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, decceleration)
 		velocity.z = move_toward(velocity.z, 0, decceleration)
-	# if velocity.x or velocity.z:
-	# 	if footstep_timer.is_stopped(): footstep_timer.start(footstep_wait_time)
-	# else:
-	# 	footstep_timer.stop()
+
+	play_footsteps_sound()
+
+func play_footsteps_sound():
 	var current_position_x = global_transform.origin.x
 	var current_position_z = global_transform.origin.z
 
@@ -146,7 +144,7 @@ func update_input(speed, acceleration, decceleration) -> void:
 		sound_footstep_pool.play_random_sound()
 		distance_travelled_x = 0.0
 		distance_travelled_z = 0.0
-	
+
 func update_velocity() -> void:
 	if not is_multiplayer_authority():
 		return

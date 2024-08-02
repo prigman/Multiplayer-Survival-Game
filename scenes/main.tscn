@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=40 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
@@ -7,8 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/pine-wood-crate_staticbody.tscn" id="8_upg36"]
 [ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="10_6xi46"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
-[ext_resource type="Texture2D" uid="uid://v6d4v1xl51pp" path="res://icons/545x39.png" id="13_6s8qv"]
-[ext_resource type="Script" path="res://inventory/item/item_data_ammo.gd" id="14_spjwe"]
 [ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="15_i4n86"]
 [ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo_ar.tres" id="16_0rsnr"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="16_nipej"]
@@ -19,24 +17,31 @@
 [ext_resource type="Script" path="res://scripts/world_resources.gd" id="30_i6lvt"]
 [ext_resource type="ArrayMesh" uid="uid://pcfh4qqqwwim" path="res://models/meshes/pine_tree.mesh" id="31_nluff"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3lh8d"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_tjh5l"]
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0j0wh"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_curve = 0.0315337
+ground_horizon_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Sky" id="Sky_22r82"]
 sky_material = SubResource("ProceduralSkyMaterial_0j0wh")
+radiance_size = 0
 
 [sub_resource type="Environment" id="Environment_o00h3"]
 background_mode = 2
 sky = SubResource("Sky_22r82")
-tonemap_exposure = 2.3
-glow_enabled = true
-fog_density = 0.0001
+tonemap_exposure = 2.7
+fog_sun_scatter = 0.23
+fog_density = 0.0175
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.457527, 0.457527, 0.457527, 1)
+volumetric_fog_emission = Color(0.176731, 0.176731, 0.176731, 1)
+volumetric_fog_length = 1024.0
+volumetric_fog_ambient_inject = 16.0
+volumetric_fog_sky_affect = 0.105
 adjustment_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3lh8d"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tjh5l"]
 
 [sub_resource type="Resource" id="Resource_5ii1q"]
 script = ExtResource("11_653sy")
@@ -72,35 +77,6 @@ slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_5ii1q"), SubR
 script = ExtResource("6_t2uit")
 type = 2
 slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
-
-[sub_resource type="Resource" id="Resource_uxc18"]
-script = ExtResource("6_t2uit")
-type = 2
-slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
-
-[sub_resource type="Resource" id="Resource_iufdr"]
-script = ExtResource("14_spjwe")
-item_type = 6
-weapon_type = 0
-name = "5.45 Ammo"
-description = ""
-description_item_panel = "
-"
-stackable = true
-max_stack = 120
-quality = 100.0
-icon = ExtResource("13_6s8qv")
-dictionary = {}
-
-[sub_resource type="Resource" id="Resource_xr3ib"]
-script = ExtResource("11_653sy")
-item = SubResource("Resource_iufdr")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_twykt"]
-script = ExtResource("6_t2uit")
-type = 2
-slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_xr3ib"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_cwc4i"]
 script = ExtResource("11_653sy")
@@ -163,6 +139,16 @@ enemy3 = NodePath("zone/Enemy3")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 item_spawner = NodePath("ItemSpawner")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.7
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 50.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o00h3")
+
 [node name="ItemSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("node_position")]
 unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn", "res://scenes/interactable/pickup/axe_tool_rb.tscn", "res://scenes/interactable/pickup/canned-food_rigidbody.tscn", "res://scenes/interactable/pickup/m4_rifle_rb.tscn", "res://scenes/interactable/pickup/metal-bar_resource_rb.tscn", "res://scenes/interactable/pickup/pickaxe_rb.tscn", "res://scenes/interactable/pickup/pine_wood_resource_rb.tscn", "res://scenes/interactable/pickup/resource_pine_branch_rb.tscn")
@@ -188,15 +174,6 @@ shape = SubResource("CapsuleShape3D_3lh8d")
 transform = Transform3D(0.778561, 0, -0.627569, 0, 1, 0, 0.627569, 0, 0.778561, 225.433, 4.72703, 189.882)
 mesh = SubResource("CapsuleMesh_tjh5l")
 skeleton = NodePath("")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
-shadow_opacity = 0.8
-directional_shadow_mode = 1
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_o00h3")
 
 [node name="zone" parent="." instance=ExtResource("5_xsqmg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -182.214, 154.859, 247.707)
@@ -233,14 +210,6 @@ unique_name_in_owner = true
 [node name="Pine-Wood-Crate3" parent="." instance=ExtResource("8_upg36")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 231.731, 3.80188, 190.535)
 inventory_data = SubResource("Resource_4c7e5")
-
-[node name="Pine-Wood-Crate4" parent="." instance=ExtResource("8_upg36")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7347, 1.36418, 12.6735)
-inventory_data = SubResource("Resource_uxc18")
-
-[node name="Pine-Wood-Crate5" parent="." instance=ExtResource("8_upg36")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7347, 1.36418, 14.7818)
-inventory_data = SubResource("Resource_twykt")
 
 [node name="Pine-Wood-Crate2" parent="." instance=ExtResource("8_upg36")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 233.642, 3.79102, 190.411)
