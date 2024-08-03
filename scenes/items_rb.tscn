@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_tools.gd" id="12_kj2u0"]
 [ext_resource type="PackedScene" uid="uid://sk2v3l3djkvl" path="res://scenes/interactable/pickup/pickaxe_rb.tscn" id="13_1os84"]
 [ext_resource type="Texture2D" uid="uid://dy71vd1vnnutm" path="res://icons/pickaxe_icon.png" id="14_wt4pd"]
-[ext_resource type="PackedScene" uid="uid://flv6r52q38pv" path="res://addons/object_placer/objects/stone_1.tscn" id="15_4x8w1"]
+[ext_resource type="PackedScene" uid="uid://flv6r52q38pv" path="res://scenes/stone_1.tscn" id="15_4x8w1"]
 [ext_resource type="PackedScene" uid="uid://dkqmkkyqb6scy" path="res://scenes/stone_2.tscn" id="16_48k3w"]
 [ext_resource type="PackedScene" uid="uid://v0urs1mkfuuy" path="res://scenes/stone_3.tscn" id="17_luncc"]
 [ext_resource type="PackedScene" uid="uid://bbh30efrwiakh" path="res://scenes/interactable/pickup/metal-bar_resource_rb.tscn" id="18_atpbg"]

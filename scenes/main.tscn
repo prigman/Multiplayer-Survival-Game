@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=51 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
@@ -10,6 +10,12 @@
 [ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="15_i4n86"]
 [ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo_ar.tres" id="16_0rsnr"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="16_nipej"]
+[ext_resource type="Script" path="res://scripts/object_creator.gd" id="17_f3s41"]
+[ext_resource type="PackedScene" uid="uid://flv6r52q38pv" path="res://scenes/stone_1.tscn" id="18_ffisp"]
+[ext_resource type="Script" path="res://scripts/objects_creator_res.gd" id="19_fa03l"]
+[ext_resource type="PackedScene" uid="uid://dkqmkkyqb6scy" path="res://scenes/stone_2.tscn" id="20_wbg8h"]
+[ext_resource type="PackedScene" uid="uid://v0urs1mkfuuy" path="res://scenes/stone_3.tscn" id="21_lc5es"]
+[ext_resource type="PackedScene" uid="uid://ggat158lkf7j" path="res://scenes/pine_tree.tscn" id="22_41dkn"]
 [ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="25_pkm0b"]
 [ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="27_2sm5u"]
@@ -131,6 +137,29 @@ radius = 0.7
 radius = 20.0
 height = 60.0
 
+[sub_resource type="Resource" id="Resource_g6sah"]
+script = ExtResource("19_fa03l")
+object = ExtResource("18_ffisp")
+count = 10
+
+[sub_resource type="Resource" id="Resource_q5pg1"]
+script = ExtResource("19_fa03l")
+object = ExtResource("20_wbg8h")
+count = 10
+
+[sub_resource type="Resource" id="Resource_r82ow"]
+script = ExtResource("19_fa03l")
+object = ExtResource("21_lc5es")
+count = 10
+
+[sub_resource type="Resource" id="Resource_5d4m2"]
+script = ExtResource("19_fa03l")
+object = ExtResource("22_41dkn")
+count = 250
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dq6at"]
+size = Vector3(491.994, 18.0463, 511.534)
+
 [node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3", "multiplayer_spawner", "item_spawner") groups=["world"]]
 script = ExtResource("1_7fa2s")
 enemy1 = NodePath("zone/Enemy")
@@ -204,6 +233,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="MTerrain" parent="." instance=ExtResource("28_7q1f0")]
+create = true
 collision_layer = 4096
 unique_name_in_owner = true
 
@@ -248,5 +278,3115 @@ collision_mask = 94
 wait_time = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="ObjectCreator" type="Node3D" parent="." node_paths=PackedStringArray("raycast", "collision_shape")]
+script = ExtResource("17_f3s41")
+raycast = NodePath("CreatorTools/Area3D/CollisionShape3D/RayCast3D")
+collision_shape = NodePath("CreatorTools/Area3D/CollisionShape3D")
+objects = Array[ExtResource("19_fa03l")]([SubResource("Resource_g6sah"), SubResource("Resource_q5pg1"), SubResource("Resource_r82ow"), SubResource("Resource_5d4m2")])
+count = 300
+random_rotation = Vector3(0.03, 360, 0.03)
+random_scale = 1.3
+
+[node name="ObjectsSpawned" type="Node3D" parent="ObjectCreator"]
+unique_name_in_owner = true
+
+[node name="Stone_1" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("18_ffisp")]
+transform = Transform3D(-0.87043, 0.0261603, 0.965229, 0.0222684, 1.29972, -0.0151446, -0.965327, 0.00639366, -0.870691, 211.289, 1.70007, 311.126)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25857" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("18_ffisp")]
+transform = Transform3D(1.29637, -0.0357868, 0.0902971, 0.0371455, 1.29934, -0.018328, -0.0897467, 0.0208569, 1.29673, 31.7749, 3.0761, 106.106)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25858" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("18_ffisp")]
+transform = Transform3D(0.378751, 0.0257495, 1.24334, 0.0161518, 1.29951, -0.0318331, -1.2435, 0.0247223, 0.378289, 312.727, 1.46748, 235.798)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25859" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("18_ffisp")]
+transform = Transform3D(0.658323, -0.000664806, 1.12099, 0.0274097, 1.29962, -0.0153262, -1.12065, 0.0313965, 0.658145, 419.79, 5.19579, 458.288)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25860" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("18_ffisp")]
+transform = Transform3D(0.985721, 0.00722852, 0.847527, 0.00539902, 1.29987, -0.0173659, -0.84754, 0.0166875, 0.985595, 226.642, 2.01663, 162.704)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25861" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("18_ffisp")]
+transform = Transform3D(-0.539299, -0.0241712, -1.18261, 0.0183696, 1.2994, -0.0349352, 1.18272, -0.0312035, -0.538709, 409.167, 5.04494, 344.297)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25862" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("18_ffisp")]
+transform = Transform3D(-0.234667, -0.00914494, -1.27861, 0.0147454, 1.29986, -0.0120032, 1.27856, -0.0166696, -0.234539, 293.405, 1.86917, 242.177)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25863" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("18_ffisp")]
+transform = Transform3D(1.16907, 0.0156918, 0.568352, 0.00124304, 1.29943, -0.0384332, -0.568567, 0.0351059, 1.16855, 363.106, 2.21509, 240.297)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25864" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("18_ffisp")]
+transform = Transform3D(-0.354438, 0.0128506, 1.25068, 0.0206031, 1.29981, -0.00751659, -1.25058, 0.0177721, -0.354591, 462.065, 6.87019, 258.654)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25865" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("18_ffisp")]
+transform = Transform3D(0.996319, -0.0110224, -0.835001, 0.0104358, 1.29995, -0.00470797, 0.835008, -0.00309482, 0.996369, 416.447, 5.83308, 343.391)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="Stone_2" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("20_wbg8h")]
+transform = Transform3D(-0.574888, -0.0243806, -1.16572, 0.00531135, 1.29965, -0.0298009, 1.16597, -0.0179413, -0.574632, 416.447, 5.83308, 343.391)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25866" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("20_wbg8h")]
+transform = Transform3D(-0.0523284, 0.0160844, 1.29885, 0.00583157, 1.29989, -0.0158624, -1.29893, 0.00518789, -0.0523961, 503.992, 0.046463, 144.202)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25867" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("20_wbg8h")]
+transform = Transform3D(0.196519, 6.59004e-05, 1.28506, 0.00113423, 1.3, -0.00024012, -1.28506, 0.00115749, 0.196519, 100.226, 0.659348, 2.59286)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25868" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("20_wbg8h")]
+transform = Transform3D(-0.797131, -0.0052504, -1.02692, 0.013999, 1.29981, -0.0175122, 1.02683, -0.0217963, -0.796956, 459.319, 4.75233, 299.871)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25869" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("20_wbg8h")]
+transform = Transform3D(-1.04793, 0.0111646, 0.769234, 0.0127562, 1.29994, -0.00148925, -0.76921, 0.00634763, -1.04799, 307.42, 3.01312, 413.569)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25870" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("20_wbg8h")]
+transform = Transform3D(-1.21544, 0.0127112, -0.461018, 0.0200738, 1.29973, -0.0170871, 0.460756, -0.0230944, -1.21539, 200.001, 2.28271, 211.957)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25871" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("20_wbg8h")]
+transform = Transform3D(-0.393627, -0.00627616, -1.23896, 0.00740186, 1.29995, -0.00893674, 1.23895, -0.00976027, -0.393576, 376.369, 2.20789, 87.25)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25872" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("20_wbg8h")]
+transform = Transform3D(0.451032, -0.0315092, -1.21884, 0.0198011, 1.29958, -0.0262691, 1.21909, -0.0094509, 0.451368, 210.972, 1.51891, 139.884)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25873" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("20_wbg8h")]
+transform = Transform3D(-0.422948, 0.0190204, 1.22913, 0.00964639, 1.29986, -0.0167956, -1.22924, 0.00365614, -0.423042, 336.493, 2.96503, 171.152)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25874" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("20_wbg8h")]
+transform = Transform3D(-0.889934, 0.0318776, 0.947101, 0.0190781, 1.2996, -0.0258156, -0.947445, -0.00377331, -0.890131, 172.959, 2.08493, 218.371)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="Stone_3" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("21_lc5es")]
+transform = Transform3D(0.79023, -0.0435627, -1.03133, 0.0226931, 1.29926, -0.037492, 1.032, 0.00478713, 0.790541, 34.9512, 0.786102, 348.774)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25875" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("21_lc5es")]
+transform = Transform3D(-1.15602, 8.35602e-05, -0.594651, 0.00652196, 1.29992, -0.0124963, 0.594615, -0.0140956, -1.15596, 81.1761, 0.886063, 286.44)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25876" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("21_lc5es")]
+transform = Transform3D(-0.800723, 0.0268744, 1.02378, 0.0307283, 1.2996, -0.0100814, -1.02367, 0.0179897, -0.80111, 263.738, 5.17067, 28.9825)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25877" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("21_lc5es")]
+transform = Transform3D(0.998463, -0.00556301, 0.83249, 0.010481, 1.29995, -0.00388379, -0.832443, 0.00969471, 0.998471, 480.478, 0.956818, 500.265)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25878" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("21_lc5es")]
+transform = Transform3D(-0.684355, 0.0201269, 1.1051, 0.0183705, 1.29981, -0.0122969, -1.10513, 0.00914293, -0.684541, 409.97, 1.88904, 68.9428)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25879" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("21_lc5es")]
+transform = Transform3D(-1.0109, 0.00196137, -0.817356, 0.0084363, 1.29995, -0.00731455, 0.817315, -0.0109921, -1.01088, 101.465, 7.89615, 470.225)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25880" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("21_lc5es")]
+transform = Transform3D(-0.0720337, 0.0079536, 1.29798, 0.0162606, 1.29988, -0.00706283, -1.2979, 0.015844, -0.0721265, 472.395, 4.97769, 230.576)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25881" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("21_lc5es")]
+transform = Transform3D(0.47715, 0.0139893, 1.20919, 0.0327321, 1.29929, -0.0279478, -1.20882, 0.0407034, 0.476536, 476.122, 3.94446, 226.119)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25882" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("21_lc5es")]
+transform = Transform3D(0.983845, -0.00987544, 0.849677, 0.0269871, 1.29962, -0.0161436, -0.849306, 0.0298563, 0.983762, 211.577, 3.55046, 49.9824)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="@StaticBody3D@25883" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"] instance=ExtResource("21_lc5es")]
+transform = Transform3D(1.17759, -0.00670929, -0.550661, 0.00619296, 1.29998, -0.00259537, 0.550667, -0.00027225, 1.17761, 327.25, 2.90852, 140.759)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("MeshInstance3D")
+collision = NodePath("CollisionShape3D")
+start_health = 100.0
+
+[node name="PineTree" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.574888, 0.016448, 1.16586, 0.0224815, 1.29947, -0.0294187, -1.16576, 0.0331713, 0.57437, 294.097, 8.72528, 69.3625)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25884" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.772528, -0.0162925, -1.04544, 0.00826074, 1.29971, -0.0263595, 1.04553, -0.0223073, -0.77225, 133.975, 1.06055, 118.197)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25885" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.29104, 0.0191471, 0.151134, 0.0150699, 1.29942, -0.0358901, -0.151595, -0.0338908, -1.29069, 44.2991, 5.58121, 440.965)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25886" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.751737, 0.00352853, 1.0606, 0.000519323, 1.29999, -0.00469304, -1.06061, 0.00313748, 0.751731, 340.472, 2.58946, 88.9336)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25887" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.12333, 0.0337528, 0.653451, 0.027537, 1.29956, -0.0197883, -0.653743, -0.00325744, -1.12366, 340.25, 0.4552, 15.1975)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25888" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.155286, 0.0380201, 1.29013, 0.0334729, 1.29912, -0.034256, -1.29026, 0.0291269, -0.156159, 21.6631, 3.9149, 432.793)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25889" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.28366, 0.00647158, 0.205372, 0.00522658, 1.29996, -0.00829555, -0.205408, -0.00736559, -1.28365, 305.58, 1.56207, 229.557)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25890" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.767289, 0.0273842, 1.04906, 0.0336134, 1.29953, -0.00933744, -1.04887, 0.0216137, -0.767721, 123.252, 2.06865, 24.9148)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25891" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.425057, 0.00475055, 1.22854, 0.0223474, 1.29975, -0.0127578, -1.22834, 0.0252903, 0.424892, 166.583, 2.88182, 71.7174)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25892" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.746235, -0.00193213, -1.06449, 0.00335228, 1.29999, -0.00470963, 1.06448, -0.00544842, -0.746222, 324.758, 2.47464, 322.103)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25893" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.159176, -0.0327821, -1.2898, 0.00549355, 1.29959, -0.0323528, 1.29021, -0.00148907, 0.159264, 498.345, 0.43515, 147.147)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25894" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.29981, 0.00595587, -0.0214176, 0.00604402, 1.29998, -0.00530377, 0.0213929, -0.00540257, -1.29981, 413.56, 0.674957, 17.3771)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25895" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.11289, -0.0445246, -0.670442, 0.0329903, 1.2992, -0.031519, 0.671108, 0.00996856, 1.11333, 187.571, 1.25954, 332.482)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25896" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.1549, 0.0310934, 0.596023, 0.030774, 1.29961, -0.00816806, -0.59604, 0.0068529, -1.15529, 221.233, 1.03264, 379.677)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25897" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.531043, 0.0224052, 1.18638, 0.022044, 1.29936, -0.0344061, -1.18638, 0.034172, 0.530401, 472.18, 2.01225, 118.833)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25898" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.817786, -0.021836, 1.01032, 0.036171, 1.2995, -0.00119208, -1.00991, 0.028861, 0.818076, 286.675, 1.4765, 172.571)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25899" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.365693, 0.0154386, 1.24741, 0.020278, 1.29966, -0.0220299, -1.24734, 0.0256547, 0.365355, 193.296, 1.0426, 80.6862)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25900" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.415776, -0.0426095, -1.23098, 0.0367196, 1.29907, -0.0325641, 1.23117, -0.0243552, 0.416683, 308.328, 2.47282, 152.127)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25901" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.08243, 0.0204813, 0.719667, 0.0176207, 1.29984, -0.0104897, -0.719743, 0.00102054, -1.08258, 233.078, 4.74657, 45.8127)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25902" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.489186, -0.0230049, -1.20423, 0.0337753, 1.29951, -0.0111048, 1.20397, -0.0271084, 0.489601, 259.803, 3.72252, 16.7787)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25903" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.01126, 0.0273864, 0.81646, 0.0313773, 1.29961, -0.00472917, -0.816316, 0.0160276, -1.01162, 216.45, 3.05862, 440.266)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25904" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.25972, -0.031452, 0.319548, 0.0331876, 1.29957, -0.00291959, -0.319373, 0.0109869, 1.26011, 126.995, 0.80072, 310.201)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25905" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.907685, 0.0203832, 0.930426, 0.0151406, 1.29984, -0.0137055, -0.930526, 0.00126689, -0.90781, 14.3576, 2.87646, 110.807)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25906" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.947299, -0.0140936, -0.890183, 0.0062405, 1.29991, -0.0139395, 0.890273, 0.00588441, 0.947301, 211.772, 0.97966, 122.28)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25907" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.814026, -0.00541112, -1.01357, 0.0190402, 1.29967, -0.0222301, 1.01341, -0.028765, -0.81374, 435.548, 3.88205, 122.908)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25908" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.08521, 0.0191565, -0.715512, 0.02943, 1.29963, -0.00984096, 0.715163, -0.0244131, -1.08533, 230.677, 1.15126, 105.223)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25909" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.889546, 0.0319282, 0.947464, 0.0287882, 1.29957, -0.0167653, -0.947565, 0.00950947, -0.889961, 433.031, 7.49771, 356.356)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25910" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.05353, 0.03445, 0.76085, 0.0360339, 1.29947, -0.00894268, -0.760777, 0.0138424, -1.05405, 207.528, 1.77956, 81.9778)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25911" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.07704, -0.0260236, -0.727539, 0.0191469, 1.29973, -0.0181458, 0.727752, 0.00431818, 1.0772, 33.2893, 3.91444, 25.8988)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25912" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.03163, -0.0175206, -0.790849, 0.0200583, 1.29984, -0.00263175, 0.790789, -0.0101139, 1.03177, 20.6156, 2.1611, 299.517)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25913" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.122854, 0.0266546, 1.29391, 0.00103838, 1.29973, -0.0266759, -1.29418, -0.00148744, -0.122849, 376.685, 1.82118, 414.831)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25914" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.583668, 0.0123758, 1.16154, 0.0304433, 1.29932, -0.0291413, -1.16121, 0.0402845, 0.583071, 23.6965, 0.929733, 353.71)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25915" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.921176, -0.00255933, 0.917294, 0.0183911, 1.29979, -0.0148424, -0.917114, 0.0234942, 0.92106, 447.171, 8.40025, 237.761)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25916" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.13729, 0.0131002, 0.629598, 0.00302475, 1.29959, -0.0325048, -0.629727, 0.0299014, 1.1369, 340.451, 1.39186, 403.129)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25917" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.13278, -0.000761557, -0.637822, 0.0199345, 1.29932, -0.0369552, 0.637511, -0.041982, -1.13217, 462.284, 7.90605, 245.311)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25918" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.533836, 0.0130377, 1.18526, 0.021763, 1.29959, -0.0240973, -1.18514, 0.0297377, 0.533452, 199.492, 2.34702, 479.209)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25919" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.20864, 0.0127803, 0.478557, 0.00489754, 1.2998, -0.022343, -0.478703, -0.01897, -1.2085, 66.7349, 7.35361, 455.517)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25920" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.387013, 0.0185538, 1.24092, 0.0343465, 1.2992, -0.0301371, -1.24058, 0.0417574, 0.386284, 381.744, 2.98734, 419.337)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25921" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.08561, 0.028227, 0.714606, 0.0149052, 1.2996, -0.0286908, -0.715008, -0.0157659, -1.08559, 256.786, 2.16891, 117.051)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25922" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.24267, 0.0192621, 0.381299, 0.0132426, 1.29974, -0.0225007, -0.381555, -0.0176243, -1.24262, 401.043, 9.77353, 172.243)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25923" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.317879, -0.0237047, -1.26031, 0.00928061, 1.29978, -0.0221062, 1.2605, -0.00359182, 0.317994, 249.576, 2.04103, 485.282)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25924" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.29858, -0.00294769, 0.0607403, 0.00406992, 1.29977, -0.0239343, -0.0606755, 0.0240982, 1.29836, 456.403, 6.09482, 165.345)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25925" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.971976, 0.0351679, 0.862569, 0.0233771, 1.29952, -0.0266405, -0.862969, -0.00440738, -0.972247, 134.024, 2.29927, 44.5167)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25926" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.0926072, -0.02025, -1.29654, 0.0187083, 1.29969, -0.0216354, 1.29656, -0.0201997, -0.0922934, 420.972, 7.3687, 418.349)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25927" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.775267, 0.00618156, -1.04351, 0.0321189, 1.2995, -0.0161644, 1.04304, -0.0354217, -0.775123, 428.857, 4.92947, 129.52)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25928" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.555789, 0.00746829, 1.17518, 0.03583, 1.29926, -0.0252023, -1.17466, 0.0431645, 0.555267, 351.234, 1.42909, 337.381)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25929" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.21724, 0.0242545, -0.455791, 0.0293296, 1.29964, -0.00916866, 0.455493, -0.0188681, -1.21744, 151.758, 0.236511, 300.782)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25930" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.235513, -0.028939, -1.27816, 0.0238246, 1.29934, -0.0338084, 1.27827, -0.0295493, -0.234863, 277.219, 1.43761, 343.623)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25931" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.00844, 0.00420675, 0.82039, 0.0225328, 1.29935, -0.0343603, -0.820092, 0.0408737, 1.00786, 265.328, 3.17303, 472.343)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25932" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.818706, -0.00188194, -1.00981, 0.00191406, 1.29999, -0.00397456, 1.00981, -0.00398987, -0.818698, 257.222, 1.98167, 281.92)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25933" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.231344, 0.00657839, 1.27923, 0.00238935, 1.29998, -0.006253, -1.27925, 0.00123841, -0.231353, 219.897, 1.57553, 151.741)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25934" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.1354, -0.0360946, -0.632102, 0.0362599, 1.29946, -0.00907118, 0.632092, -0.00970808, 1.13594, 18.0342, 5.08658, 220.337)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25935" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.319165, 0.0331362, 1.25978, 0.0115732, 1.29942, -0.037111, -1.26016, 0.0203263, 0.318727, 288.178, 1.33434, 349.395)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25936" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.20122, 0.0327597, 0.495991, 0.0203928, 1.29933, -0.036431, -0.496653, -0.0258821, -1.20111, 88.1295, 4.55469, 491.932)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25937" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.756419, 0.0258609, 1.05696, 0.0370905, 1.29946, -0.00525029, -1.05662, 0.0271013, -0.756843, 366.546, 2.14592, 131.246)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25938" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.57943, -0.00624074, -1.16371, 0.0241068, 1.29964, -0.0189728, 1.16348, -0.030036, -0.579153, 293.406, 6.20741, 470.973)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25939" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.17764, 0.00388021, 1.2878, 0.010878, 1.29995, -0.0024163, -1.28776, 0.0104458, -0.177666, 50.1756, 2.21632, 290.296)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25940" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.658681, 0.0118202, 1.12071, 0.0203533, 1.29984, -0.00174715, -1.12059, 0.0166611, -0.658785, 290.291, 1.60379, 200.342)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25941" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.16638, 0.0507578, 0.571815, 0.0378639, 1.29889, -0.038063, -0.572814, -0.017496, -1.16687, 184.665, 2.3889, 234.484)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25942" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.114316, -0.0303716, -1.29461, 0.0192179, 1.29954, -0.0287903, 1.29482, -0.0166065, 0.114725, 445.333, 1.14929, 21.0392)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25943" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.27601, 0.0137796, 0.248203, 0.0104597, 1.29983, -0.01839, -0.248365, -0.0160537, -1.27595, 296.752, 6.2802, 58.4406)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25944" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.19441, -0.0180833, 0.512895, 0.0229562, 1.29977, -0.00763299, -0.5127, 0.01607, 1.19452, 355.314, 3.72157, 190.38)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25945" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.0801254, -0.0264981, -1.29726, 0.0124136, 1.29969, -0.025781, 1.29747, -0.0107984, 0.080359, 346.846, 2.2968, 507.139)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25946" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.19471, -0.0147568, -0.512297, 0.0060193, 1.29978, -0.0234029, 0.512474, 0.0191354, 1.19457, 159.236, 0.279236, 293.543)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25947" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.560847, 0.013884, 1.17271, 0.0102806, 1.2998, -0.0203053, -1.17275, 0.0180341, 0.560651, 349.093, 3.08493, 105.136)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25948" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.210961, 0.0313359, 1.28239, 0.0134849, 1.29959, -0.0295381, -1.2827, 0.00850877, -0.211221, 433.313, 5.18736, 271.894)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25949" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.22446, -0.00111792, 0.436693, 0.00876174, 1.2998, -0.0212399, -0.436606, 0.0229489, 1.22427, 366.197, 0.90802, 373.307)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25950" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.801609, -0.0223213, -1.02319, 0.00367036, 1.29975, -0.0254788, 1.02343, 0.012822, 0.801514, 297.594, 6.16568, 473.351)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25951" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.12667, -0.0144979, -0.648381, 0.00313902, 1.29978, -0.0236087, 0.648536, 0.0188954, 1.12652, 17.3899, 4.98068, 241.051)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25952" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.60984, -0.00562614, 1.14807, 0.0256547, 1.29973, -0.00725811, -1.1478, 0.0260613, 0.609823, 414.584, 9.61337, 178.022)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25953" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.232561, 0.0323275, 1.27862, 0.00155324, 1.29959, -0.0325751, -1.27903, -0.00429976, -0.232526, 139.161, 4.13751, 473.337)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25954" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.126496, 0.0358047, 1.29334, 0.0307584, 1.29922, -0.0329592, -1.29347, 0.0273936, -0.127267, 420.684, 6.42195, 232.817)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25955" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.16985, -0.0285278, -0.566253, 0.0247478, 1.29969, -0.0143506, 0.56643, 0.00213422, 1.17011, 279.091, 3.92862, 114.318)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25956" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.09697, 0.0416686, 0.696355, 0.0351996, 1.29933, -0.0222994, -0.696712, 3.80541e-05, -1.09754, 336.484, 1.00864, 265.615)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25957" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.56474, 0.0421147, 1.17017, 0.0318928, 1.29923, -0.0313677, -1.17049, 0.015081, -0.565439, 84.8552, 1.3311, 99.761)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25958" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.2065, -0.00371505, 0.48409, 0.0119226, 1.2998, -0.0197397, -0.483958, 0.0227597, 1.20634, 466.366, 2.72298, 324.675)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25959" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.595672, 0.00772362, 1.15547, 0.0344247, 1.29928, -0.0264315, -1.15498, 0.0427087, 0.595135, 283.995, 9.31528, 61.4919)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25960" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.13371, -0.040538, -0.634876, 0.0319777, 1.29935, -0.0258629, 0.635364, 0.00693781, 1.13414, 197.241, 1.45998, 63.8604)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25961" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.886279, 0.0115591, 0.950987, 0.0234081, 1.29924, -0.0376075, -0.950769, 0.0427627, 0.885556, 123.154, 2.2814, 28.2856)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25962" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.800014, 0.0129074, -1.0246, 0.0311293, 1.2996, -0.00793419, 1.02421, -0.0294174, -0.800079, 260.006, 1.9408, 420.96)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25963" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.178612, -0.00318364, -1.28767, 0.0226621, 1.29979, -0.00635704, 1.28747, -0.0233205, -0.178527, 174.29, 1.16045, 494.943)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25964" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.501727, -0.0230206, -1.19906, 0.0212143, 1.29973, -0.0160766, 1.19909, -0.0133624, 0.501997, 225.611, 3.09462, 224.436)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25965" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.028854, -0.0260773, -1.29942, 0.0256597, 1.2995, -0.0255091, 1.29943, -0.025082, 0.0293575, 371.437, 2.16576, 263.194)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25966" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.623071, 0.000519273, -1.14096, 0.00780887, 1.29997, -0.00367274, 1.14093, -0.00861382, -0.62306, 276.459, 2.55766, 277.872)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25967" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.23203, -0.0104324, -0.414715, 0.00857695, 1.29995, -0.00722073, 0.414757, 0.00410706, 1.23205, 386.998, 0.404785, 23.9624)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25968" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.756804, -0.0118902, -1.05693, 0.030213, 1.29914, -0.0362487, 1.05657, -0.0456663, -0.756029, 257.426, 2.72299, 8.37791)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25969" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.0463935, -0.00491682, -1.29916, 0.0346475, 1.29953, -0.00368095, 1.29871, -0.0344938, 0.0465079, 465.508, 2.10004, 390.539)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25970" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.0944443, -0.0230328, -1.29636, 0.00969955, 1.29977, -0.0223868, 1.29653, -0.00804601, 0.0945995, 504.392, 0.0551605, 354.176)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25971" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.0537538, -0.000622045, -1.29889, 0.0207636, 1.29983, -0.00148179, 1.29872, -0.0208071, -0.0537369, 435.514, 1.58115, 56.2212)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25972" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.25999, -0.000481425, 0.32002, 0.00647197, 1.29977, -0.0235264, -0.319955, 0.0243956, 1.25978, 503.955, 0.900696, 200.724)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25973" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.761274, 0.0375655, 1.05311, 0.0160082, 1.29944, -0.03478, -1.05366, -0.007399, -0.761407, 210.379, 2.40903, 419.611)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25974" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.145566, -0.0385766, -1.29125, 0.010907, 1.29941, -0.0375909, 1.29178, -0.00662435, 0.145824, 288.312, 1.07442, 333.262)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25975" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.212137, 0.00384457, 1.28257, 0.0133483, 1.29993, -0.00168879, -1.28251, 0.0128937, -0.212165, 231.297, 2.34123, 473.187)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25976" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.11805, -0.0117531, 0.663192, 0.0257359, 1.29959, -0.020356, -0.662796, 0.030636, 1.11793, 337.502, 1.43407, 405.514)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25977" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.27838, -0.038611, -0.23292, 0.0327307, 1.2991, -0.0357084, 0.233819, 0.0292502, 1.27847, 107.827, 2.69177, 191.29)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25978" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.700581, 0.0115539, 1.09501, 0.000902758, 1.29993, -0.0131385, -1.09507, -0.00632005, -0.700553, 473.117, 1.88339, 374.173)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25979" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.356048, 0.0217334, 1.2501, 0.0223648, 1.29948, -0.0289618, -1.25009, 0.0294385, 0.355533, 54.732, 4.70206, 245.537)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25980" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.359247, 0.03357, 1.24893, 0.00932317, 1.29942, -0.0376091, -1.24934, 0.0193499, 0.358847, 242.092, 1.5919, 405.537)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25981" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.1098, -0.0400936, -0.675819, 0.038656, 1.29935, -0.013606, 0.675903, -0.00848039, 1.11044, 13.1234, 1.53772, 160.203)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25982" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.24046, 0.0285628, 0.387867, 0.0250738, 1.29967, -0.0155182, -0.388108, -0.00732644, -1.24069, 415.615, 8.15105, 202.176)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25983" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.23347, 0.0347322, 0.409083, 0.0338043, 1.29953, -0.0084067, -0.40916, 0.00266105, -1.23393, 150.085, 2.47781, 112.873)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25984" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.29982, 0.00616125, -0.0207461, 0.00670381, 1.29954, -0.0340776, 0.0205772, -0.0341799, -1.29939, 86.8721, 2.2393, 71.1167)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25985" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.960312, -0.00333594, 0.876236, 0.0275817, 1.29946, -0.0252809, -0.875808, 0.0372659, 0.959985, 477.749, 4.2981, 201.871)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25986" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.291663, 0.0136263, 1.26679, 0.00209124, 1.29992, -0.0144642, -1.26686, 0.00528294, 0.291623, 83.8769, 0.904343, 318.607)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25987" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.269173, 0.0323938, 1.27142, 0.0202535, 1.29952, -0.028822, -1.27167, 0.0138404, -0.269578, 449.696, 4.17397, 371.783)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25988" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.472886, -0.017892, -1.21081, 0.00287294, 1.29987, -0.018086, 1.21094, 0.00390312, 0.472878, 20.7059, 5.28999, 217.468)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25989" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.732359, 0.0178644, 1.07393, 0.022708, 1.29979, -0.0061358, -1.07384, 0.0153025, -0.732551, 207.476, 2.0345, 242.112)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25990" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.28298, -0.00885704, -0.209482, 0.00812188, 1.29996, -0.00522056, 0.209512, 0.00384345, 1.283, 222.28, 1.0424, 497.659)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25991" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.956895, -0.00178423, 0.879971, 0.0141937, 1.29986, -0.0127989, -0.879859, 0.0190287, 0.956811, 85.5943, 0.837296, 319.684)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25992" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.742348, -0.0201929, -1.06701, 0.0185106, 1.29982, -0.0117204, 1.06704, -0.00850029, 0.74253, 314.505, 1.9944, 208.839)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25993" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.24279, 0.0010216, 0.381409, 0.00304983, 1.29993, -0.0134195, -0.381398, 0.0137237, 1.24272, 219.108, 0.988892, 378.642)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25994" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.2903, -0.00135201, -0.158525, 0.000270821, 1.29993, -0.013291, 0.158531, -0.0132249, -1.29023, 120.128, 2.61552, 180.168)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25995" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.26122, -0.0183641, -0.314626, 0.0114254, 1.2996, -0.0300551, 0.314954, 0.0263933, 1.26099, 319.837, 5.62349, 449.606)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25996" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.08451, -0.00835382, 0.716779, 0.019428, 1.29978, -0.0142467, -0.716564, 0.0225971, 1.08445, 467.357, 2.94046, 134.221)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25997" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.26161, -0.00276836, -1.2734, 0.0129832, 1.29992, -0.0054933, 1.27334, -0.013823, -0.261567, 66.12, 1.14189, 294.499)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25998" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.27211, -0.0321131, -0.265899, 0.0318453, 1.2996, -0.00460123, 0.265931, -0.00201106, 1.27251, 172.043, 4.77676, 95.9754)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@25999" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.185191, -0.00719322, -1.28672, 0.0330305, 1.29952, -0.0120187, 1.28632, -0.0344052, -0.18494, 93.4684, 0.540466, 4.66296)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26000" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.0136517, -0.00771519, -1.29991, 0.031941, 1.29959, -0.00737785, 1.29954, -0.0318612, 0.013837, 31.8555, 1.00162, 85.31)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26001" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.25299, -0.0102738, -0.346279, 0.00416968, 1.29978, -0.0234758, 0.346406, 0.0215162, 1.25281, 227.246, 3.56999, 454.918)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26002" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.735987, -0.00210886, -1.0716, 0.0250212, 1.29961, -0.0197425, 1.07131, -0.0318022, -0.735726, 441.042, 8.35162, 213.633)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26003" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.29286, -0.0149381, -0.135244, 0.0125654, 1.29973, -0.0234406, 0.135485, 0.0220047, 1.29273, 245.802, 1.90509, 426.964)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26004" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.29606, -0.00689075, -0.100905, 0.00687254, 1.29998, -0.000501654, 0.100906, -3.33071e-05, 1.29608, 92.9009, 4.1259, 499.169)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26005" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.829565, 0.0103003, 1.00086, 0.0211484, 1.29946, -0.0309022, -1.00069, 0.0360014, 0.829053, 92.9009, 4.1259, 499.169)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26006" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.676059, -0.00742924, 1.11036, 0.0214723, 1.29982, -0.00437688, -1.11017, 0.0206161, 0.676085, 207.537, 2.26442, 336.303)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26007" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.419212, -0.0342137, -1.23008, 0.0378193, 1.29924, -0.0232486, 1.22997, -0.0282881, 0.419963, 84.2156, 1.57614, 120.869)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26008" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.950449, 0.0206885, 0.88669, 0.0225015, 1.29979, -0.00620761, -0.886645, 0.0108091, -0.950654, 267.944, 1.70653, 345.266)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26009" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.413401, 0.0223562, 1.23231, 0.0154416, 1.29978, -0.0183999, -1.23242, 0.00878639, -0.413596, 21.6998, 2.98991, 195.909)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26010" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.09214, 0.023162, 0.704759, 0.0138365, 1.29975, -0.0212745, -0.705004, -0.0103718, -1.09218, 182.315, 1.20511, 356.652)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26011" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.403866, -0.00189302, 1.23567, 0.0336988, 1.29953, -0.00902324, -1.23522, 0.0348345, 0.40377, 325.192, 5.83669, 458.882)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26012" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.07113, -0.000581028, 0.736663, 0.0154463, 1.29973, -0.0214344, -0.736501, 0.0264137, 1.07092, 194.743, 0.578262, 105.511)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26013" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.508907, -0.00811388, -1.19622, 0.00629232, 1.29997, -0.00614066, 1.19623, -0.00338614, 0.508935, 218.726, 1.11031, 284.797)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26014" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.09115, -0.00929212, 0.706615, 0.0154409, 1.29989, -0.00674998, -0.706507, 0.0140585, 1.09117, 133.653, 2.89873, 179.626)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26015" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.899307, -0.00379363, -0.93874, 0.0172374, 1.2997, -0.0217657, 0.938589, -0.0275042, -0.899051, 249.011, 1.76773, 149.843)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26016" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.523434, -0.00506508, 1.18995, 0.0128701, 1.29994, -0.000128047, -1.1899, 0.0118322, 0.523458, 497.788, 1.28696, 204.731)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26017" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.959629, -0.0355838, -0.876269, 0.0185063, 1.29946, -0.0325023, 0.876796, 0.0115182, 0.959738, 227.662, 1.33882, 390.013)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26018" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.758318, -0.00633235, 1.05589, 0.0160277, 1.2999, -0.00371505, -1.05579, 0.0151852, 0.758335, 36.0744, 2.97536, 122.74)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26019" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.24672, -0.0323668, 0.366921, 0.0385611, 1.29932, -0.0164072, -0.366322, 0.0266186, 1.24704, 209.326, 2.57329, 186.874)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26020" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.69245, -0.00690328, -1.10021, 0.00406727, 1.29995, -0.0107164, 1.10023, -0.00915033, -0.692401, 484.96, 2.98573, 187.555)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26021" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.286868, 0.0239216, 1.26773, 0.000546618, 1.29977, -0.0246498, -1.26795, 0.00597246, 0.286806, 131.221, 0.739822, 349.755)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26022" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.1744, 0.00783788, 0.557418, 0.00707824, 1.29998, -0.00336615, -0.557428, -5.91134e-06, -1.17443, 484.435, 0.768188, 341.772)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26023" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.542403, 0.00729548, 1.18142, 0.030696, 1.29945, -0.0221173, -1.18104, 0.0371241, 0.542001, 117.941, 4.0233, 450.966)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26024" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.298, -0.036745, 0.0619365, 0.0373775, 1.2994, -0.0124237, -0.061557, 0.0141854, 1.29846, 333.567, 2.80914, 109.433)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26025" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.0622331, 0.0352292, 1.29803, 0.0200555, 1.29934, -0.0362262, -1.29835, 0.0217594, 0.061658, 358.362, 1.12202, 381.139)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26026" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.918842, -0.0369585, -0.918893, 0.026937, 1.29947, -0.0253302, 0.919241, -0.0011367, 0.919236, 328.173, 5.10352, 466.681)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26027" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.783135, -0.0169443, -1.0375, 0.0215237, 1.29928, -0.0374663, 1.03742, -0.0397478, -0.782422, 427.851, 8.43224, 370.283)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26028" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.115593, -0.00929898, -1.29482, 0.0264276, 1.29971, -0.00697485, 1.29458, -0.025702, 0.115757, 343.802, 2.85851, 93.4875)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26029" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.770268, 0.00864385, -1.04719, 0.036659, 1.29938, -0.0162392, 1.04659, -0.039152, -0.770145, 218.307, 1.33432, 130.115)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26030" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.620656, 0.0165577, 1.14215, 0.0358685, 1.29894, -0.0383219, -1.14171, 0.0498093, 0.619693, 33.2723, 1.96964, 182.138)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26031" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.25652, -0.00289248, 0.333406, 0.0121744, 1.29948, -0.0346084, -0.333196, 0.0365731, 1.25604, 214.873, 1.36687, 261.809)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26032" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.270826, -0.0234743, -1.27126, 0.00240787, 1.29979, -0.0234881, 1.27147, 0.00253858, 0.270825, 372.718, 4.32706, 471.978)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26033" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.753361, 0.00483091, 1.05944, 0.0204309, 1.29968, -0.0204545, -1.05926, 0.0285039, 0.753099, 79.4855, 3.27301, 39.1498)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26034" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.25136, -0.00989492, -0.352137, 0.00869915, 1.29996, -0.00561491, 0.352169, 0.00304844, 1.25139, 432.754, 1.02951, 72.3035)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26035" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.29377, -0.000940811, -0.127076, 0.00166906, 1.29973, -0.0266153, 0.127069, -0.026651, -1.2935, 467.453, 0.995392, 100.361)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26036" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.247351, 0.023905, 1.27603, 0.0117752, 1.29967, -0.0266305, -1.2762, 0.0166251, 0.247072, 88.9709, 2.67255, 226.512)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26037" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.830893, 0.004538, -0.999798, 0.0184445, 1.29983, -0.00942864, 0.999638, -0.0202115, -0.830852, 232.002, 1.58781, 272.486)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26038" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.345674, 0.00438509, 1.25319, 0.0281666, 1.29964, -0.0123169, -1.25288, 0.0304275, 0.345482, 370.65, 5.08238, 440.132)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26039" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.11577, -0.006091, 0.667092, 0.0118218, 1.29992, -0.00790395, -0.667015, 0.0128502, 1.11576, 126.131, 3.39711, 84.8902)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26040" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.0424764, 0.00688456, 1.29929, 0.0112103, 1.29994, -0.00652151, -1.29926, 0.0109911, -0.0425336, 116.839, 0.84726, 323.116)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26041" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.410832, -0.0286448, -1.23304, 0.018059, 1.29965, -0.0241752, 1.23324, -0.00948893, 0.411119, 451.554, 3.32533, 123.589)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26042" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.23721, -0.00904005, 0.399044, 0.0159553, 1.29975, -0.0200235, -0.398828, 0.0239539, 1.23708, 324.231, 1.50296, 388.465)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26043" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.27969, -0.0348918, 0.226226, 0.0380875, 1.29935, -0.0150442, -0.22571, 0.0214372, 1.28008, 74.4958, 6.56409, 450.954)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26044" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.658207, -0.00717043, -1.12103, 0.00626045, 1.29998, -0.00463923, 1.12104, -0.00304968, 0.65823, 263.418, 2.96342, 11.4607)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26045" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.29133, -0.0150438, 0.149162, 0.0160578, 1.29988, -0.00791564, -0.149056, 0.00970529, 1.29139, 202.672, 1.85844, 63.6412)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26046" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.719406, -0.00711963, -1.08278, 0.000143523, 1.29997, -0.00864312, 1.0828, -0.00490255, -0.719389, 13.8925, 1.41937, 91.9446)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26047" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.929301, 0.0104309, -0.909006, 0.0185294, 1.29986, -0.00402711, 0.908877, -0.0158352, -0.929351, 37.3634, 4.70276, 40.9208)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26048" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.2336, 0.00538315, 0.410112, 0.00296154, 1.29997, -0.00815525, -0.410136, -0.00680445, -1.23359, 65.2899, 4.87418, 227.114)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26049" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.26923, 0.00404062, -0.281141, 0.00529658, 1.29998, -0.00522817, 0.281121, -0.00624987, -1.26922, 282.928, 3.41069, 427.784)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26050" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.25165, -0.0288763, -0.35007, 0.0262946, 1.29967, -0.0131918, 0.350273, 0.0056204, 1.25191, 89.6902, 0.872574, 282.867)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26051" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.24438, 0.0162145, -0.375834, 0.0248648, 1.2995, -0.0262634, 0.375361, -0.0323282, -1.24421, 339.272, 0.915268, 248.523)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26052" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.831777, 1.54342e-05, -0.999073, 0.0302317, 1.2994, -0.0251493, 0.998616, -0.0393248, -0.831396, 30.8035, 1.66817, 158.837)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26053" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.366549, 0.0305975, 1.24688, 0.00901245, 1.29964, -0.0292428, -1.24722, 0.000398843, -0.36666, 62.9993, 1.09784, 322.784)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26054" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.01317, -0.0373694, -0.813691, 0.0185092, 1.29935, -0.0366269, 0.814339, 0.0169603, 1.0132, 191.654, 0.311249, 504.275)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26055" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.0481436, 0.00757147, 1.29909, 0.0091521, 1.29994, -0.00791564, -1.29908, 0.00943881, 0.0480883, 295.759, 3.25896, 423.882)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26056" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.891796, 0.00113065, 0.945885, 0.0143233, 1.29983, -0.015058, -0.945777, 0.0207515, 0.89167, 124.851, 3.90317, 409.912)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26057" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.271485, 0.023574, 1.27112, 0.0305973, 1.29928, -0.0306312, -1.27097, 0.0363144, 0.27078, 286.955, 3.22955, 435.777)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26058" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.625319, 0.00879778, 1.13969, 0.0198137, 1.29968, -0.020904, -1.13955, 0.0274255, 0.625031, 373.929, 1.69537, 308.608)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26059" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.612332, -0.0122882, -1.14669, 0.00753041, 1.29994, -0.00990919, 1.14673, -0.00197487, 0.612375, 224.003, 5.10088, 77.3617)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26060" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.918788, 0.0400313, 0.918817, 0.0287188, 1.29938, -0.027894, -0.91924, 0.000583602, -0.919237, 273.798, 2.57634, 0.225296)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26061" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.58052, 0.0217333, 1.16298, 0.0072711, 1.29982, -0.0206609, -1.16316, -0.00272149, -0.580559, 501.989, 0.235291, 7.64676)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26062" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.500614, 0.0303033, 1.19936, 0.015621, 1.29964, -0.0263167, -1.19964, 0.00427747, -0.500839, 484.673, 0.865631, 95.6163)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26063" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.657414, 0.0345063, 1.12099, 0.00269105, 1.29943, -0.0384209, -1.12152, -0.017109, -0.657196, 374.357, 2.26094, 89.9695)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26064" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.652815, 0.0320463, 1.12375, 0.00141446, 1.29945, -0.0378786, -1.1242, 0.020244, 0.652503, 216.227, 2.26776, 339.404)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26065" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.843422, 0.0128628, 0.989178, 0.0244062, 1.29922, -0.0377044, -0.988961, 0.0430329, 0.842677, 492.88, 0.420197, 336.897)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26066" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.26716, 0.038092, 0.287848, 0.0369944, 1.29944, -0.00910382, -0.287991, -0.000682467, -1.2677, 478.375, 0.804642, 24.9814)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26067" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.834222, -0.00845205, 0.996997, 0.0281996, 1.29963, -0.0125779, -0.996634, 0.0296982, 0.83417, 261.262, 2.32941, 122.225)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26068" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.21378, 0.0340909, 0.464312, 0.0265138, 1.29947, -0.0260994, -0.464807, -0.0148986, -1.21397, 20.529, 3.8208, 449.757)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26069" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.0952368, -0.0393637, -1.29591, 0.0251961, 1.29921, -0.0376124, 1.29626, -0.0223614, 0.0959419, 245.124, 1.99129, 161.922)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26070" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.59312, -0.0215418, -1.15661, 0.0388635, 1.29941, -0.00427194, 1.15616, -0.0326278, 0.593495, 61.2865, 2.98459, 385.973)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26071" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.29427, -0.029785, -0.11818, 0.0263641, 1.29916, -0.0386957, 0.11899, 0.0361286, 1.29404, 208.938, 4.10524, 461.492)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26072" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.377636, -0.00494524, -1.24393, 0.00885854, 1.29997, -0.00247871, 1.24391, -0.00775644, 0.37766, 70.5226, 1.22449, 352.161)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26073" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.533473, -0.0287293, -1.18515, 0.0153599, 1.29968, -0.0245915, 1.1854, -0.00391148, 0.53368, 269.739, 3.23045, 447.497)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26074" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.82156, -0.00753087, -1.00746, 0.00497474, 1.29998, -0.00566067, 1.00748, -0.000277911, 0.821575, 446.746, 8.29141, 250.078)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26075" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.02905, -0.0060899, 0.794361, 0.0300133, 1.29933, -0.0289196, -0.793817, 0.0412317, 1.02867, 34.8607, 1.79164, 176.949)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26076" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.14594, -0.0120901, 0.613742, 0.0259524, 1.29954, -0.0228569, -0.613312, 0.0324005, 1.14577, 373.265, 4.93871, 144.853)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26077" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.146436, 0.0232996, 1.29152, 0.00929414, 1.29977, -0.0223947, -1.29169, 0.00671086, -0.146578, 239.677, 1.6396, 493.343)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26078" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.26564, 0.0112721, -0.296703, 0.0186516, 1.29952, -0.0301916, 0.296331, -0.0336505, -1.26533, 151.568, 0.609512, 270.975)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26079" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.313342, -0.0418999, -1.26098, 0.0261625, 1.29922, -0.0366695, 1.2614, -0.0165386, 0.313997, 311.727, 2.14529, 281.094)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26080" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.28775, -0.0181341, 0.177144, 0.0210365, 1.29968, -0.0198774, -0.176823, 0.0225565, 1.28772, 208.772, 2.31525, 326.997)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26081" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.436772, -5.63771e-05, 1.22443, 0.0171449, 1.29987, -0.00605596, -1.22431, 0.0181829, 0.43673, 399.575, 4.0036, 469.913)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26082" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.142398, 0.0397307, 1.29157, 0.0165511, 1.29933, -0.0381449, -1.29207, 0.0122654, -0.142831, 402.612, 4.26428, 341.114)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26083" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.714552, -0.00190172, -1.08601, 0.0377401, 1.29917, -0.0271065, 1.08535, -0.0464269, -0.71404, 244.467, 6.09666, 91.4095)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26084" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.26127, -0.0173577, -0.314471, 0.0115498, 1.2997, -0.0254152, 0.314738, 0.0218642, 1.26114, 80.7391, 1.11287, 166.349)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26085" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.119195, -0.0159306, -1.29443, 0.0129281, 1.29985, -0.014807, 1.29446, -0.011515, 0.11934, 422.548, 0.738541, 86.9992)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26086" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.497423, -0.0448815, -1.20023, 0.0273652, 1.29918, -0.0372403, 1.20076, -0.0110157, 0.498053, 20.5317, 3.35735, 51.713)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26087" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.699241, 0.0474073, 1.0949, 0.0327802, 1.29911, -0.0353144, -1.09544, 0.00861381, -0.699956, 464.576, 5.59737, 267.507)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26088" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.2783, -0.0411615, -0.232945, 0.0352893, 1.29903, -0.0358868, 0.233907, 0.0289643, 1.27846, 345.629, 1.47536, 285.089)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26089" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.879901, 0.00331522, 0.956955, 0.0344967, 1.29904, -0.0362193, -0.956339, 0.0499086, 0.879161, 381.946, 5.05899, 217.386)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26090" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.02173, 0.0101652, -0.803716, 0.0269459, 1.2996, -0.0178183, 0.803329, -0.0306634, -1.02163, 206.887, 1.42847, 259.149)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26091" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.951745, 0.00799288, -0.885504, 0.0336579, 1.29933, -0.0244475, 0.8849, -0.0408246, -0.951465, 157.167, 0.872665, 362.756)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26092" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.24658, 0.0203017, 0.368265, 0.020394, 1.29984, -0.00262363, -0.36826, 0.0032614, -1.24675, 103.102, 2.52922, 95.883)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26093" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.25962, -0.0262618, -0.32041, 0.0245093, 1.29973, -0.010177, 0.320549, 0.00382012, 1.25985, 261.722, 2.09544, 278.016)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26094" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.08702, -0.0145109, 0.712863, 0.0301848, 1.2995, -0.0195753, -0.712371, 0.0329203, 1.08694, 61.7137, 5.87854, 482.136)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26095" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.28619, -0.0319205, -0.18629, 0.029075, 1.29949, -0.0219254, 0.186756, 0.017526, 1.2864, 410.655, 9.1304, 147.583)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26096" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.35711, 0.0117081, 1.24993, 0.000667475, 1.29994, -0.0119859, -1.24999, -0.00265075, -0.357101, 368.198, 4.00461, 210.357)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26097" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.25689, -0.0324055, -0.33041, 0.0305502, 1.29959, -0.0112455, 0.330586, 0.00310788, 1.25726, 54.7927, 1.46104, 107.933)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26098" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.29811, 0.0294401, -0.0635312, 0.0308279, 1.29934, -0.0277871, 0.0628696, -0.0292533, -1.29815, 48.9626, 0.755508, 89.5295)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26099" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.289286, -0.0278898, -1.2671, 0.0376812, 1.29892, -0.037193, 1.26684, -0.0450039, -0.288237, 114.291, 6.67743, 471.758)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26100" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.22724, -0.0100946, -0.4287, 0.00134081, 1.29972, -0.0267664, 0.428816, 0.0248261, 1.22699, 200.881, 1.46526, 147.026)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26101" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.02208, -0.0380255, -0.802436, 0.0178618, 1.2993, -0.0388196, 0.803138, 0.0194952, 1.02205, 64.8865, 7.7932, 461.103)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26102" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.23757, 0.0278825, 0.397042, 0.0170327, 1.29933, -0.0381554, -0.397656, -0.031121, -1.2373, 496.128, 0.781036, 314.558)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26103" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.883471, -0.0124658, -0.953584, 0.00044941, 1.29988, -0.0174092, 0.953665, -0.0121609, -0.883388, 321.642, 1.32607, 235.081)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26104" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.27548, -0.0282273, -0.249695, 0.0233447, 1.2995, -0.027656, 0.250198, 0.0226505, 1.2755, 235.302, 1.77792, 156.763)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26105" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.29827, -0.0142528, 0.0654775, 0.0150626, 1.29982, -0.0157202, -0.065296, 0.016458, 1.29825, 405.225, 4.74474, 344.769)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26106" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.11007, 0.00480874, -0.676548, 0.0194128, 1.29966, -0.0226146, 0.676287, -0.0294134, -1.10985, 495.605, 1.4478, 201.758)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26107" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.04786, 0.0489785, 0.767848, 0.0325326, 1.29902, -0.0384642, -0.768721, -0.0117885, -1.0483, 32.9417, 5.17038, 250.376)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26108" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.00385, -0.0399115, -0.825044, 0.0317037, 1.29939, -0.0242834, 0.8254, -0.00136933, 1.00435, 183.442, 4.96796, 450.878)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26109" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.0519, -0.0339486, -0.763125, 0.020158, 1.2995, -0.0300238, 0.763614, 0.0124606, 1.05202, 325.301, 3.3345, 34.438)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26110" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.10225, 0.0472385, 0.68761, 0.0320108, 1.29905, -0.0379304, -0.688487, -0.0152293, -1.10261, 134.664, 0.703232, 347.178)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26111" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.29944, 0.0331053, -0.0191496, 0.0333127, 1.2995, -0.0139727, 0.0187864, -0.0144574, -1.29978, 130.927, 2.21672, 215.425)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26112" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.28439, -0.00109238, 0.200878, 0.00498272, 1.29975, -0.0247907, -0.20082, 0.0252628, 1.28415, 100.284, 2.22322, 181.332)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26113" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.23826, 0.0278699, -0.394886, 0.0323906, 1.29956, -0.00984959, 0.39454, -0.0192207, -1.23853, 325.252, 2.04968, 349.71)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26114" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.596653, 0.0398928, 1.1543, 0.0143378, 1.29938, -0.0374955, -1.1549, -0.00447819, -0.596808, 90.2568, 1.02109, 153.448)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26115" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.29557, 0.00840251, 0.106926, 0.00786433, 1.29996, -0.00686588, -0.106966, -0.00619563, -1.29558, 214.017, 3.0331, 218.229)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26116" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.451565, 0.0138816, 1.21897, 0.00490008, 1.29993, -0.0129883, -1.21904, 8.30926e-05, -0.451592, 115.61, 2.17308, 167.528)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26117" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.673237, -0.0193623, -1.11192, 0.0189373, 1.29981, -0.0111681, 1.11193, -0.0104139, 0.673423, 103.431, 2.97437, 399.764)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26118" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.714085, -0.0251419, -1.08603, 0.00205674, 1.29968, -0.0287358, 1.08631, 0.0140662, 0.713949, 248.34, 2.24916, 236.162)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26119" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.141082, 0.0316394, 1.29193, 0.0267331, 1.29926, -0.0347382, -1.29205, 0.0303372, 0.140351, 438.207, 6.68564, 361.825)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26120" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.100044, 0.0243055, 1.29592, 0.0353267, 1.29924, -0.027095, -1.29566, 0.0373009, 0.0993249, 436.824, 5.93626, 140.085)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26121" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.00777777, -0.0109364, -1.29993, 0.00862096, 1.29993, -0.0108848, 1.29995, -0.00855538, 0.00784986, 206.292, 0.918671, 274.866)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26122" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.383378, 0.0180156, 1.24205, 0.0316975, 1.2993, -0.0286298, -1.24178, 0.0387278, 0.382732, 108.893, 7.40617, 472.53)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26123" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.27216, -0.0353885, -0.265267, 0.0287903, 1.2992, -0.0352519, 0.266063, 0.0286221, 1.27216, 322.552, 5.26375, 79.1004)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26124" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.218174, -0.0298499, -1.28121, 0.00411191, 1.29962, -0.0309791, 1.28155, -0.00925159, -0.218017, 332.786, 3.07892, 191.614)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26125" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.2821, -0.017391, 0.214255, 0.018468, 1.29986, -0.00500346, -0.214165, 0.00797833, 1.28221, 144.702, 3.79042, 103.199)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26126" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-1.09643, 0.0335056, 0.697659, 0.0244693, 1.29955, -0.0239564, -0.698034, -0.00707326, -1.09668, 107.307, 1.78444, 218.243)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26127" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.529394, -0.00459678, -1.18732, 0.0209209, 1.29975, -0.0143602, 1.18714, -0.0249554, -0.529219, 276.98, 11.7296, 77.8973)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26128" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.246679, -0.0238877, -1.27616, 0.0196048, 1.29955, -0.0281151, 1.27623, -0.0245802, -0.246233, 496.67, 0.250336, 368.318)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26129" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(-0.296859, -0.0121569, -1.26559, 0.0326434, 1.29943, -0.0201388, 1.26523, -0.0363782, -0.296425, 409.227, 5.15637, 347.632)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26130" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(1.23757, -0.00711733, -0.397955, 0.00703778, 1.29998, -0.00136357, 0.397956, -0.000856314, 1.23759, 166.943, 0.460709, 303.409)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26131" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.448173, 0.00122558, 1.2203, 0.0211508, 1.2998, -0.00907335, -1.22012, 0.0229822, 0.448083, 112.016, 2.81702, 36.3307)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="@StaticBody3D@26132" type="StaticBody3D" parent="ObjectCreator/ObjectsSpawned" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["pine_tree_object", "world_resource"] instance=ExtResource("22_41dkn")]
+transform = Transform3D(0.79985, 0.0157161, 1.02469, 0.0240408, 1.2992, -0.038692, -1.02453, 0.0427555, 0.799068, 380.571, 2.23489, 70.7695)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("30_i6lvt")
+timer = NodePath("Timer")
+zone = NodePath("ShapeCast3D")
+mesh = NodePath("PineTree2")
+collision = NodePath("CollisionShape3D")
+start_health = 200.0
+
+[node name="CreatorTools" type="Node3D" parent="ObjectCreator"]
+
+[node name="Area3D" type="Area3D" parent="ObjectCreator/CreatorTools"]
+collision_layer = 0
+collision_mask = 0
+input_ray_pickable = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ObjectCreator/CreatorTools/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 258.737, 1.23252, 251.635)
+shape = SubResource("BoxShape3D_dq6at")
+
+[node name="RayCast3D" type="RayCast3D" parent="ObjectCreator/CreatorTools/Area3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121.834, 158.697, -180.865)
+target_position = Vector3(0, -500, 0)
+collision_mask = 4096
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

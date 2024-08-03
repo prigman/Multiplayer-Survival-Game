@@ -373,7 +373,7 @@ func hitscan(raycast: RayCast3D) -> void:
 		if target:
 			target.add_child(decal)
 		else:
-			get_tree().get_first_node_in_group("world").add_child(decal)
+			player.main_scene.add_child(decal)
 		decal.global_transform.origin = ray_end_point
 		var side: Vector3
 		if raycast.get_collision_normal() == Vector3.UP:
