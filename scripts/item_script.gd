@@ -157,7 +157,7 @@ func place_building_part() -> void:
 			coll.get_child(0).disabled = false # включаем коллайдеры к которым подсоединяется постройка
 	player.buildings_in_own.append(instance)
 	instance.building_part_owner = player
-	get_tree().get_first_node_in_group("world").add_child(instance)
+	player.main_scene.add_child(instance)
 	instance.global_transform = building_scene.global_transform
 	#instance.mesh_building.mesh = building_scene.mesh_building.mesh
 	instance.mesh_building.material.albedo_color = Color(1, 1, 1)
@@ -256,7 +256,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 	if !equiped_item_node:
 		if fp_player_node.visible:
 			fp_player_node.hide()
-	if _equiped_item_type(equiped_item.ItemType.weapon) or _equiped_item_type(equiped_item.ItemType. tool ):
+	if _equiped_item_type(equiped_item.ItemType.weapon) or _equiped_item_type(equiped_item.ItemType.tool):
 		fp_item_animator.play(equiped_item.anim_activate)
 		fp_player_animator.play(equiped_item.anim_player_activate)
 	if _equiped_item_type(equiped_item.ItemType.weapon):
@@ -275,7 +275,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		if equiped_item.dictionary.has("scene_path"):
 			var path = load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
-			get_tree().get_first_node_in_group("world").add_child(building_scene)
+			player.main_scene.add_child(building_scene)
 			building_scene.building_part_owner = player
 			#building_scene.mesh_building.mesh = equiped_item.mesh
 			# в process выставляется позиция для building_scene

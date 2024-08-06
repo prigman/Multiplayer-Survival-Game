@@ -483,6 +483,14 @@ debug_shape_thickness = 1
 unique_name_in_owner = true
 transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, -5)
 
+[node name="BuildingCastObjects" type="RayCast3D" parent="CameraHolder/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -5)
+collision_mask = 6537
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 1
+
 [node name="RigHolder" type="Node3D" parent="CameraHolder"]
 script = ExtResource("5_fwk6d")
 viewmodelfov = 54.0

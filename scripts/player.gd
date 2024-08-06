@@ -127,8 +127,9 @@ func update_input(speed, acceleration, decceleration) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, decceleration)
 		velocity.z = move_toward(velocity.z, 0, decceleration)
-
-	play_footsteps_sound()
+		
+	if is_on_floor():
+		play_footsteps_sound()
 
 func play_footsteps_sound():
 	var current_position_x = global_transform.origin.x

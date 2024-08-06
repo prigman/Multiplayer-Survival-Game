@@ -50,3 +50,5 @@ one_shot = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_dro46")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

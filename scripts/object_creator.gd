@@ -62,9 +62,8 @@ func remove_object(value : bool) -> void:
 func get_random_position_in_collision_shape() -> Vector3:
 	var shape = collision_shape.shape
 	if shape is BoxShape3D:
-		var extents = shape.extents
-		var random_x = randf_range(-extents.x, extents.x)
-		var random_z = randf_range(-extents.z, extents.z)
+		var random_x = randf_range(-shape.size.x / 2, shape.size.x / 2)
+		var random_z = randf_range(-shape.size.z / 2, shape.size.z / 2)
 		return Vector3(random_x, raycast.position.y, random_z)
 	else:
 		return Vector3.ZERO
