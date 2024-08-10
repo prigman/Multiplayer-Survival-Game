@@ -279,9 +279,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 			var path = load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
 			player.main_scene.add_child(building_scene)
-			# building_scene.building_part_owner = player
-
-
+			building_scene.building_part_owner = player
 			#building_scene.mesh_building.mesh = equiped_item.mesh
 			# в process выставляется позиция для building_scene
 
