@@ -1,8 +1,7 @@
-[gd_scene load_steps=52 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=51 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
-[ext_resource type="MeshLibrary" uid="uid://btyqeosup6ump" path="res://models/meshes/meshlib_grid.tres" id="2_ofyu6"]
 [ext_resource type="PackedScene" uid="uid://cu78wr4f7155s" path="res://scenes/scene_template.tscn" id="5_xsqmg"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="6_t2uit"]
 [ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/pine-wood-crate_staticbody.tscn" id="8_upg36"]
@@ -169,11 +168,6 @@ enemy3 = NodePath("zone/Enemy3")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 item_spawner = NodePath("ItemSpawner")
 
-[node name="GridMap" type="GridMap" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.738219, 0)
-mesh_library = ExtResource("2_ofyu6")
-metadata/_editor_floor_ = Vector3(0, 1, 0)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 0, 0, 0)
 shadow_enabled = true
@@ -197,7 +191,7 @@ spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 229.948, 6.41593, 195.435)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.876, 6.84322, 199.026)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
