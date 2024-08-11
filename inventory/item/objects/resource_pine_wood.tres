@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://df6oj3sv4d2u3" path="res://icons/resourceWood.png" id="1_5hiya"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_00r6d")
 item_type = 3
 name = "Pine Wood"

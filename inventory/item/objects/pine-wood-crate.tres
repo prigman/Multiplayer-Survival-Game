@@ -11,6 +11,7 @@ component = ExtResource("1_2yuex")
 amount = 10
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_epkxx")
 item_type = 5
 building_type = 0

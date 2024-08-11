@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=52 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dkqmkkyqb6scy" path="res://scenes/stone_2.tscn" id="20_wbg8h"]
 [ext_resource type="PackedScene" uid="uid://v0urs1mkfuuy" path="res://scenes/stone_3.tscn" id="21_lc5es"]
 [ext_resource type="PackedScene" uid="uid://ggat158lkf7j" path="res://scenes/pine_tree.tscn" id="22_41dkn"]
+[ext_resource type="PackedScene" uid="uid://dp78nfal20sri" path="res://scenes/csg_house.tscn" id="23_0rwp3"]
 [ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="25_pkm0b"]
 [ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="27_2sm5u"]
@@ -1148,5 +1149,8 @@ shape = SubResource("BoxShape3D_dq6at")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 183.855, 158.697, 246.409)
 target_position = Vector3(0, -500, 0)
 collision_mask = 4096
+
+[node name="House" parent="." instance=ExtResource("23_0rwp3")]
+transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 211.165, 3.64337, 201.95)
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

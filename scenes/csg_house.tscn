@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp78nfal20sri"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_oc4vg"]
+size = Vector3(2, 0.45, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_42fnq"]
+size = Vector3(9.48, 2.75, 10)
+
+[sub_resource type="PrismMesh" id="PrismMesh_yl7v1"]
+size = Vector3(9.48, 2.75, 0.4)
+
+[sub_resource type="PrismMesh" id="PrismMesh_lufft"]
+size = Vector3(9.48, 2.75, 0.68)
+
+[node name="House" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+operation = 1
+use_collision = true
+collision_layer = 4096
+collision_mask = 0
+size = Vector3(8, 4, 10)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D"]
+operation = 2
+size = Vector3(7, 3, 9)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18, -0.35, -4.625)
+operation = 2
+size = Vector3(1.7, 2.3, 0.889648)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.59723, 0, 0)
+operation = 2
+size = Vector3(1, 2, 3)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.83567, 0, 0)
+operation = 2
+size = Vector3(1, 2, 3)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.65644, 0, -4.56023)
+operation = 2
+size = Vector3(1, 2, 3)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.205, -1.961, -5)
+mesh = SubResource("BoxMesh_oc4vg")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.205, -2.25281, -5.3325)
+mesh = SubResource("BoxMesh_oc4vg")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.1, 0)
+operation = 1
+use_collision = true
+mesh = SubResource("PrismMesh_42fnq")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="CSGMesh3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.2)
+mesh = SubResource("PrismMesh_yl7v1")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="CSGMesh3D/CSGMesh3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.408995, 0.0175247)
+operation = 2
+mesh = SubResource("PrismMesh_lufft")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="CSGMesh3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.2)
+mesh = SubResource("PrismMesh_yl7v1")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="CSGMesh3D/CSGMesh3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.408995, 0.0175247)
+operation = 2
+mesh = SubResource("PrismMesh_lufft")
