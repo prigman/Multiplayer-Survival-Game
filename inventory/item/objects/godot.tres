@@ -15,6 +15,3 @@ max_stack = 30
 quality = 100.0
 icon = ExtResource("1_n2x22")
 dictionary = {}
-position = Vector3(0, 0, 0)
-rotation = Vector3(0, 0, 0)
-scale = Vector3(0, 0, 0)
