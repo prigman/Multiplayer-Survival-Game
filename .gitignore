@@ -3,3 +3,5 @@
 addons/godot-git-plugin/win64/~libgit_plugin.windows.editor.x86_64.dll
 addons/m_terrain/libs/~libMTerrain.windows.template_debug.x86_64.dll
 addons/terrain_3d/bin/~libterrain.windows.debug.x86_64.dll
+
+.vscode
