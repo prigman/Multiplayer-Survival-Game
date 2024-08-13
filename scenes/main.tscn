@@ -235,7 +235,6 @@ wait_time = 5.0
 autostart = true
 
 [node name="MTerrain" parent="." instance=ExtResource("28_7q1f0")]
-create = true
 collision_layer = 4096
 unique_name_in_owner = true
 

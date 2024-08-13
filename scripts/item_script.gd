@@ -395,8 +395,18 @@ func hitscan(raycast: RayCast3D) -> void:
 				if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
 					target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
 					create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
+
 		if target.is_in_group("enemy_group"):
 			target.health -= equiped_item.damage
+			
+		player_hit(target)
+
+
+
+func player_hit(target)->void:
+	if target.is_in_group("player_group"):
+		target.rpc('died_process',equiped_item.damage)
+		print("EnemyP_health:", target.health_value)
 
 func randomize_aimcast_spread() -> void:
 	var rng = RandomNumberGenerator.new()

@@ -59,6 +59,12 @@ properties/2/replication_mode = 2
 properties/3/path = NodePath(".:peer_id")
 properties/3/spawn = true
 properties/3/replication_mode = 0
+properties/4/path = NodePath(".:health_value")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:hunger_value")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
 properties/0/path = NodePath(".:input_direction")
@@ -397,7 +403,7 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqr46"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sound_footstep_pool", "footstep_timer", "weapon_holder")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sound_footstep_pool", "footstep_timer", "weapon_holder") groups=["player_group"]]
 collision_layer = 2
 collision_mask = 6345
 script = ExtResource("1_adhyr")
