@@ -318,6 +318,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2481, 1.73262, 8.15066)
 shape = SubResource("BoxShape3D_ktist")
 
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0.866025, 0.5, 0, 0.5, -0.866025, -1, -3.78552e-08, -2.18557e-08, -2.18649, 4.72384, 5.71227)
-depth = 0.5
-polygon = PackedVector2Array(0.252735, 2.7549, 0.836393, -2.382, -4.38361, -2.38448)
+transform = Transform3D(-4.37114e-08, 0.85264, 0.522498, 0, 0.522498, -0.85264, -1, -3.72701e-08, -2.28391e-08, -2.35599, 4.95859, 5.71227)
+depth = 0.12
+polygon = PackedVector2Array(0.252735, 2.7549, 0.836393, -2.382, -4.27919, -2.45861)
+
+[node name="CollisionPolygon3D4" type="CollisionPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.522498, 0.85264, 0, -0.85264, 0.522498, -0.165234, 4.94456, 7.85145)
+depth = 0.12
+polygon = PackedVector2Array(0.252735, 2.7549, 0.836393, -2.382, -4.27919, -2.45861)

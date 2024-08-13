@@ -375,6 +375,16 @@ func hitscan(raycast: RayCast3D) -> void:
 		var decal = HIT_DECAL.instantiate()
 		if target:
 			target.add_child(decal)
+			if raycast == melee_cast and equiped_item.ItemType.tool:
+				if target.is_in_group("world_resource"):
+					if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):
+						target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
+						create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2, 6))
+					if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
+						target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
+						create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
+				if target.is_in_group("enemy_group"):
+					target.health -= equiped_item.damage
 		else:
 			player.main_scene.add_child(decal)
 		decal.global_transform.origin = ray_end_point
@@ -386,17 +396,6 @@ func hitscan(raycast: RayCast3D) -> void:
 		else:
 			side = Vector3(0, 1, 0)
 		decal.look_at(ray_end_point + raycast.get_collision_normal(), side)
-	if target:
-		if raycast == melee_cast and equiped_item.ItemType.tool:
-			if target.is_in_group("world_resource"):
-				if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):
-					target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
-					create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2, 6))
-				if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
-					target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
-					create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
-		if target.is_in_group("enemy_group"):
-			target.health -= equiped_item.damage
 
 func randomize_aimcast_spread() -> void:
 	var rng = RandomNumberGenerator.new()

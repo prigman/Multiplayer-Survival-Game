@@ -333,26 +333,38 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%Item:position")
+tracks/0/path = NodePath("..:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.04, -0.61, -0.545)]
+"values": [Vector3(0, 1.65, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("%Item:rotation")
+tracks/1/path = NodePath("%DefaultStateCollision:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.00872666, 2.7838, -0.802851)]
+"values": [Vector3(0, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%DefaultStateCollision:shape:height")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jnhb8"]
@@ -429,6 +441,7 @@ shape = SubResource("CapsuleShape3D_7qfu8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00398284, 0.994013, 0.00473261)
+visible = false
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_f7gol")
 skeleton = NodePath("../DefaultStateCollision")
@@ -440,7 +453,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 1.5, -3.72529e-
 shape = SubResource("SphereShape3D_c1c83")
 target_position = Vector3(0, 0, 0)
 max_results = 4
-collision_mask = 6297
+collision_mask = 2201
 
 [node name="CameraHolder" type="Node3D" parent="."]
 unique_name_in_owner = true
