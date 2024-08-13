@@ -143,7 +143,6 @@ change_fire_mode={
 3d_physics/layer_11="building_area"
 3d_physics/layer_12="building_mesh"
 3d_physics/layer_13="terrain"
-3d_physics/layer_14="spawned_object"
 
 [rendering]
 
