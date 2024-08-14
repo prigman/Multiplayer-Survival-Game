@@ -411,7 +411,7 @@ corner_radius_bottom_left = 2
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sound_footstep_pool", "footstep_timer", "weapon_holder")]
 collision_layer = 2
-collision_mask = 6345
+collision_mask = 4553
 script = ExtResource("1_adhyr")
 sound_footstep_pool = NodePath("Soundpool")
 footstep_timer = NodePath("FootstepTimer")
@@ -453,7 +453,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 1.5, -3.72529e-
 shape = SubResource("SphereShape3D_c1c83")
 target_position = Vector3(0, 0, 0)
 max_results = 4
-collision_mask = 2201
+collision_mask = 409
 
 [node name="CameraHolder" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -486,15 +486,17 @@ debug_shape_thickness = 1
 [node name="BuildingCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
 unique_name_in_owner = true
 transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -5)
-collision_mask = 6537
+target_position = Vector3(0, 0, -8)
+collision_mask = 4609
 collide_with_areas = true
 debug_shape_custom_color = Color(0, 1, 0, 1)
 debug_shape_thickness = 1
 
-[node name="BuildingPoint" type="Node3D" parent="CameraHolder/Camera3D"]
+[node name="BuildingPoint" type="Marker3D" parent="CameraHolder/Camera3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, -5)
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, -8)
+visible = false
+gizmo_extents = 1.0
 
 [node name="BuildingCastObjects" type="RayCast3D" parent="CameraHolder/Camera3D"]
 unique_name_in_owner = true
