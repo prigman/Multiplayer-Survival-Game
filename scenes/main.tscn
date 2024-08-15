@@ -189,6 +189,10 @@ directional_shadow_max_distance = 50.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o00h3")
 
+[node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn")
+spawn_path = NodePath("..")
+
 [node name="ItemSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("node_position")]
 unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn", "res://scenes/interactable/pickup/axe_tool_rb.tscn", "res://scenes/interactable/pickup/canned-food_rigidbody.tscn", "res://scenes/interactable/pickup/m4_rifle_rb.tscn", "res://scenes/interactable/pickup/metal-bar_resource_rb.tscn", "res://scenes/interactable/pickup/pickaxe_rb.tscn", "res://scenes/interactable/pickup/pine_wood_resource_rb.tscn", "res://scenes/interactable/pickup/resource_pine_branch_rb.tscn")
@@ -200,7 +204,7 @@ node_position = NodePath("../zone/ZoneItems/SpawnPosition")
 _spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
 spawn_path = NodePath("../Players")
 
-[node name="Players" type="Node3D" parent="."]
+[node name="Players" type="Node3D" parent="." groups=["player_spawn"]]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.876, 6.84322, 199.026)
 

@@ -90,7 +90,9 @@ size = Vector3(0.5, 3.02979, 2.30615)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ktist"]
 size = Vector3(0.5, 3.02979, 1.65015)
 
-[node name="Node3D" type="StaticBody3D"]
+[node name="House2" type="StaticBody3D"]
+collision_layer = 64
+collision_mask = 0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
