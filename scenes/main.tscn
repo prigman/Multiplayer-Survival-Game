@@ -42,14 +42,12 @@ radiance_size = 0
 background_mode = 2
 sky = SubResource("Sky_22r82")
 tonemap_exposure = 2.7
-fog_sun_scatter = 0.23
-fog_density = 0.0175
-volumetric_fog_density = 0.01
-volumetric_fog_albedo = Color(0.457527, 0.457527, 0.457527, 1)
-volumetric_fog_emission = Color(0.176731, 0.176731, 0.176731, 1)
-volumetric_fog_length = 1024.0
-volumetric_fog_ambient_inject = 16.0
-volumetric_fog_sky_affect = 0.105
+fog_enabled = true
+fog_mode = 1
+fog_sun_scatter = 0.13
+fog_density = 1.0
+fog_sky_affect = 0.0
+fog_depth_end = 350.0
 adjustment_enabled = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3lh8d"]
@@ -179,7 +177,7 @@ item_spawner = NodePath("ItemSpawner")
 transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 0, 0, 0)
 shadow_enabled = true
 shadow_opacity = 0.7
-directional_shadow_fade_start = 1.0
+directional_shadow_mode = 1
 directional_shadow_max_distance = 50.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -245,6 +243,7 @@ autostart = true
 
 [node name="MTerrain" type="MTerrain" parent="."]
 dataDir = "res://terrain_data"
+create = true
 terrain_material = ExtResource("13_8lcak")
 heightmap_layers = PackedStringArray("background")
 update_chunks_interval = 0.01
