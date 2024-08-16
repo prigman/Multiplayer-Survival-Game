@@ -1,160 +1,77 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnm2p00ty7mau"]
+[gd_scene load_steps=9 format=3 uid="uid://bnm2p00ty7mau"]
 
-[ext_resource type="Script" path="res://scripts/building_roof.gd" id="1_h33sd"]
-[ext_resource type="Script" path="res://scripts/roof_colliders.gd" id="2_lj80c"]
-[ext_resource type="Material" uid="uid://o7108osm7jyv" path="res://materials/building_material.tres" id="3_feja1"]
+[ext_resource type="Script" path="res://scripts/building system/building.gd" id="1_flrfk"]
+[ext_resource type="Material" uid="uid://o7108osm7jyv" path="res://materials/building_material.tres" id="2_hnnjl"]
+[ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://inventory/item/objects/wooden_roof.tres" id="2_mdr0k"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_dx31k"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_80gsg"]
-size = Vector3(4, 0.3, 4)
+[sub_resource type="BoxShape3D" id="BoxShape3D_1owip"]
+size = Vector3(3.6, 0.3, 3.6)
 
 [sub_resource type="BoxMesh" id="BoxMesh_e00x3"]
 resource_local_to_scene = true
 size = Vector3(4, 0.3, 4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_djyv4"]
-size = Vector3(5, 1, 5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_82k1h"]
+size = Vector3(4, 0.3, 4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_uu2pr"]
-size = Vector3(15, 15, 15)
+[sub_resource type="BoxShape3D" id="BoxShape3D_ryrnq"]
+size = Vector3(4.2, 0.5, 4.2)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_shd3c"]
-size = Vector3(6, 1.2, 6)
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_a1t0h"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("BuildingCollision/CollisionShape3D:disabled")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("ShapeCast3D:enabled")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("CollisionShape3D:disabled")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:building_part_owner_id")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_bmcw3"]
-size = Vector3(6, 1.2, 6)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_twk4o"]
-size = Vector3(10, 10, 10)
-
-[node name="BuildingRoof" type="Node3D" node_paths=PackedStringArray("disable_building_collider", "building_part_shape", "building_part_area", "private_area", "temporary_building_area", "colliders") groups=["building_group", "building_roof"]]
-script = ExtResource("1_h33sd")
-disable_building_collider = NodePath("CSGMesh3D/DisableBuildingCollider")
-building_part_shape = NodePath("CSGMesh3D/BuildingPartShape")
-building_part_area = NodePath("CSGMesh3D/PrivateArea")
-private_area = NodePath("CSGMesh3D/PrivateArea")
-temporary_building_area = NodePath("CSGMesh3D/TemporaryBuildingArea")
-colliders = [NodePath("coll_1"), NodePath("coll_2"), NodePath("coll_3"), NodePath("coll_4")]
-
-[node name="coll_1" type="Area3D" parent="." groups=["building_colliders", "collider_roof"]]
+[node name="BuildingRoof" type="StaticBody3D" node_paths=PackedStringArray("building_parts_root", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_group", "building_roof"]]
 collision_layer = 256
-collision_mask = 256
-script = ExtResource("2_lj80c")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="coll_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.35)
-shape = SubResource("SphereShape3D_dx31k")
-disabled = true
-
-[node name="roof" type="CollisionShape3D" parent="coll_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
-shape = SubResource("BoxShape3D_80gsg")
-disabled = true
-
-[node name="coll_2" type="Area3D" parent="." groups=["building_colliders", "collider_roof"]]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-collision_layer = 256
-collision_mask = 256
-script = ExtResource("2_lj80c")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="coll_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.35)
-shape = SubResource("SphereShape3D_dx31k")
-disabled = true
-
-[node name="roof" type="CollisionShape3D" parent="coll_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
-shape = SubResource("BoxShape3D_80gsg")
-disabled = true
-
-[node name="coll_3" type="Area3D" parent="." groups=["building_colliders", "collider_roof"]]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-collision_layer = 256
-collision_mask = 256
-script = ExtResource("2_lj80c")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="coll_3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.35)
-shape = SubResource("SphereShape3D_dx31k")
-disabled = true
-
-[node name="roof" type="CollisionShape3D" parent="coll_3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
-shape = SubResource("BoxShape3D_80gsg")
-disabled = true
-
-[node name="coll_4" type="Area3D" parent="." groups=["building_colliders", "collider_roof"]]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
-collision_layer = 256
-collision_mask = 256
-script = ExtResource("2_lj80c")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="coll_4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.35)
-shape = SubResource("SphereShape3D_dx31k")
-disabled = true
-
-[node name="roof" type="CollisionShape3D" parent="coll_4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
-shape = SubResource("BoxShape3D_80gsg")
-disabled = true
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
-unique_name_in_owner = true
-collision_layer = 2048
 collision_mask = 0
-mesh = SubResource("BoxMesh_e00x3")
-material = ExtResource("3_feja1")
+script = ExtResource("1_flrfk")
+item_data = ExtResource("2_mdr0k")
+building_parts_root = NodePath("BuildingPartsRoot")
+shape_cast = NodePath("ShapeCast3D")
+collision_shape = NodePath("CollisionShape3D")
+mesh_node = NodePath("Mesh")
+building_collision = NodePath("BuildingCollision")
 
-[node name="ShapeCast3D" type="ShapeCast3D" parent="CSGMesh3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_djyv4")
-max_results = 3
-collision_mask = 14
-collide_with_areas = true
-
-[node name="PrivateArea" type="Area3D" parent="CSGMesh3D" groups=["building_private_area"]]
-collision_layer = 64
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGMesh3D/PrivateArea"]
-shape = SubResource("BoxShape3D_uu2pr")
-disabled = true
-
-[node name="TemporaryBuildingArea" type="Area3D" parent="CSGMesh3D"]
+[node name="BuildingCollision" type="Area3D" parent="."]
 collision_layer = 1024
-collision_mask = 64
+collision_mask = 256
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGMesh3D/TemporaryBuildingArea"]
-shape = SubResource("BoxShape3D_uu2pr")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingCollision"]
+shape = SubResource("BoxShape3D_1owip")
 
-[node name="BuildingPartArea" type="Area3D" parent="CSGMesh3D"]
-collision_layer = 512
-collision_mask = 0
+[node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("BoxMesh_e00x3")
+surface_material_override/0 = ExtResource("2_hnnjl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGMesh3D/BuildingPartArea"]
-shape = SubResource("BoxShape3D_shd3c")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_82k1h")
 disabled = true
 
-[node name="BuildingPartShape" type="ShapeCast3D" parent="CSGMesh3D" groups=["building_part_shape"]]
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_bmcw3")
+shape = SubResource("BoxShape3D_ryrnq")
 max_results = 1
-collision_mask = 512
+collision_mask = 222
 collide_with_areas = true
 
-[node name="DisableBuildingCollider" type="ShapeCast3D" parent="CSGMesh3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_twk4o")
-max_results = 2
-collision_mask = 144
-collide_with_areas = true
+[node name="BuildingPartsRoot" type="Node3D" parent="."]
 
-[connection signal="area_entered" from="coll_1" to="." method="_on_coll_1_area_entered"]
-[connection signal="area_entered" from="coll_2" to="." method="_on_coll_2_area_entered"]
-[connection signal="area_entered" from="coll_3" to="." method="_on_coll_3_area_entered"]
-[connection signal="area_entered" from="coll_4" to="." method="_on_coll_4_area_entered"]
-[connection signal="area_entered" from="CSGMesh3D/TemporaryBuildingArea" to="." method="_on_temporary_building_area_area_entered"]
-[connection signal="area_exited" from="CSGMesh3D/TemporaryBuildingArea" to="." method="_on_temporary_building_area_area_exited"]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
+replication_config = SubResource("SceneReplicationConfig_a1t0h")

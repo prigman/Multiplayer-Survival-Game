@@ -37,6 +37,11 @@ func delete_player(id: int) -> void:
 	print("SERVER: delete_player function called")
 	players_spawn_node.get_node('Player_' + str(id)).queue_free()
 
+@rpc("any_peer","reliable","call_local")
+func delete_player_rpc(id:int)->void:
+	if not multiplayer.is_server(): return
+	delete_player(id)
+
 func custom_spawn(data) -> Node:
 	var id = data[0]
 	var pos = data[1]

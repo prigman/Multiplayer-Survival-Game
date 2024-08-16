@@ -1,0 +1,209 @@
+[gd_scene load_steps=12 format=3 uid="uid://b3homprvw0wxj"]
+
+[ext_resource type="Script" path="res://scripts/building system/building.gd" id="1_6brl3"]
+[ext_resource type="BoxMesh" uid="uid://bmm0s4107n6rl" path="res://models/meshes/building_mesh.tres" id="2_c6ow4"]
+[ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://inventory/item/objects/wooden_floor.tres" id="2_ym1cl"]
+[ext_resource type="Material" uid="uid://o7108osm7jyv" path="res://materials/building_material.tres" id="3_sg1ll"]
+[ext_resource type="Script" path="res://scripts/building system/building_collider.gd" id="4_4hadj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ejk5y"]
+size = Vector3(3.95, 1.5, 3.95)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hmorv"]
+size = Vector3(4.2, 1.7, 4.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iieix"]
+size = Vector3(4, 1.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lddx0"]
+size = Vector3(4, 1.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7y3fj"]
+size = Vector3(0.3, 4, 4)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m8u3l"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("FoundationCollider/CollisionShape3D2:disabled")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("ShapeCast3D:enabled")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("Mesh:cast_shadow")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("CollisionShape3D:disabled")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("BuildingCollision/CollisionShape3D:disabled")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath("FoundationCollider2/CollisionShape3D2:disabled")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+properties/8/path = NodePath("FoundationCollider3/CollisionShape3D2:disabled")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+properties/9/path = NodePath("FoundationCollider4/CollisionShape3D2:disabled")
+properties/9/spawn = true
+properties/9/replication_mode = 2
+properties/10/path = NodePath("WallCollider/CollisionShape3D:disabled")
+properties/10/spawn = true
+properties/10/replication_mode = 2
+properties/11/path = NodePath("WallCollider2/CollisionShape3D:disabled")
+properties/11/spawn = true
+properties/11/replication_mode = 2
+properties/12/path = NodePath("WallCollider3/CollisionShape3D:disabled")
+properties/12/spawn = true
+properties/12/replication_mode = 2
+properties/13/path = NodePath("WallCollider4/CollisionShape3D:disabled")
+properties/13/spawn = true
+properties/13/replication_mode = 2
+properties/14/path = NodePath(".:building_part_owner_id")
+properties/14/spawn = true
+properties/14/replication_mode = 2
+
+[node name="BuildingFoundation" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "building_parts_root", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_floor", "building_group"]]
+editor_description = "я ебал его рот
+"
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_6brl3")
+item_data = ExtResource("2_ym1cl")
+building_colliders = [NodePath("FoundationCollider"), NodePath("FoundationCollider2"), NodePath("FoundationCollider3"), NodePath("FoundationCollider4"), NodePath("WallCollider"), NodePath("WallCollider2"), NodePath("WallCollider3"), NodePath("WallCollider4")]
+building_parts_root = NodePath("BuildingPartsRoot")
+shape_cast = NodePath("ShapeCast3D")
+collision_shape = NodePath("CollisionShape3D")
+mesh_node = NodePath("Mesh")
+building_collision = NodePath("BuildingCollision")
+
+[node name="BuildingCollision" type="Area3D" parent="."]
+collision_layer = 1024
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingCollision"]
+shape = SubResource("BoxShape3D_ejk5y")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_hmorv")
+max_results = 1
+collision_mask = 222
+collide_with_areas = true
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+cast_shadow = 0
+mesh = ExtResource("2_c6ow4")
+surface_material_override/0 = ExtResource("3_sg1ll")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_iieix")
+disabled = true
+
+[node name="FoundationCollider" type="Area3D" parent="." groups=["building_collider"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_4hadj")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="FoundationCollider"]
+shape = SubResource("BoxShape3D_lddx0")
+disabled = true
+
+[node name="FoundationCollider2" type="Area3D" parent="." groups=["building_collider"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_4hadj")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="FoundationCollider2"]
+shape = SubResource("BoxShape3D_lddx0")
+disabled = true
+
+[node name="FoundationCollider3" type="Area3D" parent="." groups=["building_collider"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_4hadj")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="FoundationCollider3"]
+shape = SubResource("BoxShape3D_lddx0")
+disabled = true
+
+[node name="FoundationCollider4" type="Area3D" parent="." groups=["building_collider"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_4hadj")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="FoundationCollider4"]
+shape = SubResource("BoxShape3D_lddx0")
+disabled = true
+
+[node name="WallCollider" type="Area3D" parent="." groups=["building_collider"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2.7, 0)
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_4hadj")
+collider_type = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallCollider"]
+shape = SubResource("BoxShape3D_7y3fj")
+disabled = true
+
+[node name="WallCollider2" type="Area3D" parent="." groups=["building_collider"]]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 2, 2.7, 0)
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_4hadj")
+collider_type = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallCollider2"]
+shape = SubResource("BoxShape3D_7y3fj")
+disabled = true
+
+[node name="WallCollider3" type="Area3D" parent="." groups=["building_collider"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2.7, 2)
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_4hadj")
+collider_type = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallCollider3"]
+shape = SubResource("BoxShape3D_7y3fj")
+disabled = true
+
+[node name="WallCollider4" type="Area3D" parent="." groups=["building_collider"]]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2.7, -2)
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_4hadj")
+collider_type = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallCollider4"]
+shape = SubResource("BoxShape3D_7y3fj")
+disabled = true
+
+[node name="BuildingPartsRoot" type="Node3D" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn", "res://scenes/building_wall.tscn")
+spawn_path = NodePath("../BuildingPartsRoot")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
+replication_config = SubResource("SceneReplicationConfig_m8u3l")

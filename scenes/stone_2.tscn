@@ -40,7 +40,7 @@ visible = false
 enabled = false
 shape = SubResource("SphereShape3D_8q555")
 target_position = Vector3(0, 0, 0)
-max_results = 5
+max_results = 1
 collision_mask = 94
 collide_with_areas = true
 

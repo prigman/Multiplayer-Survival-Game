@@ -25,7 +25,7 @@ func custom_spawn(data) -> Node:
 	inventory_item.position = pos
 	inventory_item.network_id = id
 	inventory_item.slot_data.amount_in_slot = slot_data_as_dict["amount_in_slot"]
-	inventory_item.slot_data.item.quality = item_data_as_dict["quality"] 
+	inventory_item.slot_data.item.quality = item_data_as_dict["quality"]
 	if inventory_item.slot_data.item is ItemDataCraftableWeapon or inventory_item.slot_data.item is ItemDataWeapon or inventory_item.slot_data.item is ItemDataCraftableTools or inventory_item.slot_data.item is ItemDataTools:
 		inventory_item.slot_data.item.damage = item_data_as_dict["damage"]
 	if inventory_item.slot_data.item is ItemDataWeapon or inventory_item.slot_data.item is ItemDataCraftableWeapon:

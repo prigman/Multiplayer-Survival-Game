@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=58 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
@@ -7,11 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/pine-wood-crate_staticbody.tscn" id="8_upg36"]
 [ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="10_6xi46"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
+[ext_resource type="MTerrainMaterial" uid="uid://1wm6ms1yy2xj" path="res://terrain_data/terrain_mat.res" id="13_8lcak"]
+[ext_resource type="Script" path="res://scripts/mterrain.gd" id="14_6to2c"]
 [ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="15_i4n86"]
+[ext_resource type="MGrassData" uid="uid://diydirk7wwo4m" path="res://terrain_data/new_m_grass_data.res" id="15_p7tgc"]
 [ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo_ar.tres" id="16_0rsnr"]
+[ext_resource type="MGrassLodSetting" uid="uid://bwjyy80hfe5nu" path="res://terrain_data/grass_lod_setting.res" id="16_c1xjj"]
 [ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="16_nipej"]
 [ext_resource type="Script" path="res://scripts/object_creator.gd" id="17_f3s41"]
+[ext_resource type="ArrayMesh" uid="uid://tdvoiqypm884" path="res://models/meshes/grass_mesh.res" id="17_l42ok"]
 [ext_resource type="PackedScene" uid="uid://flv6r52q38pv" path="res://scenes/stone_1.tscn" id="18_ffisp"]
+[ext_resource type="Material" uid="uid://c7d4xyylcq5p1" path="res://materials/grass_mat_shader.tres" id="18_lajm7"]
 [ext_resource type="Script" path="res://scripts/objects_creator_res.gd" id="19_fa03l"]
 [ext_resource type="PackedScene" uid="uid://dkqmkkyqb6scy" path="res://scenes/stone_2.tscn" id="20_wbg8h"]
 [ext_resource type="PackedScene" uid="uid://v0urs1mkfuuy" path="res://scenes/stone_3.tscn" id="21_lc5es"]
@@ -21,7 +27,6 @@
 [ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="25_pkm0b"]
 [ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="27_2sm5u"]
-[ext_resource type="PackedScene" uid="uid://cee71nu14xh25" path="res://scenes/m_terrain.tscn" id="28_7q1f0"]
 [ext_resource type="Script" path="res://scripts/world_resources.gd" id="30_i6lvt"]
 [ext_resource type="ArrayMesh" uid="uid://pcfh4qqqwwim" path="res://models/meshes/pine_tree.mesh" id="31_nluff"]
 
@@ -180,6 +185,10 @@ directional_shadow_max_distance = 50.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o00h3")
 
+[node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn")
+spawn_path = NodePath("..")
+
 [node name="ItemSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("node_position")]
 unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn", "res://scenes/interactable/pickup/axe_tool_rb.tscn", "res://scenes/interactable/pickup/canned-food_rigidbody.tscn", "res://scenes/interactable/pickup/m4_rifle_rb.tscn", "res://scenes/interactable/pickup/metal-bar_resource_rb.tscn", "res://scenes/interactable/pickup/pickaxe_rb.tscn", "res://scenes/interactable/pickup/pine_wood_resource_rb.tscn", "res://scenes/interactable/pickup/resource_pine_branch_rb.tscn")
@@ -191,7 +200,7 @@ node_position = NodePath("../zone/ZoneItems/SpawnPosition")
 _spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
 spawn_path = NodePath("../Players")
 
-[node name="Players" type="Node3D" parent="."]
+[node name="Players" type="Node3D" parent="." groups=["player_spawn"]]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.876, 6.84322, 199.026)
 
@@ -234,10 +243,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 0, -4.99677)
 wait_time = 5.0
 autostart = true
 
-[node name="MTerrain" parent="." instance=ExtResource("28_7q1f0")]
-create = true
+[node name="MTerrain" type="MTerrain" parent="."]
+dataDir = "res://terrain_data"
+terrain_material = ExtResource("13_8lcak")
+heightmap_layers = PackedStringArray("background")
+update_chunks_interval = 0.01
+distance_update_threshold = 8.0
+min_h_scale = 4
+max_h_scale = 6
+size_info = [[true, true, true], [false, true, true], [false, false, true], [false, false, true], [false, false, true], [false, false, true]]
+lod_distance = PackedInt32Array(10, 6)
 collision_layer = 4096
 unique_name_in_owner = true
+script = ExtResource("14_6to2c")
+
+[node name="MGrass" type="MGrass" parent="MTerrain"]
+grass_data = ExtResource("15_p7tgc")
+grass_count_limit = 9000
+lod_settings = [ExtResource("16_c1xjj"), null, null]
+meshes = [ExtResource("17_l42ok"), null, null]
+materials = [ExtResource("18_lajm7"), null, null]
 
 [node name="Pine-Wood-Crate3" parent="." instance=ExtResource("8_upg36")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 231.731, 3.80188, 190.535)
@@ -421,9 +446,6 @@ transform = Transform3D(-1.26727, 0.00459834, -0.289816, 0.00982559, 1.29977, -0
 
 [node name="@StaticBody3D@20331" parent="ObjectCreator/ObjectsSpawned" instance=ExtResource("22_41dkn")]
 transform = Transform3D(0.705203, -0.00157722, 1.0921, 0.0253726, 1.29967, -0.0145068, -1.09181, 0.0291844, 0.705055, 46.6373, 0.818359, 89.7651)
-
-[node name="@StaticBody3D@20332" parent="ObjectCreator/ObjectsSpawned" instance=ExtResource("22_41dkn")]
-transform = Transform3D(0.376487, 0.00916321, 1.24426, 0.0288692, 1.29955, -0.0183056, -1.24396, 0.0329327, 0.376153, 182.251, 2.46791, 224.433)
 
 [node name="@StaticBody3D@20333" parent="ObjectCreator/ObjectsSpawned" instance=ExtResource("22_41dkn")]
 transform = Transform3D(0.132856, -0.0281735, -1.29289, 0.0241975, 1.29952, -0.0258315, 1.29297, -0.0214252, 0.133332, 225.401, 3.4958, 215.983)
@@ -1152,9 +1174,9 @@ target_position = Vector3(0, -500, 0)
 collision_mask = 4096
 
 [node name="House" parent="." instance=ExtResource("23_0rwp3")]
-transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 211.165, 3.88208, 201.95)
+transform = Transform3D(0.797658, 0, -0.60311, 0, 1, 0, 0.60311, 0, 0.797658, 192.594, 2.371, 220.371)
 
 [node name="Node3D" parent="." instance=ExtResource("24_o20b4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 231.665, 4.5031, 207.588)
+transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 165.542, 2.37119, 201.054)
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

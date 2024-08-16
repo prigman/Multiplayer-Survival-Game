@@ -1,15 +1,9 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=25 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=15 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
 [ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://inventory/item/objects/pickaxe.tres" id="2_g34mc"]
-[ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_full_auto.gd" id="4_opwfq"]
-[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="4_qktfq"]
-[ext_resource type="Script" path="res://scripts/weapon/fire_modes/fire_mode_single.gd" id="5_d7an1"]
+[ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://inventory/item/objects/m4_rifle.tres" id="4_g7ewx"]
 [ext_resource type="Resource" uid="uid://d16s5vsgm2o6t" path="res://inventory/item/objects/axe.tres" id="5_p17sb"]
-[ext_resource type="Script" path="res://inventory/craft_components.gd" id="5_q40wr"]
-[ext_resource type="Texture2D" uid="uid://dkv3vtbo8ejnw" path="res://icons/m4_rifle_icon.png" id="6_axc0n"]
-[ext_resource type="Curve" uid="uid://bl86an7yiit51" path="res://scripts/weapon/ar_curve.tres" id="7_ox1ng"]
-[ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="8_i2deb"]
 [ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://inventory/item/objects/wooden_floor.tres" id="8_mv40l"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="8_qw5vx"]
 [ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://inventory/item/objects/wooden_roof.tres" id="9_5u2b2"]
@@ -21,69 +15,9 @@ script = ExtResource("8_qw5vx")
 item = ExtResource("2_g34mc")
 amount_in_slot = 1
 
-[sub_resource type="Resource" id="Resource_bgt2a"]
-script = ExtResource("5_q40wr")
-component = ExtResource("4_qktfq")
-amount = 1
-
-[sub_resource type="Resource" id="Resource_qtfbu"]
-script = ExtResource("4_opwfq")
-name = "Full Auto"
-mode = 1
-fire_rate = 0.14
-
-[sub_resource type="Resource" id="Resource_yonya"]
-script = ExtResource("5_d7an1")
-name = "Single"
-mode = 0
-fire_rate = 0.14
-
-[sub_resource type="Resource" id="Resource_88g5k"]
-script = ExtResource("8_i2deb")
-craft_components = Array[ExtResource("5_q40wr")]([SubResource("Resource_bgt2a")])
-item_type = 0
-anim_activate = "M4_Rifle_Anims/M4_Rifle_Equip"
-anim_scope = "M4_Rifle_Anims/M4_Rifle_Scope"
-anim_reload = "M4_Rifle_Anims/M4_Rifle_Reload"
-anim_idle = "M4_Rifle_Anims/M4_Rifle_Idle"
-anim_player_activate = "FP_Armature/M4_Rifle_Player_Equip"
-anim_player_scope = "FP_Armature/M4_Rifle_Player_Scope"
-anim_player_reload = "FP_Armature/M4_Rifle_Player_Reload"
-anim_player_idle = "FP_Armature/M4_Rifle_Player_Idle"
-ammo_current = 30
-ammo_max = 30
-damage = 24.0
-weapon_type = 0
-fire_modes = Array[Resource("res://scripts/weapon/fire_modes/weapon_fire_modes.gd")]([SubResource("Resource_yonya"), SubResource("Resource_qtfbu")])
-fire_mode_current = SubResource("Resource_qtfbu")
-recoil_rotation_x = ExtResource("7_ox1ng")
-recoil_rotation_z = ExtResource("7_ox1ng")
-recoil_position_z = ExtResource("7_ox1ng")
-recoil_amplitude = Vector3(0.05, 0.2, 0.02)
-lerp_speed = 5.0
-recoil_speed = 1.0
-position = Vector3(0, 0, 0)
-name = "Assault Rifle"
-description = "Weapon"
-description_item_panel = "The handy short automatic rifle with supressor and sight.
-
-Ammo type: 5.45 mm
-Damage head: 60 hp
-Damage body: 25 hp
-Damage arms: 15 hp
-Damage legs: 15 hps
-Shoot types: auto, single, burst"
-stackable = false
-max_stack = 0
-quality = 100.0
-icon = ExtResource("6_axc0n")
-dictionary = {
-"dropped_item": "res://scenes/interactable/pickup/m4_rifle_rb.tscn"
-}
-
 [sub_resource type="Resource" id="Resource_1rlk4"]
 script = ExtResource("8_qw5vx")
-item = SubResource("Resource_88g5k")
+item = ExtResource("4_g7ewx")
 amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_lq44m"]
