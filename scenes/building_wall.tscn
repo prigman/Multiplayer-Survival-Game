@@ -48,7 +48,7 @@ properties/7/spawn = true
 properties/7/replication_mode = 2
 properties/8/path = NodePath("RoofCollider2/CollisionShape3D:disabled")
 properties/8/spawn = true
-properties/8/replication_mode = 1
+properties/8/replication_mode = 2
 
 [node name="BuildingWall" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "building_parts_root", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_group", "building_wall"]]
 collision_layer = 256
@@ -110,7 +110,7 @@ disabled = true
 
 [node name="BuildingPartsRoot" type="Node3D" parent="."]
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
 replication_config = SubResource("SceneReplicationConfig_0v3hs")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

@@ -201,9 +201,9 @@ disabled = true
 
 [node name="BuildingPartsRoot" type="Node3D" parent="."]
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_m8u3l")
-
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn", "res://scenes/building_wall.tscn")
 spawn_path = NodePath("../BuildingPartsRoot")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
+replication_config = SubResource("SceneReplicationConfig_m8u3l")

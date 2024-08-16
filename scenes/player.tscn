@@ -426,7 +426,7 @@ weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.001
 invert_weapon_sway = true
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_n3lfe")
 

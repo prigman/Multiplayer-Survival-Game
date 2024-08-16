@@ -73,5 +73,5 @@ collide_with_areas = true
 
 [node name="BuildingPartsRoot" type="Node3D" parent="."]
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
 replication_config = SubResource("SceneReplicationConfig_a1t0h")
