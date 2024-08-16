@@ -15,13 +15,14 @@ func _ready() -> void:
 	if get_multiplayer_authority() == multiplayer.get_unique_id():
 		camera.make_current()
 	else:
-		set_process(false)
 		set_process_input(false)
+		set_process_unhandled_input(false)
+		set_process(false)
+		player.set_physics_process(false)
 		camera.clear_current(false)
 
 func _process(_delta) -> void:
 	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-
 
 func _input(event):
 	if event is InputEventMouseMotion and !player.is_inventory_open():

@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ItemDataCraftableWeapon" load_steps=11 format=3 uid="uid://dueasdbvrpec2"]
+[gd_resource type="Resource" script_class="ItemDataCraftableWeapon" load_steps=12 format=3 uid="uid://dueasdbvrpec2"]
 
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="1_2ls5s"]
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="2_4jvik"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_weapon.gd" id="3_3vu0k"]
 [ext_resource type="Resource" uid="uid://dwmpk6d810gkb" path="res://scripts/weapon/fire_modes/fire_mode_full_auto_ar.tres" id="3_26vtl"]
 [ext_resource type="Resource" uid="uid://duolnhkopt6su" path="res://scripts/weapon/fire_modes/fire_mode_single.tres" id="3_ltgc8"]
+[ext_resource type="Script" path="res://scripts/weapon/fire_modes/weapon_fire_modes.gd" id="4_wxi3p"]
 [ext_resource type="Texture2D" uid="uid://dkv3vtbo8ejnw" path="res://icons/m4_rifle_icon.png" id="5_fpkwj"]
 [ext_resource type="ArrayMesh" uid="uid://dm64te7iwns5j" path="res://models/ar/ar_silencer.res" id="7_7j3ht"]
 [ext_resource type="Curve" uid="uid://bl86an7yiit51" path="res://scripts/weapon/ar_curve.tres" id="7_gkl7h"]
@@ -32,7 +33,7 @@ ammo_current = 30
 ammo_max = 30
 damage = 21.0
 weapon_type = 0
-fire_modes = Array[Resource("res://scripts/weapon/fire_modes/weapon_fire_modes.gd")]([ExtResource("3_26vtl"), ExtResource("3_ltgc8")])
+fire_modes = Array[ExtResource("4_wxi3p")]([ExtResource("3_26vtl"), ExtResource("3_ltgc8")])
 fire_mode_current = ExtResource("3_26vtl")
 recoil_rotation_x = ExtResource("7_gkl7h")
 recoil_rotation_z = ExtResource("7_gkl7h")

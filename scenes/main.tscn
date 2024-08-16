@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=58 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
@@ -24,15 +24,11 @@
 [ext_resource type="PackedScene" uid="uid://ggat158lkf7j" path="res://scenes/pine_tree.tscn" id="22_41dkn"]
 [ext_resource type="PackedScene" uid="uid://dp78nfal20sri" path="res://scenes/csg_house.tscn" id="23_0rwp3"]
 [ext_resource type="PackedScene" uid="uid://cnvoniekog4ap" path="res://scenes/csg_house_2.tscn" id="24_o20b4"]
-[ext_resource type="PackedScene" uid="uid://cl5wsnsbkbboh" path="res://scenes/shoot_decal.tscn" id="25_7dsm0"]
 [ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="25_pkm0b"]
 [ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
 [ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="27_2sm5u"]
 [ext_resource type="Script" path="res://scripts/world_resources.gd" id="30_i6lvt"]
-[ext_resource type="PackedScene" uid="uid://bnm2p00ty7mau" path="res://scenes/building_roof.tscn" id="31_2pcda"]
 [ext_resource type="ArrayMesh" uid="uid://pcfh4qqqwwim" path="res://models/meshes/pine_tree.mesh" id="31_nluff"]
-[ext_resource type="PackedScene" uid="uid://b23yby3v18yb5" path="res://scenes/building_wall.tscn" id="32_lkg6x"]
-[ext_resource type="PackedScene" uid="uid://b3homprvw0wxj" path="res://scenes/bulding_foundation.tscn" id="33_d8c1v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0j0wh"]
 sky_curve = 0.0315337
@@ -249,7 +245,6 @@ autostart = true
 
 [node name="MTerrain" type="MTerrain" parent="."]
 dataDir = "res://terrain_data"
-create = true
 terrain_material = ExtResource("13_8lcak")
 heightmap_layers = PackedStringArray("background")
 update_chunks_interval = 0.01
@@ -1183,17 +1178,5 @@ transform = Transform3D(0.797658, 0, -0.60311, 0, 1, 0, 0.60311, 0, 0.797658, 19
 
 [node name="Node3D" parent="." instance=ExtResource("24_o20b4")]
 transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 165.542, 2.37119, 201.054)
-
-[node name="ShootDecal" parent="." instance=ExtResource("25_7dsm0")]
-visible = false
-
-[node name="BuildingRoof" parent="." instance=ExtResource("31_2pcda")]
-visible = false
-
-[node name="BuildingWall" parent="." instance=ExtResource("32_lkg6x")]
-visible = false
-
-[node name="BuildingFoundation" parent="." instance=ExtResource("33_d8c1v")]
-visible = false
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

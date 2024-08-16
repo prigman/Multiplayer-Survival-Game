@@ -12,7 +12,6 @@ var last_position_z : float
 var distance_travelled_x : float = 0.0
 var distance_travelled_z : float = 0.0
 
-@export var sound_footstep_pool : SoundPool
 
 # movement
 # var camera_holder_position
@@ -21,13 +20,17 @@ var direction := Vector3.ZERO
 var gravity := 12.0 # ProjectSettings.get_setting("physics/3d/default_gravity")
 
 # stats
-@export var hunger_value: float = 100.0
-@export var health_value: float = 50.0
 var died: bool = false
 
 var def_weapon_holder_pos: Vector3
 
 var main_scene : Node3D
+
+var is_player_loading := true
+
+@export var sound_footstep_pool : SoundPool
+@export var hunger_value: float = 100.0
+@export var health_value: float = 50.0
 
 @export var footstep_timer : Timer
 
@@ -43,6 +46,8 @@ var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назна�
 
 # building system
 @export var buildings_in_own: Array[Dictionary] = []
+
+@export var mesh : MeshInstance3D
 
 # tilt weapon
 @export var weapon_holder: Node3D
@@ -65,6 +70,7 @@ var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назна�
 
 func _ready() -> void:
 	if not is_multiplayer_authority():
+		mesh.show()
 		label_3d.show()
 		label_3d.text = name
 		return
@@ -80,18 +86,18 @@ func _ready() -> void:
 	spherecast.add_exception($".")
 	signal_update_player_stats.emit(health_value, hunger_value)
 	main_scene = get_parent().get_parent()
+	await get_tree().create_timer(3.0).timeout
+	is_player_loading = false
 
 func _process(delta) -> void:
 	var velocity_string = "%.2f" % velocity.length()
 	debug_ui.add_property("velocity", velocity_string, + 1)
-	if item.equiped_item_node:
+	if not is_player_loading and item.equiped_item_node:
 		weapon_tilt(input_sync.input_direction.x, delta)
 		weapon_sway(delta)
 		weapon_bob(velocity.length(), delta)
-	if (position.y <= -50.0):
-		get_tree().reload_current_scene()
-	
-	
+	# if (position.y <= -50.0):
+	# 	get_tree().reload_current_scene()
 
 @rpc("any_peer","reliable","call_local")
 func died_process(damage:int)-> void:
@@ -103,7 +109,7 @@ func died_process(damage:int)-> void:
 		died = true
 		print("Died player ",peer_id)
 		main_scene.rpc('delete_player_rpc',peer_id)
-		
+
 
 func _toggle_inventory_interface(external_inventory_owner=null) -> void:
 	if not is_multiplayer_authority():
