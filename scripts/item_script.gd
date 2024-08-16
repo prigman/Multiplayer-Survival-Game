@@ -87,9 +87,18 @@ func _physics_process(delta) -> void:
 			if Scoped:
 				crosshair.show()
 				Assault_Rifle_Scope()
+
 	elif _equiped_item_type(equiped_item.ItemType.building):
 		check_place_for_building()
-
+	
+	elif _equiped_item_type(equiped_item.ItemType.consumable):
+		if !player.is_inventory_open(): # проверка если закрыт инвентарь
+			if Input.is_action_pressed("fire"):
+				if player.health_value < 100.0:
+					player.health_value += equiped_item.health_value
+					player.signal_update_player_health.emit(player.health_value)
+					remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot)
+		
 func _unhandled_input(event) -> void:
 	if not is_multiplayer_authority():
 		return

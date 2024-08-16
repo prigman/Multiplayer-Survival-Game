@@ -22,7 +22,7 @@ var gravity := 12.0 # ProjectSettings.get_setting("physics/3d/default_gravity")
 
 # stats
 @export var hunger_value: float = 100.0
-@export var health_value: float = 100.0
+@export var health_value: float = 50.0
 var died: bool = false
 
 var def_weapon_holder_pos: Vector3
