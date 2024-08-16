@@ -62,6 +62,12 @@ properties/3/replication_mode = 0
 properties/4/path = NodePath(".:buildings_in_own")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath(".:health_value")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:hunger_value")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
 properties/0/path = NodePath(".:input_direction")

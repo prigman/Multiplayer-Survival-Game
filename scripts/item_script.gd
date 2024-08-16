@@ -87,9 +87,18 @@ func _physics_process(delta) -> void:
 			if Scoped:
 				crosshair.show()
 				Assault_Rifle_Scope()
+
 	elif _equiped_item_type(equiped_item.ItemType.building):
 		check_place_for_building()
-
+	
+	elif _equiped_item_type(equiped_item.ItemType.consumable):
+		if !player.is_inventory_open(): # проверка если закрыт инвентарь
+			if Input.is_action_pressed("fire"):
+				if player.health_value < 100.0:
+					player.health_value += equiped_item.health_value
+					player.signal_update_player_health.emit(player.health_value)
+					remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot)
+		
 func _unhandled_input(event) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -409,6 +418,28 @@ func hitscan(raycast: RayCast3D) -> void:
 		else:
 			side = Vector3(0, 1, 0)
 		decal.look_at(ray_end_point + raycast.get_collision_normal(), side)
+    
+	if target:
+		if raycast == melee_cast and equiped_item.ItemType.tool:
+			if target.is_in_group("world_resource"):
+				if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):
+					target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
+					create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2, 6))
+				if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
+					target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
+					create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
+
+		if target.is_in_group("enemy_group"):
+			target.health -= equiped_item.damage
+			
+		player_hit(target)
+
+
+
+func player_hit(target)->void:
+	if target.is_in_group("player_group"):
+		target.rpc('died_process',equiped_item.damage)
+		print("EnemyP_health:", target.health_value)
 
 func randomize_aimcast_spread() -> void:
 	var rng = RandomNumberGenerator.new()

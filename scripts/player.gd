@@ -21,8 +21,9 @@ var direction := Vector3.ZERO
 var gravity := 12.0 # ProjectSettings.get_setting("physics/3d/default_gravity")
 
 # stats
-var hunger_value: float = 100.0
-var health_value: float = 100.0
+@export var hunger_value: float = 100.0
+@export var health_value: float = 50.0
+var died: bool = false
 
 var def_weapon_holder_pos: Vector3
 
@@ -89,6 +90,20 @@ func _process(delta) -> void:
 		weapon_bob(velocity.length(), delta)
 	if (position.y <= -50.0):
 		get_tree().reload_current_scene()
+	
+	
+
+@rpc("any_peer","reliable","call_local")
+func died_process(damage:int)-> void:
+	if not is_multiplayer_authority():
+		return
+	health_value -= damage
+	signal_update_player_health.emit(health_value)
+	if health_value <= 0 and died==false :
+		died = true
+		print("Died player ",peer_id)
+		main_scene.rpc('delete_player_rpc',peer_id)
+		
 
 func _toggle_inventory_interface(external_inventory_owner=null) -> void:
 	if not is_multiplayer_authority():
