@@ -1,9 +1,10 @@
 class_name ItemDataCraftableBuildings extends ItemData
 
 enum BuildingType {
-	floor = 0,
-	wall = 1,
-	roof = 2,
+	floor,
+	wall,
+	roof,
+	other,
 }
 
 @export var item_type : ItemType = ItemType.building

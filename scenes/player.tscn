@@ -59,12 +59,15 @@ properties/2/replication_mode = 2
 properties/3/path = NodePath(".:peer_id")
 properties/3/spawn = true
 properties/3/replication_mode = 0
-properties/4/path = NodePath(".:health_value")
+properties/4/path = NodePath(".:buildings_in_own")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath(".:hunger_value")
+properties/5/path = NodePath(".:health_value")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath(".:hunger_value")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
 properties/0/path = NodePath(".:input_direction")
@@ -339,26 +342,38 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%Item:position")
+tracks/0/path = NodePath("..:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.04, -0.61, -0.545)]
+"values": [Vector3(0, 1.65, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("%Item:rotation")
+tracks/1/path = NodePath("%DefaultStateCollision:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.00872666, 2.7838, -0.802851)]
+"values": [Vector3(0, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%DefaultStateCollision:shape:height")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jnhb8"]
@@ -403,9 +418,9 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqr46"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sound_footstep_pool", "footstep_timer", "weapon_holder") groups=["player_group"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sound_footstep_pool", "footstep_timer", "weapon_holder") groups=["player"]]
 collision_layer = 2
-collision_mask = 6345
+collision_mask = 4553
 script = ExtResource("1_adhyr")
 sound_footstep_pool = NodePath("Soundpool")
 footstep_timer = NodePath("FootstepTimer")
@@ -417,7 +432,7 @@ weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.001
 invert_weapon_sway = true
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_n3lfe")
 
@@ -445,8 +460,8 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 1.5, -3.72529e-09)
 shape = SubResource("SphereShape3D_c1c83")
 target_position = Vector3(0, 0, 0)
-max_results = 4
-collision_mask = 6297
+max_results = 1
+collision_mask = 457
 
 [node name="CameraHolder" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -479,21 +494,9 @@ debug_shape_thickness = 1
 [node name="BuildingCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
 unique_name_in_owner = true
 transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -5)
-collision_mask = 6537
+target_position = Vector3(0, 0, -8)
+collision_mask = 4609
 collide_with_areas = true
-debug_shape_custom_color = Color(0, 1, 0, 1)
-debug_shape_thickness = 1
-
-[node name="BuildingPoint" type="Node3D" parent="CameraHolder/Camera3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, -5)
-
-[node name="BuildingCastObjects" type="RayCast3D" parent="CameraHolder/Camera3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -5)
-collision_mask = 6537
 debug_shape_custom_color = Color(0, 1, 0, 1)
 debug_shape_thickness = 1
 
@@ -995,10 +998,10 @@ libraries = {
 "Pickaxe_Anims": SubResource("AnimationLibrary_yqpty")
 }
 
-[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "aim_cast", "melee_cast", "building_cast", "building_point", "audio_queue") instance=ExtResource("4_dcn20")]
+[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "aim_cast", "melee_cast", "building_cast", "audio_queue") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
 transform = Transform3D(-0.652866, -0.671662, 0.350194, -0.719312, 0.694632, -0.00872654, -0.237395, -0.257596, -0.936636, 0.04, -0.61, -0.545)
-fp_items_array = [NodePath("../Node3D/Item_M4_Rifle"), NodePath("../Node3D/Item_pickaxe_animated"), NodePath("../Node3D/Item_axe_animated")]
+fp_items_array = [NodePath("../Node3D/Item_pickaxe_animated"), NodePath("../Node3D/Item_axe_animated"), NodePath("../Node3D/Item_M4_Rifle")]
 rig_holder = NodePath("..")
 fp_player_node = NodePath("../Node3D/correct_fp_arms")
 fp_player_animator = NodePath("../Node3D/correct_fp_arms/AnimationPlayerFP")
@@ -1012,7 +1015,6 @@ crosshair = NodePath("../../../CanvasLayer/Interface/Crosshair")
 aim_cast = NodePath("../../Camera3D/AimCast")
 melee_cast = NodePath("../../Camera3D/MeleeCast")
 building_cast = NodePath("../../Camera3D/BuildingCast")
-building_point = NodePath("../../Camera3D/BuildingPoint")
 audio_queue = NodePath("../../../SoundQueue")
 
 [node name="Timer" type="Timer" parent="CameraHolder/RigHolder"]

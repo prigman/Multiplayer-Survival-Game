@@ -42,7 +42,7 @@ var main_scene : Node3D
 var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назначается то оружие, которое игрок держит сейчас в руках
 
 # building system
-@export var buildings_in_own: Array[Node3D]
+@export var buildings_in_own: Array[Dictionary] = []
 
 # tilt weapon
 @export var weapon_holder: Node3D

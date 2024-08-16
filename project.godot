@@ -138,12 +138,10 @@ change_fire_mode={
 3d_physics/layer_6="skybox"
 3d_physics/layer_7="building"
 3d_physics/layer_8="world_resources"
-3d_physics/layer_9="building_colliders"
-3d_physics/layer_10="building_part"
-3d_physics/layer_11="building_area"
-3d_physics/layer_12="building_mesh"
+3d_physics/layer_9="building part mesh"
+3d_physics/layer_10="building part collider"
+3d_physics/layer_11="building collision"
 3d_physics/layer_13="terrain"
-3d_physics/layer_14="spawned_object"
 
 [rendering]
 

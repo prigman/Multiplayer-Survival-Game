@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bp6c182x8mldk"]
+[gd_scene load_steps=19 format=3 uid="uid://bp6c182x8mldk"]
 
 [ext_resource type="Script" path="res://inventory/chest_staticbody.gd" id="1_xlx1u"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="2_jeibw"]
@@ -44,11 +44,15 @@ slots_data = Array[ExtResource("4_4nwml")]([SubResource("Resource_5ii1q"), SubRe
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_segvh"]
 points = PackedVector3Array(-1.1, -1.1, -1.1, -1.1, -1.1, 1.1, -1.1, 1.1, -1.1, 1.1, -1.1, -1.1, -1.1, 1.1, 1.1, 1.1, -1.1, 1.1, 1.1, 1.1, -1.1, 1.1, 1.1, 1.1)
 
-[node name="Pine-Wood-Crate" type="StaticBody3D" groups=["external_inventory"]]
+[sub_resource type="BoxShape3D" id="BoxShape3D_yxpgh"]
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="Pine-Wood-Crate" type="StaticBody3D" node_paths=PackedStringArray("shape_cast") groups=["external_inventory"]]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_xlx1u")
 inventory_data = SubResource("Resource_u1d15")
+shape_cast = NodePath("ShapeCast3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.55, 0)
@@ -58,3 +62,9 @@ surface_material_override/0 = ExtResource("10_js5jj")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.55, 0)
 shape = SubResource("ConvexPolygonShape3D_segvh")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_yxpgh")
+max_results = 1
+collision_mask = 158
