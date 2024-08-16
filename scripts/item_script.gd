@@ -66,6 +66,9 @@ var spread_value: float
 var building_scene : StaticBody3D # хранит в себе сцену со строительным объектом
 var wrong_colliders : Array[Area3D]
 
+func _enter_tree() -> void:
+	set_process_unhandled_input(false)
+
 func _physics_process(delta) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -97,7 +100,7 @@ func _physics_process(delta) -> void:
 				if player.health_value < 100.0:
 					player.health_value += equiped_item.health_value
 					player.signal_update_player_health.emit(player.health_value)
-					remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot)
+					remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
 		
 func _unhandled_input(event) -> void:
 	if not is_multiplayer_authority():
@@ -311,9 +314,12 @@ func remove_active_item(inventory_data: InventoryData, index: int, slot_data: In
 		fp_player_node.hide()
 	if equiped_item_node:
 		equiped_item_node.hide()
-	inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot) # сигнал инвентарю быстрого доступа обновить активность данному слоту
 	player.current_weapon_spread_data = null
 	reticle.show()
+	clear_item(inventory_data, index, slot_data)
+
+func clear_item(inventory_data : InventoryData, index : int, slot_data : InSlotData) -> void:
+	inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot) #  сигнал инвентарю быстрого доступа обновить активность данному слоту
 	equiped_slot = null
 	equiped_item = null
 	equiped_item_node = null
@@ -397,6 +403,7 @@ func hitscan(raycast: RayCast3D) -> void:
 		var decal = HIT_DECAL.instantiate()
 		if target:
 			target.add_child(decal)
+			player_hit(target)
 			if raycast == melee_cast and equiped_item.ItemType.tool:
 				if target.is_in_group("world_resource"):
 					if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):
@@ -418,26 +425,9 @@ func hitscan(raycast: RayCast3D) -> void:
 		else:
 			side = Vector3(0, 1, 0)
 		decal.look_at(ray_end_point + raycast.get_collision_normal(), side)
-    
-	if target:
-		if raycast == melee_cast and equiped_item.ItemType.tool:
-			if target.is_in_group("world_resource"):
-				if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):
-					target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
-					create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2, 6))
-				if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
-					target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
-					create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
-
-		if target.is_in_group("enemy_group"):
-			target.health -= equiped_item.damage
-			
-		player_hit(target)
-
-
 
 func player_hit(target)->void:
-	if target.is_in_group("player_group"):
+	if target.is_in_group("player"):
 		target.rpc('died_process',equiped_item.damage)
 		print("EnemyP_health:", target.health_value)
 
@@ -600,3 +590,7 @@ func create_player_item(item_data: ItemData, amount: int) -> void:
 	slot_data.item = item_data
 	slot_data.amount_in_slot = amount
 	player.give_item(slot_data)
+
+func remove_item_from_inventory(inventory_data : InventoryData, slot_index : int, slot_data : InSlotData):
+	clear_item(inventory_data, slot_index, slot_data)
+	inventory_data._remove_slot_data(slot_index)
