@@ -37,12 +37,11 @@ properties/5/path = NodePath(".:building_part_owner_id")
 properties/5/spawn = true
 properties/5/replication_mode = 2
 
-[node name="BuildingRoof" type="StaticBody3D" node_paths=PackedStringArray("building_parts_root", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_group", "building_roof"]]
+[node name="BuildingRoof" type="StaticBody3D" node_paths=PackedStringArray("shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_group", "building_roof"]]
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("1_flrfk")
 item_data = ExtResource("2_mdr0k")
-building_parts_root = NodePath("BuildingPartsRoot")
 shape_cast = NodePath("ShapeCast3D")
 collision_shape = NodePath("CollisionShape3D")
 mesh_node = NodePath("Mesh")

@@ -184,7 +184,7 @@ directional_shadow_max_distance = 50.0
 environment = SubResource("Environment_o00h3")
 
 [node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn", "res://scenes/building_wall.tscn", "res://scenes/building_roof.tscn")
 spawn_path = NodePath("..")
 
 [node name="ItemSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("node_position")]
@@ -243,7 +243,6 @@ autostart = true
 
 [node name="MTerrain" type="MTerrain" parent="."]
 dataDir = "res://terrain_data"
-create = true
 terrain_material = ExtResource("13_8lcak")
 heightmap_layers = PackedStringArray("background")
 update_chunks_interval = 0.01
@@ -1177,5 +1176,17 @@ transform = Transform3D(0.797658, 0, -0.60311, 0, 1, 0, 0.60311, 0, 0.797658, 19
 
 [node name="Node3D" parent="." instance=ExtResource("24_o20b4")]
 transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 165.542, 2.37119, 201.054)
+
+[node name="PineTree2" parent="." instance=ExtResource("22_41dkn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 240.475, 3.7623, 191.666)
+
+[node name="Stone_1" parent="." instance=ExtResource("18_ffisp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 239.333, 3.79602, 193.113)
+
+[node name="Stone_2" parent="." instance=ExtResource("20_wbg8h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 242.417, 3.75355, 191.983)
+
+[node name="Stone_3" parent="." instance=ExtResource("21_lc5es")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 240.374, 3.72858, 189.009)
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
