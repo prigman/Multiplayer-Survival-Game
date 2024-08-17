@@ -26,6 +26,7 @@ start_health = 200.0
 [node name="PineTree2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 visibility_range_end = 200.0
+visibility_range_fade_mode = 1
 mesh = ExtResource("1_dni8b")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("3_fof44")

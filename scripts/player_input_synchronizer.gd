@@ -19,6 +19,7 @@ func _ready() -> void:
 		set_process_unhandled_input(false)
 		set_process(false)
 		player.set_physics_process(false)
+		player.set_process(false)
 		camera.clear_current(false)
 
 func _process(_delta) -> void:
