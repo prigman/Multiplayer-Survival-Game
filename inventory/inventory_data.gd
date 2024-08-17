@@ -18,6 +18,9 @@ signal signal_update_active_slot(inventory_data : InventoryData, new_slot_index 
 @export var slots_data: Array[InSlotData]
 var slot_copy : InSlotData = null
 
+func _update_inventory() -> void:
+	signal_inventory_update.emit(self)
+
 func _remove_slot_data(index : int) -> bool:
 	var slot = slots_data[index]
 	if slot:

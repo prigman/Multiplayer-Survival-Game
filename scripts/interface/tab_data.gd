@@ -2,10 +2,10 @@ class_name CraftMenuTabData extends Resource
 
 enum TabType
 {
-	heal = 0,
-	weapon = 1,
-	building = 2,
-	tool = 3
+	heal,
+	weapon,
+	building,
+	tool
 }
 
 @export var icon : Texture

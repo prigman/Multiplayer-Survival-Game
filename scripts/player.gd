@@ -232,18 +232,6 @@ func weapon_bob(vel: float, delta) -> void:
 func is_inventory_open() -> bool:
 	return inventory_interface.visible
 	
-func get_inventory_slots() -> Array[InSlotData]:
-	if !player_inventory:
-		push_error("Set player_inventory in Player node")
-		return []
-	return player_inventory.slots_data
-
-func get_quick_slots() -> Array[InSlotData]:
-	if !player_quick_slot:
-		push_error("Set player_quick_slot in Player node")
-		return []
-	return player_quick_slot.slots_data
-	
 func give_item(slot_data: InSlotData) -> bool:
 	if !player_inventory._pick_up_slot_data(slot_data) \
 		and !player_quick_slot._pick_up_slot_data(slot_data):
