@@ -19,9 +19,6 @@ const CRAFT_ITEM_SCENE = preload("res://inventory/craft_menu_scenes/craft_item.t
 @export var tabs_resource : CraftMenuTab
 @export var player: CharacterBody3D
 
-var player_inventory_slots : Array[InSlotData]
-var player_quick_slots : Array[InSlotData]
-
 var current_page: ScrollContainer
 
 func _ready() -> void:
@@ -77,8 +74,8 @@ func set_current_page(page : ScrollContainer) -> void:
 func _on_craft_button_pressed(slot_data: InSlotData) -> void:
 	var item_data = slot_data.item
 	var craft_possible = true
-	player_inventory_slots = player.get_inventory_slots()
-	player_quick_slots = player.get_quick_slots()
+	var player_inventory_slots = player.player_inventory.slots_data
+	var player_quick_slots = player.player_quick_slot.slots_data
 	if !player_inventory_slots or !player_quick_slots:
 		return
 	# Проверяем, есть ли у игрока все необходимые компоненты для крафта
@@ -125,11 +122,6 @@ func _on_craft_button_pressed(slot_data: InSlotData) -> void:
 						remaining_amount = 0
 					if remaining_amount == 0:
 						break
-		player.player_inventory.signal_inventory_update.emit(player.player_inventory)
-		player.player_quick_slot.signal_inventory_update.emit(player.player_quick_slot)
-		#if !Global.global_player_inventory._pick_up_slot_data(slot_data.duplicate()) \
-				#and !Global.global_player_quick_slot._pick_up_slot_data(slot_data.duplicate()):
-			#Global.global_player.inventory_interface.signal_drop_item.emit(slot_data.duplicate())
-		player.give_item(slot_data.duplicate())
+		player.give_item(slot_data.duplicate(true))
 	else:
 		print("Not enough components for crafting.")

@@ -55,7 +55,7 @@ func _set_active_slot(inventory_data : InventoryData, new_slot_index : int, last
 			last_slot_data.active_slot_data = false
 			new_active_slot.active_slot_panel.show()
 			new_slot_data.active_slot_data = true
-			inventory_data.signal_inventory_update.emit(inventory_data)
+			inventory_data._update_inventory()
 			print("Active slot changed to %s" % new_slot_data.item.name)
 	if !new_slot_data and last_slot_data:
 		last_active_slot.active_slot_panel.hide()

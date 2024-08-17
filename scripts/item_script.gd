@@ -44,8 +44,6 @@ var equiped_slot_index: int # индекс equip слота нужен для п
 var Scoped := false
 var toggle_holo := false # переключение прицела
 var toggle_silencer := false # переключение глушителя
-var ammo_reserve: int
-var ammo_data: Array[InSlotData]
 #
 
 # отдача оружия
@@ -127,10 +125,13 @@ func _unhandled_input(event) -> void:
 					fp_player_animator.play(equiped_item.anim_player_hit)
 		if _equiped_item_type(equiped_item.ItemType.weapon) and fp_item_animator.current_animation != equiped_item.anim_activate and fp_item_animator.current_animation != equiped_item.anim_reload: # если соответствует тип
 			if Input.is_action_just_pressed("reload") and equiped_item.ammo_current != equiped_item.ammo_max and Input.is_action_pressed("right_click") == false:
-				reticle.show()
-				crosshair.hide()
-				fp_item_animator.play(equiped_item.anim_reload)
-				fp_player_animator.play(equiped_item.anim_player_reload)
+				if find_ammo_in_inventories()[0]:
+					reticle.show()
+					crosshair.hide()
+					fp_item_animator.play(equiped_item.anim_reload)
+					fp_player_animator.play(equiped_item.anim_player_reload)
+				else:
+					print("No ammo to reload in inventories")
 			if Input.is_action_just_released("right_click"):
 				if Scoped:
 					Assault_Rifle_Scope()
@@ -192,12 +193,12 @@ func building_change_visibility(visibility : bool) -> void:
 	elif visibility and not building_scene.visible: building_scene.show()
 
 func place_building_part() -> void:
-	var building_scene_path = equiped_item.dictionary["scene_path"]
+	var building_scene_path : String = equiped_item.dictionary["scene_path"]
 	rpc("spawn_building_part", building_scene_path, building_scene.global_position.x, building_scene.global_position.y, building_scene.global_position.z, building_scene.rotation_degrees.y, player.peer_id) # посылаем на сервер запрос на спавн постройки
 	remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
 
 @rpc("any_peer", "reliable", "call_local")
-func spawn_building_part(building_scene_path, position_x, position_y, position_z, rotation_y, player_id) -> void:
+func spawn_building_part(building_scene_path : String, position_x : float, position_y : float, position_z : float, rotation_y : float, player_id : int) -> void:
 	if not multiplayer.is_server(): return
 	print("SERVER: player spawned building")
 	var building_instance : StaticBody3D = load(building_scene_path).instantiate()
@@ -475,31 +476,44 @@ func reload() -> void:
 		return
 	reticle.hide()
 	crosshair.show()
-	var ammo_to_reload
-	var ammo_slots: Array[InSlotData] = find_ammo_in_inventories()
+	var ammo_to_reload : int
+	var data : Array = find_ammo_in_inventories()
+	var ammo_slots : Array[InSlotData] = data[0]
+	var is_inventory : bool = data[1]
+	var is_quick_slot : bool = data[2]
 	for ammo_slot in ammo_slots:
 		if ammo_slot and ammo_slot.amount_in_slot >= 1:
 			ammo_to_reload = min(ammo_slot.amount_in_slot, equiped_item.ammo_max - equiped_item.ammo_current)
 			ammo_slot.amount_in_slot -= ammo_to_reload
 			equiped_item.ammo_current += ammo_to_reload
 	Update_Ammo.emit(equiped_item.ammo_current)
-	player.player_inventory.signal_inventory_update.emit(player.player_inventory)
-	player.player_quick_slot.signal_inventory_update.emit(player.player_quick_slot)
+	if is_inventory:
+		player.player_inventory._update_inventory()
+	elif is_quick_slot:
+		player.player_quick_slot._update_inventory()
 
 func update_weapon_ammo(value: int) -> void:
 	equiped_item.ammo_current += value
 	Update_Ammo.emit(equiped_item.ammo_current)
 
-func find_ammo_in_inventories() -> Array[InSlotData]:
+func find_ammo_in_inventories() -> Array:
 	if !player.player_inventory or !player.player_quick_slot:
-		pass
+		return []
+	var ammo_data: Array[InSlotData]
+	var is_inventory : bool
+	var is_quick_slot : bool
+	
 	for slot in player.player_inventory.slots_data:
 		if slot and slot.item.item_type == slot.item.ItemType.ammo and slot.item.weapon_type == equiped_item.weapon_type and slot.amount_in_slot >= 1:
+			is_inventory = true
 			ammo_data.append(slot)
+
 	for slot in player.player_quick_slot.slots_data:
 		if slot and slot.item.item_type == slot.item.ItemType.ammo and slot.item.weapon_type == equiped_item.weapon_type and slot.amount_in_slot >= 1:
+			is_quick_slot = true
 			ammo_data.append(slot)
-	return ammo_data
+
+	return [ammo_data, is_inventory, is_quick_slot]
 
 func swap_items(inventory_data: InventoryData, index: int) -> void:
 	if not is_multiplayer_authority():
