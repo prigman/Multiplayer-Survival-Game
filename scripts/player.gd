@@ -163,9 +163,13 @@ func play_footsteps_sound():
 	last_position_z = current_position_z
 
 	if distance_travelled_x >= 1.5 or distance_travelled_z >= 1.5:
-		sound_footstep_pool.play_random_sound()
+		rpc("RPC_play_footsteps_sound")
 		distance_travelled_x = 0.0
 		distance_travelled_z = 0.0
+
+@rpc("any_peer", "unreliable", "call_local")
+func RPC_play_footsteps_sound():
+	sound_footstep_pool.play_random_sound()
 
 func update_velocity() -> void:
 	if not is_multiplayer_authority():

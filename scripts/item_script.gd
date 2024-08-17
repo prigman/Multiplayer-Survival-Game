@@ -350,7 +350,8 @@ func apply_recoil(delta) -> void:
 func shoot() -> void:
 	if not is_multiplayer_authority():
 		return
-	audio_queue.play_sound()
+	#audio_queue.play_sound()
+	rpc("play_shoot_sound")
 	randomize_aimcast_spread()
 	hitscan(aim_cast)
 	update_weapon_ammo( - 1) # отнимаем current ammo и обновляем худ
@@ -359,6 +360,10 @@ func shoot() -> void:
 	target_rot.z = equiped_item.recoil_rotation_z.sample(0) * equiped_item.recoil_amplitude.x / 1.5
 	target_rot.x = equiped_item.recoil_rotation_x.sample(0) * equiped_item.recoil_amplitude.y / 2
 	current_time = 0
+
+@rpc("any_peer","unreliable","call_local")
+func play_shoot_sound():
+	audio_queue.play_sound()
 
 func update_pos() -> void:
 	if not is_multiplayer_authority():
