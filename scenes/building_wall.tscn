@@ -50,13 +50,12 @@ properties/8/path = NodePath("RoofCollider2/CollisionShape3D:disabled")
 properties/8/spawn = true
 properties/8/replication_mode = 2
 
-[node name="BuildingWall" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "building_parts_root", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_group", "building_wall"]]
+[node name="BuildingWall" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_group", "building_wall"]]
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("1_2vr4h")
 item_data = ExtResource("2_d4kiy")
 building_colliders = [NodePath("RoofCollider"), NodePath("RoofCollider2")]
-building_parts_root = NodePath("BuildingPartsRoot")
 shape_cast = NodePath("ShapeCast3D")
 collision_shape = NodePath("CollisionShape3D")
 mesh_node = NodePath("Mesh")
@@ -108,11 +107,5 @@ collider_type = 2
 shape = SubResource("BoxShape3D_ci7a3")
 disabled = true
 
-[node name="BuildingPartsRoot" type="Node3D" parent="."]
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
 replication_config = SubResource("SceneReplicationConfig_0v3hs")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/building_roof.tscn")
-spawn_path = NodePath("../BuildingPartsRoot")

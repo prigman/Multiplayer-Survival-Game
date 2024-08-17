@@ -27,6 +27,8 @@ project/assembly_name="Godot Survival"
 
 [editor]
 
+naming/scene_name_casing=1
+naming/script_name_casing=2
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 

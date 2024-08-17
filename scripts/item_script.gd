@@ -59,15 +59,9 @@ var target_pos: Vector3
 var current_time: float
 #
 
-# разброс
-var spread_value: float
-
 # building system
 var building_scene : StaticBody3D # хранит в себе сцену со строительным объектом
 var wrong_colliders : Array[Area3D]
-
-func _enter_tree() -> void:
-	set_process_unhandled_input(false)
 
 func _physics_process(delta) -> void:
 	if not is_multiplayer_authority():
@@ -168,7 +162,7 @@ func check_place_for_building() -> void:
 						if not building_scene.shape_cast.is_colliding() and not building_scene.building_collision.has_overlapping_bodies():
 							building_set_material(building_scene, building_scene.TRUE_MATERIAL) # зелёный
 							if Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
-								place_building_part(collider_interacted)
+								place_building_part()
 						else:
 							building_set_material(building_scene, building_scene.FALSE_MATERIAL) # красный
 					else:
@@ -182,7 +176,7 @@ func check_place_for_building() -> void:
 					if not building_scene.shape_cast.is_colliding() and not building_scene.building_collision.has_overlapping_bodies(): # остальные проверки для успешной установки фундамента
 						building_set_material(building_scene, building_scene.TRUE_MATERIAL) # зелёный
 						if Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
-							place_building_part(collider_interacted)
+							place_building_part()
 					else:
 						building_set_material(building_scene, building_scene.FALSE_MATERIAL) # красный
 				else:
@@ -197,38 +191,17 @@ func building_change_visibility(visibility : bool) -> void:
 	if not visibility and building_scene.visible: building_scene.hide()
 	elif visibility and not building_scene.visible: building_scene.show()
 
-func place_building_part(collider) -> void:
-	var path = equiped_item.dictionary["scene_path"]
-	var node_name
-	if collider:
-		node_name = collider.name
-	rpc("spawn_building_part", node_name, path, building_scene.global_position.x, building_scene.global_position.y, building_scene.global_position.z, building_scene.rotation_degrees.y, player.peer_id)
-	remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot)
+func place_building_part() -> void:
+	var building_scene_path = equiped_item.dictionary["scene_path"]
+	rpc("spawn_building_part", building_scene_path, building_scene.global_position.x, building_scene.global_position.y, building_scene.global_position.z, building_scene.rotation_degrees.y, player.peer_id) # посылаем на сервер запрос на спавн постройки
+	remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
 
 @rpc("any_peer", "reliable", "call_local")
-func spawn_building_part(collider_name, scene_path, position_x, position_y, position_z, rotation_y, player_id):
+func spawn_building_part(building_scene_path, position_x, position_y, position_z, rotation_y, player_id) -> void:
 	if not multiplayer.is_server(): return
-	print("SERVER: spawn building")
-	var building_instance : StaticBody3D = load(scene_path).instantiate()
-	if collider_name:
-		var building_colliders = get_tree().get_nodes_in_group("building_collider")
-		var collider : Area3D
-		for node in building_colliders:
-			if node and node.name == collider_name:
-				collider = node
-		collider.get_parent().building_parts_root.add_child(building_instance,true) # делает установленую постройку дочерней к подсоединенной постройке
-	else:
-		get_tree().get_first_node_in_group("world").add_child(building_instance,true) # добавляет постройку в обычный мир
-	var building_data : Dictionary = {
-		"building_name": building_instance.name,
-		"building_position": Vector3(position_x, position_y, position_z)
-	}
-	#rpc("add_building_in_own", building_data, player_id)
-	var spawn_player_node = get_tree().get_first_node_in_group("player_spawn")
-	for player_node in spawn_player_node.get_children():
-		if player_node and player_node.name == "Player_" + str(player_id):
-			player_node.buildings_in_own.append(building_data) # игроку записываются данные о постройке
-	#player_node.buildings_in_own.append(building_data) # игроку записываются данные о постройке
+	print("SERVER: player spawned building")
+	var building_instance : StaticBody3D = load(building_scene_path).instantiate()
+	get_tree().get_first_node_in_group("world").add_child(building_instance, true) # добавляет постройку в обычный мир
 	building_instance.building_part_owner_id = player_id # айди владельца постройки
 	building_instance.global_transform.origin = Vector3(position_x, position_y, position_z)
 	building_instance.rotation_degrees.y = rotation_y
@@ -239,14 +212,15 @@ func spawn_building_part(collider_name, scene_path, position_x, position_y, posi
 	building_instance.mesh_node.cast_shadow = 1
 	for instance_collider in building_instance.building_colliders: # включение коллайдеров постройки к которым она может крепиться
 		if instance_collider: instance_collider.get_child(0).disabled = false
+	var building_data : Dictionary = {
+		"building_name": building_instance.name,
+		"building_position": building_instance.global_transform.origin
+	}
+	rpc_id(player_id, "add_building_in_own", building_data) # записываем игроку данные о его постройке
 
-# @rpc("any_peer","reliable","call_local")
-# func add_building_in_own(building_data : Dictionary, player_id : int):
-# 	if not multiplayer.is_server(): return
-# 	var spawn_player_node = get_tree().get_first_node_in_group("player_spawn")
-# 	for player_node in spawn_player_node.get_children():
-# 		if player_node and player_node.name == "Player_" + str(player_id):
-# 			player_node.buildings_in_own.append(building_data) # игроку записываются данные о постройке
+@rpc("any_peer", "reliable", "call_local")
+func add_building_in_own(building_data : Dictionary) -> void:
+	player.buildings_in_own.append(building_data)
 
 func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlotData) -> void: # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
 	if not is_multiplayer_authority():
@@ -397,6 +371,7 @@ func update_pos() -> void:
 func hitscan(raycast: RayCast3D) -> void:
 	if not is_multiplayer_authority():
 		return
+	raycast.force_raycast_update()
 	var target = raycast.get_collider()
 	var ray_end_point = raycast.get_collision_point()
 	if ray_end_point:
@@ -432,10 +407,15 @@ func player_hit(target)->void:
 		print("EnemyP_health:", target.health_value)
 
 func randomize_aimcast_spread() -> void:
-	var rng = RandomNumberGenerator.new()
-	spread_value = reticle.spread_factors * 10 # умножается на 10 в случае если длина луча 1000+ метров
-	aim_cast.target_position.x = rng.randf_range( - spread_value, spread_value)
-	aim_cast.target_position.y = rng.randf_range( - spread_value, spread_value)
+	var rng := RandomNumberGenerator.new()
+	var crosshair_width : float = reticle.crosshair_range
+	var crosshair_height : float = reticle.crosshair_range
+	var raycast_length_ignore_value : float = aim_cast.target_position.z / 100.0 # 100 - это стандартное значение, при котором разброс адекватен
+	# Генерация случайных координат внутри квадрата
+	var randomize_spread_x : float = rng.randf_range(-crosshair_width / 2, crosshair_width / 2) * raycast_length_ignore_value
+	var randomize_spread_y : float = rng.randf_range(-crosshair_height / 2, crosshair_height / 2) * raycast_length_ignore_value
+	aim_cast.target_position.x = randomize_spread_x
+	aim_cast.target_position.y = randomize_spread_y
 
 func Assault_Rifle_Scope() -> void:
 	if !Scoped:

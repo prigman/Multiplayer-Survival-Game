@@ -42,14 +42,12 @@ radiance_size = 0
 background_mode = 2
 sky = SubResource("Sky_22r82")
 tonemap_exposure = 2.7
-fog_sun_scatter = 0.23
-fog_density = 0.0175
-volumetric_fog_density = 0.01
-volumetric_fog_albedo = Color(0.457527, 0.457527, 0.457527, 1)
-volumetric_fog_emission = Color(0.176731, 0.176731, 0.176731, 1)
-volumetric_fog_length = 1024.0
-volumetric_fog_ambient_inject = 16.0
-volumetric_fog_sky_affect = 0.105
+fog_enabled = true
+fog_mode = 1
+fog_sun_scatter = 0.13
+fog_density = 1.0
+fog_sky_affect = 0.0
+fog_depth_end = 350.0
 adjustment_enabled = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3lh8d"]
@@ -179,14 +177,14 @@ item_spawner = NodePath("ItemSpawner")
 transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 0, 0, 0)
 shadow_enabled = true
 shadow_opacity = 0.7
-directional_shadow_fade_start = 1.0
+directional_shadow_mode = 1
 directional_shadow_max_distance = 50.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o00h3")
 
 [node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn", "res://scenes/building_wall.tscn", "res://scenes/building_roof.tscn")
 spawn_path = NodePath("..")
 
 [node name="ItemSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("node_position")]
@@ -1178,5 +1176,17 @@ transform = Transform3D(0.797658, 0, -0.60311, 0, 1, 0, 0.60311, 0, 0.797658, 19
 
 [node name="Node3D" parent="." instance=ExtResource("24_o20b4")]
 transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 165.542, 2.37119, 201.054)
+
+[node name="PineTree2" parent="." instance=ExtResource("22_41dkn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 240.475, 3.7623, 191.666)
+
+[node name="Stone_1" parent="." instance=ExtResource("18_ffisp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 239.333, 3.79602, 193.113)
+
+[node name="Stone_2" parent="." instance=ExtResource("20_wbg8h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 242.417, 3.75355, 191.983)
+
+[node name="Stone_3" parent="." instance=ExtResource("21_lc5es")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 240.374, 3.72858, 189.009)
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
