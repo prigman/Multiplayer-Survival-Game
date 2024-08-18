@@ -61,7 +61,7 @@ var current_time: float
 var building_scene : StaticBody3D # хранит в себе сцену со строительным объектом
 var wrong_colliders : Array[Area3D]
 
-func _physics_process(delta) -> void:
+func _physics_process(delta : float) -> void:
 	if not is_multiplayer_authority():
 		return
 	if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
@@ -94,7 +94,7 @@ func _physics_process(delta) -> void:
 					player.signal_update_player_health.emit(player.health_value)
 					remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
 		
-func _unhandled_input(event) -> void:
+func _unhandled_input(event : InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return
 	if event is InputEventKey and event.pressed:
@@ -142,7 +142,7 @@ func _unhandled_input(event) -> void:
 					if can_shoot(equiped_item.fire_mode_current):
 						shoot()
 			if Input.is_action_just_pressed("change_fire_mode"):
-				for mode in equiped_item.fire_modes:
+				for mode : WeaponFireModes in equiped_item.fire_modes:
 					if mode and mode != equiped_item.fire_mode_current:
 						equiped_item.fire_mode_current = mode
 						Update_Fire_Mode.emit(equiped_item.fire_mode_current)
@@ -167,7 +167,7 @@ func check_place_for_building() -> void:
 						else:
 							building_set_material(building_scene, building_scene.FALSE_MATERIAL) # красный
 					else:
-						for collider in collider_interacted.get_parent().building_colliders: # тут нужно отключить и запомнить все коллайдеры, которые не равны типу постройки в данный момент, это для того чтобы луч не взаимодействовал с лишними
+						for collider : Area3D in collider_interacted.get_parent().building_colliders: # тут нужно отключить и запомнить все коллайдеры, которые не равны типу постройки в данный момент, это для того чтобы луч не взаимодействовал с лишними
 							if collider and collider.collider_type != building_scene.item_data.building_type:
 								collider.get_child(0).disabled = true
 								wrong_colliders.append(collider)
@@ -202,7 +202,7 @@ func spawn_building_part(building_scene_path : String, position_x : float, posit
 	if not multiplayer.is_server(): return
 	print("SERVER: player spawned building")
 	var building_instance : StaticBody3D = load(building_scene_path).instantiate()
-	get_tree().get_first_node_in_group("world").add_child(building_instance, true) # добавляет постройку в обычный мир
+	get_tree().get_first_node_in_group("world").call_deferred("add_child", building_instance, true) # добавляет постройку в обычный мир
 	building_instance.building_part_owner_id = player_id # айди владельца постройки
 	building_instance.global_transform.origin = Vector3(position_x, position_y, position_z)
 	building_instance.rotation_degrees.y = rotation_y
@@ -211,7 +211,7 @@ func spawn_building_part(building_scene_path : String, position_x : float, posit
 	building_instance.collision_shape.disabled = false # включение коллизии постройки
 	building_instance.building_collision.get_child(0).disabled = true # отключение коллизии, которая проверяет столкновения с уже установленными мешами построек (эта коллизия используется во время выполнения функции check_place_for_building)
 	building_instance.mesh_node.cast_shadow = 1
-	for instance_collider in building_instance.building_colliders: # включение коллайдеров постройки к которым она может крепиться
+	for instance_collider : Area3D in building_instance.building_colliders: # включение коллайдеров постройки к которым она может крепиться
 		if instance_collider: instance_collider.get_child(0).disabled = false
 	var building_data : Dictionary = {
 		"building_name": building_instance.name,
@@ -259,7 +259,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		fp_item_animator.play(equiped_item.anim_activate)
 		fp_player_animator.play(equiped_item.anim_player_activate)
 	if _equiped_item_type(equiped_item.ItemType.weapon):
-		for data in player.weapon_spread_data:
+		for data : PlayerWeaponSpread in player.weapon_spread_data:
 			if data and data.weapon_data.name == equiped_item.name:
 				player.current_weapon_spread_data = data # выставляется ресурс с данными о разбросе для оружия
 				break
@@ -272,9 +272,9 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		set_weapon_attachments() # добавляются либо удаляются обвесы на оружие
 	if _equiped_item_type(equiped_item.ItemType.building):
 		if equiped_item.dictionary.has("scene_path"):
-			var path = load(equiped_item.dictionary["scene_path"])
+			var path := load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
-			player.main_scene.add_child(building_scene)
+			player.main_scene.call_deferred("add_child",building_scene)
 			#building_scene.mesh_building.mesh = equiped_item.mesh
 			# в process выставляется позиция для building_scene
 
@@ -333,11 +333,11 @@ func is_fp_animator_playing() -> bool:
 	else:
 		return false
 
-func apply_recoil(delta) -> void:
+func apply_recoil(delta : float) -> void:
 	if not is_multiplayer_authority():
 		return
 	current_time += delta
-	var recoil_speed = current_time * equiped_item.recoil_speed
+	var recoil_speed : float = current_time * equiped_item.recoil_speed
 	rig_holder.position.z = lerp(rig_holder.position.z, def_pos_holder_z + target_pos.z, equiped_item.lerp_speed * delta)
 	rig_holder.rotation.z = lerp(rig_holder.rotation.z, def_rot.z - target_rot.z, equiped_item.lerp_speed * delta)
 	rig_holder.rotation.x = lerp(rig_holder.rotation.x, def_rot.x - target_rot.x, equiped_item.lerp_speed * delta)
@@ -363,7 +363,7 @@ func shoot() -> void:
 	current_time = 0
 
 @rpc("any_peer","unreliable","call_local")
-func play_shoot_sound():
+func play_shoot_sound() -> void:
 	audio_queue.play_sound()
 
 func update_pos() -> void:
@@ -378,12 +378,12 @@ func hitscan(raycast: RayCast3D) -> void:
 	if not is_multiplayer_authority():
 		return
 	raycast.force_raycast_update()
-	var target = raycast.get_collider()
-	var ray_end_point = raycast.get_collision_point()
+	var target : Object = raycast.get_collider()
+	var ray_end_point : Vector3 = raycast.get_collision_point()
 	if ray_end_point:
-		var decal = HIT_DECAL.instantiate()
+		var decal := HIT_DECAL.instantiate()
 		if target:
-			target.add_child(decal)
+			target.call_deferred("add_child", decal)
 			player_hit(target)
 			if raycast == melee_cast and equiped_item.ItemType.tool:
 				if target.is_in_group("world_resource"):
@@ -396,18 +396,21 @@ func hitscan(raycast: RayCast3D) -> void:
 				if target.is_in_group("enemy_group"):
 					target.health -= equiped_item.damage
 		else:
-			player.main_scene.add_child(decal)
-		decal.global_transform.origin = ray_end_point
-		var side: Vector3
-		if raycast.get_collision_normal() == Vector3.UP:
-			side = Vector3(1, 0, 0)
-		elif raycast.get_collision_normal() == Vector3.DOWN:
-			side = Vector3( - 1, 0, 0)
-		else:
-			side = Vector3(0, 1, 0)
-		decal.look_at(ray_end_point + raycast.get_collision_normal(), side)
+			player.main_scene.call_deferred("add_child", decal)
+		call_deferred("shoot_decal_instance", ray_end_point, decal, raycast)
 
-func player_hit(target)->void:
+func shoot_decal_instance(ray_end_point : Vector3, decal : Node, raycast : RayCast3D) -> void:
+	decal.global_transform.origin = ray_end_point
+	var side: Vector3
+	if raycast.get_collision_normal() == Vector3.UP:
+		side = Vector3(1, 0, 0)
+	elif raycast.get_collision_normal() == Vector3.DOWN:
+		side = Vector3( - 1, 0, 0)
+	else:
+		side = Vector3(0, 1, 0)
+	decal.look_at(ray_end_point + raycast.get_collision_normal(), side)
+
+func player_hit(target : Object)->void:
 	if target.is_in_group("player"):
 		target.rpc('died_process',equiped_item.damage)
 		print("EnemyP_health:", target.health_value)
@@ -457,7 +460,7 @@ func set_weapon_attachments() -> void:
 	else:
 		clear_weapon_attachments()
 
-func clear_weapon_attachments():
+func clear_weapon_attachments() -> void:
 	#if holo.mesh:
 		#holo.mesh = null
 	#if silencer.mesh:
@@ -503,12 +506,12 @@ func find_ammo_in_inventories() -> Array:
 	var is_inventory : bool
 	var is_quick_slot : bool
 	
-	for slot in player.player_inventory.slots_data:
+	for slot : InSlotData in player.player_inventory.slots_data:
 		if slot and slot.item.item_type == slot.item.ItemType.ammo and slot.item.weapon_type == equiped_item.weapon_type and slot.amount_in_slot >= 1:
 			is_inventory = true
 			ammo_data.append(slot)
 
-	for slot in player.player_quick_slot.slots_data:
+	for slot : InSlotData in player.player_quick_slot.slots_data:
 		if slot and slot.item.item_type == slot.item.ItemType.ammo and slot.item.weapon_type == equiped_item.weapon_type and slot.amount_in_slot >= 1:
 			is_quick_slot = true
 			ammo_data.append(slot)
@@ -518,7 +521,7 @@ func find_ammo_in_inventories() -> Array:
 func swap_items(inventory_data: InventoryData, index: int) -> void:
 	if not is_multiplayer_authority():
 		return
-	var slot_data = inventory_data.slots_data[index]
+	var slot_data := inventory_data.slots_data[index]
 	for i in index + 1:
 		match [slot_data, equiped_slot, index]:
 			[null, null, i]:
@@ -563,19 +566,19 @@ func can_shoot(fire_mode: WeaponFireModes) -> bool:
 		timer.start(fire_mode.fire_rate)
 		return true
 
-func _on_animation_player_pickaxe_animation_finished(anim_name) -> void:
+func _on_animation_player_pickaxe_animation_finished(anim_name : String) -> void:
 	if _equiped_item_type(equiped_item.ItemType.tool ):
 		if anim_name == equiped_item.anim_hit:
 			fp_item_animator.play(equiped_item.anim_after_hit)
 			fp_player_animator.play(equiped_item.anim_player_after_hit)
 			hitscan(melee_cast)
 
-func _on_animation_player_m_4_rifle_animation_finished(anim_name) -> void:
+func _on_animation_player_m_4_rifle_animation_finished(anim_name : String) -> void:
 	if _equiped_item_type(equiped_item.ItemType.weapon):
 		if anim_name == equiped_item.anim_reload:
 			reload()
 
-func _on_animation_player_axe_animation_finished(anim_name) -> void:
+func _on_animation_player_axe_animation_finished(anim_name : String) -> void:
 	if _equiped_item_type(equiped_item.ItemType. tool ):
 		if anim_name == equiped_item.anim_hit:
 			fp_item_animator.play(equiped_item.anim_after_hit)
@@ -585,11 +588,11 @@ func _on_animation_player_axe_animation_finished(anim_name) -> void:
 func create_player_item(item_data: ItemData, amount: int) -> void:
 	if not is_multiplayer_authority():
 		return
-	var slot_data = InSlotData.new()
+	var slot_data := InSlotData.new()
 	slot_data.item = item_data
 	slot_data.amount_in_slot = amount
 	player.give_item(slot_data)
 
-func remove_item_from_inventory(inventory_data : InventoryData, slot_index : int, slot_data : InSlotData):
+func remove_item_from_inventory(inventory_data : InventoryData, slot_index : int, slot_data : InSlotData) -> void:
 	clear_item(inventory_data, slot_index, slot_data)
 	inventory_data._remove_slot_data(slot_index)

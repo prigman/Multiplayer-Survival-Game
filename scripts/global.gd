@@ -1,6 +1,6 @@
 extends Node
 
-var global_debug
+var global_debug : Node
 var global_player: Player
 var global_player_quick_slot: InventoryData
 var global_player_inventory: InventoryData
@@ -25,7 +25,7 @@ func global_get_player_quick_slots() -> Array[InSlotData]:
 		return []
 	return global_player_quick_slot.slots_data
 	
-func global_give_player_item(slot_data: InSlotData):
+func global_give_player_item(slot_data: InSlotData) -> void:
 	if !global_player_inventory._pick_up_slot_data(slot_data) \
 		and !global_player_quick_slot._pick_up_slot_data(slot_data):
 		global_player.inventory_interface.signal_drop_item.emit(slot_data)

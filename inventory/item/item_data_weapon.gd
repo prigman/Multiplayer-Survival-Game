@@ -39,7 +39,7 @@ func serialize_item_data() -> Dictionary:
 	}
 
 static func deserialize_item_data(data: Dictionary) -> ItemDataWeapon:
-	var item_data = ItemDataWeapon.new()
+	var item_data := ItemDataWeapon.new()
 	item_data.quality = data["quality"]
 	item_data.damage = data["damage"]
 	return item_data
