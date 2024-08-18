@@ -29,7 +29,7 @@ var main_scene : Node3D
 var is_player_loading := true
 
 @export var sound_footstep_pool : SoundPool
-@export var hunger_value: float = 100.0
+@export var hunger_value: float = 50.0
 @export var health_value: float = 50.0
 
 @export var footstep_timer : Timer
@@ -203,7 +203,7 @@ func delete_item(inventory_item_interacted_path : NodePath) -> void:
 	inventory_item_interacted.queue_free()
 
 func get_drop_position() -> Vector3:
-	var drop_direction : float = -camera.global_transform.basis.z
+	var drop_direction : Vector3 = -camera.global_transform.basis.z
 	return camera.global_position + drop_direction
 
 #-Camera and weapon tilt
