@@ -28,7 +28,7 @@ func _on_enemy_spawn_timer_timeout() -> void:
 func add_player(id: int) -> void:
 	if not multiplayer.is_server(): return
 	
-	var spawn_position = Vector3.ZERO
+	var spawn_position := Vector3.ZERO
 	multiplayer_spawner.spawn([id, spawn_position])
 	print("Player %d spawned at " % [id] + str(spawn_position))
 
@@ -42,9 +42,9 @@ func delete_player_rpc(id:int)->void:
 	if not multiplayer.is_server(): return
 	delete_player(id)
 
-func custom_spawn(data) -> Node:
-	var id = data[0]
-	var pos = data[1]
+func custom_spawn(data : Array) -> Node:
+	var id : int = data[0]
+	var pos : Vector3 = data[1]
 
 	var player: Player = PLAYER_SCENE.instantiate()
 	player.set_multiplayer_authority(id)

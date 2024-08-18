@@ -6,7 +6,7 @@ signal signal_force_close
 signal signal_item_info_panel_set_data(item_data: ItemData)
 
 #- set inventory
-var external_inventory_owner
+var external_inventory_owner : Player
 
 #- _on_inventory_interact
 var grabbed_slot_data: InSlotData
@@ -22,7 +22,7 @@ var last_clicked_slot_data: InSlotData
 @onready var external_inventory := %ExternalInventory
 @onready var inv_item_info_panel := %InvItemInfoPanel
 
-func _physics_process(_delta) -> void:
+func _physics_process(_delta : float) -> void:
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
 	
@@ -41,9 +41,9 @@ func _set_quick_slot_data(inventory_data: InventoryData) -> void:
 	#inventory_data.signal_slot_mouse_right_clicked.connect(player_quick_slot._on_item_panel_visibility_changed)
 	player_quick_slot._set_inventory_data(inventory_data)
 
-func _set_external_inventory(inventory_owner) -> void:
+func _set_external_inventory(inventory_owner : Player) -> void:
 	external_inventory_owner = inventory_owner
-	var inventory_data = external_inventory_owner.inventory_data
+	var inventory_data : InventoryData = external_inventory_owner.inventory_data
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
 	#inventory_data.signal_slot_mouse_right_clicked.connect(external_inventory._on_item_panel_visibility_changed)
 	external_inventory._set_inventory_data(inventory_data)
@@ -51,7 +51,7 @@ func _set_external_inventory(inventory_owner) -> void:
 	
 func _clear_external_inventory() -> void:
 	if external_inventory_owner:
-		var inventory_data = external_inventory_owner.inventory_data
+		var inventory_data : InventoryData = external_inventory_owner.inventory_data
 		inventory_data.signal_inventory_interact.disconnect(_on_inventory_interact)
 		external_inventory._clear_inventory_data(inventory_data)
 		external_inventory.hide()
@@ -110,7 +110,7 @@ func _on_item_drop_button_pressed() -> void:
 	panel_inventory_data._grab_slot_data(panel_index_data)
 	hide_inv_item_panel()
 
-func _on_gui_input(event) -> void:
+func _on_gui_input(event : InputEvent) -> void:
 	if event is InputEventMouseButton \
 			and event.is_pressed():
 		match event.button_index:

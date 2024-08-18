@@ -9,7 +9,7 @@ extends MultiplayerSynchronizer
 @onready var camera_holder := %CameraHolder
 @onready var inventory_interface := %InventoryInterface
 
-var mouse_input
+var mouse_input : Vector2
 
 func _ready() -> void:
 	if get_multiplayer_authority() == multiplayer.get_unique_id():
@@ -22,17 +22,17 @@ func _ready() -> void:
 		player.set_process(false)
 		camera.clear_current(false)
 
-func _process(_delta) -> void:
+func _process(_delta : float) -> void:
 	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 
-func _input(event):
+func _input(event : InputEvent) -> void:
 	if event is InputEventMouseMotion and !player.is_inventory_open():
 		player.rotate_y(deg_to_rad( - event.relative.x * mouse_sens))
 		camera_holder.rotate_x(deg_to_rad( - event.relative.y * mouse_sens))
 		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad( - 85), deg_to_rad(85))
 		mouse_input = event.relative
 
-func _unhandled_input(event):
+func _unhandled_input(event : InputEvent) -> void:
 	if Input.is_action_just_pressed("quit"):
 		# get_tree().quit()
 		player.signal_toggle_inventory.emit()

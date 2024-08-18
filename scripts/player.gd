@@ -89,8 +89,8 @@ func _ready() -> void:
 	await get_tree().create_timer(3.0).timeout
 	is_player_loading = false
 
-func _process(delta) -> void:
-	var velocity_string = "%.2f" % velocity.length()
+func _process(delta : float) -> void:
+	var velocity_string := "%.2f" % velocity.length()
 	debug_ui.add_property("velocity", velocity_string, + 1)
 	if not is_player_loading and item.equiped_item_node:
 		weapon_tilt(input_sync.input_direction.x, delta)
@@ -111,7 +111,7 @@ func died_process(damage:int)-> void:
 		main_scene.rpc('delete_player_rpc',peer_id)
 
 
-func _toggle_inventory_interface(external_inventory_owner=null) -> void:
+func _toggle_inventory_interface(external_inventory_owner : Player = null) -> void:
 	if not is_multiplayer_authority():
 		return
 	inventory_interface.visible = not inventory_interface.visible
@@ -132,13 +132,13 @@ func _toggle_inventory_interface(external_inventory_owner=null) -> void:
 
 # ------------ Player states
 
-func update_gravity(delta) -> void:
+func update_gravity(delta : float) -> void:
 	if not is_multiplayer_authority():
 		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
-func update_input(speed, acceleration, decceleration) -> void:
+func update_input(speed : float, acceleration : float, decceleration : float) -> void:
 	if not is_multiplayer_authority():
 		return
 	direction = transform.basis * Vector3(input_sync.input_direction.x, 0, input_sync.input_direction.y).normalized()
@@ -152,9 +152,9 @@ func update_input(speed, acceleration, decceleration) -> void:
 	if is_on_floor():
 		play_footsteps_sound()
 
-func play_footsteps_sound():
-	var current_position_x = global_transform.origin.x
-	var current_position_z = global_transform.origin.z
+func play_footsteps_sound() -> void:
+	var current_position_x := global_transform.origin.x
+	var current_position_z := global_transform.origin.z
 
 	distance_travelled_x += abs(current_position_x - last_position_x)
 	distance_travelled_z += abs(current_position_z - last_position_z)
@@ -168,7 +168,7 @@ func play_footsteps_sound():
 		distance_travelled_z = 0.0
 
 @rpc("any_peer", "unreliable", "call_local")
-func RPC_play_footsteps_sound():
+func RPC_play_footsteps_sound() -> void:
 	sound_footstep_pool.play_random_sound()
 
 func update_velocity() -> void:
@@ -203,20 +203,20 @@ func delete_item(inventory_item_interacted_path : NodePath) -> void:
 	inventory_item_interacted.queue_free()
 
 func get_drop_position() -> Vector3:
-	var drop_direction = -camera.global_transform.basis.z
+	var drop_direction : float = -camera.global_transform.basis.z
 	return camera.global_position + drop_direction
 
 #-Camera and weapon tilt
-func weapon_tilt(input_x, delta) -> void:
+func weapon_tilt(input_x : float, delta : float) -> void:
 	if weapon_holder:
 		weapon_holder.rotation.z = lerp(weapon_holder.rotation.z, -input_x * weapon_rotation_amount * 10, 10 * delta)
 
-func weapon_sway(delta) -> void:
+func weapon_sway(delta : float) -> void:
 	input_sync.mouse_input = lerp(input_sync.mouse_input, Vector2.ZERO, 10 * delta)
 	weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, input_sync.mouse_input.y * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
 	weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, input_sync.mouse_input.x * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
 	
-func weapon_bob(vel: float, delta) -> void:
+func weapon_bob(vel: float, delta : float) -> void:
 	if weapon_holder:
 		if vel > 0 and is_on_floor() and !item.Scoped:
 			var bob_amount: float = 0.01

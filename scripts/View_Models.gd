@@ -10,17 +10,17 @@ signal UpdateFOV
 
 @export var viewmodelfov: float = 55.0: set = set_viewmodelfov
 
-func _ready():
+func _ready() -> void:
 	if not Engine.is_editor_hint():
 		UpdateFOV.emit(viewmodelfov, true)
 
-func set_viewmodelfov(val: float):
+func set_viewmodelfov(val: float) -> void:
 	viewmodelfov = val
 	SetMeshFOV(viewmodelfov)
 		
-func SetMeshFOV(val):
+func SetMeshFOV(val : float) -> void:
 	RenderingServer.global_shader_parameter_set("viewmodel_fov", val)
 
-func _on_fov_value_changed(value):
+func _on_fov_value_changed(value : float) -> void:
 	viewmodelfov = value
 	UpdateFOV.emit(viewmodelfov)

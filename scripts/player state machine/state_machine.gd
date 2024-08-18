@@ -5,7 +5,7 @@ extends Node
 @export var debug_ui : PanelContainer
 var states: Dictionary = {}
 
-func _ready():
+func _ready() -> void:
 	if not is_multiplayer_authority():
 		return
 	for child in get_children():
@@ -16,19 +16,19 @@ func _ready():
 			push_warning("State machine contains incompatible child node")
 	current_state.enter(current_state)
 	
-func _process(delta):
+func _process(delta : float) -> void:
 	if not is_multiplayer_authority():
 		return
 	current_state.update(delta)
 	debug_ui.add_property("state", current_state.name, +1)
 	
-func _physics_process(delta):
+func _physics_process(delta : float) -> void:
 	if not is_multiplayer_authority():
 		return
 	current_state.physics_update(delta)
 	
 func on_child_transition(new_state_name: StringName) -> void:
-	var new_state = states.get(new_state_name)
+	var new_state : State = states.get(new_state_name)
 	if new_state != null:
 		if new_state != current_state:
 			current_state.exit()

@@ -11,7 +11,7 @@ func _ready() -> void:
 	# if not multiplayer.is_server(): return
 	# call_deferred('spawn_inventory_item', RandomNumberGenerator.new().randi_range(1000,9999), node_position.position, slot_data)
 
-func custom_spawn(data) -> Node:
+func custom_spawn(data : Array) -> Node:
 	var id : int = data[0]
 	var pos : Vector3 = data[1]
 	var slot_data_as_dict : Dictionary = data[2]
