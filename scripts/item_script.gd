@@ -89,14 +89,14 @@ func _physics_process(delta : float) -> void:
 	elif _equiped_item_type(equiped_item.ItemType.consumable):
 		if !player.is_inventory_open(): # проверка если закрыт инвентарь
 			if Input.is_action_pressed("fire"):
-				if player.health_value < 100.0 and equiped_item.health_value>=0.0:
+				if equiped_item.health_value and player.health_value < 100.0:
 					player.health_value += equiped_item.health_value
 					player.signal_update_player_health.emit(player.health_value)
-					remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
-				elif player.hunger_value < 100.0 and equiped_item.hunger_value>=0.0:
+				elif equiped_item.hunger_value and player.hunger_value < 100.0:
 					player.hunger_value += equiped_item.hunger_value
-					player.signal_updte_player_hunger.emit(player.hunger_value)
-					remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
+					player.signal_update_player_hunger.emit(player.hunger_value)
+				remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
+			
 		
 func _unhandled_input(event : InputEvent) -> void:
 	if not is_multiplayer_authority():
@@ -278,7 +278,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		if equiped_item.dictionary.has("scene_path"):
 			var path := load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
-			player.main_scene.call_deferred("add_child",building_scene)
+			player.main_scene.add_child(building_scene)
 			#building_scene.mesh_building.mesh = equiped_item.mesh
 			# в process выставляется позиция для building_scene
 
