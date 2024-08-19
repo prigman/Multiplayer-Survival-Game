@@ -19,8 +19,9 @@ signal signal_toggle_inventory(external_inventory_owner : ExternalInventory)
 var is_able_to_build : bool
 var was_spawned : bool
 
+func _ready() -> void:
+	for player in get_tree().get_nodes_in_group("player"):
+		signal_toggle_inventory.connect(player._toggle_inventory_interface)
+
 func _player_interact(_inventory_data: InventoryData, _quick_slot_data: InventoryData) -> void:
 	signal_toggle_inventory.emit(self)
-
-func _on_signal_building_spawn(player : Player) -> void:
-	player.rpc("connect_external_inventory_signal_to_player", name)
