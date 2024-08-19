@@ -238,7 +238,6 @@ func add_building_in_own(building_data : Dictionary) -> void:
 	player.buildings_in_own.append(building_data)
 
 func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlotData) -> void: # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
-	if not is_multiplayer_authority(): return
 	if item_slot == null: return
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
 	clear_building()
@@ -291,9 +290,6 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 					# в process выставляется позиция для building_scene
 
 func clear_item(inventory_data : InventoryData, index : int, slot_data : InSlotData) -> void:
-	if not is_multiplayer_authority():
-			return
-
 	if fp_player_node.visible:
 		fp_player_node.hide()
 	if equiped_item_node:
@@ -318,7 +314,6 @@ func clear_weapon() -> void:
 	#player.current_weapon_spread_data = null
 
 func clear_building() -> void:
-	if not is_multiplayer_authority(): return
 	if _equiped_item_type(equiped_item.ItemType.building):
 		if wrong_colliders:
 			for collider in wrong_colliders:
@@ -603,7 +598,7 @@ func create_player_item(item_data: ItemData, amount: int) -> void:
 	if not is_multiplayer_authority():
 		return
 	var slot_data := InSlotData.new()
-	slot_data.item = item_data
+	slot_data.item = item_data.duplicate(true)
 	slot_data.amount_in_slot = amount
 	player.give_item(slot_data)
 
