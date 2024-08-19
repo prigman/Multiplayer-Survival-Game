@@ -214,10 +214,7 @@ func spawn_building_part(building_scene_path : String, position_x : float, posit
 	call_deferred("set_building_data", building_instance, position_x, position_y, position_z, rotation_y, player_id)
 
 func set_building_data(building_instance : StaticBody3D, position_x : float, position_y : float, position_z : float, rotation_y : float, player_id : int) -> void:
-	if building_instance.item_data.building_type == building_instance.item_data.BuildingType.inventory:
-		rpc("send_rpc_to_add_to_external_inventory", building_instance.name)
-		# building_instance.signal_building_spawn.emit(player)
-	else:
+	if building_instance.item_data.building_type != building_instance.item_data.BuildingType.inventory:
 		for instance_collider : Area3D in building_instance.building_colliders: # включение коллайдеров постройки к которым она может крепиться
 			if instance_collider: instance_collider.get_child(0).disabled = false
 	building_instance.building_part_owner_id = player_id # айди владельца постройки
@@ -233,11 +230,6 @@ func set_building_data(building_instance : StaticBody3D, position_x : float, pos
 		"building_position": building_instance.global_transform.origin
 	}
 	rpc_id(player_id, "add_building_in_own", building_data) # записываем игроку данные о его постройке
-
-@rpc("any_peer", "reliable", "call_local")
-func send_rpc_to_add_to_external_inventory(external_inventory : String) -> void:
-	player.connect_external_inventory_signal_to_player(external_inventory)
-	
 
 @rpc("any_peer", "reliable", "call_local")
 func add_building_in_own(building_data : Dictionary) -> void:

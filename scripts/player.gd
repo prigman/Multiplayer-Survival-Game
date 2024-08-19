@@ -112,14 +112,6 @@ func died_process(damage:int)-> void:
 		print("Died player ",peer_id)
 		main_scene.rpc('delete_player_rpc',peer_id)
 
-@rpc("any_peer", "reliable", "call_local")
-func connect_external_inventory_signal_to_player(external_inventory_name : String) -> void:
-	if not is_multiplayer_authority(): return
-	for node in get_tree().get_nodes_in_group("external_inventory"):
-		if node and node.name == external_inventory_name:
-			node.signal_toggle_inventory.connect(_toggle_inventory_interface)
-			break
-
 func _toggle_inventory_interface(external_inventory_owner : ExternalInventory = null) -> void:
 	inventory_interface.visible = not inventory_interface.visible
 	if inventory_interface.visible:
