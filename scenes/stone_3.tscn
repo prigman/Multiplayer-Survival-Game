@@ -29,6 +29,7 @@ collision = NodePath("CollisionShape3D")
 start_health = 100.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visibility_range_end = 200.0
 mesh = ExtResource("1_1qaif")
 surface_material_override/0 = ExtResource("2_nw2f2")
 

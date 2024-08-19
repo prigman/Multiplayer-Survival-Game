@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://258t45gd6pxx"]
+
+[ext_resource type="Texture2D" uid="uid://d37gvltmegoym" path="res://textures/1024_palette.png" id="1_raq7u"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "Material"
+diffuse_mode = 1
+albedo_color = Color(0, 1, 0, 1)
+albedo_texture = ExtResource("1_raq7u")
+texture_filter = 0
+texture_repeat = false

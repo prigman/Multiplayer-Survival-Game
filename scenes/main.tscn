@@ -1,19 +1,12 @@
-[gd_scene load_steps=58 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=33 format=3 uid="uid://dw8lcfnktv7mv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
 [ext_resource type="PackedScene" uid="uid://cu78wr4f7155s" path="res://scenes/scene_template.tscn" id="5_xsqmg"]
-[ext_resource type="Script" path="res://inventory/inventory_data.gd" id="6_t2uit"]
-[ext_resource type="PackedScene" uid="uid://bp6c182x8mldk" path="res://scenes/interactable/pine-wood-crate_staticbody.tscn" id="8_upg36"]
-[ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="10_6xi46"]
-[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="11_653sy"]
 [ext_resource type="MTerrainMaterial" uid="uid://1wm6ms1yy2xj" path="res://terrain_data/terrain_mat.res" id="13_8lcak"]
 [ext_resource type="Script" path="res://scripts/mterrain.gd" id="14_6to2c"]
-[ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="15_i4n86"]
 [ext_resource type="MGrassData" uid="uid://diydirk7wwo4m" path="res://terrain_data/new_m_grass_data.res" id="15_p7tgc"]
-[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo_ar.tres" id="16_0rsnr"]
 [ext_resource type="MGrassLodSetting" uid="uid://bwjyy80hfe5nu" path="res://terrain_data/grass_lod_setting.res" id="16_c1xjj"]
-[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="16_nipej"]
 [ext_resource type="Script" path="res://scripts/object_creator.gd" id="17_f3s41"]
 [ext_resource type="ArrayMesh" uid="uid://tdvoiqypm884" path="res://models/meshes/grass_mesh.res" id="17_l42ok"]
 [ext_resource type="PackedScene" uid="uid://flv6r52q38pv" path="res://scenes/stone_1.tscn" id="18_ffisp"]
@@ -24,9 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://ggat158lkf7j" path="res://scenes/pine_tree.tscn" id="22_41dkn"]
 [ext_resource type="PackedScene" uid="uid://dp78nfal20sri" path="res://scenes/csg_house.tscn" id="23_0rwp3"]
 [ext_resource type="PackedScene" uid="uid://cnvoniekog4ap" path="res://scenes/csg_house_2.tscn" id="24_o20b4"]
-[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="25_pkm0b"]
 [ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
-[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="27_2sm5u"]
 [ext_resource type="Script" path="res://scripts/world_resources.gd" id="30_i6lvt"]
 [ext_resource type="ArrayMesh" uid="uid://pcfh4qqqwwim" path="res://models/meshes/pine_tree.mesh" id="31_nluff"]
 
@@ -53,86 +44,6 @@ adjustment_enabled = true
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3lh8d"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tjh5l"]
-
-[sub_resource type="Resource" id="Resource_5ii1q"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_xwpok"]
-script = ExtResource("11_653sy")
-item = ExtResource("15_i4n86")
-amount_in_slot = 46
-
-[sub_resource type="Resource" id="Resource_k3qvb"]
-script = ExtResource("11_653sy")
-item = ExtResource("10_6xi46")
-amount_in_slot = 24
-
-[sub_resource type="Resource" id="Resource_nupsf"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_m4fgc"]
-script = ExtResource("11_653sy")
-item = ExtResource("25_pkm0b")
-amount_in_slot = 54
-
-[sub_resource type="Resource" id="Resource_gisbm"]
-script = ExtResource("6_t2uit")
-type = 2
-slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
-
-[sub_resource type="Resource" id="Resource_4c7e5"]
-script = ExtResource("6_t2uit")
-type = 2
-slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
-
-[sub_resource type="Resource" id="Resource_cwc4i"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_0rsnr")
-amount_in_slot = 100
-
-[sub_resource type="Resource" id="Resource_7dovj"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_wg2or"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_8fxkg"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_ecvwl"]
-script = ExtResource("11_653sy")
-item = ExtResource("27_2sm5u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_pkyy6"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_yu4y2"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_bq1xs"]
-script = ExtResource("11_653sy")
-item = ExtResource("16_nipej")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_gstfx"]
-script = ExtResource("6_t2uit")
-type = 2
-slots_data = Array[ExtResource("11_653sy")]([SubResource("Resource_cwc4i"), SubResource("Resource_7dovj"), SubResource("Resource_wg2or"), SubResource("Resource_8fxkg"), SubResource("Resource_ecvwl"), SubResource("Resource_pkyy6"), SubResource("Resource_yu4y2"), SubResource("Resource_bq1xs"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wb0g1"]
 height = 12.0
@@ -184,12 +95,12 @@ directional_shadow_max_distance = 50.0
 environment = SubResource("Environment_o00h3")
 
 [node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn", "res://scenes/building_wall.tscn", "res://scenes/building_roof.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn", "res://scenes/building_wall.tscn", "res://scenes/building_roof.tscn", "res://scenes/interactable/pine-wood-crate_staticbody.tscn")
 spawn_path = NodePath("..")
 
 [node name="ItemSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("node_position")]
 unique_name_in_owner = true
-_spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn", "res://scenes/interactable/pickup/axe_tool_rb.tscn", "res://scenes/interactable/pickup/canned-food_rigidbody.tscn", "res://scenes/interactable/pickup/m4_rifle_rb.tscn", "res://scenes/interactable/pickup/metal-bar_resource_rb.tscn", "res://scenes/interactable/pickup/pickaxe_rb.tscn", "res://scenes/interactable/pickup/pine_wood_resource_rb.tscn", "res://scenes/interactable/pickup/resource_pine_branch_rb.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn", "res://scenes/interactable/pickup/axe_tool_rb.tscn", "res://scenes/interactable/pickup/canned-food_rigidbody.tscn", "res://scenes/interactable/pickup/m4_rifle_rb.tscn", "res://scenes/interactable/pickup/metal-bar_resource_rb.tscn", "res://scenes/interactable/pickup/pickaxe_rb.tscn", "res://scenes/interactable/pickup/pine_wood_resource_rb.tscn", "res://scenes/interactable/pickup/resource_pine_branch_rb.tscn", "res://scenes/interactable/pickup/bandage.tscn", "res://scenes/interactable/pickup/can.tscn")
 spawn_path = NodePath("..")
 script = ExtResource("2_6apke")
 node_position = NodePath("../zone/ZoneItems/SpawnPosition")
@@ -224,10 +135,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2538, 0)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.719971, -4.20944)
 
-[node name="Pine-Wood-Crate" parent="zone" instance=ExtResource("8_upg36")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.35348, 0, -0.590063)
-inventory_data = SubResource("Resource_gisbm")
-
 [node name="Enemy" parent="zone" instance=ExtResource("26_pxx8e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0757, 0, 0)
 
@@ -261,14 +168,6 @@ grass_count_limit = 9000
 lod_settings = [ExtResource("16_c1xjj"), null, null]
 meshes = [ExtResource("17_l42ok"), null, null]
 materials = [ExtResource("18_lajm7"), null, null]
-
-[node name="Pine-Wood-Crate3" parent="." instance=ExtResource("8_upg36")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 231.731, 3.80188, 190.535)
-inventory_data = SubResource("Resource_4c7e5")
-
-[node name="Pine-Wood-Crate2" parent="." instance=ExtResource("8_upg36")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 233.642, 3.79102, 190.411)
-inventory_data = SubResource("Resource_gstfx")
 
 [node name="PineTree" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["world_resource"]]
 visible = false
