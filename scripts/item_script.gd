@@ -215,8 +215,8 @@ func spawn_building_part(building_scene_path : String, position_x : float, posit
 
 func set_building_data(building_instance : StaticBody3D, position_x : float, position_y : float, position_z : float, rotation_y : float, player_id : int) -> void:
 	if building_instance.item_data.building_type == building_instance.item_data.BuildingType.inventory:
-		# rpc("send_rpc_to_add_to_external_inventory", building_instance.name)
-		building_instance.signal_building_spawn.emit(player)
+		rpc("send_rpc_to_add_to_external_inventory", building_instance.name)
+		# building_instance.signal_building_spawn.emit(player)
 	else:
 		for instance_collider : Area3D in building_instance.building_colliders: # включение коллайдеров постройки к которым она может крепиться
 			if instance_collider: instance_collider.get_child(0).disabled = false
@@ -234,13 +234,10 @@ func set_building_data(building_instance : StaticBody3D, position_x : float, pos
 	}
 	rpc_id(player_id, "add_building_in_own", building_data) # записываем игроку данные о его постройке
 
-# @rpc("any_peer", "reliable", "call_local")
-# func send_rpc_to_add_to_external_inventory(external_inventory : String) -> void:
-# 	# player.rpc("connect_external_inventory_signal_to_player", external_inventory)
-# 	for node in get_tree().get_nodes_in_group("external_inventory"):
-# 		if node and node.name == external_inventory:
-# 			node.signal_toggle_inventory.connect(player._toggle_inventory_interface)
-# 			break
+@rpc("any_peer", "reliable", "call_local")
+func send_rpc_to_add_to_external_inventory(external_inventory : String) -> void:
+	player.connect_external_inventory_signal_to_player(external_inventory)
+	
 
 @rpc("any_peer", "reliable", "call_local")
 func add_building_in_own(building_data : Dictionary) -> void:
@@ -279,7 +276,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 	if _equiped_item_type(equiped_item.ItemType.weapon) or _equiped_item_type(equiped_item.ItemType.tool):
 		fp_item_animator.play(equiped_item.anim_activate)
 		fp_player_animator.play(equiped_item.anim_player_activate)
-	elif _equiped_item_type(equiped_item.ItemType.weapon):
+	if _equiped_item_type(equiped_item.ItemType.weapon):
 		for data : PlayerWeaponSpread in player.weapon_spread_data:
 			if data and data.weapon_data.name == equiped_item.name:
 				player.current_weapon_spread_data = data # выставляется ресурс с данными о разбросе для оружия
@@ -324,7 +321,7 @@ func clear_item(inventory_data : InventoryData, index : int, slot_data : InSlotD
 func clear_weapon() -> void:
 	clear_weapon_attachments() # очищаем меш прицела если он не null
 	clear_weapon_hud() # убираем перекрестие и hud
-	player.current_weapon_spread_data = null
+	#player.current_weapon_spread_data = null
 
 func clear_building() -> void:
 	if _equiped_item_type(equiped_item.ItemType.building):
