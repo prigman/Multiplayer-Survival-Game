@@ -6,7 +6,7 @@ signal signal_force_close
 signal signal_item_info_panel_set_data(item_data: ItemData)
 
 #- set inventory
-var external_inventory_owner : Player
+var external_inventory_owner : ExternalInventory
 
 #- _on_inventory_interact
 var grabbed_slot_data: InSlotData
@@ -41,7 +41,7 @@ func _set_quick_slot_data(inventory_data: InventoryData) -> void:
 	#inventory_data.signal_slot_mouse_right_clicked.connect(player_quick_slot._on_item_panel_visibility_changed)
 	player_quick_slot._set_inventory_data(inventory_data)
 
-func _set_external_inventory(inventory_owner : Player) -> void:
+func _set_external_inventory(inventory_owner : ExternalInventory) -> void:
 	external_inventory_owner = inventory_owner
 	var inventory_data : InventoryData = external_inventory_owner.inventory_data
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
