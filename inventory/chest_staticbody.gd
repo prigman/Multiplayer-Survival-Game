@@ -1,6 +1,6 @@
-extends StaticBody3D
+class_name ExternalInventory extends StaticBody3D
 
-signal signal_toggle_inventory(external_inventory_owner : Player)
+signal signal_toggle_inventory(external_inventory_owner : ExternalInventory)
 
 @export var inventory_data: InventoryData
 

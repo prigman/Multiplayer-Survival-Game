@@ -3,7 +3,7 @@ class_name ItemScript extends Node3D
 signal Update_Ammo
 signal Update_Fire_Mode(fire_mode: WeaponFireModes)
 
-const HIT_DECAL := preload ("res://scenes/shoot_decal.tscn")
+const HIT_DECAL := preload("res://scenes/shoot_decal.tscn")
 
 # все предметы, которые можно взять в руки
 @export var fp_items_array: Array[Node3D]
@@ -84,15 +84,19 @@ func _physics_process(delta : float) -> void:
 				Assault_Rifle_Scope()
 
 	elif _equiped_item_type(equiped_item.ItemType.building):
-		check_place_for_building()
+		call_deferred("check_place_for_building")
 	
 	elif _equiped_item_type(equiped_item.ItemType.consumable):
 		if !player.is_inventory_open(): # проверка если закрыт инвентарь
 			if Input.is_action_pressed("fire"):
-				if player.health_value < 100.0:
+				if equiped_item.health_value and player.health_value < 100.0:
 					player.health_value += equiped_item.health_value
 					player.signal_update_player_health.emit(player.health_value)
-					remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
+				elif equiped_item.hunger_value and player.hunger_value < 100.0:
+					player.hunger_value += equiped_item.hunger_value
+					player.signal_update_player_hunger.emit(player.hunger_value)
+				remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
+			
 		
 func _unhandled_input(event : InputEvent) -> void:
 	if not is_multiplayer_authority():
@@ -163,7 +167,7 @@ func check_place_for_building() -> void:
 						if not building_scene.shape_cast.is_colliding() and not building_scene.building_collision.has_overlapping_bodies():
 							building_set_material(building_scene, building_scene.TRUE_MATERIAL) # зелёный
 							if Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
-								place_building_part()
+								call_deferred("place_building_part")
 						else:
 							building_set_material(building_scene, building_scene.FALSE_MATERIAL) # красный
 					else:
@@ -177,7 +181,7 @@ func check_place_for_building() -> void:
 					if not building_scene.shape_cast.is_colliding() and not building_scene.building_collision.has_overlapping_bodies(): # остальные проверки для успешной установки фундамента
 						building_set_material(building_scene, building_scene.TRUE_MATERIAL) # зелёный
 						if Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
-							place_building_part()
+							call_deferred("place_building_part")
 					else:
 						building_set_material(building_scene, building_scene.FALSE_MATERIAL) # красный
 				else:
@@ -203,6 +207,9 @@ func spawn_building_part(building_scene_path : String, position_x : float, posit
 	print("SERVER: player spawned building")
 	var building_instance : StaticBody3D = load(building_scene_path).instantiate()
 	get_tree().get_first_node_in_group("world").call_deferred("add_child", building_instance, true) # добавляет постройку в обычный мир
+	call_deferred("set_building_data", building_instance, position_x, position_y, position_z, rotation_y, player_id)
+
+func set_building_data(building_instance : StaticBody3D, position_x : float, position_y : float, position_z : float, rotation_y : float, player_id : int) -> void:
 	building_instance.building_part_owner_id = player_id # айди владельца постройки
 	building_instance.global_transform.origin = Vector3(position_x, position_y, position_z)
 	building_instance.rotation_degrees.y = rotation_y
@@ -274,7 +281,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		if equiped_item.dictionary.has("scene_path"):
 			var path := load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
-			player.main_scene.call_deferred("add_child",building_scene)
+			player.main_scene.call_deferred("add_child", building_scene)
 			#building_scene.mesh_building.mesh = equiped_item.mesh
 			# в process выставляется позиция для building_scene
 

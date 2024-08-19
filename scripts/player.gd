@@ -29,7 +29,7 @@ var main_scene : Node3D
 var is_player_loading := true
 
 @export var sound_footstep_pool : SoundPool
-@export var hunger_value: float = 100.0
+@export var hunger_value: float = 50.0
 @export var health_value: float = 50.0
 
 @export var footstep_timer : Timer
@@ -72,8 +72,8 @@ func _ready() -> void:
 	if not is_multiplayer_authority():
 		mesh.show()
 		label_3d.show()
-		label_3d.text = name
 		return
+	label_3d.text = name
 	canvas_layer.show()
 	signal_toggle_inventory.connect(_toggle_inventory_interface)
 	inventory_interface._set_player_inventory_data(player_inventory)
@@ -111,9 +111,7 @@ func died_process(damage:int)-> void:
 		main_scene.rpc('delete_player_rpc',peer_id)
 
 
-func _toggle_inventory_interface(external_inventory_owner : Player = null) -> void:
-	if not is_multiplayer_authority():
-		return
+func _toggle_inventory_interface(external_inventory_owner : ExternalInventory = null) -> void:
 	inventory_interface.visible = not inventory_interface.visible
 	if inventory_interface.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -203,7 +201,7 @@ func delete_item(inventory_item_interacted_path : NodePath) -> void:
 	inventory_item_interacted.queue_free()
 
 func get_drop_position() -> Vector3:
-	var drop_direction : float = -camera.global_transform.basis.z
+	var drop_direction : Vector3 = -camera.global_transform.basis.z
 	return camera.global_position + drop_direction
 
 #-Camera and weapon tilt
