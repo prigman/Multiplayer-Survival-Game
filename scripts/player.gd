@@ -177,9 +177,10 @@ func update_velocity() -> void:
 # ------------ Inventory items interaction
 
 func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
+	var item_data_scene := slot_data.item.dictionary
+	if not item_data_scene.get('dropped_item'): return
 	var dict_slot_data := slot_data.serialize_data()
 	var dict_item_data := slot_data.item.serialize_item_data()
-	var item_data_scene := slot_data.item.dictionary
 	var random_number := RandomNumberGenerator.new().randi_range(1000, 9999)
 	var drop_position := get_drop_position()
 	main_scene.item_spawner.rpc_id(1, 'request_spawn_item', random_number, drop_position, dict_slot_data, dict_item_data, item_data_scene)

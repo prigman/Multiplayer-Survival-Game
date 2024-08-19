@@ -57,9 +57,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_r8sjh")
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_qbwiw"]
-height = 0.307932
-radius = 0.072862
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hoha1"]
+radius = 0.075
+height = 0.385
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wwdni"]
 properties/0/path = NodePath(".:position")
@@ -68,7 +68,7 @@ properties/0/replication_mode = 2
 
 [node name="Bandage" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
 collision_layer = 4
-collision_mask = 6537
+collision_mask = 6601
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
@@ -83,7 +83,7 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("CylinderShape3D_qbwiw")
+shape = SubResource("CapsuleShape3D_hoha1")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_wwdni")

@@ -383,16 +383,6 @@ _data = {
 "RESET": SubResource("Animation_0it08")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m1o6"]
-bg_color = Color(1, 1, 1, 0)
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-expand_margin_bottom = 2.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3tcom"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 0.796078)
 
@@ -419,6 +409,16 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m1o6"]
+bg_color = Color(1, 1, 1, 0)
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_bottom = 2.0
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sound_footstep_pool", "footstep_timer", "mesh", "weapon_holder") groups=["player"]]
 collision_layer = 2
@@ -1233,7 +1233,284 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 120
 
-[node name="PlayerInventory" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer" instance=ExtResource("10_51sge")]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="InvItemInfoPanel" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(380, 170)
+layout_mode = 2
+size_flags_vertical = 0
+focus_mode = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_3tcom")
+script = ExtResource("10_pwj6i")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="ItemHealth" type="ProgressBar" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_sfy83")
+value = 80.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ItemHealth"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 7
+text = "QUALITY
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+
+[node name="ItemIcon" type="TextureRect" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AmmoCountPanel" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="AmmoCount" type="Label" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon/AmmoCountPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 18
+text = "30"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponSlots" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 7
+text = "Attachments"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Slot" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="Slot2" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="Slot3" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="Slot4" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 15.0
+focus_mode = 1
+theme_override_constants/outline_size = 0
+theme_override_constants/side_margin = 0
+theme_override_constants/icon_max_width = 0
+theme_override_font_sizes/font_size = 16
+current_tab = 0
+
+[node name="Details" type="TabBar" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
+layout_mode = 2
+focus_mode = 0
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemName" type="Label" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 14
+text = "Assault Rifle"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ItemDescription" type="RichTextLabel" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/normal_font_size = 10
+text = "The handy short automatic rifle with supressor and sight.
+
+Ammo type: 5.45 mm
+Damage head: 60 hp
+Damage body: 25 hp
+Damage arms: 15 hp
+Damage legs: 15 hps
+Shoot types: auto, single, burst"
+
+[node name="Actions" type="TabBar" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemUseButton" type="Button" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Use
+"
+
+[node name="WeaponUnloadButton" type="Button" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Unload"
+
+[node name="ItemDropButton" type="Button" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Drop"
+
+[node name="PlayerInventory" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.509804)
 layout_mode = 2
@@ -1325,277 +1602,6 @@ size_flags_vertical = 0
 theme_override_font_sizes/font_size = 12
 text = "1"
 
-[node name="InvItemInfoPanel" type="PanelContainer" parent="CanvasLayer/Interface/Control"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(400, 170)
-layout_mode = 0
-offset_right = 400.0
-offset_bottom = 170.0
-size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_3tcom")
-script = ExtResource("10_pwj6i")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 10.0
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-
-[node name="ItemHealth" type="ProgressBar" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 10
-theme_override_styles/fill = SubResource("StyleBoxFlat_sfy83")
-value = 80.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ItemHealth"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 7
-text = "QUALITY
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 20.0
-
-[node name="ItemIcon" type="TextureRect" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 15.0
-expand_mode = 1
-stretch_mode = 5
-
-[node name="AmmoCountPanel" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="AmmoCount" type="Label" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon/AmmoCountPanel"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 18
-text = "30"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="WeaponSlots" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 5.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 7
-text = "Attachments"
-horizontal_alignment = 1
-uppercase = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="Slot" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
-
-[node name="Slot2" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
-
-[node name="Slot3" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
-
-[node name="Slot4" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
-
-[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 15.0
-theme_override_constants/outline_size = 0
-theme_override_constants/side_margin = 0
-theme_override_constants/icon_max_width = 0
-theme_override_font_sizes/font_size = 16
-current_tab = 0
-
-[node name="Details" type="TabBar" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ItemName" type="Label" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.0
-theme_override_font_sizes/font_size = 14
-text = "Assault Rifle"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 15.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="ItemDescription" type="RichTextLabel" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-theme_override_font_sizes/normal_font_size = 10
-text = "The handy short automatic rifle with supressor and sight.
-
-Ammo type: 5.45 mm
-Damage head: 60 hp
-Damage body: 25 hp
-Damage arms: 15 hp
-Damage legs: 15 hps
-Shoot types: auto, single, burst"
-
-[node name="Actions" type="TabBar" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 3.2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="ItemUseButton" type="Button" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 12
-theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
-theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
-text = "Use
-"
-
-[node name="WeaponUnloadButton" type="Button" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 12
-theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
-theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
-text = "Unload"
-
-[node name="ItemDropButton" type="Button" parent="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 12
-theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
-theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
-text = "Drop"
-
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "debug_ui")]
 script = ExtResource("6_28k2k")
 current_state = NodePath("Idle")
@@ -1663,10 +1669,10 @@ stream = ExtResource("40_v4bxt")
 [connection signal="Update_Ammo" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/MarginContainer3/WeaponHud" method="_on_item_update_ammo"]
 [connection signal="Update_Fire_Mode" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/MarginContainer3/WeaponHud" method="_on_item_update_fire_mode"]
 [connection signal="gui_input" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_gui_input"]
-[connection signal="signal_item_info_panel_set_data" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
+[connection signal="signal_item_info_panel_set_data" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
 [connection signal="visibility_changed" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_visibility_changed"]
+[connection signal="pressed" from="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_item_drop_button_pressed"]
 [connection signal="gui_input" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_gui_input"]
 [connection signal="mouse_entered" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_mouse_exited"]
-[connection signal="pressed" from="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_item_drop_button_pressed"]
 [connection signal="timeout" from="FootstepTimer" to="FootstepTimer" method="_on_timeout"]

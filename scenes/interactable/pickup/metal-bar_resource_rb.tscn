@@ -11,8 +11,9 @@ script = ExtResource("3_ldplm")
 item = ExtResource("2_31knv")
 amount_in_slot = 1
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_6sr60"]
-size = Vector3(0.565, 0.185, 0.225)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pphxj"]
+radius = 0.147
+height = 0.644121
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8gs06"]
 properties/0/path = NodePath(".:position")
@@ -21,7 +22,7 @@ properties/0/replication_mode = 2
 
 [node name="Metal-Bar" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
 collision_layer = 4
-collision_mask = 6537
+collision_mask = 6601
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
@@ -34,8 +35,8 @@ mesh = ExtResource("1_q1uh1")
 surface_material_override/0 = ExtResource("5_bbmu1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0735603, 0)
-shape = SubResource("BoxShape3D_6sr60")
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.0735603, 0)
+shape = SubResource("CapsuleShape3D_pphxj")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_8gs06")

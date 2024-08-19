@@ -17,7 +17,6 @@ func custom_spawn(data : Array) -> Node:
 	var slot_data_as_dict : Dictionary = data[2]
 	var item_data_as_dict : Dictionary = data[3]
 	var item_data_scene_path : Dictionary = data[4]
-
 	var inventory_item : Node = load(item_data_scene_path["dropped_item"]).instantiate()
 
 	inventory_item.synchronizer.set_multiplayer_authority(id)
