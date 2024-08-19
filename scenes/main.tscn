@@ -150,7 +150,6 @@ autostart = true
 
 [node name="MTerrain" type="MTerrain" parent="."]
 dataDir = "res://terrain_data"
-create = true
 terrain_material = ExtResource("13_8lcak")
 heightmap_layers = PackedStringArray("background")
 update_chunks_interval = 0.01

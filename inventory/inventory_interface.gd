@@ -65,6 +65,7 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 				if inv_item_info_panel.visible:
 					hide_inv_item_panel()
 			grabbed_slot_data = inventory_data._grab_slot_data(index)
+			# rpc("RPC_grab_slot", inventory_data.type, index)
 		[_, MOUSE_BUTTON_LEFT]:
 			if last_clicked_slot_data == inventory_data.slots_data[index] and inv_item_info_panel.visible:
 				if inv_item_info_panel.visible:
@@ -93,6 +94,17 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 	if inventory_data.type == inventory_data.InventoryType.quick_slot \
 		and player.item.equiped_slot and player.item.equiped_slot == grabbed_slot_data:
 		player.item.swap_items(inventory_data, index)
+
+# @rpc("any_peer", "call_local", "reliable")
+# func RPC_grab_slot(inventory_type : int, index : int) -> void:
+# 	if is_multiplayer_authority(): return
+# 	print("null")
+# 	if external_inventory_owner == null: return
+# 	print("not null")
+# 	if inventory_type == external_inventory_owner.inventory_data.InventoryType.external_inventory:
+# 		external_inventory_owner.inventory_data.slots_data[index] = null
+# 		external_inventory_owner.inventory_data._update_inventory()
+# 		# inventory_data._update_inventory()
 
 func _update_grabbed_slot() -> void:
 	if grabbed_slot_data:

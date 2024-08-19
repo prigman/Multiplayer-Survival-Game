@@ -252,7 +252,8 @@ func add_building_in_own(building_data : Dictionary) -> void:
 	player.buildings_in_own.append(building_data)
 
 func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlotData) -> void: # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
-	if not is_multiplayer_authority() or item_slot == null: return
+	if not is_multiplayer_authority(): return
+	if item_slot == null: return
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
 	clear_building()
 	inventory_data.signal_update_active_slot.emit(inventory_data, slot_index, equiped_slot_index, item_slot, equiped_slot) # сигнал инвентарю быстрого доступа обновить активность данному слоту
