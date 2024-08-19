@@ -1,70 +1,85 @@
-[gd_scene load_steps=19 format=3 uid="uid://bp6c182x8mldk"]
+[gd_scene load_steps=12 format=3 uid="uid://bp6c182x8mldk"]
 
-[ext_resource type="Script" path="res://inventory/chest_staticbody.gd" id="1_xlx1u"]
+[ext_resource type="Script" path="res://inventory/external_inventory_object.gd" id="1_xlx1u"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="2_jeibw"]
 [ext_resource type="ArrayMesh" uid="uid://c0yho8pq4oj4l" path="res://models/meshes/pine_wood_crate.res" id="2_ysn2n"]
-[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="3_pxomq"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="4_4nwml"]
-[ext_resource type="Resource" uid="uid://c857xej6d1ycd" path="res://inventory/item/objects/resource_stone.tres" id="5_e28on"]
-[ext_resource type="Resource" uid="uid://cuhm3r0mlhurs" path="res://inventory/item/objects/godot.tres" id="6_k2jpy"]
-[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="7_c2i7u"]
-[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://inventory/item/objects/resource_pine_wood.tres" id="8_72suu"]
+[ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://inventory/item/objects/pine-wood-crate.tres" id="9_53ikr"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="10_js5jj"]
 
-[sub_resource type="Resource" id="Resource_5ii1q"]
-script = ExtResource("4_4nwml")
-item = ExtResource("3_pxomq")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_xwpok"]
-script = ExtResource("4_4nwml")
-item = ExtResource("5_e28on")
-amount_in_slot = 46
-
-[sub_resource type="Resource" id="Resource_k3qvb"]
-script = ExtResource("4_4nwml")
-item = ExtResource("6_k2jpy")
-amount_in_slot = 24
-
-[sub_resource type="Resource" id="Resource_nupsf"]
-script = ExtResource("4_4nwml")
-item = ExtResource("7_c2i7u")
-amount_in_slot = 1
-
-[sub_resource type="Resource" id="Resource_m4fgc"]
-script = ExtResource("4_4nwml")
-item = ExtResource("8_72suu")
-amount_in_slot = 54
-
-[sub_resource type="Resource" id="Resource_u1d15"]
+[sub_resource type="Resource" id="Resource_3ks5b"]
+resource_local_to_scene = true
 script = ExtResource("2_jeibw")
 type = 2
-slots_data = Array[ExtResource("4_4nwml")]([SubResource("Resource_5ii1q"), SubResource("Resource_xwpok"), SubResource("Resource_k3qvb"), SubResource("Resource_nupsf"), SubResource("Resource_m4fgc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slots_data = Array[ExtResource("4_4nwml")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_047kt"]
+size = Vector3(1, 0.9, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_segvh"]
 points = PackedVector3Array(-1.1, -1.1, -1.1, -1.1, -1.1, 1.1, -1.1, 1.1, -1.1, 1.1, -1.1, -1.1, -1.1, 1.1, 1.1, 1.1, -1.1, 1.1, 1.1, 1.1, -1.1, 1.1, 1.1, 1.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yxpgh"]
-size = Vector3(1.5, 1.5, 1.5)
+size = Vector3(1.1, 1.1, 1.1)
 
-[node name="Pine-Wood-Crate" type="StaticBody3D" node_paths=PackedStringArray("shape_cast") groups=["external_inventory"]]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vvclw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("BuildingCollision/CollisionShape3D:disabled")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("CollisionShape3D:disabled")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("ShapeCast3D:enabled")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:building_part_owner_id")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+
+[node name="Pine-Wood-Crate" type="StaticBody3D" node_paths=PackedStringArray("shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["external_inventory"]]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_xlx1u")
-inventory_data = SubResource("Resource_u1d15")
+inventory_data = SubResource("Resource_3ks5b")
+item_data = ExtResource("9_53ikr")
 shape_cast = NodePath("ShapeCast3D")
+collision_shape = NodePath("CollisionShape3D")
+mesh_node = NodePath("MeshInstance3D")
+building_collision = NodePath("BuildingCollision")
+
+[node name="BuildingCollision" type="Area3D" parent="."]
+collision_layer = 1024
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_047kt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.55, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+cast_shadow = 0
+visibility_range_end = 200.0
 mesh = ExtResource("2_ysn2n")
 surface_material_override/0 = ExtResource("10_js5jj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.55, 0)
 shape = SubResource("ConvexPolygonShape3D_segvh")
+disabled = true
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("BoxShape3D_yxpgh")
 max_results = 1
-collision_mask = 158
+collision_mask = 222
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_vvclw")
+
+[connection signal="signal_building_spawn" from="." to="." method="_on_signal_building_spawn"]

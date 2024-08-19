@@ -29,6 +29,7 @@ var fp_item_animator: AnimationPlayer
 @export var aim_cast: RayCast3D
 @export var melee_cast: RayCast3D
 @export var building_cast: RayCast3D
+@export var other_buildings_cast : RayCast3D
 #
 
 @export var audio_queue : Node3D
@@ -82,9 +83,12 @@ func _physics_process(delta : float) -> void:
 			if Scoped:
 				crosshair.show()
 				Assault_Rifle_Scope()
-
+				
 	elif _equiped_item_type(equiped_item.ItemType.building):
-		call_deferred("check_place_for_building")
+		if !player.is_inventory_open(): # проверка если закрыт инвентарь
+			call_deferred("check_place_for_building")
+		else:
+			if building_scene.visible: building_scene.call_deferred("hide")
 	
 	elif _equiped_item_type(equiped_item.ItemType.consumable):
 		if !player.is_inventory_open(): # проверка если закрыт инвентарь
@@ -153,53 +157,58 @@ func _unhandled_input(event : InputEvent) -> void:
 						break
 
 func check_place_for_building() -> void:
-	if building_scene and building_cast:
-		var is_raycast_colliding := building_cast.is_colliding()
-		var collider_interacted := building_cast.get_collider()
-		if is_raycast_colliding: # если луч попадает на одну из заданных поверхностей - код выполняется, в ином случае постройка скрывается
-			var collision_point := building_cast.get_collision_point() # точка столкновения луча с коллизией
-			building_change_visibility(true) # переключение видимости постройки, если true - сделать видимой
-			if collider_interacted:
-				if collider_interacted.is_in_group('building_collider'): # если луч касается коллайдера в котором размещается постройка
-					if collider_interacted.collider_type == building_scene.item_data.building_type: # если тип коллайдера, в котором размещается постройка, равен типу самой постройки - устанавливается в позицию
-						building_scene.global_transform.origin = collider_interacted.global_transform.origin
-						building_scene.rotation_degrees.y = collider_interacted.rotation_degrees.y
-						if not building_scene.shape_cast.is_colliding() and not building_scene.building_collision.has_overlapping_bodies():
-							building_set_material(building_scene, building_scene.TRUE_MATERIAL) # зелёный
-							if Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
-								call_deferred("place_building_part")
-						else:
-							building_set_material(building_scene, building_scene.FALSE_MATERIAL) # красный
-					else:
-						for collider : Area3D in collider_interacted.get_parent().building_colliders: # тут нужно отключить и запомнить все коллайдеры, которые не равны типу постройки в данный момент, это для того чтобы луч не взаимодействовал с лишними
-							if collider and collider.collider_type != building_scene.item_data.building_type:
-								collider.get_child(0).disabled = true
-								wrong_colliders.append(collider)
-			elif not collider_interacted:
-				if building_scene.item_data.building_type == building_scene.item_data.BuildingType.floor: # если тип постройки является фундаментом, тогда изменяем ему позицию, в ином случае - прячем
-					building_scene.global_transform.origin = Vector3(collision_point.x, collision_point.y, collision_point.z)
-					if not building_scene.shape_cast.is_colliding() and not building_scene.building_collision.has_overlapping_bodies(): # остальные проверки для успешной установки фундамента
-						building_set_material(building_scene, building_scene.TRUE_MATERIAL) # зелёный
-						if Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
-							call_deferred("place_building_part")
-					else:
-						building_set_material(building_scene, building_scene.FALSE_MATERIAL) # красный
-				else:
-					building_change_visibility(false)
-		elif not is_raycast_colliding:
-			building_change_visibility(false)
+	if building_scene and building_cast and other_buildings_cast:
+		building_change_visibility(false)
+		if building_scene.item_data.building_type == building_scene.item_data.BuildingType.inventory: # для строений типа инвентарь
+			var is_raycast_colliding := other_buildings_cast.is_colliding()
+			if is_raycast_colliding: # если луч попадает на одну из заданных поверхностей - код выполняется, в ином случае постройка скрывается
+				var collision_point := other_buildings_cast.get_collision_point()
+				building_change_visibility(true)
+				building_scene.global_transform.origin = Vector3(collision_point.x, collision_point.y, collision_point.z)
+		else: # остальные строения
 
-func building_set_material(building : StaticBody3D, material : Material) -> void:
-	building.mesh_node.set_surface_override_material(0, material)
+			var is_raycast_colliding := building_cast.is_colliding()
+			var collider_interacted := building_cast.get_collider()
+			if is_raycast_colliding: # если луч попадает на одну из заданных поверхностей - код выполняется, в ином случае постройка скрывается
+				var collision_point := building_cast.get_collision_point() # точка столкновения луча с коллизией
+				if collider_interacted:
+					if collider_interacted.is_in_group('building_collider'): # если луч касается коллайдера в котором размещается постройка
+						if collider_interacted.collider_type == building_scene.item_data.building_type: # если тип коллайдера, в котором размещается постройка, равен типу самой постройки - устанавливается в позицию
+							building_change_visibility(true) # переключение видимости постройки, если true - сделать видимой
+							building_scene.global_transform.origin = collider_interacted.global_transform.origin
+							building_scene.global_rotation_degrees.y = collider_interacted.global_rotation_degrees.y
+						else:
+							for collider : Area3D in collider_interacted.get_parent().building_colliders: # тут нужно отключить и запомнить все коллайдеры, которые не равны типу постройки в данный момент, это для того чтобы луч не взаимодействовал с лишними
+								if collider and collider.collider_type != building_scene.item_data.building_type:
+									collider.get_child(0).disabled = true
+									wrong_colliders.append(collider)
+				elif not collider_interacted and building_scene.item_data.building_type == building_scene.item_data.BuildingType.floor:
+					building_change_visibility(true) # переключение видимости постройки, если true - сделать видимой
+					building_scene.global_transform.origin = Vector3(collision_point.x, collision_point.y, collision_point.z)
+					building_scene.rotation_degrees.y = 0
+		if not building_scene.shape_cast.is_colliding() and not building_scene.building_collision.has_overlapping_bodies(): # остальные проверки для успешной установки
+				building_set_possibility_to_place(building_scene, true)
+		else:
+			building_set_possibility_to_place(building_scene, false)
+		if building_scene.is_able_to_build and Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
+			place_building_part(building_scene)
+
+func building_set_possibility_to_place(building : StaticBody3D, possibility : bool) -> void:
+	if possibility:
+		building.is_able_to_build = true
+		building.mesh_node.set_surface_override_material(0, building.TRUE_MATERIAL)
+	else:
+		building.is_able_to_build = false
+		building.mesh_node.set_surface_override_material(0, building.FALSE_MATERIAL)
 
 func building_change_visibility(visibility : bool) -> void:
 	if not visibility and building_scene.visible: building_scene.hide()
 	elif visibility and not building_scene.visible: building_scene.show()
 
-func place_building_part() -> void:
+func place_building_part(_building_scene : StaticBody3D) -> void:
 	var building_scene_path : String = equiped_item.dictionary["scene_path"]
-	rpc("spawn_building_part", building_scene_path, building_scene.global_position.x, building_scene.global_position.y, building_scene.global_position.z, building_scene.rotation_degrees.y, player.peer_id) # посылаем на сервер запрос на спавн постройки
-	remove_active_item(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
+	remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
+	rpc("spawn_building_part", building_scene_path, _building_scene.global_position.x, _building_scene.global_position.y, _building_scene.global_position.z, _building_scene.global_rotation_degrees.y, player.peer_id) # посылаем на сервер запрос на спавн постройки
 
 @rpc("any_peer", "reliable", "call_local")
 func spawn_building_part(building_scene_path : String, position_x : float, position_y : float, position_z : float, rotation_y : float, player_id : int) -> void:
@@ -210,31 +219,40 @@ func spawn_building_part(building_scene_path : String, position_x : float, posit
 	call_deferred("set_building_data", building_instance, position_x, position_y, position_z, rotation_y, player_id)
 
 func set_building_data(building_instance : StaticBody3D, position_x : float, position_y : float, position_z : float, rotation_y : float, player_id : int) -> void:
+	if building_instance.item_data.building_type == building_instance.item_data.BuildingType.inventory:
+		# rpc("send_rpc_to_add_to_external_inventory", building_instance.name)
+		building_instance.signal_building_spawn.emit(player)
+	else:
+		for instance_collider : Area3D in building_instance.building_colliders: # включение коллайдеров постройки к которым она может крепиться
+			if instance_collider: instance_collider.get_child(0).disabled = false
 	building_instance.building_part_owner_id = player_id # айди владельца постройки
 	building_instance.global_transform.origin = Vector3(position_x, position_y, position_z)
-	building_instance.rotation_degrees.y = rotation_y
+	building_instance.global_rotation_degrees.y = rotation_y
 	#building_set_material(building_instance, building_instance.DEFAULT_MATERIAL)
 	building_instance.shape_cast.enabled = false # отключение шейпкаста, который проверяет на столкновения постройки с определёнными игровыми объектами в мире во время выполнения функции check_place_for_building
 	building_instance.collision_shape.disabled = false # включение коллизии постройки
 	building_instance.building_collision.get_child(0).disabled = true # отключение коллизии, которая проверяет столкновения с уже установленными мешами построек (эта коллизия используется во время выполнения функции check_place_for_building)
 	building_instance.mesh_node.cast_shadow = 1
-	for instance_collider : Area3D in building_instance.building_colliders: # включение коллайдеров постройки к которым она может крепиться
-		if instance_collider: instance_collider.get_child(0).disabled = false
 	var building_data : Dictionary = {
 		"building_name": building_instance.name,
 		"building_position": building_instance.global_transform.origin
 	}
 	rpc_id(player_id, "add_building_in_own", building_data) # записываем игроку данные о его постройке
 
+# @rpc("any_peer", "reliable", "call_local")
+# func send_rpc_to_add_to_external_inventory(external_inventory : String) -> void:
+# 	# player.rpc("connect_external_inventory_signal_to_player", external_inventory)
+# 	for node in get_tree().get_nodes_in_group("external_inventory"):
+# 		if node and node.name == external_inventory:
+# 			node.signal_toggle_inventory.connect(player._toggle_inventory_interface)
+# 			break
+
 @rpc("any_peer", "reliable", "call_local")
 func add_building_in_own(building_data : Dictionary) -> void:
 	player.buildings_in_own.append(building_data)
 
 func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlotData) -> void: # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
-	if not is_multiplayer_authority():
-			return
-	if item_slot == null:
-		return
+	if not is_multiplayer_authority() or item_slot == null: return
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
 	clear_building()
 	inventory_data.signal_update_active_slot.emit(inventory_data, slot_index, equiped_slot_index, item_slot, equiped_slot) # сигнал инвентарю быстрого доступа обновить активность данному слоту
@@ -244,7 +262,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 	equiped_slot_index = slot_index
 	#-
 	if _equiped_item_type(equiped_item.ItemType.weapon) == false:
-		clear_weapon() # прячем UI оружия и убираем меш прицела и глушителя
+		clear_weapon_hud() # прячем UI оружия (clear_weapon)
 	if equiped_item_node:
 		if equiped_item_node.visible:
 			equiped_item_node.hide()
@@ -265,7 +283,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 	if _equiped_item_type(equiped_item.ItemType.weapon) or _equiped_item_type(equiped_item.ItemType.tool):
 		fp_item_animator.play(equiped_item.anim_activate)
 		fp_player_animator.play(equiped_item.anim_player_activate)
-	if _equiped_item_type(equiped_item.ItemType.weapon):
+	elif _equiped_item_type(equiped_item.ItemType.weapon):
 		for data : PlayerWeaponSpread in player.weapon_spread_data:
 			if data and data.weapon_data.name == equiped_item.name:
 				player.current_weapon_spread_data = data # выставляется ресурс с данными о разбросе для оружия
@@ -276,51 +294,52 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		Update_Ammo.emit(equiped_item.ammo_current)
 		Update_Fire_Mode.emit(equiped_item.fire_mode_current)
 		update_pos() # получение первоначальной позиции для разброса во время стрельбы
-		set_weapon_attachments() # добавляются либо удаляются обвесы на оружие
-	if _equiped_item_type(equiped_item.ItemType.building):
+		#set_weapon_attachments() # добавляются либо удаляются обвесы на оружие
+	elif _equiped_item_type(equiped_item.ItemType.building):
 		if equiped_item.dictionary.has("scene_path"):
 			var path := load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
-			player.main_scene.call_deferred("add_child", building_scene)
-			#building_scene.mesh_building.mesh = equiped_item.mesh
-			# в process выставляется позиция для building_scene
+			player.call_deferred("add_child", building_scene)
+					#building_scene.mesh_building.mesh = equiped_item.mesh
+					# в process выставляется позиция для building_scene
 
-func remove_active_item(inventory_data: InventoryData, index: int, slot_data: InSlotData) -> void: # убираем предмет из рук
+func clear_item(inventory_data : InventoryData, index : int, slot_data : InSlotData) -> void:
 	if not is_multiplayer_authority():
 			return
-	clear_animations() # очистка анимации предмета если проигрывается в данный момент
-	clear_building()
-	if _equiped_item_type(equiped_item.ItemType.weapon):
-		clear_weapon()
+
 	if fp_player_node.visible:
 		fp_player_node.hide()
 	if equiped_item_node:
 		equiped_item_node.hide()
-	player.current_weapon_spread_data = null
-	reticle.show()
-	clear_item(inventory_data, index, slot_data)
 
-func clear_item(inventory_data : InventoryData, index : int, slot_data : InSlotData) -> void:
+	clear_animations() # очистка анимации предмета если проигрывается в данный момент
+	
+	clear_building()
+
 	inventory_data.signal_update_active_slot.emit(inventory_data, index, equiped_slot_index, slot_data, equiped_slot) #  сигнал инвентарю быстрого доступа обновить активность данному слоту
+
+	if _equiped_item_type(equiped_item.ItemType.weapon):
+		clear_weapon()
+
 	equiped_slot = null
 	equiped_item = null
 	equiped_item_node = null
 
 func clear_weapon() -> void:
-	if not is_multiplayer_authority():
-		return
 	clear_weapon_attachments() # очищаем меш прицела если он не null
 	clear_weapon_hud() # убираем перекрестие и hud
+	player.current_weapon_spread_data = null
 
 func clear_building() -> void:
-	if wrong_colliders:
-		for collider in wrong_colliders:
-			if collider:
-				collider.get_child(0).disabled = false
-		wrong_colliders = []
-	if building_scene:
-		building_scene.queue_free()
-		building_scene = null
+	if _equiped_item_type(equiped_item.ItemType.building):
+		if wrong_colliders:
+			for collider in wrong_colliders:
+				if collider:
+					collider.get_child(0).disabled = false
+			wrong_colliders = []
+		if building_scene:
+			building_scene.queue_free()
+			building_scene = null
 	
 func clear_animations() -> void:
 	if fp_player_animator and fp_player_animator.is_playing():
@@ -537,7 +556,7 @@ func swap_items(inventory_data: InventoryData, index: int) -> void:
 				break
 			[null, _, i]:
 				print("Item removed")
-				remove_active_item(inventory_data, index, slot_data)
+				clear_item(inventory_data, index, slot_data)
 				break
 			[_, null, i]:
 				print("Item equiped %s" % slot_data.item.name)
@@ -549,7 +568,7 @@ func swap_items(inventory_data: InventoryData, index: int) -> void:
 					initialize(inventory_data, index, slot_data)
 				else:
 					print("Item removed")
-					remove_active_item(inventory_data, index, slot_data)
+					clear_item(inventory_data, index, slot_data)
 				break
 
 func _equiped_item_type(equiped_item_type: int) -> bool:
@@ -601,5 +620,7 @@ func create_player_item(item_data: ItemData, amount: int) -> void:
 	player.give_item(slot_data)
 
 func remove_item_from_inventory(inventory_data : InventoryData, slot_index : int, slot_data : InSlotData) -> void:
+	if not is_multiplayer_authority():
+			return
 	clear_item(inventory_data, slot_index, slot_data)
 	inventory_data._remove_slot_data(slot_index)

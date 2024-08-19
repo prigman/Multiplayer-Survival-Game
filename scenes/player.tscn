@@ -498,7 +498,16 @@ debug_shape_thickness = 1
 unique_name_in_owner = true
 transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
 target_position = Vector3(0, 0, -8)
-collision_mask = 4609
+collision_mask = 4673
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 1
+
+[node name="OtherBuildingsCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -8)
+collision_mask = 4417
 collide_with_areas = true
 debug_shape_custom_color = Color(0, 1, 0, 1)
 debug_shape_thickness = 1
@@ -1000,7 +1009,7 @@ libraries = {
 "M4_Rifle_Anims": ExtResource("41_aeuon")
 }
 
-[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "aim_cast", "melee_cast", "building_cast", "audio_queue") instance=ExtResource("4_dcn20")]
+[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "aim_cast", "melee_cast", "building_cast", "other_buildings_cast", "audio_queue") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
 transform = Transform3D(-0.652866, -0.671662, 0.350194, -0.719312, 0.694632, -0.00872654, -0.237395, -0.257596, -0.936636, 0.04, -0.61, -0.545)
 fp_items_array = [NodePath("../Node3D/Item_pickaxe_animated"), NodePath("../Node3D/Item_axe_animated"), NodePath("../Node3D/Item_M4_Rifle")]
@@ -1017,6 +1026,7 @@ crosshair = NodePath("../../../CanvasLayer/Interface/Crosshair")
 aim_cast = NodePath("../../Camera3D/AimCast")
 melee_cast = NodePath("../../Camera3D/MeleeCast")
 building_cast = NodePath("../../Camera3D/BuildingCast")
+other_buildings_cast = NodePath("../../Camera3D/OtherBuildingsCast")
 audio_queue = NodePath("../../../SoundQueue")
 
 [node name="Timer" type="Timer" parent="CameraHolder/RigHolder"]

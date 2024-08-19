@@ -81,7 +81,8 @@ func _ready() -> void:
 	inventory_interface.signal_drop_item.connect(_on_inventory_interface_signal_drop_item)
 	inventory_interface.signal_force_close.connect(_toggle_inventory_interface)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
-		node.signal_toggle_inventory.connect(_toggle_inventory_interface)
+		if node:
+			node.signal_toggle_inventory.connect(_toggle_inventory_interface)
 	def_weapon_holder_pos = weapon_holder.position
 	spherecast.add_exception($".")
 	signal_update_player_stats.emit(health_value, hunger_value)
@@ -110,6 +111,13 @@ func died_process(damage:int)-> void:
 		print("Died player ",peer_id)
 		main_scene.rpc('delete_player_rpc',peer_id)
 
+@rpc("any_peer", "reliable", "call_local")
+func connect_external_inventory_signal_to_player(external_inventory_name : String) -> void:
+	if not is_multiplayer_authority(): return
+	for node in get_tree().get_nodes_in_group("external_inventory"):
+		if node and node.name == external_inventory_name:
+			node.signal_toggle_inventory.connect(_toggle_inventory_interface)
+			break
 
 func _toggle_inventory_interface(external_inventory_owner : ExternalInventory = null) -> void:
 	inventory_interface.visible = not inventory_interface.visible
@@ -178,7 +186,7 @@ func update_velocity() -> void:
 
 func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
 	var item_data_scene := slot_data.item.dictionary
-	if not item_data_scene.get('dropped_item'): return
+	if not item_data_scene.has('dropped_item'): return
 	var dict_slot_data := slot_data.serialize_data()
 	var dict_item_data := slot_data.item.serialize_item_data()
 	var random_number := RandomNumberGenerator.new().randi_range(1000, 9999)

@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="1_vcgbl"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_7rd4d")
 item_type = 5
 building_type = 2
