@@ -28,6 +28,11 @@ var main_scene : Node3D
 
 var is_player_loading := true
 
+var sprint_hunger_rate: float = 0.5
+var walk_hunger_rate: float = 0.2
+var idle_hunger_rate: float = 0.1
+@export var state_machine : StateMachine
+
 @export var sound_footstep_pool : SoundPool
 @export var hunger_value: float = 50.0
 @export var health_value: float = 50.0
@@ -92,6 +97,7 @@ func _ready() -> void:
 	is_player_loading = false
 
 func _process(delta : float) -> void:
+	decrease_hunger_value(delta)
 	var velocity_string := "%.2f" % velocity.length()
 	debug_ui.add_property("velocity", velocity_string, + 1)
 	if not is_player_loading and item.equiped_item_node:
@@ -100,6 +106,14 @@ func _process(delta : float) -> void:
 		weapon_bob(velocity.length(), delta)
 	# if (position.y <= -50.0):
 	# 	get_tree().reload_current_scene()
+
+func decrease_hunger_value(delta: float) -> void:
+	if state_machine.is_current_state("Sprint"): hunger_value -= sprint_hunger_rate * delta
+	elif state_machine.is_current_state("Idle"): hunger_value -= idle_hunger_rate * delta
+	else:hunger_value -= walk_hunger_rate * delta
+	hunger_value = max(hunger_value, 0.0)
+	signal_update_player_hunger.emit(hunger_value)
+
 
 @rpc("any_peer","reliable","call_local")
 func died_process(damage:int)-> void:
@@ -187,9 +201,6 @@ func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
 	main_scene.item_spawner.rpc_id(1, 'request_spawn_item', random_number, drop_position, dict_slot_data, dict_item_data, item_data_scene)
 
 func _on_inventory_interface_signal_use_item(slot_data: InSlotData) -> void:
-	#var dict_slot_data := slot_data.serialize_data()
-	#var dict_item_data := slot_data.item.serialize_item_data()
-	#var item_data_scene := slot_data.item.dictionary
 	var item_data := slot_data.item
 	if item_data.health_value and health_value < 100.0:
 		health_value += item_data.health_value
@@ -197,7 +208,7 @@ func _on_inventory_interface_signal_use_item(slot_data: InSlotData) -> void:
 	elif item_data.hunger_value and hunger_value < 100.0:
 		hunger_value += item_data.hunger_value
 		signal_update_player_hunger.emit(hunger_value)
-	print("hello")
+	
 
 
 func interact() -> void:
