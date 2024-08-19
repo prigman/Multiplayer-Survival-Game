@@ -72,8 +72,8 @@ func _ready() -> void:
 	if not is_multiplayer_authority():
 		mesh.show()
 		label_3d.show()
-		label_3d.text = name
 		return
+	label_3d.text = name
 	canvas_layer.show()
 	signal_toggle_inventory.connect(_toggle_inventory_interface)
 	inventory_interface._set_player_inventory_data(player_inventory)
@@ -112,9 +112,7 @@ func died_process(damage:int)-> void:
 		main_scene.rpc('delete_player_rpc',peer_id)
 
 
-func _toggle_inventory_interface(external_inventory_owner : Player = null) -> void:
-	if not is_multiplayer_authority():
-		return
+func _toggle_inventory_interface(external_inventory_owner : ExternalInventory = null) -> void:
 	inventory_interface.visible = not inventory_interface.visible
 	if inventory_interface.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

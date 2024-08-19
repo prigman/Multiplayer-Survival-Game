@@ -21,7 +21,7 @@ properties/0/replication_mode = 2
 
 [node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
 collision_layer = 4
-collision_mask = 6281
+collision_mask = 6537
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
