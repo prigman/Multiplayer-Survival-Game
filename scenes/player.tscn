@@ -420,11 +420,10 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 expand_margin_bottom = 2.0
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("state_machine", "sound_footstep_pool", "footstep_timer", "mesh", "weapon_holder") groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sound_footstep_pool", "footstep_timer", "mesh", "weapon_holder") groups=["player"]]
 collision_layer = 2
 collision_mask = 4553
 script = ExtResource("1_adhyr")
-state_machine = NodePath("StateMachine")
 sound_footstep_pool = NodePath("Soundpool")
 footstep_timer = NodePath("FootstepTimer")
 player_inventory = ExtResource("2_xq8ps")
