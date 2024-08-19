@@ -217,6 +217,8 @@ func set_building_data(building_instance : StaticBody3D, position_x : float, pos
 	if building_instance.item_data.building_type != building_instance.item_data.BuildingType.inventory:
 		for instance_collider : Area3D in building_instance.building_colliders: # включение коллайдеров постройки к которым она может крепиться
 			if instance_collider: instance_collider.get_child(0).disabled = false
+	else:
+		building_instance.signal_building_spawn.emit()
 	building_instance.building_part_owner_id = player_id # айди владельца постройки
 	building_instance.global_transform.origin = Vector3(position_x, position_y, position_z)
 	building_instance.global_rotation_degrees.y = rotation_y
@@ -316,6 +318,7 @@ func clear_weapon() -> void:
 	#player.current_weapon_spread_data = null
 
 func clear_building() -> void:
+	if not is_multiplayer_authority(): return
 	if _equiped_item_type(equiped_item.ItemType.building):
 		if wrong_colliders:
 			for collider in wrong_colliders:
@@ -605,7 +608,6 @@ func create_player_item(item_data: ItemData, amount: int) -> void:
 	player.give_item(slot_data)
 
 func remove_item_from_inventory(inventory_data : InventoryData, slot_index : int, slot_data : InSlotData) -> void:
-	if not is_multiplayer_authority():
-			return
+	if not is_multiplayer_authority(): return
 	clear_item(inventory_data, slot_index, slot_data)
 	inventory_data._remove_slot_data(slot_index)

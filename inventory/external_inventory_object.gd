@@ -17,11 +17,16 @@ signal signal_toggle_inventory(external_inventory_owner : ExternalInventory)
 @export var building_collision : Area3D
 
 var is_able_to_build : bool
-var was_spawned : bool
-
-func _ready() -> void:
-	for player in get_tree().get_nodes_in_group("player"):
-		signal_toggle_inventory.connect(player._toggle_inventory_interface)
 
 func _player_interact(_inventory_data: InventoryData, _quick_slot_data: InventoryData) -> void:
 	signal_toggle_inventory.emit(self)
+
+func _on_signal_building_spawn() -> void:
+	rpc("connect_to_inv")
+
+@rpc("any_peer","call_local","reliable")
+func connect_to_inv() -> void:
+	for player in get_tree().get_nodes_in_group("player"):
+		if player.peer_id == multiplayer.get_unique_id():
+			signal_toggle_inventory.connect(player._toggle_inventory_interface)
+			break
