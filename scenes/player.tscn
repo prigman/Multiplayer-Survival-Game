@@ -1668,5 +1668,6 @@ stream = ExtResource("40_v4bxt")
 [connection signal="gui_input" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_gui_input"]
 [connection signal="mouse_entered" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemUseButton" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_item_use_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Interface/Control/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_item_drop_button_pressed"]
 [connection signal="timeout" from="FootstepTimer" to="FootstepTimer" method="_on_timeout"]
