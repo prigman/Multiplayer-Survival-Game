@@ -86,16 +86,7 @@ func _physics_process(delta : float) -> void:
 	elif _equiped_item_type(equiped_item.ItemType.building):
 		check_place_for_building()
 	
-	elif _equiped_item_type(equiped_item.ItemType.consumable):
-		if !player.is_inventory_open(): # проверка если закрыт инвентарь
-			if Input.is_action_pressed("fire"):
-				if equiped_item.health_value and player.health_value < 100.0:
-					player.health_value += equiped_item.health_value
-					player.signal_update_player_health.emit(player.health_value)
-				elif equiped_item.hunger_value and player.hunger_value < 100.0:
-					player.hunger_value += equiped_item.hunger_value
-					player.signal_update_player_hunger.emit(player.hunger_value)
-				remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
+	
 			
 		
 func _unhandled_input(event : InputEvent) -> void:
@@ -127,6 +118,10 @@ func _unhandled_input(event : InputEvent) -> void:
 				if equiped_item.anim_hit and equiped_item.anim_player_hit:
 					fp_item_animator.play(equiped_item.anim_hit)
 					fp_player_animator.play(equiped_item.anim_player_hit)
+			elif _equiped_item_type(equiped_item.ItemType.consumable): 
+				player._on_inventory_interface_signal_use_item(equiped_slot)
+				remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
+
 		if _equiped_item_type(equiped_item.ItemType.weapon) and fp_item_animator.current_animation != equiped_item.anim_activate and fp_item_animator.current_animation != equiped_item.anim_reload: # если соответствует тип
 			if Input.is_action_just_pressed("reload") and equiped_item.ammo_current != equiped_item.ammo_max and Input.is_action_pressed("right_click") == false:
 				if find_ammo_in_inventories()[0]:

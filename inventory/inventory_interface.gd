@@ -2,6 +2,7 @@ extends Control
 class_name InventoryInterface
 
 signal signal_drop_item(slot_data: InSlotData)
+signal signal_use_item(slot_data: InSlotData)
 signal signal_force_close
 signal signal_item_info_panel_set_data(item_data: ItemData)
 
@@ -107,6 +108,13 @@ func _on_item_drop_button_pressed() -> void:
 	if player.item.equiped_slot == panel_inventory_data.slots_data[panel_index_data]:
 		player.item.remove_active_item(panel_inventory_data, panel_index_data, panel_inventory_data.slots_data[panel_index_data])
 	signal_drop_item.emit(panel_inventory_data.slots_data[panel_index_data])
+	panel_inventory_data._grab_slot_data(panel_index_data)
+	hide_inv_item_panel()
+
+func _on_item_use_button_pressed() -> void:
+	if player.item.equiped_slot == panel_inventory_data.slots_data[panel_index_data]:
+		player.item.remove_active_item(panel_inventory_data, panel_index_data, panel_inventory_data.slots_data[panel_index_data])
+	signal_use_item.emit(panel_inventory_data.slots_data[panel_index_data])
 	panel_inventory_data._grab_slot_data(panel_index_data)
 	hide_inv_item_panel()
 

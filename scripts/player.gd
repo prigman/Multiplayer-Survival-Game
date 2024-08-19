@@ -79,6 +79,7 @@ func _ready() -> void:
 	inventory_interface._set_player_inventory_data(player_inventory)
 	inventory_interface._set_quick_slot_data(player_quick_slot)
 	inventory_interface.signal_drop_item.connect(_on_inventory_interface_signal_drop_item)
+	inventory_interface.signal_use_item.connect(_on_inventory_interface_signal_use_item)
 	inventory_interface.signal_force_close.connect(_toggle_inventory_interface)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.signal_toggle_inventory.connect(_toggle_inventory_interface)
@@ -185,6 +186,20 @@ func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
 	var random_number := RandomNumberGenerator.new().randi_range(1000, 9999)
 	var drop_position := get_drop_position()
 	main_scene.item_spawner.rpc_id(1, 'request_spawn_item', random_number, drop_position, dict_slot_data, dict_item_data, item_data_scene)
+
+func _on_inventory_interface_signal_use_item(slot_data: InSlotData) -> void:
+	#var dict_slot_data := slot_data.serialize_data()
+	#var dict_item_data := slot_data.item.serialize_item_data()
+	#var item_data_scene := slot_data.item.dictionary
+	var item_data := slot_data.item
+	if item_data.health_value and health_value < 100.0:
+		health_value += item_data.health_value
+		signal_update_player_health.emit(health_value)
+	elif item_data.hunger_value and hunger_value < 100.0:
+		hunger_value += item_data.hunger_value
+		signal_update_player_hunger.emit(hunger_value)
+	print("hello")
+
 
 func interact() -> void:
 	if interact_ray.is_colliding():
