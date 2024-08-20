@@ -7,12 +7,12 @@ class_name InSlotData
 var active_slot_data : bool
 
 func _can_stack_with(other_slot_data : InSlotData) -> bool:
-	return item == other_slot_data.item \
+	return item.id == other_slot_data.item.id \
 			and item.stackable \
 			and amount_in_slot < item.max_stack
 
 func _can_fully_stack_with(other_slot_data : InSlotData) -> bool:
-	return item == other_slot_data.item \
+	return item.id == other_slot_data.item.id \
 			and item.stackable \
 			and amount_in_slot + other_slot_data.amount_in_slot <= item.max_stack 
 

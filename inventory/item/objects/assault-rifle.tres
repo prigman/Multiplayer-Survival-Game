@@ -44,6 +44,7 @@ recoil_speed = 1.5
 sight_mesh = ExtResource("10_mlrm8")
 muzzle_mesh = ExtResource("7_7j3ht")
 position = Vector3(-0.025, -0.004, 0.115)
+id = 0
 name = "Assault Rifle"
 description = "Weapon"
 description_item_panel = "The handy short automatic rifle with supressor and sight.

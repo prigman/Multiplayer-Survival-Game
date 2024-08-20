@@ -85,7 +85,7 @@ properties/0/replication_mode = 1
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g0hrd"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
-radius = 0.6
+radius = 0.45
 
 [sub_resource type="Skin" id="Skin_jlae2"]
 resource_name = "Skin"
@@ -461,7 +461,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_g0hrd")
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58794e-09, 1.5, -3.72529e-09)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60345, 0)
 shape = SubResource("SphereShape3D_c1c83")
 target_position = Vector3(0, 0, 0)
 max_results = 1

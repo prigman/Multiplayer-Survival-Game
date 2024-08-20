@@ -53,6 +53,7 @@ recoil_amplitude = Vector3(0.05, 0.2, 0.02)
 lerp_speed = 5.0
 recoil_speed = 1.0
 position = Vector3(0, 0, 0)
+id = 5
 name = "Assault Rifle"
 description = "Weapon"
 description_item_panel = "The handy short automatic rifle with supressor and sight.

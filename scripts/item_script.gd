@@ -594,7 +594,7 @@ func _on_animation_player_axe_animation_finished(anim_name : String) -> void:
 			fp_player_animator.play(equiped_item.anim_player_after_hit)
 			hitscan(melee_cast)
 			
-func create_player_item(item_data: ItemData, amount: int) -> void:
+func create_player_item(item_data: Resource, amount: int) -> void:
 	if not is_multiplayer_authority():
 		return
 	var slot_data := InSlotData.new()

@@ -11,6 +11,7 @@ craft_components = Array[ExtResource("1_i0koj")]([])
 health_value = 25.0
 hunger_value = 0.0
 item_type = 1
+id = 3
 name = "bandage"
 description = ""
 description_item_panel = ""

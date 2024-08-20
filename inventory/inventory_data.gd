@@ -107,3 +107,16 @@ func _pick_up_slot_data(slot_data : InSlotData) -> bool:
 func _on_slot_clicked(index : int, button : int) -> void:
 	signal_inventory_interact.emit(self, index, button)
 
+func _create_new_slot(amount_in_slot : int, item_data : Resource) -> InSlotData:
+	var slot := InSlotData.new()
+	slot.item = item_data
+	slot.amount_in_slot = amount_in_slot
+	return slot
+
+func _set_slot_data(index : int, slot_data : InSlotData) -> bool:
+	if slot_data:
+		slots_data[index] = slot_data
+		signal_inventory_update.emit(self)
+		return true
+	else:
+		return false

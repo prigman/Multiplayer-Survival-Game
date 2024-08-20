@@ -9,6 +9,7 @@ script = ExtResource("2_5j3un")
 health_value = 0.0
 hunger_value = 25.0
 item_type = 1
+id = 4
 name = "Can"
 description = ""
 description_item_panel = ""

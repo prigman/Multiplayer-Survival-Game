@@ -20,6 +20,7 @@ enum WeaponType {
 	machine_gun
 }
 
+@export var id : int
 @export var name: String
 @export_multiline var description: String
 @export_multiline var description_item_panel: String

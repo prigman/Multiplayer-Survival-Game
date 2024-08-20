@@ -8,12 +8,6 @@
 [ext_resource type="Resource" uid="uid://ds240tmx01ajl" path="res://inventory/item/objects/canned.tres" id="6_ap2wi"]
 [ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://inventory/item/objects/pine-wood-crate.tres" id="7_14h70"]
 
-[sub_resource type="Resource" id="Resource_fcj01"]
-resource_local_to_scene = true
-script = ExtResource("3_vrley")
-item = ExtResource("2_qt7ap")
-amount_in_slot = 1
-
 [sub_resource type="Resource" id="Resource_tyily"]
 resource_local_to_scene = true
 script = ExtResource("3_vrley")
@@ -46,13 +40,17 @@ script = ExtResource("3_vrley")
 item = ExtResource("6_ap2wi")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_sh6te"]
+script = ExtResource("3_vrley")
+item = ExtResource("2_qt7ap")
+amount_in_slot = 1
+
 [sub_resource type="Resource" id="Resource_vi0aa"]
 script = ExtResource("3_vrley")
 item = ExtResource("7_14h70")
 amount_in_slot = 1
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_n2del")
 type = 0
-slots_data = Array[ExtResource("3_vrley")]([SubResource("Resource_fcj01"), SubResource("Resource_tyily"), SubResource("Resource_21pvt"), SubResource("Resource_hrx7v"), SubResource("Resource_qyvbc"), SubResource("Resource_4iow3"), SubResource("Resource_h721y"), null, null, null, null, null, null, null, null, null, null, SubResource("Resource_vi0aa")])
+slots_data = Array[ExtResource("3_vrley")]([null, SubResource("Resource_tyily"), SubResource("Resource_21pvt"), SubResource("Resource_hrx7v"), SubResource("Resource_qyvbc"), SubResource("Resource_4iow3"), SubResource("Resource_h721y"), null, null, null, null, null, SubResource("Resource_sh6te"), null, null, null, null, SubResource("Resource_vi0aa")])

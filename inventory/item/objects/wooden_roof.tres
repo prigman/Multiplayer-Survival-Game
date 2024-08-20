@@ -10,6 +10,7 @@ script = ExtResource("1_7rd4d")
 item_type = 5
 building_type = 2
 craft_components = Array[ExtResource("1_vcgbl")]([])
+id = 13
 name = "Wooden Roof"
 description = "Сonstruction part"
 description_item_panel = "Сonstruction part"

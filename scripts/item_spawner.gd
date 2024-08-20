@@ -24,11 +24,12 @@ func custom_spawn(data : Array) -> Node:
 	inventory_item.position = pos
 	inventory_item.network_id = id
 	inventory_item.slot_data.amount_in_slot = slot_data_as_dict["amount_in_slot"]
-	inventory_item.slot_data.item.quality = item_data_as_dict["quality"]
-	if inventory_item.slot_data.item is ItemDataCraftableWeapon or inventory_item.slot_data.item is ItemDataWeapon or inventory_item.slot_data.item is ItemDataCraftableTools or inventory_item.slot_data.item is ItemDataTools:
-		inventory_item.slot_data.item.damage = item_data_as_dict["damage"]
-	if inventory_item.slot_data.item is ItemDataWeapon or inventory_item.slot_data.item is ItemDataCraftableWeapon:
-		inventory_item.slot_data.item.ammo_current = item_data_as_dict["ammo_current"]
+	# inventory_item.slot_data.item.quality = item_data_as_dict["quality"]
+	# if inventory_item.slot_data.item is ItemDataCraftableWeapon or inventory_item.slot_data.item is ItemDataWeapon or inventory_item.slot_data.item is ItemDataCraftableTools or inventory_item.slot_data.item is ItemDataTools:
+	# 	inventory_item.slot_data.item.damage = item_data_as_dict["damage"]
+	# if inventory_item.slot_data.item is ItemDataWeapon or inventory_item.slot_data.item is ItemDataCraftableWeapon:
+	# 	inventory_item.slot_data.item.ammo_current = item_data_as_dict["ammo_current"]
+	AllGameInventoryItems.set_new_item_data_information(inventory_item.slot_data.item, item_data_as_dict)
 	return inventory_item
 
 func spawn_inventory_item(id: int, spawn_position : Vector3, slot_data_as_dict : Dictionary, item_data_as_dict : Dictionary, item_data_scene_path : Dictionary) -> void:

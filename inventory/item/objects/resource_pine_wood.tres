@@ -7,6 +7,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_00r6d")
 item_type = 3
+id = 10
 name = "Pine Wood"
 description = "Crafting resource"
 description_item_panel = "Crafting resource"

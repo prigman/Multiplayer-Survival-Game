@@ -1,19 +1,12 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=15 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=13 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
-[ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://inventory/item/objects/pickaxe.tres" id="2_g34mc"]
 [ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://inventory/item/objects/m4_rifle.tres" id="4_g7ewx"]
 [ext_resource type="Resource" uid="uid://d16s5vsgm2o6t" path="res://inventory/item/objects/axe.tres" id="5_p17sb"]
 [ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://inventory/item/objects/wooden_floor.tres" id="8_mv40l"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="8_qw5vx"]
 [ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://inventory/item/objects/wooden_roof.tres" id="9_5u2b2"]
 [ext_resource type="Resource" uid="uid://do1v63m4lpun7" path="res://inventory/item/objects/wooden_wall.tres" id="10_kjisi"]
-
-[sub_resource type="Resource" id="Resource_6y7m6"]
-resource_local_to_scene = true
-script = ExtResource("8_qw5vx")
-item = ExtResource("2_g34mc")
-amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_1rlk4"]
 script = ExtResource("8_qw5vx")
@@ -41,7 +34,6 @@ item = ExtResource("5_p17sb")
 amount_in_slot = 1
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_ab8t5")
 type = 1
-slots_data = Array[ExtResource("8_qw5vx")]([SubResource("Resource_6y7m6"), SubResource("Resource_1rlk4"), SubResource("Resource_lq44m"), SubResource("Resource_jxxtv"), SubResource("Resource_3egev"), SubResource("Resource_lid3v")])
+slots_data = Array[ExtResource("8_qw5vx")]([null, SubResource("Resource_1rlk4"), SubResource("Resource_lq44m"), SubResource("Resource_jxxtv"), SubResource("Resource_3egev"), SubResource("Resource_lid3v")])
