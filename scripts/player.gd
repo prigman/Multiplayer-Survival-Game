@@ -35,7 +35,7 @@ var idle_hunger_rate: float = 0.1
 
 @export var sound_footstep_pool : SoundPool
 @export var hunger_value: float = 50.0
-@export var health_value: float = 50.0
+@export var health_value: float = 10.0
 
 @export var footstep_timer : Timer
 
@@ -114,9 +114,17 @@ func decrease_hunger_value(delta: float) -> void:
 	hunger_value = max(hunger_value, 0.0)
 	signal_update_player_hunger.emit(hunger_value)
 
+	if hunger_value == 0.0:
+		died_process(0.5*delta)
+	elif hunger_value > 95:
+		health_value+=0.5*delta
+		signal_update_player_health.emit(health_value)
+		
+
+
 
 @rpc("any_peer","reliable","call_local")
-func died_process(damage:int)-> void:
+func died_process(damage:float)-> void:
 	if not is_multiplayer_authority():
 		return
 	health_value -= damage
@@ -202,12 +210,13 @@ func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
 
 func _on_inventory_interface_signal_use_item(slot_data: InSlotData) -> void:
 	var item_data := slot_data.item
-	if item_data.health_value and health_value < 100.0:
-		health_value += item_data.health_value
+	if item_data.health_value > 0 and health_value < 100.0:
+		health_value = min(health_value + item_data.health_value, 100.0)
 		signal_update_player_health.emit(health_value)
-	elif item_data.hunger_value and hunger_value < 100.0:
-		hunger_value += item_data.hunger_value
+	if item_data.hunger_value > 0 and hunger_value < 100.0:
+		hunger_value = min(hunger_value + item_data.hunger_value, 100.0)
 		signal_update_player_hunger.emit(hunger_value)
+
 	
 
 
