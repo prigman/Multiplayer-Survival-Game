@@ -120,3 +120,22 @@ func _set_slot_data(index : int, slot_data : InSlotData) -> bool:
 		return true
 	else:
 		return false
+
+func serialize_inventory_data() -> Dictionary:
+	var serialized_data := {}
+	serialized_data["type"] = type
+	
+	for i : int in range(slots_data.size()):
+		if not slots_data[i] or not slots_data[i].item: continue
+		var slot_key := "slot_data_" + str(i)
+		
+		var slot_data_dict := {}
+		
+		slot_data_dict["slot_id"] = i
+		slot_data_dict["item_id_in_slot"] = slots_data[i].item.id
+		if slots_data[i].item.has_method("serialize_item_data"):
+			slot_data_dict["item_serialized_data"] = slots_data[i].item.serialize_item_data()
+		slot_data_dict["amount_in_slot"] = slots_data[i].amount_in_slot
+		serialized_data[slot_key] = slot_data_dict
+	
+	return serialized_data

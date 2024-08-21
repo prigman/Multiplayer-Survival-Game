@@ -84,11 +84,11 @@ func _on_craft_button_pressed(slot_data: InSlotData) -> void:
 		var found_amount := 0
 	# Проверяем инвентарь игрока на наличие необходимого компонента
 		for slot in player_inventory_slots:
-			if slot and slot.item == craft_item.component:
+			if slot and slot.item.id == craft_item.component.id:
 				found_amount += slot.amount_in_slot
 		# Проверяем быстрые слоты игрока на наличие необходимого компонента
 		for slot in player_quick_slots:
-			if slot and slot.item == craft_item.component:
+			if slot and slot.item.id == craft_item.component.id:
 				found_amount += slot.amount_in_slot
 		# Если игрок не имеет достаточное количество компонента для крафта
 		if found_amount < required_amount:
@@ -102,7 +102,7 @@ func _on_craft_button_pressed(slot_data: InSlotData) -> void:
 			var remaining_amount := required_amount
 			# Уменьшаем количество компонентов в инвентаре
 			for slot in player_inventory_slots:
-				if slot and slot.item == craft_item.component:
+				if slot and slot.item.id == craft_item.component.id:
 					if slot.amount_in_slot <= remaining_amount:
 						remaining_amount -= slot.amount_in_slot
 						slot.amount_in_slot = 0
@@ -113,7 +113,7 @@ func _on_craft_button_pressed(slot_data: InSlotData) -> void:
 						break
 			# Уменьшаем количество компонентов в быстрых слотах
 			for slot in player_quick_slots:
-				if slot and slot.item == craft_item.component:
+				if slot and slot.item.id == craft_item.component.id:
 					if slot.amount_in_slot <= remaining_amount:
 						remaining_amount -= slot.amount_in_slot
 						slot.amount_in_slot = 0
@@ -122,6 +122,8 @@ func _on_craft_button_pressed(slot_data: InSlotData) -> void:
 						remaining_amount = 0
 					if remaining_amount == 0:
 						break
+		player.player_inventory._update_inventory()
+		player.player_quick_slot._update_inventory()
 		player.give_item(slot_data.duplicate(true))
 	else:
 		print("Not enough components for crafting.")

@@ -217,9 +217,6 @@ func _on_inventory_interface_signal_use_item(slot_data: InSlotData) -> void:
 		hunger_value = min(hunger_value + item_data.hunger_value, 100.0)
 		signal_update_player_hunger.emit(hunger_value)
 
-	
-
-
 func interact() -> void:
 	if interact_ray.is_colliding():
 		var collider : Object = interact_ray.get_collider()

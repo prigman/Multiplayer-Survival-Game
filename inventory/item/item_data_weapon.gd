@@ -38,8 +38,7 @@ func serialize_item_data() -> Dictionary:
 		"ammo_current": ammo_current
 	}
 
-static func deserialize_item_data(data: Dictionary) -> ItemDataWeapon:
-	var item_data := ItemDataWeapon.new()
-	item_data.quality = data["quality"]
-	item_data.damage = data["damage"]
-	return item_data
+func deserialize_item_data(data: Dictionary) -> void:
+	quality = data["quality"]
+	damage = data["damage"]
+	ammo_current = data["ammo_current"]

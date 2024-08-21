@@ -58,9 +58,9 @@ static func load_item_data_by_id(id : int) -> Resource:
 		_:
 			return DEFAULT_OBJECT
 
-static func set_new_item_data_information(item_data : Resource, dict_item_data : Dictionary) -> void:
-	item_data.quality = dict_item_data["quality"]
-	if item_data is ItemDataCraftableWeapon or item_data is ItemDataWeapon or item_data is ItemDataCraftableTools or item_data is ItemDataTools:
-		item_data.damage = dict_item_data["damage"]
-	if item_data is ItemDataWeapon or item_data is ItemDataCraftableWeapon:
-		item_data.ammo_current = dict_item_data["ammo_current"]
+# static func set_new_item_data_information(item_data : Resource, dict_item_data : Dictionary) -> void:
+# 	item_data.quality = dict_item_data["quality"]
+# 	if item_data is ItemDataCraftableWeapon or item_data is ItemDataWeapon or item_data is ItemDataCraftableTools or item_data is ItemDataTools:
+# 		item_data.damage = dict_item_data["damage"]
+# 	if item_data is ItemDataWeapon or item_data is ItemDataCraftableWeapon:
+# 		item_data.ammo_current = dict_item_data["ammo_current"]
