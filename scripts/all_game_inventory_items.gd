@@ -55,6 +55,7 @@ static func load_item_data_by_id(id : int) -> Resource:
 			return CAN_SMALL
 		16:
 			return SODA_CAN
+		
 		_:
 			return DEFAULT_OBJECT
 
