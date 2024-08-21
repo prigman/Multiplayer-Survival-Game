@@ -17,7 +17,7 @@ const WOODEN_ROOF = preload("res://inventory/item/objects/wooden_roof.tres")
 const WOODEN_WALL = preload("res://inventory/item/objects/wooden_wall.tres")
 const CAN_SMALL = preload("res://inventory/item/objects/can_small.tres")
 const SODA_CAN = preload("res://inventory/item/objects/soda_can.tres")
-const MEDKIT = preload("res://inventory/item/objects/medkit.tres")
+
 
 static func load_item_data_by_id(id : int) -> Resource:
 	match id:
@@ -55,8 +55,7 @@ static func load_item_data_by_id(id : int) -> Resource:
 			return CAN_SMALL
 		16:
 			return SODA_CAN
-		17:
-			return MEDKIT
+		
 		_:
 			return DEFAULT_OBJECT
 
