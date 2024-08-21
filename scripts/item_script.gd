@@ -397,16 +397,28 @@ func hitscan(raycast: RayCast3D) -> void:
 			if raycast == melee_cast and equiped_item.ItemType.tool:
 				if target.is_in_group("world_resource"):
 					if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):
-						target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
+						# target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
+						# target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
+						rpc("RPC_hit_world_resource", target.name, randf_range(equiped_item.damage, equiped_item.damage * 2))
 						create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2, 6))
 					if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
-						target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
+						# target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
+						# target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
+						rpc("RPC_hit_world_resource", target.name, randf_range(equiped_item.damage, equiped_item.damage * 2))
 						create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
 				if target.is_in_group("enemy_group"):
 					target.health -= equiped_item.damage
 		else:
 			player.main_scene.call_deferred("add_child", decal)
 		call_deferred("shoot_decal_instance", ray_end_point, decal, raycast)
+
+@rpc("any_peer", "call_local", "reliable")
+func RPC_hit_world_resource(target_name : String, hit_value : float) -> void:
+	if not multiplayer.is_server(): return
+	for node in get_tree().get_nodes_in_group("world_resource"):
+		if node and node.name == target_name:
+			node.world_resource_hit.emit(hit_value)
+
 
 func shoot_decal_instance(ray_end_point : Vector3, decal : Node, raycast : RayCast3D) -> void:
 	decal.global_transform.origin = ray_end_point

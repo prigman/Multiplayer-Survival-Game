@@ -1,7 +1,7 @@
 extends MultiplayerSpawner
 
-const STONE_SCENE = preload('res://scenes/interactable/pickup/stone_resource_rb.tscn')
-const STONE_RESOURCE = preload('res://inventory/item/objects/resource_stone.tres')
+const STONE_SCENE := preload('res://scenes/interactable/pickup/stone_resource_rb.tscn')
+const STONE_RESOURCE := preload('res://inventory/item/objects/resource_stone.tres')
 
 @export var node_position : Node3D
 

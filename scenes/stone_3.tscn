@@ -10,13 +10,28 @@ points = PackedVector3Array(-0.205014, 0.311315, -0.735345, -0.30944, 0.777407, 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7dy54"]
 radius = 20.0
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8141l"]
-properties/0/path = NodePath(".:health")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_swfnw"]
+properties/0/path = NodePath("MeshInstance3D:visible")
 properties/0/spawn = true
 properties/0/replication_mode = 2
-properties/1/path = NodePath("MeshInstance3D:visible")
+properties/1/path = NodePath("CollisionShape3D:disabled")
 properties/1/spawn = true
 properties/1/replication_mode = 2
+properties/2/path = NodePath("ShapeCast3D:enabled")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("ShapeCast3D:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:health")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:position")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:rotation")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [node name="Stone_3" type="StaticBody3D" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"]]
 collision_layer = 128
@@ -27,6 +42,7 @@ zone = NodePath("ShapeCast3D")
 mesh = NodePath("MeshInstance3D")
 collision = NodePath("CollisionShape3D")
 start_health = 100.0
+world_resource_type = 3
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visibility_range_end = 200.0
@@ -42,14 +58,14 @@ enabled = false
 shape = SubResource("SphereShape3D_7dy54")
 target_position = Vector3(0, 0, 0)
 max_results = 1
-collision_mask = 94
+collision_mask = 274
 collide_with_areas = true
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 4.0
-one_shot = true
+wait_time = 10.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_8141l")
+replication_config = SubResource("SceneReplicationConfig_swfnw")
 
+[connection signal="world_resource_hit" from="." to="." method="_on_world_resource_hit"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
