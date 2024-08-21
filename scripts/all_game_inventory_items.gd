@@ -58,6 +58,8 @@ static func load_item_data_by_id(id : int) -> Resource:
 			return SODA_CAN
 		17:
 			return MEDKIT
+		17:
+			return MEDKIT
 		_:
 			return DEFAULT_OBJECT
 
