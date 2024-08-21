@@ -16,6 +16,7 @@ script = ExtResource("1_epkxx")
 item_type = 5
 building_type = 3
 craft_components = Array[ExtResource("2_xbifh")]([SubResource("Resource_or310")])
+id = 7
 name = "Wooden Crate"
 description = "Pine wood crate"
 description_item_panel = "Pine wood crate"
@@ -24,5 +25,5 @@ max_stack = 0
 quality = 100.0
 icon = ExtResource("3_aqlbk")
 dictionary = {
-"static_scene": "res://scenes/interactable/pine-wood-crate_staticbody.tscn"
+"scene_path": "res://scenes/interactable/pine-wood-crate_staticbody.tscn"
 }

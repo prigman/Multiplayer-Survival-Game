@@ -11,3 +11,5 @@ const FALSE_MATERIAL = preload('res://materials/building_material_false.tres')
 @export var collision_shape : CollisionShape3D
 @export var mesh_node : MeshInstance3D
 @export var building_collision : Area3D
+
+var is_able_to_build : bool

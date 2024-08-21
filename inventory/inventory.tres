@@ -1,10 +1,15 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=12 format=3 uid="uid://w5yuvrpdvx3k"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=22 format=3 uid="uid://w5yuvrpdvx3k"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_n2del"]
 [ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://inventory/item/objects/pickaxe.tres" id="2_qt7ap"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_vrley"]
 [ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo_ar.tres" id="4_vs5i5"]
 [ext_resource type="Resource" uid="uid://dxxl4fdb2osqr" path="res://inventory/item/objects/bandage.tres" id="5_pybw6"]
+[ext_resource type="Resource" uid="uid://ds240tmx01ajl" path="res://inventory/item/objects/can.tres" id="6_0y1b7"]
+[ext_resource type="Resource" uid="uid://dy8c3wxtbrndj" path="res://inventory/item/objects/medkit.tres" id="7_4jf6d"]
+[ext_resource type="Resource" uid="uid://iqyranngmbcn" path="res://inventory/item/objects/can_small.tres" id="7_6y5tk"]
+[ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://inventory/item/objects/pine-wood-crate.tres" id="7_14h70"]
+[ext_resource type="Resource" uid="uid://c5a41xld26kv3" path="res://inventory/item/objects/soda_can.tres" id="8_wdch3"]
 
 [sub_resource type="Resource" id="Resource_fcj01"]
 resource_local_to_scene = true
@@ -39,8 +44,32 @@ script = ExtResource("3_vrley")
 item = ExtResource("4_vs5i5")
 amount_in_slot = 500
 
+[sub_resource type="Resource" id="Resource_h721y"]
+script = ExtResource("3_vrley")
+item = ExtResource("6_0y1b7")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_yydr5"]
+script = ExtResource("3_vrley")
+item = ExtResource("7_4jf6d")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_krt6n"]
+script = ExtResource("3_vrley")
+item = ExtResource("8_wdch3")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_x5ih5"]
+script = ExtResource("3_vrley")
+item = ExtResource("7_6y5tk")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_vi0aa"]
+script = ExtResource("3_vrley")
+item = ExtResource("7_14h70")
+amount_in_slot = 1
+
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_n2del")
 type = 0
-slots_data = Array[ExtResource("3_vrley")]([SubResource("Resource_fcj01"), SubResource("Resource_tyily"), SubResource("Resource_21pvt"), SubResource("Resource_hrx7v"), SubResource("Resource_qyvbc"), SubResource("Resource_4iow3"), null, null, null, null, null, null, null, null, null, null, null, null])
+slots_data = Array[ExtResource("3_vrley")]([SubResource("Resource_fcj01"), SubResource("Resource_tyily"), SubResource("Resource_21pvt"), SubResource("Resource_hrx7v"), SubResource("Resource_qyvbc"), SubResource("Resource_4iow3"), SubResource("Resource_h721y"), SubResource("Resource_yydr5"), SubResource("Resource_krt6n"), SubResource("Resource_x5ih5"), null, null, null, null, null, null, null, SubResource("Resource_vi0aa")])

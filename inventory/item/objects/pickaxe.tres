@@ -29,6 +29,7 @@ anim_player_activate = "Pickaxe_Player_Anims/Pickaxe_Player_Equip"
 anim_player_hit = "Pickaxe_Player_Anims/Pickaxe_Player_Hit"
 anim_player_after_hit = "Pickaxe_Player_Anims/Pickaxe_Player_After_Hit"
 damage = 15
+id = 6
 name = "Pickaxe"
 description = "Pickaxe"
 description_item_panel = "Pickaxe"

@@ -4,7 +4,7 @@ extends Node
 @onready var level := %Level
 @onready var startup_ui := %StartupUI
 
-func _ready():
+func _ready() -> void:
 	Server.signal_start_game.emit(change_level)
 
 func change_level(scene: PackedScene) -> void:

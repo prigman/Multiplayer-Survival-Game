@@ -11,8 +11,9 @@ script = ExtResource("8_jr624")
 item = ExtResource("2_685im")
 amount_in_slot = 1
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_d58p0"]
-size = Vector3(1.415, 1.34, 0.225)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bsx4e"]
+radius = 0.215
+height = 1.5371
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hasj8"]
 properties/0/path = NodePath(".:position")
@@ -22,7 +23,7 @@ properties/0/replication_mode = 2
 [node name="Pickaxe" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 collision_layer = 4
-collision_mask = 6281
+collision_mask = 6601
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
@@ -36,8 +37,8 @@ mesh = ExtResource("1_e3ayi")
 surface_material_override/0 = ExtResource("9_52gya")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0.0346748, 1.6463e-08)
-shape = SubResource("BoxShape3D_d58p0")
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0.0346748, 0.00985168)
+shape = SubResource("CapsuleShape3D_bsx4e")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_hasj8")

@@ -1,10 +1,10 @@
 class_name WalkingState
 extends PlayerMovementState
 
-var speed_state
-var walking_state = 5.0
+var speed_state : float
+var walking_state := 5.0
 	
-func physics_update(delta):
+func physics_update(delta : float) -> void:
 	player.update_gravity(delta)
 	if player.item.Scoped:
 		speed_state = walking_state / 2

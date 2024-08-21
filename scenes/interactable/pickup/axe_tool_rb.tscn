@@ -11,8 +11,9 @@ script = ExtResource("3_jx5nu")
 item = ExtResource("2_5tgsn")
 amount_in_slot = 1
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ar43c"]
-size = Vector3(0.695, 0.225, 1.365)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nh57v"]
+radius = 0.2
+height = 1.64997
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_70ohd"]
 properties/0/path = NodePath(".:position")
@@ -21,7 +22,7 @@ properties/0/replication_mode = 2
 
 [node name="Axe" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
 collision_layer = 4
-collision_mask = 6281
+collision_mask = 6601
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
@@ -36,8 +37,8 @@ skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("5_qvo0i")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0.0906025, 0, 0)
-shape = SubResource("BoxShape3D_ar43c")
+transform = Transform3D(0.55, 0, 0, 0, -2.40413e-08, 0.55, 0, -0.55, -2.40413e-08, -0.00685126, 0.0369708, 0)
+shape = SubResource("CapsuleShape3D_nh57v")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_70ohd")

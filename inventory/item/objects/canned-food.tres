@@ -6,8 +6,10 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_ifj7l")
+health_value = 0.0
 hunger_value = 15
 item_type = 1
+id = 0
 name = "Canned food"
 description = "Food"
 description_item_panel = "Canned food"

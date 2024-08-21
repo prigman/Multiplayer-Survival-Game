@@ -28,9 +28,14 @@ var main_scene : Node3D
 
 var is_player_loading := true
 
+var sprint_hunger_rate: float = 0.5
+var walk_hunger_rate: float = 0.2
+var idle_hunger_rate: float = 0.1
+@export var state_machine : StateMachine
+
 @export var sound_footstep_pool : SoundPool
-@export var hunger_value: float = 100.0
-@export var health_value: float = 50.0
+@export var hunger_value: float = 50.0
+@export var health_value: float = 10.0
 
 @export var footstep_timer : Timer
 
@@ -72,16 +77,18 @@ func _ready() -> void:
 	if not is_multiplayer_authority():
 		mesh.show()
 		label_3d.show()
-		label_3d.text = name
 		return
+	label_3d.text = name
 	canvas_layer.show()
 	signal_toggle_inventory.connect(_toggle_inventory_interface)
 	inventory_interface._set_player_inventory_data(player_inventory)
 	inventory_interface._set_quick_slot_data(player_quick_slot)
 	inventory_interface.signal_drop_item.connect(_on_inventory_interface_signal_drop_item)
+	inventory_interface.signal_use_item.connect(_on_inventory_interface_signal_use_item)
 	inventory_interface.signal_force_close.connect(_toggle_inventory_interface)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
-		node.signal_toggle_inventory.connect(_toggle_inventory_interface)
+		if node:
+			node.signal_toggle_inventory.connect(_toggle_inventory_interface)
 	def_weapon_holder_pos = weapon_holder.position
 	spherecast.add_exception($".")
 	signal_update_player_stats.emit(health_value, hunger_value)
@@ -89,8 +96,9 @@ func _ready() -> void:
 	await get_tree().create_timer(3.0).timeout
 	is_player_loading = false
 
-func _process(delta) -> void:
-	var velocity_string = "%.2f" % velocity.length()
+func _process(delta : float) -> void:
+	decrease_hunger_value(delta)
+	var velocity_string := "%.2f" % velocity.length()
 	debug_ui.add_property("velocity", velocity_string, + 1)
 	if not is_player_loading and item.equiped_item_node:
 		weapon_tilt(input_sync.input_direction.x, delta)
@@ -99,8 +107,24 @@ func _process(delta) -> void:
 	# if (position.y <= -50.0):
 	# 	get_tree().reload_current_scene()
 
+func decrease_hunger_value(delta: float) -> void:
+	if state_machine.is_current_state("Sprint"): hunger_value -= sprint_hunger_rate * delta
+	elif state_machine.is_current_state("Idle"): hunger_value -= idle_hunger_rate * delta
+	else:hunger_value -= walk_hunger_rate * delta
+	hunger_value = max(hunger_value, 0.0)
+	signal_update_player_hunger.emit(hunger_value)
+
+	if hunger_value == 0.0:
+		died_process(0.5*delta)
+	elif hunger_value > 95:
+		health_value+=0.5*delta
+		signal_update_player_health.emit(health_value)
+		
+
+
+
 @rpc("any_peer","reliable","call_local")
-func died_process(damage:int)-> void:
+func died_process(damage:float)-> void:
 	if not is_multiplayer_authority():
 		return
 	health_value -= damage
@@ -110,10 +134,7 @@ func died_process(damage:int)-> void:
 		print("Died player ",peer_id)
 		main_scene.rpc('delete_player_rpc',peer_id)
 
-
-func _toggle_inventory_interface(external_inventory_owner=null) -> void:
-	if not is_multiplayer_authority():
-		return
+func _toggle_inventory_interface(external_inventory_owner : ExternalInventory = null) -> void:
 	inventory_interface.visible = not inventory_interface.visible
 	if inventory_interface.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -132,13 +153,13 @@ func _toggle_inventory_interface(external_inventory_owner=null) -> void:
 
 # ------------ Player states
 
-func update_gravity(delta) -> void:
+func update_gravity(delta : float) -> void:
 	if not is_multiplayer_authority():
 		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
-func update_input(speed, acceleration, decceleration) -> void:
+func update_input(speed : float, acceleration : float, decceleration : float) -> void:
 	if not is_multiplayer_authority():
 		return
 	direction = transform.basis * Vector3(input_sync.input_direction.x, 0, input_sync.input_direction.y).normalized()
@@ -152,9 +173,9 @@ func update_input(speed, acceleration, decceleration) -> void:
 	if is_on_floor():
 		play_footsteps_sound()
 
-func play_footsteps_sound():
-	var current_position_x = global_transform.origin.x
-	var current_position_z = global_transform.origin.z
+func play_footsteps_sound() -> void:
+	var current_position_x := global_transform.origin.x
+	var current_position_z := global_transform.origin.z
 
 	distance_travelled_x += abs(current_position_x - last_position_x)
 	distance_travelled_z += abs(current_position_z - last_position_z)
@@ -163,9 +184,13 @@ func play_footsteps_sound():
 	last_position_z = current_position_z
 
 	if distance_travelled_x >= 1.5 or distance_travelled_z >= 1.5:
-		sound_footstep_pool.play_random_sound()
+		rpc("RPC_play_footsteps_sound")
 		distance_travelled_x = 0.0
 		distance_travelled_z = 0.0
+
+@rpc("any_peer", "unreliable", "call_local")
+func RPC_play_footsteps_sound() -> void:
+	sound_footstep_pool.play_random_sound()
 
 func update_velocity() -> void:
 	if not is_multiplayer_authority():
@@ -175,12 +200,22 @@ func update_velocity() -> void:
 # ------------ Inventory items interaction
 
 func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
+	var item_data_scene := slot_data.item.dictionary
+	if not item_data_scene.has('dropped_item'): return
 	var dict_slot_data := slot_data.serialize_data()
 	var dict_item_data := slot_data.item.serialize_item_data()
-	var item_data_scene := slot_data.item.dictionary
 	var random_number := RandomNumberGenerator.new().randi_range(1000, 9999)
 	var drop_position := get_drop_position()
 	main_scene.item_spawner.rpc_id(1, 'request_spawn_item', random_number, drop_position, dict_slot_data, dict_item_data, item_data_scene)
+
+func _on_inventory_interface_signal_use_item(slot_data: InSlotData) -> void:
+	var item_data := slot_data.item
+	if item_data.health_value > 0 and health_value < 100.0:
+		health_value = min(health_value + item_data.health_value, 100.0)
+		signal_update_player_health.emit(health_value)
+	if item_data.hunger_value > 0 and hunger_value < 100.0:
+		hunger_value = min(hunger_value + item_data.hunger_value, 100.0)
+		signal_update_player_hunger.emit(hunger_value)
 
 func interact() -> void:
 	if interact_ray.is_colliding():
@@ -199,20 +234,20 @@ func delete_item(inventory_item_interacted_path : NodePath) -> void:
 	inventory_item_interacted.queue_free()
 
 func get_drop_position() -> Vector3:
-	var drop_direction = -camera.global_transform.basis.z
+	var drop_direction : Vector3 = -camera.global_transform.basis.z
 	return camera.global_position + drop_direction
 
 #-Camera and weapon tilt
-func weapon_tilt(input_x, delta) -> void:
+func weapon_tilt(input_x : float, delta : float) -> void:
 	if weapon_holder:
 		weapon_holder.rotation.z = lerp(weapon_holder.rotation.z, -input_x * weapon_rotation_amount * 10, 10 * delta)
 
-func weapon_sway(delta) -> void:
+func weapon_sway(delta : float) -> void:
 	input_sync.mouse_input = lerp(input_sync.mouse_input, Vector2.ZERO, 10 * delta)
 	weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, input_sync.mouse_input.y * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
 	weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, input_sync.mouse_input.x * weapon_rotation_amount * ( - 1 if invert_weapon_sway else 1), 10 * delta)
 	
-func weapon_bob(vel: float, delta) -> void:
+func weapon_bob(vel: float, delta : float) -> void:
 	if weapon_holder:
 		if vel > 0 and is_on_floor() and !item.Scoped:
 			var bob_amount: float = 0.01
@@ -227,18 +262,6 @@ func weapon_bob(vel: float, delta) -> void:
 	
 func is_inventory_open() -> bool:
 	return inventory_interface.visible
-	
-func get_inventory_slots() -> Array[InSlotData]:
-	if !player_inventory:
-		push_error("Set player_inventory in Player node")
-		return []
-	return player_inventory.slots_data
-
-func get_quick_slots() -> Array[InSlotData]:
-	if !player_quick_slot:
-		push_error("Set player_quick_slot in Player node")
-		return []
-	return player_quick_slot.slots_data
 	
 func give_item(slot_data: InSlotData) -> bool:
 	if !player_inventory._pick_up_slot_data(slot_data) \

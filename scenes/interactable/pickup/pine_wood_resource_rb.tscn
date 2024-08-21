@@ -11,9 +11,9 @@ script = ExtResource("3_1gwx6")
 item = ExtResource("2_nwvek")
 amount_in_slot = 1
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_l185i"]
-height = 1.0
-radius = 0.18
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yaeps"]
+radius = 0.21
+height = 1.205
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2kxj4"]
 properties/0/path = NodePath(".:position")
@@ -22,7 +22,7 @@ properties/0/replication_mode = 2
 
 [node name="Resource-Wood" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
 collision_layer = 4
-collision_mask = 6281
+collision_mask = 6601
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
@@ -37,7 +37,7 @@ surface_material_override/0 = ExtResource("5_jajv5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.175046, 0)
-shape = SubResource("CylinderShape3D_l185i")
+shape = SubResource("CapsuleShape3D_yaeps")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_2kxj4")

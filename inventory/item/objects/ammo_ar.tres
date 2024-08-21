@@ -8,6 +8,7 @@ resource_local_to_scene = true
 script = ExtResource("1_l2fm4")
 item_type = 6
 weapon_type = 0
+id = 1
 name = "5.45 Ammo"
 description = ""
 description_item_panel = "

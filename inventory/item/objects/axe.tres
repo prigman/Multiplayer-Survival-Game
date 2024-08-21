@@ -29,6 +29,7 @@ anim_player_activate = "Axe_Player_Anims/Pickaxe_Player_Equip"
 anim_player_hit = "Axe_Player_Anims/Axe_Player_Hit"
 anim_player_after_hit = "Axe_Player_Anims/Axe_Player_After_Hit"
 damage = 21
+id = 2
 name = "Axe"
 description = "Axe"
 description_item_panel = "Axe"

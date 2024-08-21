@@ -2,11 +2,12 @@ extends Control
 class_name InventoryInterface
 
 signal signal_drop_item(slot_data: InSlotData)
+signal signal_use_item(slot_data: InSlotData)
 signal signal_force_close
 signal signal_item_info_panel_set_data(item_data: ItemData)
 
 #- set inventory
-var external_inventory_owner
+var external_inventory_owner : ExternalInventory
 
 #- _on_inventory_interact
 var grabbed_slot_data: InSlotData
@@ -22,7 +23,7 @@ var last_clicked_slot_data: InSlotData
 @onready var external_inventory := %ExternalInventory
 @onready var inv_item_info_panel := %InvItemInfoPanel
 
-func _physics_process(_delta) -> void:
+func _physics_process(_delta : float) -> void:
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
 	
@@ -41,9 +42,9 @@ func _set_quick_slot_data(inventory_data: InventoryData) -> void:
 	#inventory_data.signal_slot_mouse_right_clicked.connect(player_quick_slot._on_item_panel_visibility_changed)
 	player_quick_slot._set_inventory_data(inventory_data)
 
-func _set_external_inventory(inventory_owner) -> void:
+func _set_external_inventory(inventory_owner : ExternalInventory) -> void:
 	external_inventory_owner = inventory_owner
-	var inventory_data = external_inventory_owner.inventory_data
+	var inventory_data : InventoryData = external_inventory_owner.inventory_data
 	inventory_data.signal_inventory_interact.connect(_on_inventory_interact)
 	#inventory_data.signal_slot_mouse_right_clicked.connect(external_inventory._on_item_panel_visibility_changed)
 	external_inventory._set_inventory_data(inventory_data)
@@ -51,7 +52,7 @@ func _set_external_inventory(inventory_owner) -> void:
 	
 func _clear_external_inventory() -> void:
 	if external_inventory_owner:
-		var inventory_data = external_inventory_owner.inventory_data
+		var inventory_data : InventoryData = external_inventory_owner.inventory_data
 		inventory_data.signal_inventory_interact.disconnect(_on_inventory_interact)
 		external_inventory._clear_inventory_data(inventory_data)
 		external_inventory.hide()
@@ -61,10 +62,20 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 	#print("START %s %s %s" % [inventory_data, index, button])
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]:
-			if inv_item_info_panel.visible:
-				hide_inv_item_panel()
+			if inventory_data.type == inventory_data.InventoryType.external_inventory and external_inventory_owner:
+				rpc("RPC_change_slot_data_in_external_inventory", external_inventory_owner.name, index, {}, {}, 0)
+			if last_clicked_slot_data == inventory_data.slots_data[index] and inv_item_info_panel.visible:
+				if inv_item_info_panel.visible:
+					hide_inv_item_panel()
 			grabbed_slot_data = inventory_data._grab_slot_data(index)
 		[_, MOUSE_BUTTON_LEFT]:
+			if inventory_data.type == inventory_data.InventoryType.external_inventory and external_inventory_owner:
+				var dict_slot_data := grabbed_slot_data.serialize_data()
+				var dict_item_data := grabbed_slot_data.item.serialize_item_data()
+				rpc("RPC_change_slot_data_in_external_inventory", external_inventory_owner.name, index, dict_slot_data, dict_item_data, grabbed_slot_data.item.id)
+			if last_clicked_slot_data == inventory_data.slots_data[index] and inv_item_info_panel.visible:
+				if inv_item_info_panel.visible:
+					hide_inv_item_panel()
 			grabbed_slot_data = inventory_data._drop_slot_data(grabbed_slot_data, index)
 		[null, MOUSE_BUTTON_RIGHT]:
 			#last_clicked_slot_index = index
@@ -75,7 +86,7 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 				else:
 					if !inv_item_info_panel.visible:
 						inv_item_info_panel.show()
-					inv_item_info_panel.global_position = get_global_mouse_position() + Vector2(5, -170)
+					#inv_item_info_panel.global_position = get_global_mouse_position() + Vector2(5, -170)
 					panel_index_data = index
 					panel_inventory_data = inventory_data
 					signal_item_info_panel_set_data.emit(inventory_data.slots_data[index].item)
@@ -84,11 +95,35 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 				if inv_item_info_panel.visible:
 					hide_inv_item_panel()
 		[_, MOUSE_BUTTON_RIGHT]:
+			if inventory_data.type == inventory_data.InventoryType.external_inventory and external_inventory_owner:
+				var dict_slot_data := grabbed_slot_data.serialize_data()
+				var dict_item_data := grabbed_slot_data.item.serialize_item_data()
+				rpc("RPC_change_slot_data_in_external_inventory", external_inventory_owner.name, index, dict_slot_data, dict_item_data, grabbed_slot_data.item.id, true)
 			grabbed_slot_data = inventory_data._drop_single_slot_data(grabbed_slot_data, index)
 	_update_grabbed_slot()
 	if inventory_data.type == inventory_data.InventoryType.quick_slot \
 		and player.item.equiped_slot and player.item.equiped_slot == grabbed_slot_data:
 		player.item.swap_items(inventory_data, index)
+
+@rpc("any_peer", "call_local", "reliable")
+func RPC_change_slot_data_in_external_inventory(external_inventory_name : String, index : int, dict_slot_data : Dictionary, dict_item_data : Dictionary, item_id : int, is_single_slot : bool = false) -> void:
+	if is_multiplayer_authority(): return
+	for node in get_tree().get_nodes_in_group("external_inventory"):
+		if node and node.name == external_inventory_name:
+			if dict_slot_data != {} and dict_item_data != {}:
+				var item_data := AllGameInventoryItems.load_item_data_by_id(item_id).duplicate(true)
+				var new_slot_data : InSlotData = node.inventory_data._create_new_slot(dict_slot_data["amount_in_slot"], item_data)
+				new_slot_data.item.deserialize_item_data(dict_item_data)
+				if not is_single_slot:
+					# print("item id: ", str(item_id))
+					node.inventory_data._drop_slot_data(new_slot_data, index)
+				else:
+					node.inventory_data._drop_single_slot_data(new_slot_data, index)
+			else:
+				node.inventory_data._remove_slot_data(index)
+			node.on_player_connect_inventory_data = node.inventory_data.serialize_inventory_data()
+			break
+
 
 func _update_grabbed_slot() -> void:
 	if grabbed_slot_data:
@@ -104,13 +139,24 @@ func _on_visibility_changed() -> void:
 		_update_grabbed_slot()
 
 func _on_item_drop_button_pressed() -> void:
+	if panel_inventory_data.type == panel_inventory_data.InventoryType.external_inventory and external_inventory_owner:
+		rpc("RPC_change_slot_data_in_external_inventory", external_inventory_owner.name, panel_index_data, {}, {}, 0)
 	if player.item.equiped_slot == panel_inventory_data.slots_data[panel_index_data]:
-		player.item.remove_active_item(panel_inventory_data, panel_index_data, panel_inventory_data.slots_data[panel_index_data])
+		player.item.clear_item(panel_inventory_data, panel_index_data, panel_inventory_data.slots_data[panel_index_data])
 	signal_drop_item.emit(panel_inventory_data.slots_data[panel_index_data])
 	panel_inventory_data._grab_slot_data(panel_index_data)
 	hide_inv_item_panel()
 
-func _on_gui_input(event) -> void:
+func _on_item_use_button_pressed() -> void:
+	if panel_inventory_data.type == panel_inventory_data.InventoryType.external_inventory and external_inventory_owner:
+		rpc("RPC_change_slot_data_in_external_inventory", external_inventory_owner.name, panel_index_data, {}, {}, 0)
+	if player.item.equiped_slot == panel_inventory_data.slots_data[panel_index_data]:
+		player.item.clear_item(panel_inventory_data, panel_index_data, panel_inventory_data.slots_data[panel_index_data])
+	signal_use_item.emit(panel_inventory_data.slots_data[panel_index_data])
+	panel_inventory_data._grab_slot_data(panel_index_data)
+	hide_inv_item_panel()
+
+func _on_gui_input(event : InputEvent) -> void:
 	if event is InputEventMouseButton \
 			and event.is_pressed():
 		match event.button_index:

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CraftMenuTab" load_steps=22 format=3 uid="uid://cva3usl6n6x60"]
+[gd_resource type="Resource" script_class="CraftMenuTab" load_steps=28 format=3 uid="uid://cva3usl6n6x60"]
 
 [ext_resource type="Script" path="res://scripts/interface/craft_menu_tab.gd" id="1_abixw"]
 [ext_resource type="Texture2D" uid="uid://dfbnyymoh4a7j" path="res://icons/stone-crafting.svg" id="1_trslv"]
@@ -12,6 +12,9 @@
 [ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://inventory/item/objects/m4_rifle.tres" id="8_mwu1m"]
 [ext_resource type="Texture2D" uid="uid://osho7g83kvo" path="res://icons/house.svg" id="9_x16go"]
 [ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://inventory/item/objects/pine-wood-crate.tres" id="10_u0bfv"]
+[ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://inventory/item/objects/wooden_floor.tres" id="12_2g756"]
+[ext_resource type="Resource" uid="uid://do1v63m4lpun7" path="res://inventory/item/objects/wooden_wall.tres" id="13_jdpf3"]
+[ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://inventory/item/objects/wooden_roof.tres" id="14_gt1ei"]
 
 [sub_resource type="Resource" id="Resource_ipw8q"]
 script = ExtResource("6_ivxpo")
@@ -52,15 +55,31 @@ type = 1
 slot_in_tab = Array[ExtResource("6_ivxpo")]([SubResource("Resource_ti32n")])
 
 [sub_resource type="Resource" id="Resource_nihb6"]
+resource_local_to_scene = true
 script = ExtResource("6_ivxpo")
 item = ExtResource("10_u0bfv")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_5l0xl"]
+script = ExtResource("6_ivxpo")
+item = ExtResource("12_2g756")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_vq2np"]
+script = ExtResource("6_ivxpo")
+item = ExtResource("13_jdpf3")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ac76l"]
+script = ExtResource("6_ivxpo")
+item = ExtResource("14_gt1ei")
 amount_in_slot = 1
 
 [sub_resource type="Resource" id="Resource_phucr"]
 script = ExtResource("2_nnf74")
 icon = ExtResource("9_x16go")
 type = 2
-slot_in_tab = Array[ExtResource("6_ivxpo")]([SubResource("Resource_nihb6")])
+slot_in_tab = Array[ExtResource("6_ivxpo")]([SubResource("Resource_nihb6"), SubResource("Resource_5l0xl"), SubResource("Resource_vq2np"), SubResource("Resource_ac76l")])
 
 [resource]
 script = ExtResource("1_abixw")

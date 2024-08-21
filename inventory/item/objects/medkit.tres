@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=3 format=3 uid="uid://dy8c3wxtbrndj"]
+
+[ext_resource type="Texture2D" uid="uid://bc06vnfn5lp8s" path="res://icons/Consumble/medkit.png" id="1_rvjqf"]
+[ext_resource type="Script" path="res://inventory/item/item_data_consumable.gd" id="2_jwuc2"]
+
+[resource]
+script = ExtResource("2_jwuc2")
+health_value = 50.0
+hunger_value = 0.0
+item_type = 1
+id = 17
+name = "MedKit"
+description = ""
+description_item_panel = "Chlorhexidine, splint, painkiller...
+"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("1_rvjqf")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/medkit.tscn"
+}

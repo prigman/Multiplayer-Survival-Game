@@ -11,8 +11,9 @@ script = ExtResource("7_dcd8e")
 item = ExtResource("2_ugj8s")
 amount_in_slot = 1
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cddqx"]
-size = Vector3(0.855, 0.285, 0.075)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nvw46"]
+radius = 0.0794045
+height = 0.866
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wwdni"]
 properties/0/path = NodePath(".:position")
@@ -21,7 +22,7 @@ properties/0/replication_mode = 2
 
 [node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
 collision_layer = 4
-collision_mask = 6281
+collision_mask = 6601
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
@@ -35,8 +36,8 @@ mesh = ExtResource("2_2nyo8")
 surface_material_override/0 = ExtResource("2_y2usy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-6.55671e-08, -1.5, -6.55671e-08, 0, -6.55671e-08, 1.5, -1.5, 6.55671e-08, 2.86603e-15, -0.0751698, 0, 0.0716317)
-shape = SubResource("BoxShape3D_cddqx")
+transform = Transform3D(-1.5, -1.31134e-07, 5.73206e-15, 0, -6.55671e-08, -1.5, 1.31134e-07, -1.5, 6.55671e-08, -0.0751698, 0.0406656, 0.0716317)
+shape = SubResource("CapsuleShape3D_nvw46")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_wwdni")

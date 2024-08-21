@@ -198,7 +198,5 @@ collider_type = 1
 shape = SubResource("BoxShape3D_7y3fj")
 disabled = true
 
-[node name="BuildingPartsRoot" type="Node3D" parent="."]
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
 replication_config = SubResource("SceneReplicationConfig_m8u3l")

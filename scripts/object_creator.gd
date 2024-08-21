@@ -7,9 +7,11 @@ extends Node3D
 @export var raycast : RayCast3D
 @export var collision_shape : CollisionShape3D
 
-@export var objects : Array[ObjectsCreatorRes]
+@export var objects : Array
 
 @export var count := 10
+
+@export var objects_positions : Array
 
 @export var random_rotation : Vector3
 @export var random_scale : float = 1
@@ -24,18 +26,23 @@ extends Node3D
 		value = true
 		remove_object.call_deferred(value)
 
+@export var save_objects_button : bool = false :
+	set(value):
+		value = true
+		save_objects.call_deferred(value)
+
 
 func create_object(value : bool) -> void:
 	value = false
 	var rng := RandomNumberGenerator.new()
-	for obj in objects:
+	for obj : Resource in objects:
 		if obj:
-			for i in obj.count:
+			for i : int in obj.count:
 				raycast.position = get_random_position_in_collision_shape()
 				raycast.force_raycast_update()
 				var ray_end_point := raycast.get_collision_point()
 				if ray_end_point:
-					var obj_instance := obj.object.instantiate()
+					var obj_instance : StaticBody3D = obj.object.instantiate()
 					objects_spawned.add_child(obj_instance)
 					obj_instance.owner = get_tree().edited_scene_root
 					set_editable_instance(obj_instance, false)
@@ -60,10 +67,23 @@ func remove_object(value : bool) -> void:
 			child.queue_free()
 
 func get_random_position_in_collision_shape() -> Vector3:
-	var shape = collision_shape.shape
+	var shape := collision_shape.shape
 	if shape is BoxShape3D:
-		var random_x = randf_range(-shape.size.x / 2, shape.size.x / 2)
-		var random_z = randf_range(-shape.size.z / 2, shape.size.z / 2)
+		var random_x := randf_range(-shape.size.x / 2, shape.size.x / 2)
+		var random_z := randf_range(-shape.size.z / 2, shape.size.z / 2)
 		return Vector3(random_x, raycast.position.y, random_z)
 	else:
 		return Vector3.ZERO
+
+func save_objects(value : bool):
+	value = false
+	var counter : int = 0
+	for child in objects_spawned.get_children():
+		if child:
+			var data : Array = [
+				child.world_resource_type ,
+				child.global_position,
+				child.global_rotation
+			]
+			objects_positions[counter] = data
+			counter += 1

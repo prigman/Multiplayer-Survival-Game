@@ -1,8 +1,8 @@
 class_name ItemDataTools extends ItemData
 
 enum ToolType {
-	pickaxe = 0,
-	axe = 1
+	pickaxe,
+	axe
 }
 
 @export var item_type: ItemType = ItemType. tool
@@ -21,8 +21,6 @@ func serialize_item_data() -> Dictionary:
 		"damage": damage
 	}
 
-static func deserialize_item_data(data: Dictionary) -> ItemDataTools:
-	var item_data = ItemDataTools.new()
-	item_data.quality = data["quality"]
-	item_data.damage = data["damage"]
-	return item_data
+func deserialize_item_data(data: Dictionary) -> void:
+	quality = data["quality"]
+	damage = data["damage"]

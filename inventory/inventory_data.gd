@@ -18,8 +18,11 @@ signal signal_update_active_slot(inventory_data : InventoryData, new_slot_index 
 @export var slots_data: Array[InSlotData]
 var slot_copy : InSlotData = null
 
+func _update_inventory() -> void:
+	signal_inventory_update.emit(self)
+
 func _remove_slot_data(index : int) -> bool:
-	var slot = slots_data[index]
+	var slot := slots_data[index]
 	if slot:
 		slots_data[index] = null
 		signal_inventory_update.emit(self)
@@ -28,7 +31,7 @@ func _remove_slot_data(index : int) -> bool:
 		return false
 
 func _grab_slot_data(index : int) -> InSlotData:
-	var slot = slots_data[index]
+	var slot := slots_data[index]
 	if slot:
 		slots_data[index] = null
 		signal_inventory_update.emit(self)
@@ -37,12 +40,12 @@ func _grab_slot_data(index : int) -> InSlotData:
 		return null
 
 func _drop_slot_data(grabbed_slot_data : InSlotData, index : int) -> InSlotData:
-	var slot = slots_data[index]
+	var slot := slots_data[index]
 	var return_slot_data : InSlotData
 
 	if slot and slot._can_stack_with(grabbed_slot_data):
-		var space_left = slot.item.max_stack - slot.amount_in_slot
-		var stack_amount = min(space_left, grabbed_slot_data.amount_in_slot)
+		var space_left := slot.item.max_stack - slot.amount_in_slot
+		var stack_amount : int = min(space_left, grabbed_slot_data.amount_in_slot)
 		slot.amount_in_slot += stack_amount
 		grabbed_slot_data.amount_in_slot -= stack_amount
 		
@@ -58,7 +61,7 @@ func _drop_slot_data(grabbed_slot_data : InSlotData, index : int) -> InSlotData:
 	return return_slot_data
 
 func _drop_single_slot_data(grabbed_slot_data : InSlotData, index : int) -> InSlotData:
-	var slot = slots_data[index]
+	var slot := slots_data[index]
 	if not slot:
 		slots_data[index] = grabbed_slot_data._create_single_slot_data()
 	elif slot._can_stack_with(grabbed_slot_data):
@@ -70,12 +73,12 @@ func _drop_single_slot_data(grabbed_slot_data : InSlotData, index : int) -> InSl
 		return null
 	
 func _pick_up_slot_data(slot_data : InSlotData) -> bool:
-	var remaining_amount = slot_data.amount_in_slot
+	var remaining_amount := slot_data.amount_in_slot
 
 	for i in slots_data.size():
 		if slots_data[i] and slots_data[i]._can_stack_with(slot_data):
-			var space_left = slots_data[i].item.max_stack - slots_data[i].amount_in_slot
-			var stack_amount = min(space_left, remaining_amount)
+			var space_left := slots_data[i].item.max_stack - slots_data[i].amount_in_slot
+			var stack_amount : int = min(space_left, remaining_amount)
 			slots_data[i].amount_in_slot += stack_amount
 			remaining_amount -= stack_amount
 			if remaining_amount == 0:
@@ -101,6 +104,38 @@ func _pick_up_slot_data(slot_data : InSlotData) -> bool:
 	print("Player inventory is full")
 	return false
 	
-func _on_slot_clicked(index : int, button : int):
+func _on_slot_clicked(index : int, button : int) -> void:
 	signal_inventory_interact.emit(self, index, button)
 
+func _create_new_slot(amount_in_slot : int, item_data : Resource) -> InSlotData:
+	var slot := InSlotData.new()
+	slot.item = item_data
+	slot.amount_in_slot = amount_in_slot
+	return slot
+
+func _set_slot_data(index : int, slot_data : InSlotData) -> bool:
+	if slot_data:
+		slots_data[index] = slot_data
+		signal_inventory_update.emit(self)
+		return true
+	else:
+		return false
+
+func serialize_inventory_data() -> Dictionary:
+	var serialized_data := {}
+	serialized_data["type"] = type
+	
+	for i : int in range(slots_data.size()):
+		if not slots_data[i] or not slots_data[i].item: continue
+		var slot_key := "slot_data_" + str(i)
+		
+		var slot_data_dict := {}
+		
+		slot_data_dict["slot_id"] = i
+		slot_data_dict["item_id_in_slot"] = slots_data[i].item.id
+		if slots_data[i].item.has_method("serialize_item_data"):
+			slot_data_dict["item_serialized_data"] = slots_data[i].item.serialize_item_data()
+		slot_data_dict["amount_in_slot"] = slots_data[i].amount_in_slot
+		serialized_data[slot_key] = slot_data_dict
+	
+	return serialized_data
