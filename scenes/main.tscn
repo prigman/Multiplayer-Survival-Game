@@ -117,7 +117,7 @@ spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node3D" parent="." groups=["player_spawn"]]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.876, 6.84322, 199.026)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -192.335, 172.826, 244.807)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

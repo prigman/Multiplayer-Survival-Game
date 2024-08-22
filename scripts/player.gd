@@ -35,7 +35,7 @@ var idle_hunger_rate: float = 0.1
 
 @export var sound_footstep_pool : SoundPool
 @export var hunger_value: float = 50.0
-@export var health_value: float = 10.0
+@export var health_value: float = 100.0
 
 @export var footstep_timer : Timer
 
@@ -107,6 +107,7 @@ func _process(delta : float) -> void:
 	# if (position.y <= -50.0):
 	# 	get_tree().reload_current_scene()
 
+
 func decrease_hunger_value(delta: float) -> void:
 	if state_machine.is_current_state("Sprint"): hunger_value -= sprint_hunger_rate * delta
 	elif state_machine.is_current_state("Idle"): hunger_value -= idle_hunger_rate * delta
@@ -120,8 +121,6 @@ func decrease_hunger_value(delta: float) -> void:
 		health_value+=0.5*delta
 		signal_update_player_health.emit(health_value)
 		
-
-
 
 @rpc("any_peer","reliable","call_local")
 func died_process(damage:float)-> void:

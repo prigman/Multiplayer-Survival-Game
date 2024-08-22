@@ -12,8 +12,12 @@ func physics_update(delta : float) -> void:
 	player.update_gravity(delta)
 	player.update_input(speed_state * input_multiplier, ACCELERATION, DECCELERATION)
 	player.update_velocity()
-	if player.is_on_floor():
+
+	if player.velocity.y < 0:
+		transition.emit("Falling")
+	elif player.is_on_floor():
 		transition.emit("Idle")
+		
 	if Input.is_action_just_released("space"):
 		if player.velocity.y > 0:
 			player.velocity.y = player.velocity.y / 2.0
