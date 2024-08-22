@@ -1,0 +1,42 @@
+[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://bok5ktxy7q6li"]
+
+[ext_resource type="Texture2D" uid="uid://bg8kr6bhqgvp" path="res://models/wooden_wall_1024 palette.png" id="1_88koc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3usi2"]
+resource_name = "Material.001"
+cull_mode = 2
+albedo_texture = ExtResource("1_88koc")
+roughness = 0.5
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_lpgil"]
+_surfaces = [{
+"aabb": AABB(-0.3, -2, -2, 0.45, 4, 4),
+"format": 34896613377,
+"index_count": 108,
+"index_data": PackedByteArray("CAAKAAkACAALAAoABwASAAYABwATABIADAAOAA0ADAAPAA4ABAABAAUABAAAAAEACwAPAAwACwAIAA8ADQAJAAoADQAOAAkAAAAJAAEAAAAIAAkAAwALAAIAAwAKAAsAAgAMAAYAAgALAAwABwAKAAMABwANAAoABgANAAcABgAMAA0ABQAPAAQABQAOAA8ABAAIAAAABAAPAAgAAQAOAAUAAQAJAA4AEQATABAAEQASABMABgARAAIABgASABEAAwATAAcAAwAQABMAAgAQAAMAAgARABAA"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("//8zE8vsAAD//8vsy+wAAFVVMxPL7AAAVVXL7MvsAAD+/zMTMxMAAP7/y+wzEwAAVFUzEzMTAABUVcvsMxMAAP//AAD//wAA////////AABVVf////8AAFVVAAD//wAAVFUAAAAAAABUVf//AAAAAP7///8AAAAA/v8AAAAAAAAAAMvsy+wAAAAAMxPL7AAAAAAzEzMTAAAAAMvsMxMAAA==")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "wooden_wall_Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.3, -2, -2, 0.45, 4, 4),
+"attribute_data": PackedByteArray("zSXvLS0mbyVcJO8tvCRvJVwk+SjoIlAjAyTqIVwkairoIuohAySdIs0lfiwtJv4jXCR+LLwk/iPNJfkoAyRQIwMkqiTNJWoq6CKqJOginSI8JE0seSJdLO4lDy55Ig8ueSKKKjwkDy48JIoqKyQPLnki2Cg8JNgo7iVNLCskXSzuJdgo7iWbKnkimyruJYoqeSJNLCsk2CgrJE0sKySKKjwkXSw8JJsqKySbKu4lXSzoIrYk6CKQIgMkQyMDJLYk6CL3IwMkkCIDJNElAyT3IwMkAyToItEl6CIDJOgiQyM="),
+"format": 34896613399,
+"index_count": 108,
+"index_data": PackedByteArray("FQAbABcAFQAfABsAEgA0ABAAEgA2ADQAIgAmACQAIgAqACYACwADAA0ACwABAAMAHgApACEAHgAUACkAJQAYABwAJQAnABgAAAAZAAIAAAAWABkABwAdAAQABwAaAB0ABAAgAA4ABAAdACAAEQAaAAcAEQAjABoADgAjABEADgAgACMADAArAAoADAAoACsACgAWAAAACgArABYAAgAoAAwAAgAZACgALwA1ACwALwAyADUADwAwAAUADwAzADAACQA3ABMACQAuADcABgAtAAgABgAxAC0A"),
+"material": SubResource("StandardMaterial3D_3usi2"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 56,
+"vertex_data": PackedByteArray("//8zE8vsVNX//zMTy+xU1f//y+zL7FTV///L7MvsVNVVVTMTy+z//1VVMxPL7FTVVVUzE8vs/79VVcvsy+z//1VVy+zL7P+/VVXL7MvsVNX+/zMTMxNU1f7/MxMzE1TV/v/L7DMTVNX+/8vsMxNU1VRVMxMzE///VFUzEzMTVNVUVTMTMxP//1RVy+wzE///VFXL7DMT//9UVcvsMxNU1f//AAD///////8AAP///////wAA//9U1f//////////////////VNX///////9U1VVV////////VVX///////9VVf////9U1VVVAAD/////VVUAAP////9VVQAA/////1RVAAAAAP//VFUAAAAA//9UVQAAAAD//1RV//8AAP//VFX//wAA//9UVf//AABU1f7///8AAP///v///wAAVNX+////AABU1f7/AAAAAP///v8AAAAA///+/wAAAABU1QAAy+zL7FTVAADL7Mvs/78AAMvsy+xU1QAAMxPL7FTVAAAzE8vsVNUAADMTy+z/vwAAMxMzE1TVAAAzEzMTVNUAADMTMxP//wAAy+wzE1TVAADL7DMT//8AAMvsMxNU1amqVFWqqlRVqqpVVaqqVFX///+/VFVVVf9//3////+//3//f6qqqqqpqlRVqqpUVaqqVVWqqlRV/z//f1RVVFX/P/+//z//f/8//7+qqqqq/3//P/9//3+pqlRV/3//f1TVqiqqqlVV////v/9//39U1aoq////v/9//z//f/9//z//f/9//z////9//z//f////39U1aoq////f1TVqiqqqlVV/3//P////3+pqlRVVFWqqv9//3+qqqqqVFWqqlRVVVX/f/9/VFWqqlRVVFX/P/+/VFWqqv8//7+qqqqq")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_lpgil")

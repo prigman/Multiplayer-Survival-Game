@@ -506,7 +506,7 @@ near = 0.001
 [node name="InteractRay" type="RayCast3D" parent="CameraHolder/Camera3D"]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -2.5)
-collision_mask = 12
+collision_mask = 4574
 debug_shape_thickness = 1
 
 [node name="AimCast" type="RayCast3D" parent="CameraHolder/Camera3D"]

@@ -51,6 +51,10 @@ folder_colors={
 "res://scripts/player state machine/": "gray"
 }
 
+[global_group]
+
+item_interactable=""
+
 [importer_defaults]
 
 texture={

@@ -4,7 +4,8 @@ enum ColliderType {
 	floor,
 	wall,
 	roof,
-	other,
+	door,
 }
 
 @export var collider_type : ColliderType
+@export var door_root : Marker3D

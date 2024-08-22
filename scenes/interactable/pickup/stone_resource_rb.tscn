@@ -11,6 +11,7 @@
 resource_local_to_scene = true
 script = ExtResource("3_784by")
 item_type = 3
+id = 0
 name = "Stone"
 description = "Crafting resource"
 description_item_panel = "Crafting resource"
@@ -37,7 +38,7 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[node name="Stone resource" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
+[node name="Stone resource" type="RigidBody3D" node_paths=PackedStringArray("synchronizer") groups=["item_interactable"]]
 collision_layer = 4
 collision_mask = 6601
 axis_lock_linear_x = true

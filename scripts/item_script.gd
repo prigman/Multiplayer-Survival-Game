@@ -153,6 +153,7 @@ func _unhandled_input(event : InputEvent) -> void:
 
 func check_place_for_building() -> void:
 	if building_scene and building_cast and other_buildings_cast:
+		var door_root: Vector3
 		building_change_visibility(false)
 		if building_scene.item_data.building_type == building_scene.item_data.BuildingType.inventory: # для строений типа инвентарь
 			var is_raycast_colliding := other_buildings_cast.is_colliding()
@@ -161,7 +162,6 @@ func check_place_for_building() -> void:
 				building_change_visibility(true)
 				building_scene.global_transform.origin = Vector3(collision_point.x, collision_point.y, collision_point.z)
 		else: # остальные строения
-
 			var is_raycast_colliding := building_cast.is_colliding()
 			var collider_interacted := building_cast.get_collider()
 			if is_raycast_colliding: # если луч попадает на одну из заданных поверхностей - код выполняется, в ином случае постройка скрывается
@@ -172,6 +172,12 @@ func check_place_for_building() -> void:
 							building_change_visibility(true) # переключение видимости постройки, если true - сделать видимой
 							building_scene.global_transform.origin = collider_interacted.global_transform.origin
 							building_scene.global_rotation_degrees.y = collider_interacted.global_rotation_degrees.y
+							if collider_interacted.collider_type == building_scene.item_data.BuildingType.door:
+								building_scene.mesh_node.position.z = 0
+								building_scene.collision_shape.position.z = 0
+								building_scene.shape_cast.position.z = 0
+								building_scene.building_collision.position.z = 0
+								door_root = collider_interacted.door_root.global_position
 						else:
 							for collider : Area3D in collider_interacted.get_parent().building_colliders: # тут нужно отключить и запомнить все коллайдеры, которые не равны типу постройки в данный момент, это для того чтобы луч не взаимодействовал с лишними
 								if collider and collider.collider_type != building_scene.item_data.building_type:
@@ -186,7 +192,7 @@ func check_place_for_building() -> void:
 		else:
 			building_set_possibility_to_place(building_scene, false)
 		if building_scene.is_able_to_build and Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
-			place_building_part(building_scene)
+			place_building_part(building_scene, door_root)
 
 func building_set_possibility_to_place(building : StaticBody3D, possibility : bool) -> void:
 	if possibility:
@@ -200,31 +206,35 @@ func building_change_visibility(visibility : bool) -> void:
 	if not visibility and building_scene.visible: building_scene.hide()
 	elif visibility and not building_scene.visible: building_scene.show()
 
-func place_building_part(_building_scene : StaticBody3D) -> void:
+func place_building_part(_building_scene : StaticBody3D, door_root : Vector3) -> void:
 	var building_scene_path : String = equiped_item.dictionary["scene_path"]
 	remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
-	rpc("spawn_building_part", building_scene_path, _building_scene.global_position.x, _building_scene.global_position.y, _building_scene.global_position.z, _building_scene.global_rotation_degrees.y, player.peer_id) # посылаем на сервер запрос на спавн постройки
+	rpc("spawn_building_part", building_scene_path, _building_scene.global_position.x, _building_scene.global_position.y, _building_scene.global_position.z, _building_scene.global_rotation_degrees.y, door_root.x, door_root.y, door_root.z, player.peer_id) # посылаем на сервер запрос на спавн постройки
 
 @rpc("any_peer", "reliable", "call_local")
-func spawn_building_part(building_scene_path : String, position_x : float, position_y : float, position_z : float, rotation_y : float, player_id : int) -> void:
+func spawn_building_part(building_scene_path : String, position_x : float, position_y : float, position_z : float, rotation_y : float, door_root_x : float, door_root_y : float, door_root_z : float, player_id : int) -> void:
 	if not multiplayer.is_server(): return
 	print("SERVER: player spawned building")
 	var building_instance : StaticBody3D = load(building_scene_path).instantiate()
 	get_tree().get_first_node_in_group("world").call_deferred("add_child", building_instance, true) # добавляет постройку в обычный мир
-	call_deferred("set_building_data", building_instance, position_x, position_y, position_z, rotation_y, player_id)
+	call_deferred("set_building_data", building_instance, position_x, position_y, position_z, rotation_y, door_root_x, door_root_y, door_root_z, player_id)
 
-func set_building_data(building_instance : StaticBody3D, position_x : float, position_y : float, position_z : float, rotation_y : float, player_id : int) -> void:
+func set_building_data(building_instance : StaticBody3D, position_x : float, position_y : float, position_z : float, rotation_y : float, door_root_x : float, door_root_y : float, door_root_z : float, player_id : int) -> void:
 	if building_instance.item_data.building_type != building_instance.item_data.BuildingType.inventory:
 		for instance_collider : Area3D in building_instance.building_colliders: # включение коллайдеров постройки к которым она может крепиться
 			if instance_collider: instance_collider.get_child(0).disabled = false
 	else:
 		building_instance.signal_building_spawn.emit()
 	building_instance.building_part_owner_id = player_id # айди владельца постройки
-	building_instance.global_transform.origin = Vector3(position_x, position_y, position_z)
+	if building_instance.item_data.building_type != building_instance.item_data.BuildingType.door:
+		building_instance.global_transform.origin = Vector3(position_x, position_y, position_z)
+	else:
+		building_instance.global_transform.origin = Vector3(door_root_x, door_root_y, door_root_z)
 	building_instance.global_rotation_degrees.y = rotation_y
 	#building_set_material(building_instance, building_instance.DEFAULT_MATERIAL)
 	building_instance.shape_cast.enabled = false # отключение шейпкаста, который проверяет на столкновения постройки с определёнными игровыми объектами в мире во время выполнения функции check_place_for_building
 	building_instance.collision_shape.disabled = false # включение коллизии постройки
+	# if building_instance.collision_shape_2: building_instance.collision_shape_2.disabled = false
 	building_instance.building_collision.get_child(0).disabled = true # отключение коллизии, которая проверяет столкновения с уже установленными мешами построек (эта коллизия используется во время выполнения функции check_place_for_building)
 	building_instance.mesh_node.cast_shadow = 1
 	var building_data : Dictionary = {
@@ -399,12 +409,12 @@ func hitscan(raycast: RayCast3D) -> void:
 					if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):
 						# target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
 						# target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
-						rpc("RPC_hit_world_resource", target.name, randf_range(equiped_item.damage, equiped_item.damage * 2))
+						rpc("RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
 						create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2, 6))
 					if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
 						# target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
 						# target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
-						rpc("RPC_hit_world_resource", target.name, randf_range(equiped_item.damage, equiped_item.damage * 2))
+						rpc("RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
 						create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
 				if target.is_in_group("enemy_group"):
 					target.health -= equiped_item.damage
@@ -413,11 +423,9 @@ func hitscan(raycast: RayCast3D) -> void:
 		call_deferred("shoot_decal_instance", ray_end_point, decal, raycast)
 
 @rpc("any_peer", "call_local", "reliable")
-func RPC_hit_world_resource(target_name : String, hit_value : float) -> void:
+func RPC_hit_world_resource(target_path : NodePath, hit_value : float) -> void:
 	if not multiplayer.is_server(): return
-	for node in get_tree().get_nodes_in_group("world_resource"):
-		if node and node.name == target_name:
-			node.world_resource_hit.emit(hit_value)
+	get_node(target_path).world_resource_hit.emit(hit_value)
 
 
 func shoot_decal_instance(ray_end_point : Vector3, decal : Node, raycast : RayCast3D) -> void:

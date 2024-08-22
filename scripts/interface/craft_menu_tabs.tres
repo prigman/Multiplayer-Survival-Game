@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CraftMenuTab" load_steps=28 format=3 uid="uid://cva3usl6n6x60"]
+[gd_resource type="Resource" script_class="CraftMenuTab" load_steps=32 format=3 uid="uid://cva3usl6n6x60"]
 
 [ext_resource type="Script" path="res://scripts/interface/craft_menu_tab.gd" id="1_abixw"]
 [ext_resource type="Texture2D" uid="uid://dfbnyymoh4a7j" path="res://icons/stone-crafting.svg" id="1_trslv"]
@@ -15,6 +15,8 @@
 [ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://inventory/item/objects/wooden_floor.tres" id="12_2g756"]
 [ext_resource type="Resource" uid="uid://do1v63m4lpun7" path="res://inventory/item/objects/wooden_wall.tres" id="13_jdpf3"]
 [ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://inventory/item/objects/wooden_roof.tres" id="14_gt1ei"]
+[ext_resource type="Resource" uid="uid://beqmhy1ap1nsg" path="res://inventory/item/objects/wooden_doorway.tres" id="15_ou8p2"]
+[ext_resource type="Resource" uid="uid://dth6kmifknlsn" path="res://inventory/item/objects/wooden_door.tres" id="16_jvjyx"]
 
 [sub_resource type="Resource" id="Resource_ipw8q"]
 script = ExtResource("6_ivxpo")
@@ -75,11 +77,21 @@ script = ExtResource("6_ivxpo")
 item = ExtResource("14_gt1ei")
 amount_in_slot = 1
 
+[sub_resource type="Resource" id="Resource_2q4cm"]
+script = ExtResource("6_ivxpo")
+item = ExtResource("15_ou8p2")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_lob5n"]
+script = ExtResource("6_ivxpo")
+item = ExtResource("16_jvjyx")
+amount_in_slot = 1
+
 [sub_resource type="Resource" id="Resource_phucr"]
 script = ExtResource("2_nnf74")
 icon = ExtResource("9_x16go")
 type = 2
-slot_in_tab = Array[ExtResource("6_ivxpo")]([SubResource("Resource_nihb6"), SubResource("Resource_5l0xl"), SubResource("Resource_vq2np"), SubResource("Resource_ac76l")])
+slot_in_tab = Array[ExtResource("6_ivxpo")]([SubResource("Resource_nihb6"), SubResource("Resource_5l0xl"), SubResource("Resource_vq2np"), SubResource("Resource_ac76l"), SubResource("Resource_2q4cm"), SubResource("Resource_lob5n")])
 
 [resource]
 script = ExtResource("1_abixw")

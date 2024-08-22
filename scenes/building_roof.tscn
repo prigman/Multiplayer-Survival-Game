@@ -1,15 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://bnm2p00ty7mau"]
 
 [ext_resource type="Script" path="res://scripts/building system/building.gd" id="1_flrfk"]
-[ext_resource type="Material" uid="uid://o7108osm7jyv" path="res://materials/building_material.tres" id="2_hnnjl"]
 [ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://inventory/item/objects/wooden_roof.tres" id="2_mdr0k"]
+[ext_resource type="ArrayMesh" uid="uid://ddt0uwsodljvr" path="res://models/meshes/wooden_roof.res" id="3_h68wf"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_yqcxk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1owip"]
 size = Vector3(3.6, 0.3, 3.6)
-
-[sub_resource type="BoxMesh" id="BoxMesh_e00x3"]
-resource_local_to_scene = true
-size = Vector3(4, 0.3, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_82k1h"]
 size = Vector3(4, 0.3, 4)
@@ -56,8 +53,8 @@ shape = SubResource("BoxShape3D_1owip")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
-mesh = SubResource("BoxMesh_e00x3")
-surface_material_override/0 = ExtResource("2_hnnjl")
+mesh = ExtResource("3_h68wf")
+surface_material_override/0 = ExtResource("4_yqcxk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_82k1h")

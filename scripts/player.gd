@@ -280,11 +280,14 @@ func drop_item_from_inventory(slot_data : InSlotData, item_position : Vector3) -
 func interact() -> void:
 	if interact_ray.is_colliding():
 		var collider : Object = interact_ray.get_collider()
-		if collider.is_in_group('external_inventory'):
-			collider._player_interact(player_inventory, player_quick_slot)
-		else:
-			if collider._player_interact(self) == true:
-				rpc('delete_item', collider.get_path())
+		if collider:
+			if collider.is_in_group('external_inventory'):
+				collider._player_interact(player_inventory, player_quick_slot)
+			elif collider.is_in_group('item_interactable'):
+				if collider._player_interact(self) == true:
+					rpc('delete_item', collider.get_path())
+			elif collider.is_in_group('building_door'):
+				collider._player_interact()
 
 @rpc("any_peer", "reliable", "call_local")
 func delete_item(inventory_item_interacted_path : NodePath) -> void:
