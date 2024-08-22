@@ -17,7 +17,6 @@ func physics_update(delta : float) -> void:
 	if player.velocity.y < 0:
 		transition.emit("Falling")
 	elif player.is_on_floor():
-		
-	if Input.is_action_just_released("space"):
-		if player.velocity.y > 0:
-			player.velocity.y = player.velocity.y / 2.0
+		if Input.is_action_just_released("space"):
+			if player.velocity.y > 0:
+				player.velocity.y = player.velocity.y / 2.0

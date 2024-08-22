@@ -6,13 +6,13 @@ class_name FallingState
 var start_fall_y: float = 0.0
 
 func physics_update(delta : float) -> void:
-    player.update_gravity(delta)
-    player.update_input(speed_state, ACCELERATION, DECCELERATION)
-    player.update_velocity()
-		if player.died:
+	player.update_gravity(delta)
+	player.update_input(speed_state, ACCELERATION, DECCELERATION)
+	player.update_velocity()
+	if player.died:
 		transition.emit("Death")
-    if player.is_on_floor():
-        transition.emit("Idle")
+	if player.is_on_floor():
+		transition.emit("Idle")
 
-func enter(previous_state : State) -> void:
-    start_fall_y = player.global_transform.origin.y
+func enter(_previous_state : State) -> void:
+	start_fall_y = player.global_transform.origin.y
