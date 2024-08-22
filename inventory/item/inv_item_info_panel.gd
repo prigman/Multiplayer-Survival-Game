@@ -10,12 +10,29 @@ extends PanelContainer
 @onready var item_use_button := %ItemUseButton
 @onready var weapon_unload_button := %WeaponUnloadButton
 @onready var item_drop_button := %ItemDropButton
+@onready var divide_content := %DivideContent
 
-func _on_inventory_interface_signal_item_info_panel_set_data(item_data : ItemData) -> void:
+func _on_inventory_interface_signal_item_info_panel_set_data(item_data : ItemData, slot_data : InSlotData) -> void:
 	item_icon.texture = item_data.icon
 	item_name.text = item_data.name
 	item_description.text = item_data.description_item_panel
 	item_health.value = item_data.quality
+	if slot_data.amount_in_slot > 1:
+		custom_minimum_size.y = 200
+		divide_content.divide_scroll.max_value = slot_data.amount_in_slot - 1
+		divide_content.divide_scroll.min_value = 1
+		divide_content.divide_scroll.page = min(divide_content.divide_scroll.min_value, divide_content.divide_scroll.max_value)
+		# var rest = slot_data.amount_in_slot % 2
+		# if not rest:
+		# 	divide_content.divide_scroll.value = 1
+		# else:
+		divide_content.divide_scroll.value = slot_data.amount_in_slot / 2
+		divide_content.divide_number.text = str(divide_content.divide_scroll.value)
+		divide_content.show()
+	else:
+		if divide_content.visible:
+			custom_minimum_size.y = 170
+			divide_content.hide()
 	if !item_health.visible:
 		item_health.show()
 	if item_data.item_type == item_data.ItemType.weapon:

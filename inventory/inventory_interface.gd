@@ -4,7 +4,7 @@ class_name InventoryInterface
 signal signal_drop_item(slot_data: InSlotData)
 signal signal_use_item(slot_data: InSlotData)
 signal signal_force_close
-signal signal_item_info_panel_set_data(item_data: ItemData)
+signal signal_item_info_panel_set_data(item_data: ItemData, slot_data : InSlotData)
 
 #- set inventory
 var external_inventory_owner : ExternalInventory
@@ -65,8 +65,7 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 			if inventory_data.type == inventory_data.InventoryType.external_inventory and external_inventory_owner:
 				rpc("RPC_change_slot_data_in_external_inventory", external_inventory_owner.name, index, {}, {}, 0)
 			if last_clicked_slot_data == inventory_data.slots_data[index] and inv_item_info_panel.visible:
-				if inv_item_info_panel.visible:
-					hide_inv_item_panel()
+				hide_inv_item_panel()
 			grabbed_slot_data = inventory_data._grab_slot_data(index)
 		[_, MOUSE_BUTTON_LEFT]:
 			if inventory_data.type == inventory_data.InventoryType.external_inventory and external_inventory_owner:
@@ -74,8 +73,7 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 				var dict_item_data := grabbed_slot_data.item.serialize_item_data()
 				rpc("RPC_change_slot_data_in_external_inventory", external_inventory_owner.name, index, dict_slot_data, dict_item_data, grabbed_slot_data.item.id)
 			if last_clicked_slot_data == inventory_data.slots_data[index] and inv_item_info_panel.visible:
-				if inv_item_info_panel.visible:
-					hide_inv_item_panel()
+				hide_inv_item_panel()
 			grabbed_slot_data = inventory_data._drop_slot_data(grabbed_slot_data, index)
 		[null, MOUSE_BUTTON_RIGHT]:
 			#last_clicked_slot_index = index
@@ -89,7 +87,7 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 					#inv_item_info_panel.global_position = get_global_mouse_position() + Vector2(5, -170)
 					panel_index_data = index
 					panel_inventory_data = inventory_data
-					signal_item_info_panel_set_data.emit(inventory_data.slots_data[index].item)
+					signal_item_info_panel_set_data.emit(inventory_data.slots_data[index].item, inventory_data.slots_data[index])
 				last_clicked_slot_data = inventory_data.slots_data[index]
 			else:
 				if inv_item_info_panel.visible:
@@ -172,3 +170,16 @@ func hide_inv_item_panel() -> void:
 	inv_item_info_panel.hide()
 	panel_index_data = 0
 	panel_inventory_data = null
+
+func _on_divide_content_signal_divide_button_pressed(item_amount:int) -> void:
+	if grabbed_slot_data:
+		return
+	else:
+		var number := panel_inventory_data.slots_data[panel_index_data].amount_in_slot - item_amount
+		panel_inventory_data._set_amount_in_slot(panel_index_data, number)
+		var new_slot : InSlotData = panel_inventory_data.slots_data[panel_index_data].duplicate()
+		new_slot.amount_in_slot = item_amount
+		grabbed_slot.show()
+		grabbed_slot._set_slot_data(new_slot)
+		grabbed_slot_data = new_slot
+		signal_item_info_panel_set_data.emit(panel_inventory_data.slots_data[panel_index_data].item, panel_inventory_data.slots_data[panel_index_data])

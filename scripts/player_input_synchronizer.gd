@@ -4,7 +4,7 @@ extends MultiplayerSynchronizer
 @export var mouse_sens := 0.15
 @export var player : CharacterBody3D
 
-
+@onready var item := %Item
 @onready var camera := %Camera3D
 @onready var camera_holder := %CameraHolder
 @onready var inventory_interface := %InventoryInterface
@@ -15,12 +15,20 @@ func _ready() -> void:
 	if get_multiplayer_authority() == multiplayer.get_unique_id():
 		camera.make_current()
 	else:
-		set_process_input(false)
-		set_process_unhandled_input(false)
-		set_process(false)
-		player.set_physics_process(false)
-		player.set_process(false)
-		camera.clear_current(false)
+		set_process_for_player(false)
+
+func set_process_for_player(value : bool) -> void:
+	player.set_process_input(value)
+	player.set_process_unhandled_input(value)
+	player.set_physics_process(value)
+	player.set_process(value)
+	item.set_physics_process(value)
+	item.set_process(value)
+	item.set_process_unhandled_input(value)
+	item.set_process_input(value)
+	set_process(value)
+	set_process_input(value)
+	set_process_unhandled_input(value)
 
 func _process(_delta : float) -> void:
 	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")

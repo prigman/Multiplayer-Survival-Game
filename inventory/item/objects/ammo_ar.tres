@@ -14,7 +14,7 @@ description = ""
 description_item_panel = "
 "
 stackable = true
-max_stack = 500
+max_stack = 120
 quality = 100.0
 icon = ExtResource("1_skttc")
 dictionary = {}
