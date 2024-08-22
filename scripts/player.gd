@@ -122,7 +122,7 @@ func decrease_hunger_value(delta: float) -> void:
 
 	if hunger_value == 0.0:
 		rpc("died_process", 0.5*delta)
-	elif hunger_value > 95:
+	elif hunger_value > 95 and health_value < 100:
 		health_value+=0.5*delta
 		signal_update_player_health.emit(health_value)
 		
