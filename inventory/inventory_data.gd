@@ -21,6 +21,11 @@ var slot_copy : InSlotData = null
 func _update_inventory() -> void:
 	signal_inventory_update.emit(self)
 
+func _set_amount_in_slot(index : int, amount : int) -> void:
+	var slot := slots_data[index]
+	slot.amount_in_slot = amount
+	signal_inventory_update.emit(self)
+
 func _remove_slot_data(index : int) -> bool:
 	var slot := slots_data[index]
 	if slot:
@@ -139,3 +144,9 @@ func serialize_inventory_data() -> Dictionary:
 		serialized_data[slot_key] = slot_data_dict
 	
 	return serialized_data
+
+func _clear_inventory() -> void:
+	for slot in slots_data:
+		if slot and slot.amount_in_slot > 0:
+			slot.amount_in_slot = 0
+	signal_inventory_update.emit(self)

@@ -5,7 +5,7 @@ extends RigidBody3D
 @export var network_id : int
 
 func _player_interact(player: Player) -> bool:
-	if player.give_item(slot_data) == true:
+	if player.give_item(slot_data, false) == true:
 		return true
 	else:
 		print("Inventory and quick slots are full")

@@ -18,6 +18,8 @@ func physics_update(delta : float) -> void:
 		speed_state = crouch_state
 	player.update_input(speed_state, ACCELERATION, DECCELERATION)
 	player.update_velocity()
+	if player.died:
+		transition.emit("Death")
 	if Input.is_action_just_released("left_ctrl"):
 		uncrouch(delta)
 	

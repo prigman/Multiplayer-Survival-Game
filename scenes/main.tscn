@@ -76,7 +76,7 @@ count = 250
 [sub_resource type="BoxShape3D" id="BoxShape3D_dq6at"]
 size = Vector3(491.994, 18.0463, 511.534)
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3", "multiplayer_spawner", "item_spawner", "world_resources_spawner", "object_creator") groups=["world"]]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3", "multiplayer_spawner", "item_spawner", "world_resources_spawner", "world_crate_spawner", "object_creator") groups=["world"]]
 script = ExtResource("1_7fa2s")
 enemy1 = NodePath("zone/Enemy")
 enemy2 = NodePath("zone/Enemy2")
@@ -84,17 +84,21 @@ enemy3 = NodePath("zone/Enemy3")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 item_spawner = NodePath("ItemSpawner")
 world_resources_spawner = NodePath("WorldResourcesSpawner")
+world_crate_spawner = NodePath("WorldCrateSpawner")
 object_creator = NodePath("ObjectCreator")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 0, 0, 0)
 shadow_enabled = true
 shadow_opacity = 0.7
-directional_shadow_mode = 1
-directional_shadow_max_distance = 50.0
+directional_shadow_max_distance = 175.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o00h3")
+
+[node name="WorldCrateSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/interactable/world_pine-wood-crate_staticbody.tscn")
+spawn_path = NodePath("..")
 
 [node name="WorldResourcesSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/pine_tree.tscn", "res://scenes/stone_1.tscn", "res://scenes/stone_2.tscn", "res://scenes/stone_3.tscn")

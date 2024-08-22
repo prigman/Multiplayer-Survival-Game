@@ -68,17 +68,22 @@ var current_weapon_spread_data: PlayerWeaponSpread = null # сюда назна�
 @onready var player_stats := %PlayerStats
 @onready var craft_menu := %CraftMenu
 @onready var input_sync := %InputSync
-@onready var sync := %MultiplayerSynchronizer
+@onready var collision := %DefaultStateCollision
 @onready var canvas_layer := %CanvasLayer
 @onready var debug_ui := %Debug
 @onready var label_3d := %Label3D
+@onready var death_ui := %DeathUI
+@onready var interface := %Interface
+@onready var reticle := %Reticle
+@onready var quick_slot_ui := %PlayerQuickSlot
 
 func _ready() -> void:
 	if not is_multiplayer_authority():
 		mesh.show()
 		label_3d.show()
 		return
-	label_3d.text = name
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	label_3d.text = "Player_" + name
 	canvas_layer.show()
 	signal_toggle_inventory.connect(_toggle_inventory_interface)
 	inventory_interface._set_player_inventory_data(player_inventory)
@@ -115,7 +120,7 @@ func decrease_hunger_value(delta: float) -> void:
 	signal_update_player_hunger.emit(hunger_value)
 
 	if hunger_value == 0.0:
-		died_process(0.5*delta)
+		rpc("died_process", 0.5*delta)
 	elif hunger_value > 95:
 		health_value+=0.5*delta
 		signal_update_player_health.emit(health_value)
@@ -124,15 +129,68 @@ func decrease_hunger_value(delta: float) -> void:
 
 
 @rpc("any_peer","reliable","call_local")
-func died_process(damage:float)-> void:
+func died_process(damage:float) -> void:
 	if not is_multiplayer_authority():
 		return
 	health_value -= damage
 	signal_update_player_health.emit(health_value)
 	if health_value <= 0 and died==false :
 		died = true
-		print("Died player ",peer_id)
-		main_scene.rpc('delete_player_rpc',peer_id)
+		print("You died")
+		# main_scene.rpc('delete_player_rpc',peer_id)
+
+func on_player_die() -> void:
+	input_sync.set_process_for_player(false)
+	for slot in player_inventory.slots_data:
+		if slot:
+			var random_position_z := randf_range(global_position.z-1, global_position.z+1)
+			var random_position_x := randf_range(global_position.x-1, global_position.x+1)
+			drop_item_from_inventory(slot, Vector3(random_position_x, global_position.y+2, random_position_z))
+	for slot in player_quick_slot.slots_data:
+		if slot:
+			var random_position_z := randf_range(global_position.z-1, global_position.z+1)
+			var random_position_x := randf_range(global_position.x-1, global_position.x+1)
+			drop_item_from_inventory(slot, Vector3(random_position_x, global_position.y+2, random_position_z))
+	player_inventory._clear_inventory()
+	player_quick_slot._clear_inventory()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if item.equiped_item:
+		item.clear_item(player_quick_slot, item.equiped_slot_index, item.equiped_slot)
+	if is_inventory_open(): inventory_interface.hide()
+	reticle.hide()
+	quick_slot_ui.hide()
+	player_stats.hide()
+	death_ui.show()
+	rpc('RPC_on_player_die')
+
+@rpc("any_peer", "call_local", "reliable")
+func RPC_on_player_die() -> void:
+	if is_multiplayer_authority(): return
+	mesh.hide()
+	label_3d.hide()
+	collision.disabled = true
+
+func on_player_respawn() -> void:
+	died = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	death_ui.hide()
+	player_stats.show()
+	reticle.show()
+	quick_slot_ui.show()
+	position = Vector3.ZERO
+	rotation = Vector3.ZERO
+	hunger_value = 100
+	health_value = 100
+	signal_update_player_stats.emit(hunger_value, health_value)
+	input_sync.set_process_for_player(true)
+	rpc('RPC_on_player_respawn')
+
+@rpc("any_peer", "call_local", "reliable")
+func RPC_on_player_respawn() -> void:
+	if is_multiplayer_authority(): return
+	mesh.show()
+	label_3d.show()
+	collision.disabled = false
 
 func _toggle_inventory_interface(external_inventory_owner : ExternalInventory = null) -> void:
 	inventory_interface.visible = not inventory_interface.visible
@@ -200,13 +258,7 @@ func update_velocity() -> void:
 # ------------ Inventory items interaction
 
 func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
-	var item_data_scene := slot_data.item.dictionary
-	if not item_data_scene.has('dropped_item'): return
-	var dict_slot_data := slot_data.serialize_data()
-	var dict_item_data := slot_data.item.serialize_item_data()
-	var random_number := RandomNumberGenerator.new().randi_range(1000, 9999)
-	var drop_position := get_drop_position()
-	main_scene.item_spawner.rpc_id(1, 'request_spawn_item', random_number, drop_position, dict_slot_data, dict_item_data, item_data_scene)
+	drop_item_from_inventory(slot_data, get_drop_position())
 
 func _on_inventory_interface_signal_use_item(slot_data: InSlotData) -> void:
 	var item_data := slot_data.item
@@ -216,6 +268,15 @@ func _on_inventory_interface_signal_use_item(slot_data: InSlotData) -> void:
 	if item_data.hunger_value > 0 and hunger_value < 100.0:
 		hunger_value = min(hunger_value + item_data.hunger_value, 100.0)
 		signal_update_player_hunger.emit(hunger_value)
+
+func drop_item_from_inventory(slot_data : InSlotData, item_position : Vector3) -> void:
+	var item_data_scene := slot_data.item.dictionary
+	if not item_data_scene.has('dropped_item'): return
+	var dict_slot_data := slot_data.serialize_data()
+	var dict_item_data := slot_data.item.serialize_item_data()
+	var random_number := RandomNumberGenerator.new().randi_range(1000, 9999)
+	var drop_position := item_position
+	main_scene.item_spawner.rpc_id(1, 'request_spawn_item', random_number, drop_position, dict_slot_data, dict_item_data, item_data_scene)
 
 func interact() -> void:
 	if interact_ray.is_colliding():
@@ -263,10 +324,15 @@ func weapon_bob(vel: float, delta : float) -> void:
 func is_inventory_open() -> bool:
 	return inventory_interface.visible
 	
-func give_item(slot_data: InSlotData) -> bool:
+func give_item(slot_data: InSlotData, drop_item : bool = true) -> bool:
 	if !player_inventory._pick_up_slot_data(slot_data) \
 		and !player_quick_slot._pick_up_slot_data(slot_data):
-		inventory_interface.signal_drop_item.emit(slot_data)
+		if drop_item: inventory_interface.signal_drop_item.emit(slot_data)
 		return false
 	else:
 		return true
+
+
+
+func _on_button_pressed() -> void:
+	on_player_respawn()
