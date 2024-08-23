@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dob8qm0ravdt"
-path="res://.godot/imported/bandage.glb-7dae8660414b4711dd962bf6b27cddbe.scn"
+uid="uid://k0vewhr2tvng"
+path="res://.godot/imported/Bandage.glb-000f162710ebe404ba0dcd5a617b72bd.scn"
 
 [deps]
 
-source_file="res://models/bandage.glb"
-dest_files=["res://.godot/imported/bandage.glb-7dae8660414b4711dd962bf6b27cddbe.scn"]
+source_file="res://models/Bandage.glb"
+dest_files=["res://.godot/imported/Bandage.glb-000f162710ebe404ba0dcd5a617b72bd.scn"]
 
 [params]
 
