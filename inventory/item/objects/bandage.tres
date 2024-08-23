@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://inventory/craft_components.gd" id="1_i0koj"]
 [ext_resource type="Script" path="res://inventory/item/item_data_craftable_consumable.gd" id="1_rexm2"]
-[ext_resource type="Texture2D" uid="uid://beyuabc24hd8t" path="res://icons/icon.svg" id="1_y8crg"]
+[ext_resource type="Texture2D" uid="uid://b1gqxo71jpkr8" path="res://icons/Consumble/bandage_icon.png" id="2_j5vlw"]
 
 [resource]
 resource_local_to_scene = true
@@ -14,11 +14,12 @@ item_type = 1
 id = 3
 name = "bandage"
 description = ""
-description_item_panel = ""
+description_item_panel = "This may stop the bleeding (and possibly infect).
+"
 stackable = false
 max_stack = 0
 quality = 100.0
-icon = ExtResource("1_y8crg")
+icon = ExtResource("2_j5vlw")
 dictionary = {
 "dropped_item": "res://scenes/interactable/pickup/bandage.tscn"
 }
