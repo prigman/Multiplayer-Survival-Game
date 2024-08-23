@@ -1,8 +1,8 @@
 extends Node3D
 
-const DEFAULT_MATERIAL = preload('res://materials/building_material.tres')
-const TRUE_MATERIAL = preload('res://materials/building_material_true.tres')
-const FALSE_MATERIAL = preload('res://materials/building_material_false.tres')
+const DEFAULT_MATERIAL = preload('res://materials/main_pallete.tres')
+const TRUE_MATERIAL = preload('res://materials/main_pallete_true.tres')
+const FALSE_MATERIAL = preload('res://materials/main_pallete_false.tres')
 
 @export var item_data : ItemDataCraftableBuildings
 @export var building_part_owner_id : int

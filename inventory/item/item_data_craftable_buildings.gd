@@ -5,6 +5,7 @@ enum BuildingType {
 	wall,
 	roof,
 	inventory,
+	door,
 }
 
 @export var item_type : ItemType = ItemType.building

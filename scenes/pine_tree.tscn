@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ggat158lkf7j"]
+[gd_scene load_steps=8 format=3 uid="uid://mfw3gc463fdw"]
 
 [ext_resource type="ArrayMesh" uid="uid://pcfh4qqqwwim" path="res://models/meshes/pine_tree.mesh" id="1_dni8b"]
 [ext_resource type="Script" path="res://scripts/world_resources.gd" id="1_kae3q"]

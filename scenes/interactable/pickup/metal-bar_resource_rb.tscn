@@ -20,7 +20,7 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[node name="Metal-Bar" type="RigidBody3D" node_paths=PackedStringArray("synchronizer")]
+[node name="Metal-Bar" type="RigidBody3D" node_paths=PackedStringArray("synchronizer") groups=["item_interactable"]]
 collision_layer = 4
 collision_mask = 6601
 axis_lock_linear_x = true

@@ -1,0 +1,171 @@
+[gd_scene load_steps=34 format=3 uid="uid://dsp4bcfbcxxtf"]
+
+[ext_resource type="Script" path="res://inventory/external_inventory_object.gd" id="1_epg4t"]
+[ext_resource type="Script" path="res://inventory/inventory_data.gd" id="2_m2j12"]
+[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_im1ka"]
+[ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://inventory/item/objects/pine-wood-crate.tres" id="4_42a7i"]
+[ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://inventory/item/objects/m4_rifle.tres" id="4_kunk6"]
+[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo_ar.tres" id="5_42jop"]
+[ext_resource type="ArrayMesh" uid="uid://c0yho8pq4oj4l" path="res://models/meshes/pine_wood_crate.res" id="5_kgm4l"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="6_cpqk1"]
+[ext_resource type="Resource" uid="uid://dxxl4fdb2osqr" path="res://inventory/item/objects/bandage.tres" id="6_hkq6i"]
+[ext_resource type="Resource" uid="uid://ds240tmx01ajl" path="res://inventory/item/objects/can.tres" id="7_utlsa"]
+[ext_resource type="Resource" uid="uid://iqyranngmbcn" path="res://inventory/item/objects/can_small.tres" id="8_6jkq4"]
+[ext_resource type="Resource" uid="uid://dy8c3wxtbrndj" path="res://inventory/item/objects/medkit.tres" id="9_vnpc4"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://inventory/item/objects/resource_branch.tres" id="10_iy0td"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://inventory/item/objects/resource_metal-bar.tres" id="11_gaabi"]
+
+[sub_resource type="Resource" id="Resource_p00dj"]
+script = ExtResource("3_im1ka")
+item = ExtResource("4_kunk6")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_llga8"]
+script = ExtResource("3_im1ka")
+item = ExtResource("5_42jop")
+amount_in_slot = 120
+
+[sub_resource type="Resource" id="Resource_61uqh"]
+script = ExtResource("3_im1ka")
+item = ExtResource("5_42jop")
+amount_in_slot = 120
+
+[sub_resource type="Resource" id="Resource_gom5l"]
+script = ExtResource("3_im1ka")
+item = ExtResource("6_hkq6i")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_5hdbh"]
+script = ExtResource("3_im1ka")
+item = ExtResource("7_utlsa")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_txa88"]
+script = ExtResource("3_im1ka")
+item = ExtResource("8_6jkq4")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_lj6ng"]
+script = ExtResource("3_im1ka")
+item = ExtResource("9_vnpc4")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_idlta"]
+script = ExtResource("3_im1ka")
+item = ExtResource("10_iy0td")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_mx0yr"]
+script = ExtResource("3_im1ka")
+item = ExtResource("10_iy0td")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_g84xt"]
+script = ExtResource("3_im1ka")
+item = ExtResource("11_gaabi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_m210u"]
+script = ExtResource("3_im1ka")
+item = ExtResource("11_gaabi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_otvd5"]
+script = ExtResource("3_im1ka")
+item = ExtResource("10_iy0td")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_fr1nu"]
+script = ExtResource("3_im1ka")
+item = ExtResource("10_iy0td")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_t2p0f"]
+script = ExtResource("3_im1ka")
+item = ExtResource("11_gaabi")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_si40v"]
+resource_local_to_scene = true
+script = ExtResource("2_m2j12")
+type = 2
+slots_data = Array[ExtResource("3_im1ka")]([SubResource("Resource_p00dj"), SubResource("Resource_llga8"), SubResource("Resource_61uqh"), null, null, null, null, null, null, SubResource("Resource_gom5l"), SubResource("Resource_5hdbh"), SubResource("Resource_txa88"), SubResource("Resource_lj6ng"), SubResource("Resource_idlta"), SubResource("Resource_mx0yr"), SubResource("Resource_g84xt"), SubResource("Resource_m210u"), SubResource("Resource_otvd5"), SubResource("Resource_fr1nu"), SubResource("Resource_t2p0f"), null, null, null, null])
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_047kt"]
+size = Vector3(1, 0.9, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_segvh"]
+points = PackedVector3Array(-1.1, -1.1, -1.1, -1.1, -1.1, 1.1, -1.1, 1.1, -1.1, 1.1, -1.1, -1.1, -1.1, 1.1, 1.1, 1.1, -1.1, 1.1, 1.1, 1.1, -1.1, 1.1, 1.1, 1.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yxpgh"]
+size = Vector3(1.1, 1.1, 1.1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vvclw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("BuildingCollision/CollisionShape3D:disabled")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("CollisionShape3D:disabled")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("ShapeCast3D:enabled")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:building_part_owner_id")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:was_build")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath(".:on_player_connect_inventory_data")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+
+[node name="World_Pine-Wood-Crate" type="StaticBody3D" node_paths=PackedStringArray("shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["external_inventory"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_epg4t")
+inventory_data = SubResource("Resource_si40v")
+item_data = ExtResource("4_42a7i")
+shape_cast = NodePath("ShapeCast3D")
+collision_shape = NodePath("CollisionShape3D")
+mesh_node = NodePath("MeshInstance3D")
+building_collision = NodePath("BuildingCollision")
+was_build = true
+
+[node name="BuildingCollision" type="Area3D" parent="."]
+collision_layer = 1024
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_047kt")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+cast_shadow = 0
+visibility_range_end = 200.0
+mesh = ExtResource("5_kgm4l")
+surface_material_override/0 = ExtResource("6_cpqk1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.55, 0)
+shape = SubResource("ConvexPolygonShape3D_segvh")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+enabled = false
+shape = SubResource("BoxShape3D_yxpgh")
+max_results = 1
+collision_mask = 222
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_vvclw")
+
+[connection signal="signal_building_spawn" from="." to="." method="_on_signal_building_spawn"]

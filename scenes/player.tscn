@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=4 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=73 format=4 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -38,11 +38,13 @@
 [ext_resource type="ArrayMesh" uid="uid://c0qee1sc38nvk" path="res://models/meshes/axe_animated.res" id="15_yc44n"]
 [ext_resource type="Texture2D" uid="uid://carjrviipvpch" path="res://models/M4_Rifle_1024 palette.png" id="19_rkd7e"]
 [ext_resource type="Script" path="res://scripts/player state machine/falling_state.gd" id="21_h51by"]
+[ext_resource type="Script" path="res://scripts/interface/divide_content.gd" id="31_adwn6"]
 [ext_resource type="PackedScene" uid="uid://wgdfogfntkn0" path="res://scenes/soundpool.tscn" id="40_fcwqi"]
 [ext_resource type="Script" path="res://scripts/footstep_timer.gd" id="40_lcs76"]
 [ext_resource type="AudioStream" uid="uid://dvod3v0n2x1hg" path="res://sounds/m4_rifle_shot_2.mp3" id="40_v4bxt"]
 [ext_resource type="PackedScene" uid="uid://mojf4gd1jn1c" path="res://scenes/sound_queue.tscn" id="40_yvvnj"]
 [ext_resource type="AnimationLibrary" uid="uid://daohau8af7uyl" path="res://anims/item_fp_anims/m4_rifle/M4_Rifle_Anims.res" id="41_aeuon"]
+[ext_resource type="Script" path="res://scripts/player state machine/death_state.gd" id="41_ekt3e"]
 [ext_resource type="AnimationLibrary" uid="uid://c5ohgn7l2bmpy" path="res://anims/player_fp_anims/m4_rifle/FP_Armature.res" id="42_0yrtw"]
 [ext_resource type="AudioStream" uid="uid://bb3v7j1n01531" path="res://sounds/footstep_grass.mp3" id="42_s3n7o"]
 [ext_resource type="AudioStream" uid="uid://wr52318gt57c" path="res://sounds/footstep_grass_2.mp3" id="43_65qyp"]
@@ -504,7 +506,7 @@ near = 0.001
 [node name="InteractRay" type="RayCast3D" parent="CameraHolder/Camera3D"]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -2.5)
-collision_mask = 12
+collision_mask = 4574
 debug_shape_thickness = 1
 
 [node name="AimCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
@@ -1048,7 +1050,7 @@ camera_holder = NodePath("../..")
 player = NodePath("../../..")
 state_machine = NodePath("../../../StateMachine")
 timer = NodePath("../Timer")
-weapon_hud = NodePath("../../../CanvasLayer/Interface/Control/MarginContainer3/WeaponHud")
+weapon_hud = NodePath("../../../CanvasLayer/Interface/InventoryUI/MarginContainer3/WeaponHud")
 reticle = NodePath("../../../CanvasLayer/Interface/Reticle")
 crosshair = NodePath("../../../CanvasLayer/Interface/Crosshair")
 aim_cast = NodePath("../../Camera3D/AimCast")
@@ -1074,13 +1076,14 @@ unique_name_in_owner = true
 visible = false
 
 [node name="Interface" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="Crosshair" type="Control" parent="CanvasLayer/Interface"]
 visible = false
@@ -1092,6 +1095,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Top" type="Line2D" parent="CanvasLayer/Interface/Crosshair"]
 points = PackedVector2Array(0, -6, 0, -14)
@@ -1110,6 +1114,7 @@ points = PackedVector2Array(-6, 0, -14, 0)
 width = 1.5
 
 [node name="Reticle" type="CenterContainer" parent="CanvasLayer/Interface" node_paths=PackedStringArray("state_machine", "reticle_lines", "player", "item_script")]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1125,26 +1130,8 @@ reticle_lines = [NodePath("../Crosshair/Top"), NodePath("../Crosshair/Right"), N
 player = NodePath("../../..")
 item_script = NodePath("../../../CameraHolder/RigHolder/Item")
 
-[node name="Debug" type="PanelContainer" parent="CanvasLayer/Interface"]
+[node name="InventoryUI" type="Control" parent="CanvasLayer/Interface"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 0
-offset_left = 15.0
-offset_top = 15.0
-offset_right = 215.0
-offset_bottom = 55.0
-mouse_filter = 2
-theme = ExtResource("5_js7jf")
-script = ExtResource("7_6mltq")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Debug"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Debug/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Control" type="Control" parent="CanvasLayer/Interface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1155,7 +1142,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1166,13 +1153,13 @@ grow_vertical = 0
 theme_override_constants/margin_left = 35
 theme_override_constants/margin_bottom = 35
 
-[node name="PlayerStats" parent="CanvasLayer/Interface/Control/MarginContainer" instance=ExtResource("9_bcxkl")]
+[node name="PlayerStats" parent="CanvasLayer/Interface/InventoryUI/MarginContainer" instance=ExtResource("9_bcxkl")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 90)
 layout_mode = 2
 size_flags_stretch_ratio = 5.0
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/Control"]
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -1186,7 +1173,7 @@ grow_vertical = 0
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 35
 
-[node name="WeaponHud" parent="CanvasLayer/Interface/Control/MarginContainer3" instance=ExtResource("12_2ffht")]
+[node name="WeaponHud" parent="CanvasLayer/Interface/InventoryUI/MarginContainer3" instance=ExtResource("12_2ffht")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -1194,7 +1181,7 @@ size_flags_horizontal = 10
 size_flags_vertical = 10
 size_flags_stretch_ratio = 5.0
 
-[node name="InventoryInterface" type="Control" parent="CanvasLayer/Interface/Control" node_paths=PackedStringArray("player")]
+[node name="InventoryInterface" type="Control" parent="CanvasLayer/Interface/InventoryUI" node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -1210,7 +1197,7 @@ mouse_filter = 1
 script = ExtResource("9_sd5qi")
 player = NodePath("../../../..")
 
-[node name="CraftMenuMargin" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface"]
+[node name="CraftMenuMargin" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
@@ -1226,14 +1213,14 @@ grow_vertical = 0
 theme_override_constants/margin_left = 765
 theme_override_constants/margin_bottom = 120
 
-[node name="CraftMenu" parent="CanvasLayer/Interface/Control/InventoryInterface/CraftMenuMargin" node_paths=PackedStringArray("player") instance=ExtResource("13_00r71")]
+[node name="CraftMenu" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/CraftMenuMargin" node_paths=PackedStringArray("player") instance=ExtResource("13_00r71")]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(350, 460)
 layout_mode = 2
 player = NodePath("../../../../../..")
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface"]
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1248,7 +1235,7 @@ grow_vertical = 0
 theme_override_constants/margin_left = 799
 theme_override_constants/margin_bottom = 120
 
-[node name="ExternalInventory" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer3" instance=ExtResource("10_51sge")]
+[node name="ExternalInventory" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer3" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(1, 1, 1, 0.509804)
@@ -1257,7 +1244,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 size_flags_stretch_ratio = 5.0
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1271,11 +1258,11 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 120
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="InvItemInfoPanel" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer"]
+[node name="InvItemInfoPanel" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(380, 170)
@@ -1285,41 +1272,45 @@ focus_mode = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_3tcom")
 script = ExtResource("10_pwj6i")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer"]
 layout_mode = 2
+
+[node name="MainContent" type="HBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.0
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="ItemHealth" type="ProgressBar" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+[node name="ItemHealth" type="ProgressBar" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -1328,7 +1319,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_sfy83")
 value = 80.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ItemHealth"]
+[node name="Label" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ItemHealth"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -1344,13 +1335,13 @@ text = "QUALITY
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 20.0
 
-[node name="ItemIcon" type="TextureRect" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3"]
+[node name="ItemIcon" type="TextureRect" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -1359,7 +1350,7 @@ size_flags_stretch_ratio = 15.0
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AmmoCountPanel" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon"]
+[node name="AmmoCountPanel" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
@@ -1372,7 +1363,7 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="AmmoCount" type="Label" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon/AmmoCountPanel"]
+[node name="AmmoCount" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon/AmmoCountPanel"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
@@ -1381,17 +1372,17 @@ text = "30"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WeaponSlots" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="WeaponSlots" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 7
@@ -1399,32 +1390,32 @@ text = "Attachments"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Slot" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot2" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot2" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot3" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot3" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot4" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot4" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 15.0
@@ -1435,12 +1426,12 @@ theme_override_constants/icon_max_width = 0
 theme_override_font_sizes/font_size = 16
 current_tab = 0
 
-[node name="Details" type="TabBar" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
+[node name="Details" type="TabBar" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer"]
 layout_mode = 2
 focus_mode = 0
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1448,7 +1439,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemName" type="Label" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
+[node name="ItemName" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -1458,7 +1449,7 @@ text = "Assault Rifle"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
@@ -1466,17 +1457,17 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ItemDescription" type="RichTextLabel" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="ItemDescription" type="RichTextLabel" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -1491,13 +1482,13 @@ Damage arms: 15 hp
 Damage legs: 15 hps
 Shoot types: auto, single, burst"
 
-[node name="Actions" type="TabBar" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer"]
+[node name="Actions" type="TabBar" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer"]
 visible = false
 layout_mode = 2
 focus_mode = 0
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1505,7 +1496,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.2
@@ -1514,10 +1505,10 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="ItemUseButton" type="Button" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="ItemUseButton" type="Button" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -1528,7 +1519,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
 text = "Use
 "
 
-[node name="WeaponUnloadButton" type="Button" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="WeaponUnloadButton" type="Button" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -1538,7 +1529,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
 theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
 text = "Unload"
 
-[node name="ItemDropButton" type="Button" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="ItemDropButton" type="Button" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -1548,7 +1539,43 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
 theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
 text = "Drop"
 
-[node name="PlayerInventory" parent="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer" instance=ExtResource("10_51sge")]
+[node name="DivideContent" type="HBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("31_adwn6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent/VBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="DivideNumber" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "350"
+horizontal_alignment = 1
+
+[node name="DivideScroll" type="HScrollBar" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+rounded = true
+
+[node name="DivideButton" type="Button" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Divide"
+
+[node name="PlayerInventory" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.509804)
 layout_mode = 2
@@ -1556,7 +1583,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 size_flags_stretch_ratio = 10.0
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Interface/Control"]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1574,7 +1601,7 @@ size_flags_stretch_ratio = 5.0
 mouse_filter = 2
 theme_override_constants/margin_bottom = 35
 
-[node name="PlayerQuickSlot" parent="CanvasLayer/Interface/Control/MarginContainer2" instance=ExtResource("10_51sge")]
+[node name="PlayerQuickSlot" parent="CanvasLayer/Interface/InventoryUI/MarginContainer2" instance=ExtResource("10_51sge")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
@@ -1582,7 +1609,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 size_flags_stretch_ratio = 20.25
 
-[node name="GrabbedSlot" type="PanelContainer" parent="CanvasLayer/Interface/Control"]
+[node name="GrabbedSlot" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI"]
 unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 1, 0.788235)
@@ -1595,26 +1622,26 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 script = ExtResource("12_vifhc")
 
-[node name="ActiveSlotPanel" type="PanelContainer" parent="CanvasLayer/Interface/Control/GrabbedSlot"]
+[node name="ActiveSlotPanel" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8m1o6")
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/Control/GrabbedSlot"]
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Interface/Control/GrabbedSlot/MarginContainer3"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot/MarginContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Amount" type="Label" parent="CanvasLayer/Interface/Control/GrabbedSlot/MarginContainer3"]
+[node name="Amount" type="Label" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot/MarginContainer3"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -1625,12 +1652,12 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 text = "x99"
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Interface/Control/GrabbedSlot"]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
 layout_mode = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
 
-[node name="SlotNumber" type="Label" parent="CanvasLayer/Interface/Control/GrabbedSlot/MarginContainer2"]
+[node name="SlotNumber" type="Label" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot/MarginContainer2"]
 unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 1, 0.392157)
@@ -1640,10 +1667,70 @@ size_flags_vertical = 0
 theme_override_font_sizes/font_size = 12
 text = "1"
 
+[node name="DeathUI" type="Control" parent="CanvasLayer/Interface"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CanvasLayer/Interface/DeathUI"]
+self_modulate = Color(1, 1, 1, 0.470588)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/DeathUI/Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CanvasLayer/Interface/DeathUI/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 32
+text = "Сдох в муках
+"
+
+[node name="Button" type="Button" parent="CanvasLayer/Interface/DeathUI/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 1
+text = "SPAWN
+"
+
+[node name="Debug" type="PanelContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 215.0
+offset_bottom = 55.0
+mouse_filter = 2
+theme = ExtResource("5_js7jf")
+script = ExtResource("7_6mltq")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Debug"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Debug/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "debug_ui")]
 script = ExtResource("6_28k2k")
 current_state = NodePath("Idle")
-debug_ui = NodePath("../CanvasLayer/Interface/Debug")
+debug_ui = NodePath("../CanvasLayer/Debug")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("7_pfe0v")
@@ -1663,6 +1750,9 @@ script = ExtResource("11_juquo")
 
 [node name="Falling" type="Node" parent="StateMachine"]
 script = ExtResource("21_h51by")
+
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource("41_ekt3e")
 
 [node name="Label3D" type="Label3D" parent="."]
 unique_name_in_owner = true
@@ -1698,20 +1788,24 @@ count = 5
 [node name="GunShot" type="AudioStreamPlayer3D" parent="SoundQueue"]
 stream = ExtResource("40_v4bxt")
 
-[connection signal="signal_update_player_health" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_health"]
-[connection signal="signal_update_player_hunger" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_hunger"]
-[connection signal="signal_update_player_stats" from="." to="CanvasLayer/Interface/Control/MarginContainer/PlayerStats" method="_on_player_signal_update_player_stats"]
+[connection signal="signal_update_player_health" from="." to="CanvasLayer/Interface/InventoryUI/MarginContainer/PlayerStats" method="_on_player_signal_update_player_health"]
+[connection signal="signal_update_player_hunger" from="." to="CanvasLayer/Interface/InventoryUI/MarginContainer/PlayerStats" method="_on_player_signal_update_player_hunger"]
+[connection signal="signal_update_player_stats" from="." to="CanvasLayer/Interface/InventoryUI/MarginContainer/PlayerStats" method="_on_player_signal_update_player_stats"]
 [connection signal="animation_finished" from="CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/AnimationPlayerPickaxe" to="CameraHolder/RigHolder/Item" method="_on_animation_player_pickaxe_animation_finished"]
 [connection signal="animation_finished" from="CameraHolder/RigHolder/Node3D/Item_axe_animated/AnimationPlayerAxe" to="CameraHolder/RigHolder/Item" method="_on_animation_player_axe_animation_finished"]
 [connection signal="animation_finished" from="CameraHolder/RigHolder/Node3D/Item_M4_Rifle/AnimationPlayerM4_Rifle" to="CameraHolder/RigHolder/Item" method="_on_animation_player_m_4_rifle_animation_finished"]
-[connection signal="Update_Ammo" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/MarginContainer3/WeaponHud" method="_on_item_update_ammo"]
-[connection signal="Update_Fire_Mode" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/Control/MarginContainer3/WeaponHud" method="_on_item_update_fire_mode"]
-[connection signal="gui_input" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_gui_input"]
-[connection signal="signal_item_info_panel_set_data" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
-[connection signal="visibility_changed" from="CanvasLayer/Interface/Control/InventoryInterface" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_visibility_changed"]
-[connection signal="pressed" from="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemUseButton" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_item_use_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Interface/Control/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/HBoxContainer/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="CanvasLayer/Interface/Control/InventoryInterface" method="_on_item_drop_button_pressed"]
-[connection signal="gui_input" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_gui_input"]
-[connection signal="mouse_entered" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/Interface/Control/GrabbedSlot" to="CanvasLayer/Interface/Control/GrabbedSlot" method="_on_mouse_exited"]
+[connection signal="Update_Ammo" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/InventoryUI/MarginContainer3/WeaponHud" method="_on_item_update_ammo"]
+[connection signal="Update_Fire_Mode" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/InventoryUI/MarginContainer3/WeaponHud" method="_on_item_update_fire_mode"]
+[connection signal="gui_input" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_gui_input"]
+[connection signal="signal_item_info_panel_set_data" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
+[connection signal="visibility_changed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_visibility_changed"]
+[connection signal="pressed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemUseButton" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_item_use_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_item_drop_button_pressed"]
+[connection signal="signal_divide_button_pressed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_divide_content_signal_divide_button_pressed"]
+[connection signal="scrolling" from="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent/VBoxContainer/DivideScroll" to="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent" method="_on_divide_scroll_scrolling"]
+[connection signal="pressed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent/DivideButton" to="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent" method="_on_divide_button_pressed"]
+[connection signal="gui_input" from="CanvasLayer/Interface/InventoryUI/GrabbedSlot" to="CanvasLayer/Interface/InventoryUI/GrabbedSlot" method="_on_gui_input"]
+[connection signal="mouse_entered" from="CanvasLayer/Interface/InventoryUI/GrabbedSlot" to="CanvasLayer/Interface/InventoryUI/GrabbedSlot" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Interface/InventoryUI/GrabbedSlot" to="CanvasLayer/Interface/InventoryUI/GrabbedSlot" method="_on_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Interface/DeathUI/Panel/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="FootstepTimer" to="FootstepTimer" method="_on_timeout"]

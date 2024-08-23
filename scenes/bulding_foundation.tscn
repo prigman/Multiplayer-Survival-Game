@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://b3homprvw0wxj"]
 
 [ext_resource type="Script" path="res://scripts/building system/building.gd" id="1_6brl3"]
-[ext_resource type="BoxMesh" uid="uid://bmm0s4107n6rl" path="res://models/meshes/building_mesh.tres" id="2_c6ow4"]
 [ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://inventory/item/objects/wooden_floor.tres" id="2_ym1cl"]
-[ext_resource type="Material" uid="uid://o7108osm7jyv" path="res://materials/building_material.tres" id="3_sg1ll"]
+[ext_resource type="ArrayMesh" uid="uid://b47p5grj60fby" path="res://models/meshes/wooden_foundation.res" id="3_wohjs"]
 [ext_resource type="Script" path="res://scripts/building system/building_collider.gd" id="4_4hadj"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_oa1cf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ejk5y"]
 size = Vector3(3.95, 1.5, 3.95)
@@ -99,100 +99,108 @@ collide_with_areas = true
 [node name="Mesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 cast_shadow = 0
-mesh = ExtResource("2_c6ow4")
-surface_material_override/0 = ExtResource("3_sg1ll")
+mesh = ExtResource("3_wohjs")
+surface_material_override/0 = ExtResource("4_oa1cf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_iieix")
 disabled = true
 
-[node name="FoundationCollider" type="Area3D" parent="." groups=["building_collider"]]
+[node name="FoundationCollider" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("4_4hadj")
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="FoundationCollider"]
 shape = SubResource("BoxShape3D_lddx0")
 disabled = true
 
-[node name="FoundationCollider2" type="Area3D" parent="." groups=["building_collider"]]
+[node name="FoundationCollider2" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
 collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("4_4hadj")
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="FoundationCollider2"]
 shape = SubResource("BoxShape3D_lddx0")
 disabled = true
 
-[node name="FoundationCollider3" type="Area3D" parent="." groups=["building_collider"]]
+[node name="FoundationCollider3" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("4_4hadj")
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="FoundationCollider3"]
 shape = SubResource("BoxShape3D_lddx0")
 disabled = true
 
-[node name="FoundationCollider4" type="Area3D" parent="." groups=["building_collider"]]
+[node name="FoundationCollider4" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("4_4hadj")
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="FoundationCollider4"]
 shape = SubResource("BoxShape3D_lddx0")
 disabled = true
 
-[node name="WallCollider" type="Area3D" parent="." groups=["building_collider"]]
+[node name="WallCollider" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2.7, 0)
 collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("4_4hadj")
 collider_type = 1
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallCollider"]
 shape = SubResource("BoxShape3D_7y3fj")
 disabled = true
 
-[node name="WallCollider2" type="Area3D" parent="." groups=["building_collider"]]
+[node name="WallCollider2" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 2, 2.7, 0)
 collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("4_4hadj")
 collider_type = 1
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallCollider2"]
 shape = SubResource("BoxShape3D_7y3fj")
 disabled = true
 
-[node name="WallCollider3" type="Area3D" parent="." groups=["building_collider"]]
+[node name="WallCollider3" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2.7, 2)
 collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("4_4hadj")
 collider_type = 1
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallCollider3"]
 shape = SubResource("BoxShape3D_7y3fj")
 disabled = true
 
-[node name="WallCollider4" type="Area3D" parent="." groups=["building_collider"]]
+[node name="WallCollider4" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2.7, -2)
 collision_layer = 512
 collision_mask = 0
 monitoring = false
 script = ExtResource("4_4hadj")
 collider_type = 1
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallCollider4"]
 shape = SubResource("BoxShape3D_7y3fj")

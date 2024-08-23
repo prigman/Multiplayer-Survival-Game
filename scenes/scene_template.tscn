@@ -101,7 +101,7 @@ mesh = SubResource("BoxMesh_pk40u")
 material = ExtResource("4_lg25a")
 
 [node name="CSGMesh3D7" type="CSGMesh3D" parent="."]
-transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805, 16.998, 3.5, 3.288)
+transform = Transform3D(-0.0312474, 0, 1.62249, 0, 1, 0, -1.70815, 0, -0.0296805, 16.2676, 3.11583, 3.288)
 use_collision = true
 collision_mask = 0
 mesh = SubResource("BoxMesh_pk40u")

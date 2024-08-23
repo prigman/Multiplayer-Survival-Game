@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c2e8v421fc51u"
-path="res://.godot/imported/bandages.glb-9a1c677eb4b9f5a4e52e047bbb8b7797.scn"
+uid="uid://vnwyjkp33lfo"
+path="res://.godot/imported/wooden_doorway.glb-e45161a69e4273a94a288f9d30ad4f52.scn"
 
 [deps]
 
-source_file="res://models/bandages.glb"
-dest_files=["res://.godot/imported/bandages.glb-9a1c677eb4b9f5a4e52e047bbb8b7797.scn"]
+source_file="res://models/wooden_doorway.glb"
+dest_files=["res://.godot/imported/wooden_doorway.glb-e45161a69e4273a94a288f9d30ad4f52.scn"]
 
 [params]
 
@@ -31,6 +31,18 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"meshes": {
+"wooden_doorway_Cube_004": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://models/meshes/wooden_doorway.res"
+}
+}
+}
 gltf/naming_version=1
 gltf/embedded_image_handling=1
