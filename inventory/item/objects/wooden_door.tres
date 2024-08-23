@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("2_4h3yo")
 item_type = 5
-building_type = 3
+building_type = 4
 craft_components = Array[ExtResource("1_xtqno")]([])
 id = 19
 name = "Wooden Door"

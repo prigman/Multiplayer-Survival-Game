@@ -1,9 +1,27 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=3 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=9 format=3 uid="uid://vsfhctrv3820"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_ab8t5"]
+[ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://inventory/item/objects/wooden_floor.tres" id="3_ok6k2"]
+[ext_resource type="Resource" uid="uid://beqmhy1ap1nsg" path="res://inventory/item/objects/wooden_doorway.tres" id="4_513k8"]
+[ext_resource type="Resource" uid="uid://dth6kmifknlsn" path="res://inventory/item/objects/wooden_door.tres" id="5_2nwvh"]
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="8_qw5vx"]
+
+[sub_resource type="Resource" id="Resource_337d5"]
+script = ExtResource("8_qw5vx")
+item = ExtResource("3_ok6k2")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_jimvm"]
+script = ExtResource("8_qw5vx")
+item = ExtResource("4_513k8")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_kdoox"]
+script = ExtResource("8_qw5vx")
+item = ExtResource("5_2nwvh")
+amount_in_slot = 1
 
 [resource]
 script = ExtResource("1_ab8t5")
 type = 1
-slots_data = Array[ExtResource("8_qw5vx")]([null, null, null, null, null, null])
+slots_data = Array[ExtResource("8_qw5vx")]([SubResource("Resource_337d5"), SubResource("Resource_jimvm"), SubResource("Resource_kdoox"), null, null, null])

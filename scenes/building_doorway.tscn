@@ -49,22 +49,25 @@ properties/7/replication_mode = 2
 properties/8/path = NodePath("RoofCollider2/CollisionShape3D:disabled")
 properties/8/spawn = true
 properties/8/replication_mode = 2
-properties/9/path = NodePath("Root/DoorCollider/CollisionShape3D:disabled")
+properties/9/path = NodePath("DoorColliderBack/CollisionShape3D:disabled")
 properties/9/spawn = true
 properties/9/replication_mode = 2
-properties/10/path = NodePath("Root2/DoorCollider/CollisionShape3D:disabled")
+properties/10/path = NodePath("DoorColliderFront/CollisionShape3D:disabled")
 properties/10/spawn = true
 properties/10/replication_mode = 2
-properties/11/path = NodePath(".:closed")
+properties/11/path = NodePath("DoorColliderBack:is_busy")
 properties/11/spawn = true
 properties/11/replication_mode = 2
+properties/12/path = NodePath("DoorColliderFront:is_busy")
+properties/12/spawn = true
+properties/12/replication_mode = 2
 
 [node name="BuildingDoorway" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_group", "building_wall"]]
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("1_1hsrl")
 item_data = ExtResource("2_6vgtd")
-building_colliders = [NodePath("RoofCollider"), NodePath("RoofCollider2"), NodePath("Root/DoorCollider"), NodePath("Root2/DoorCollider")]
+building_colliders = [NodePath("RoofCollider"), NodePath("RoofCollider2"), NodePath("DoorColliderBack"), NodePath("DoorColliderFront")]
 shape_cast = NodePath("ShapeCast3D")
 collision_shape = NodePath("CollisionShape3D")
 mesh_node = NodePath("Mesh")
@@ -94,61 +97,63 @@ surface_material_override/0 = ExtResource("4_68lif")
 shape = SubResource("ConcavePolygonShape3D_ndl51")
 disabled = true
 
-[node name="RoofCollider" type="Area3D" parent="." groups=["building_collider"]]
+[node name="RoofCollider" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0)
 collision_layer = 512
 collision_mask = 0
 script = ExtResource("5_atn4o")
 collider_type = 2
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoofCollider"]
 shape = SubResource("BoxShape3D_ci7a3")
 disabled = true
 
-[node name="RoofCollider2" type="Area3D" parent="." groups=["building_collider"]]
+[node name="RoofCollider2" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
 collision_layer = 512
 collision_mask = 0
 script = ExtResource("5_atn4o")
 collider_type = 2
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoofCollider2"]
 shape = SubResource("BoxShape3D_ci7a3")
 disabled = true
 
-[node name="Root" type="Node3D" parent="."]
-transform = Transform3D(0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, 0.5, 0, -0.5, 1)
-
-[node name="DoorCollider" type="Area3D" parent="Root" node_paths=PackedStringArray("door_root") groups=["building_collider"]]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.1, -1)
+[node name="DoorColliderBack" type="Area3D" parent="." node_paths=PackedStringArray("door_root", "root_scene") groups=["building_collider"]]
+transform = Transform3D(-0.5, 0, 0.866026, 0, 1, 0, -0.866026, 0, -0.5, 0.866026, -0.6, 0.5)
 collision_layer = 512
 collision_mask = 0
 script = ExtResource("5_atn4o")
-collider_type = 3
-door_root = NodePath("../../DoorRoot")
+collider_type = 4
+door_root = NodePath("../DoorBackRoot")
+root_scene = NodePath("..")
+door_type = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Root/DoorCollider"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorColliderBack"]
 shape = SubResource("BoxShape3D_ydk17")
 disabled = true
 
-[node name="Root2" type="Node3D" parent="."]
-transform = Transform3D(-0.5, 0, 0.866026, 0, 1, 0, -0.866026, 0, -0.5, 0, -0.5, -1)
-
-[node name="DoorCollider" type="Area3D" parent="Root2" node_paths=PackedStringArray("door_root") groups=["building_collider"]]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.1, -1)
+[node name="DoorColliderFront" type="Area3D" parent="." node_paths=PackedStringArray("door_root", "root_scene") groups=["building_collider"]]
+transform = Transform3D(0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, 0.5, -0.866026, -0.6, -0.5)
 collision_layer = 512
 collision_mask = 0
 script = ExtResource("5_atn4o")
-collider_type = 3
-door_root = NodePath("../../DoorRoot")
+collider_type = 4
+door_root = NodePath("../DoorFrontRoot")
+root_scene = NodePath("..")
+door_type = 1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Root2/DoorCollider"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorColliderFront"]
 shape = SubResource("BoxShape3D_ydk17")
 disabled = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
 replication_config = SubResource("SceneReplicationConfig_0v3hs")
 
-[node name="DoorRoot" type="Marker3D" parent="."]
+[node name="DoorBackRoot" type="Marker3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.6, 1)
+
+[node name="DoorFrontRoot" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, -1)
-gizmo_extents = 1.0

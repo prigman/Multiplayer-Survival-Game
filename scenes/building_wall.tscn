@@ -83,23 +83,25 @@ cast_shadow = 0
 mesh = ExtResource("3_07a2w")
 surface_material_override/0 = ExtResource("4_hw4he")
 
-[node name="RoofCollider" type="Area3D" parent="." groups=["building_collider"]]
+[node name="RoofCollider" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0)
 collision_layer = 512
 collision_mask = 0
 script = ExtResource("4_e4ejn")
 collider_type = 2
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoofCollider"]
 shape = SubResource("BoxShape3D_ci7a3")
 disabled = true
 
-[node name="RoofCollider2" type="Area3D" parent="." groups=["building_collider"]]
+[node name="RoofCollider2" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
 collision_layer = 512
 collision_mask = 0
 script = ExtResource("4_e4ejn")
 collider_type = 2
+root_scene = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoofCollider2"]
 shape = SubResource("BoxShape3D_ci7a3")

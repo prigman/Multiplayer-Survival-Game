@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dw8lcfnktv7mv"]
+[gd_scene load_steps=37 format=3 uid="uid://oqrxmk3ytr1y"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dkqmkkyqb6scy" path="res://scenes/stone_2.tscn" id="20_wbg8h"]
 [ext_resource type="Texture2D" uid="uid://dsrve4q2sxdvi" path="res://textures/CUBIC-prototype-pack/Blue/2.png" id="21_1jjrh"]
 [ext_resource type="PackedScene" uid="uid://v0urs1mkfuuy" path="res://scenes/stone_3.tscn" id="21_lc5es"]
-[ext_resource type="PackedScene" uid="uid://ggat158lkf7j" path="res://scenes/pine_tree.tscn" id="22_41dkn"]
+[ext_resource type="PackedScene" uid="uid://mfw3gc463fdw" path="res://scenes/pine_tree.tscn" id="22_41dkn"]
 [ext_resource type="PackedScene" uid="uid://dp78nfal20sri" path="res://scenes/csg_house.tscn" id="23_0rwp3"]
 [ext_resource type="PackedScene" uid="uid://cnvoniekog4ap" path="res://scenes/csg_house_2.tscn" id="24_o20b4"]
 [ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
@@ -102,6 +102,7 @@ object_creator = NodePath("ObjectCreator")
 transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 0, 0, 0)
 shadow_enabled = true
 shadow_opacity = 0.7
+directional_shadow_blend_splits = true
 directional_shadow_max_distance = 175.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

@@ -128,14 +128,13 @@ func decrease_hunger_value(delta: float) -> void:
 		
 
 @rpc("any_peer","reliable","call_local")
-func died_process(damage:float) -> void:
-	if not is_multiplayer_authority():
-		return
+func died_process(damage:float, damage_peer_id: int = -1) -> void:
 	health_value -= damage
 	signal_update_player_health.emit(health_value)
+	print("DAMAGE LOG: " + str(peer_id) + " was hit by " + str(damage_peer_id) + " | with damage: " + str(damage) + " | health now: " + str(health_value))
 	if health_value <= 0 and died==false :
 		died = true
-		print("You died")
+		print("DAMAGE LOG: " + str(peer_id) + " was died ")
 		# main_scene.rpc('delete_player_rpc',peer_id)
 
 func on_player_die() -> void:
