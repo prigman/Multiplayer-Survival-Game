@@ -1,5 +1,5 @@
 @tool
-extends BoxContainer
+extends HBoxContainer
 
 signal prop_changed
 
@@ -9,11 +9,11 @@ var value:bool
 
 func set_name(input:String):
 	prop_name = input
-	$label.text = input
+	$lable.text = input
 
 func set_value(input:bool):
 	value = input
-	$Control/CheckButton.button_pressed = input
+	$CheckButton.button_pressed = input
 
 
 func _on_check_button_toggled(button_pressed):

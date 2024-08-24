@@ -33,14 +33,13 @@ properties/6/path = NodePath(".:rotation")
 properties/6/spawn = true
 properties/6/replication_mode = 2
 
-[node name="Stone_1" type="StaticBody3D" node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["stone_object", "world_resource"]]
+[node name="Stone_1" type="StaticBody3D" node_paths=PackedStringArray("timer", "zone", "mesh") groups=["stone_object", "world_resource"]]
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("1_umi2c")
 timer = NodePath("Timer")
 zone = NodePath("ShapeCast3D")
 mesh = NodePath("MeshInstance3D")
-collision = NodePath("")
 start_health = 100.0
 world_resource_type = 1
 

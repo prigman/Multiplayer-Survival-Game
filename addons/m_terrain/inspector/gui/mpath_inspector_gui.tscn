@@ -86,8 +86,5 @@ allow_reselect = true
 wait_time = 0.752
 autostart = true
 
-[node name="HSeparator4" type="HSeparator" parent="."]
-layout_mode = 2
-
 [connection signal="item_selected" from="child_selctor" to="." method="_on_child_selctor_item_selected"]
 [connection signal="timeout" from="update_info_timer" to="." method="_on_update_info_timer_timeout"]
