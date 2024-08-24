@@ -11,6 +11,7 @@ item_type = 5
 building_type = 0
 craft_components = Array[ExtResource("1_mv6i7")]([])
 id = 12
+item_rarity = 0
 name = "Wooden Foundation"
 description = "Сonstruction part"
 description_item_panel = "Сonstruction part"

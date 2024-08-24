@@ -1,8 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://oqrxmk3ytr1y"]
+[gd_scene load_steps=41 format=3 uid="uid://oqrxmk3ytr1y"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_7fa2s"]
 [ext_resource type="Script" path="res://scripts/item_spawner.gd" id="2_6apke"]
 [ext_resource type="PackedScene" uid="uid://cu78wr4f7155s" path="res://scenes/scene_template.tscn" id="5_xsqmg"]
+[ext_resource type="MCurve" uid="uid://dpxvi4mlcw8s7" path="res://terrain_data/m_curve.tres" id="11_mqw0o"]
 [ext_resource type="MTerrainMaterial" uid="uid://1wm6ms1yy2xj" path="res://terrain_data/terrain_mat.res" id="13_8lcak"]
 [ext_resource type="Script" path="res://scripts/mterrain.gd" id="14_6to2c"]
 [ext_resource type="MGrassData" uid="uid://diydirk7wwo4m" path="res://terrain_data/new_m_grass_data.res" id="15_p7tgc"]
@@ -45,6 +46,13 @@ adjustment_enabled = true
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3lh8d"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tjh5l"]
+
+[sub_resource type="MCurveMeshOverride" id="MCurveMeshOverride_h6k81"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jwyml"]
+
+[sub_resource type="MMeshLod" id="MMeshLod_efktm"]
+meshes = Array[Mesh]([SubResource("PlaneMesh_jwyml")])
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wb0g1"]
 height = 12.0
@@ -172,6 +180,8 @@ autostart = true
 
 [node name="MTerrain" type="MTerrain" parent="."]
 dataDir = "res://terrain_data"
+layersDataDir = "C:/Godot survival/terrain_data"
+create = true
 terrain_material = ExtResource("13_8lcak")
 heightmap_layers = PackedStringArray("background")
 update_chunks_interval = 0.01
@@ -190,6 +200,39 @@ grass_count_limit = 9000
 lod_settings = [ExtResource("16_c1xjj"), null, null]
 meshes = [ExtResource("17_l42ok"), null, null]
 materials = [ExtResource("18_lajm7"), null, null]
+metadata/curve_terrain = {
+"active": false,
+"add": false,
+"offset": 0.0,
+"radius": 6.0
+}
+
+[node name="MPath" type="MPath" parent="MTerrain"]
+curve = ExtResource("11_mqw0o")
+metadata/curve_terrain = {
+"auto_deform": true,
+"auto_grass": false,
+"auto_paint": false,
+"bgcolor": Color(0, 0, 0, 1),
+"dfalloff": 2.0,
+"doffset": 0.0,
+"donly_selected": true,
+"dradius": 6.0,
+"iname": "",
+"panel_open": true,
+"pcolor": Color(1, 1, 1, 1),
+"pfalloff": 0.0,
+"ponly_selected": true,
+"pradius": 6.0,
+"scale": true,
+"tilt": false,
+"tlayer": ""
+}
+
+[node name="MCurveMesh" type="MCurveMesh" parent="MTerrain"]
+override = SubResource("MCurveMeshOverride_h6k81")
+meshes = [SubResource("MMeshLod_efktm")]
+materials = [null]
 
 [node name="PineTree" type="StaticBody3D" parent="." node_paths=PackedStringArray("timer", "zone", "mesh", "collision") groups=["world_resource"]]
 visible = false

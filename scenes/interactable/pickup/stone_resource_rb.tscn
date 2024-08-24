@@ -12,6 +12,7 @@ resource_local_to_scene = true
 script = ExtResource("3_784by")
 item_type = 3
 id = 0
+item_rarity = 0
 name = "Stone"
 description = "Crafting resource"
 description_item_panel = "Crafting resource"

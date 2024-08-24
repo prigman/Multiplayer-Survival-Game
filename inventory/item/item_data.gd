@@ -20,7 +20,15 @@ enum WeaponType {
 	machine_gun
 }
 
+enum ItemRarity {
+	regular,
+	unpopular,
+	rare,
+	top
+}
+
 @export var id : int
+@export var item_rarity : ItemRarity
 @export var name: String
 @export_multiline var description: String
 @export_multiline var description_item_panel: String

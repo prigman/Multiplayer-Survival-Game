@@ -59,7 +59,7 @@ var current_time: float
 #
 
 # building system
-var building_scene # хранит в себе сцену со строительным объектом
+var building_scene : Node # хранит в себе сцену со строительным объектом
 var wrong_colliders : Array[Area3D]
 
 func _physics_process(delta : float) -> void:
@@ -197,7 +197,7 @@ func check_place_for_building() -> void:
 		if building_scene.is_able_to_build and Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
 			place_building_part(building_scene, _collider_interacted_path)
 
-func building_set_possibility_to_place(building, possibility : bool) -> void:
+func building_set_possibility_to_place(building : Node, possibility : bool) -> void:
 	if possibility:
 		building.is_able_to_build = true
 		building.mesh_node.set_surface_override_material(0, building.TRUE_MATERIAL)
@@ -209,7 +209,7 @@ func building_change_visibility(visibility : bool) -> void:
 	if not visibility and building_scene.visible: building_scene.hide()
 	elif visibility and not building_scene.visible: building_scene.show()
 
-func place_building_part(_building_scene, collider_interacted_path : NodePath) -> void:
+func place_building_part(_building_scene : Node, collider_interacted_path : NodePath) -> void:
 	var building_scene_path : String = equiped_item.dictionary["scene_path"]
 	remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
 	rpc("spawn_building_part", building_scene_path, _building_scene.global_position.x, _building_scene.global_position.y, _building_scene.global_position.z, _building_scene.global_rotation_degrees.y, collider_interacted_path, player.peer_id) # посылаем на сервер запрос на спавн постройки
@@ -218,11 +218,11 @@ func place_building_part(_building_scene, collider_interacted_path : NodePath) -
 func spawn_building_part(building_scene_path : String, position_x : float, position_y : float, position_z : float, rotation_y : float, collider_interacted_path : NodePath, player_id : int) -> void:
 	if not multiplayer.is_server(): return
 	print("SERVER: player spawned building")
-	var building_instance = load(building_scene_path).instantiate()
+	var building_instance : Node = load(building_scene_path).instantiate()
 	get_tree().get_first_node_in_group("world").call_deferred("add_child", building_instance, true) # добавляет постройку в обычный мир
 	call_deferred("set_building_data", building_instance, position_x, position_y, position_z, rotation_y, collider_interacted_path, player_id)
 
-func set_building_data(building_instance, position_x : float, position_y : float, position_z : float, rotation_y : float, collider_interacted_path : NodePath, player_id : int) -> void:
+func set_building_data(building_instance : Node, position_x : float, position_y : float, position_z : float, rotation_y : float, collider_interacted_path : NodePath, player_id : int) -> void:
 	var building_pos : Vector3
 	var building_rot : float
 	if building_instance.item_data.building_type != building_instance.item_data.BuildingType.inventory:

@@ -75,7 +75,7 @@ func get_random_position_in_collision_shape() -> Vector3:
 	else:
 		return Vector3.ZERO
 
-func save_objects(value : bool):
+func save_objects(value : bool) -> void:
 	value = false
 	var counter : int = 0
 	for child in objects_spawned.get_children():
