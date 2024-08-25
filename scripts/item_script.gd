@@ -419,6 +419,8 @@ func hitscan(raycast: RayCast3D) -> void:
 		if target:
 			target.call_deferred("add_child", decal)
 			player_hit(target)
+			if target.is_in_group("enemy_group"):
+				target.rpc('damage_enemy', equiped_item.damage, player.peer_id)
 			if raycast == melee_cast and equiped_item.ItemType.tool:
 				if target.is_in_group("world_resource"):
 					if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdl83p75mjq64"]
+[gd_scene load_steps=7 format=3 uid="uid://bdl83p75mjq64"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_xfopi"]
 
@@ -9,15 +9,42 @@ albedo_color = Color(0.72549, 0.196078, 0, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5d0w5"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_frlau"]
+radius = 10.0
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_63wee"]
-properties/0/path = NodePath(".:visible")
+properties/0/path = NodePath(".:health")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("MeshInstance3D:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("CollisionShape3D:disabled")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("TargetDetection/CollisionShape3D:disabled")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("Label3D:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
-[node name="Enemy" type="CharacterBody3D" groups=["enemy_group"]]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("navigation_agent", "death_timer", "collision", "mesh", "collision_target_area", "label") groups=["enemy_group"]]
 collision_layer = 16
-collision_mask = 9
+collision_mask = 4123
 script = ExtResource("1_xfopi")
+navigation_agent = NodePath("NavigationAgent3D")
+death_timer = NodePath("DeathTimer")
+collision = NodePath("CollisionShape3D")
+mesh = NodePath("MeshInstance3D")
+collision_target_area = NodePath("TargetDetection/CollisionShape3D")
+label = NodePath("Label3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -28,5 +55,32 @@ surface_material_override/0 = SubResource("StandardMaterial3D_oasgi")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_5d0w5")
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.1
+debug_enabled = true
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59032, 0)
+billboard = 1
+double_sided = false
+outline_modulate = Color(0, 0, 0, 0)
+text = "Enemy"
+font_size = 88
+
+[node name="TargetDetection" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetDetection"]
+shape = SubResource("SphereShape3D_frlau")
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_63wee")
+
+[connection signal="body_entered" from="TargetDetection" to="." method="_on_target_detection_body_entered"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

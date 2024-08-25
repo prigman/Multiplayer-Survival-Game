@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=75 format=4 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
@@ -39,9 +39,6 @@
 [ext_resource type="Texture2D" uid="uid://carjrviipvpch" path="res://models/M4_Rifle_1024 palette.png" id="19_rkd7e"]
 [ext_resource type="Script" path="res://scripts/player state machine/falling_state.gd" id="21_h51by"]
 [ext_resource type="Script" path="res://scripts/interface/divide_content.gd" id="31_adwn6"]
-[ext_resource type="Texture2D" uid="uid://drtik47nntpts" path="res://icons/rarity_slot_03.svg" id="33_74dpg"]
-[ext_resource type="Texture2D" uid="uid://clbhnxabwhhn0" path="res://icons/rarity_slot_02.svg" id="34_4ctjh"]
-[ext_resource type="Texture2D" uid="uid://do5r8eoebvwer" path="res://icons/rarity_slot_01.svg" id="35_b0otj"]
 [ext_resource type="PackedScene" uid="uid://wgdfogfntkn0" path="res://scenes/soundpool.tscn" id="40_fcwqi"]
 [ext_resource type="Script" path="res://scripts/footstep_timer.gd" id="40_lcs76"]
 [ext_resource type="AudioStream" uid="uid://dvod3v0n2x1hg" path="res://sounds/m4_rifle_shot_2.mp3" id="40_v4bxt"]
@@ -440,19 +437,39 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m1o6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4e25u"]
 bg_color = Color(1, 1, 1, 0)
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
+border_width_top = 5
+border_color = Color(0.490196, 0.0980392, 0.592157, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
-expand_margin_bottom = 2.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jnoc3"]
+bg_color = Color(1, 1, 1, 0)
+border_width_top = 5
+border_color = Color(0.117647, 0.243137, 0.494118, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4yrev"]
+bg_color = Color(1, 1, 1, 0)
+border_width_top = 5
+border_color = Color(0.113725, 0.372549, 0.494118, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("state_machine", "sound_footstep_pool", "footstep_timer", "mesh", "weapon_holder") groups=["player"]]
 collision_layer = 2
-collision_mask = 4553
+collision_mask = 4569
 script = ExtResource("1_adhyr")
 state_machine = NodePath("StateMachine")
 sound_footstep_pool = NodePath("Soundpool")
@@ -1620,7 +1637,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 size_flags_stretch_ratio = 20.25
 
-[node name="GrabbedSlot" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI" node_paths=PackedStringArray("rarity_regular_texture", "rarity_unpopular_texture", "rarity_rare_texture", "rarity_top_texture")]
+[node name="GrabbedSlot" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI"]
 unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 1, 0.788235)
@@ -1632,40 +1649,21 @@ offset_bottom = 64.0
 size_flags_horizontal = 4
 size_flags_vertical = 6
 script = ExtResource("12_vifhc")
-rarity_regular_texture = NodePath("Regular")
-rarity_unpopular_texture = NodePath("Unpopular")
-rarity_rare_texture = NodePath("Rare")
-rarity_top_texture = NodePath("Top")
 
-[node name="Regular" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
-layout_mode = 2
-
-[node name="Unpopular" type="TextureRect" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
-visible = false
-self_modulate = Color(1, 1, 1, 0.901961)
-layout_mode = 2
-texture = ExtResource("33_74dpg")
-expand_mode = 2
-
-[node name="Rare" type="TextureRect" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
-visible = false
-self_modulate = Color(1, 1, 1, 0.901961)
-layout_mode = 2
-texture = ExtResource("34_4ctjh")
-expand_mode = 2
-
-[node name="Top" type="TextureRect" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
-visible = false
-self_modulate = Color(1, 1, 1, 0.764706)
-layout_mode = 2
-texture = ExtResource("35_b0otj")
-expand_mode = 2
-
-[node name="ActiveSlotPanel" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
-unique_name_in_owner = true
+[node name="TopRarity" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
 visible = false
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8m1o6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4e25u")
+
+[node name="RareRarity" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jnoc3")
+
+[node name="UnpopularRarity" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4yrev")
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
 layout_mode = 2

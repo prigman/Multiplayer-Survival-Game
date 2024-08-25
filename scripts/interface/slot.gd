@@ -5,13 +5,13 @@ signal signal_slot_clicked(index : int, button : int)
 
 @onready var texture_rect := %TextureRect
 @onready var amount_text := %Amount
-@onready var active_slot_panel := %ActiveSlotPanel
 @onready var slot_number := %SlotNumber
 
-@export var rarity_regular_texture : PanelContainer
-@export var rarity_unpopular_texture : TextureRect
-@export var rarity_rare_texture : TextureRect
-@export var rarity_top_texture : TextureRect
+# @export var rarity_regular_texture : PanelContainer
+@export var rarity_unpopular_texture : PanelContainer
+@export var rarity_rare_texture : PanelContainer
+@export var rarity_top_texture : PanelContainer
+@export var active_slot_panel : PanelContainer
 
 var slot_rarity : Array
 
@@ -20,16 +20,15 @@ var slot_rarity : Array
 #var right_clicked : bool
 
 func _ready() -> void:
-	slot_rarity = [rarity_regular_texture, rarity_unpopular_texture, rarity_rare_texture, rarity_top_texture]
+	if rarity_unpopular_texture and rarity_rare_texture and rarity_top_texture:
+		slot_rarity = [rarity_unpopular_texture, rarity_rare_texture, rarity_top_texture]
 
 func _set_slot_data(slot_info: InSlotData) -> void:
 	texture_rect.texture = slot_info.item.icon
-	if slot_info.item:
+	if slot_info.item and slot_rarity:
 		for texture : CanvasItem in slot_rarity:
 			if texture.visible: texture.hide()
 		match slot_info.item.item_rarity:
-			slot_info.item.ItemRarity.regular:
-				rarity_regular_texture.show()
 			slot_info.item.ItemRarity.unpopular:
 				rarity_unpopular_texture.show()
 			slot_info.item.ItemRarity.rare:

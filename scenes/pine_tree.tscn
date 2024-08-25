@@ -73,5 +73,9 @@ wait_time = 10.0
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qq887")
 
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.86487, 0)
+aabb = AABB(-1, -7.27917, -1, 2, 14.5583, 2)
+
 [connection signal="world_resource_hit" from="." to="." method="_on_world_resource_hit"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

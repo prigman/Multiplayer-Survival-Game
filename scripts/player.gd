@@ -12,6 +12,7 @@ var last_position_z : float
 var distance_travelled_x : float = 0.0
 var distance_travelled_z : float = 0.0
 
+var connected_mobs : Array[CharacterBody3D] = []
 
 # movement
 # var camera_holder_position
@@ -101,6 +102,10 @@ func _ready() -> void:
 	await get_tree().create_timer(3.0).timeout
 	is_player_loading = false
 
+func _exit_tree() -> void:
+	if connected_mobs != []:
+		rpc_id(1, "disconnect_all_mobs_from_player")
+
 func _process(delta : float) -> void:
 	decrease_hunger_value(delta)
 	var velocity_string := "%.2f" % velocity.length()
@@ -120,12 +125,38 @@ func decrease_hunger_value(delta: float) -> void:
 	hunger_value = max(hunger_value, 0.0)
 	signal_update_player_hunger.emit(hunger_value)
 
-	if hunger_value == 0.0:
+	if hunger_value == 0.0 and health_value > 0.0:
 		rpc("died_process", 0.5*delta)
 	elif hunger_value > 95 and health_value < 100:
 		health_value+=0.5*delta
 		signal_update_player_health.emit(health_value)
-		
+
+
+@rpc("any_peer", "call_local", "reliable")
+func connect_mob_to_player(mob_path : NodePath) -> void:
+	var mob : CharacterBody3D = get_node(mob_path)
+	for connected_mob in connected_mobs:
+		if connected_mob and connected_mob == mob: return
+	mob.target = self
+	connected_mobs.append(mob)
+	print("SERVER: connect Mob " + mob.name + " to player " + str(peer_id))
+
+
+@rpc("any_peer", "call_local", "reliable")
+func disconnect_all_mobs_from_player() -> void:
+	for connected_mob in connected_mobs:
+		if connected_mob.target == self:
+			connected_mob.target = null
+	connected_mobs = []
+	print("SERVER: disconnect all Mobs from player beacuse of leave: " + str(peer_id))
+
+@rpc("any_peer", "call_local", "reliable")
+func disconnect_mob_from_player(mob_path : NodePath) -> void:
+	var mob : CharacterBody3D = get_node(mob_path)
+	if mob.target == self:
+		mob.target = null
+		connected_mobs.erase(mob)
+		print("SERVER: disconnect Mob " + mob.name + " from player: " + str(peer_id))
 
 @rpc("any_peer","reliable","call_local")
 func died_process(damage:float, damage_peer_id: int = -1) -> void:
@@ -134,7 +165,7 @@ func died_process(damage:float, damage_peer_id: int = -1) -> void:
 	print("DAMAGE LOG: " + str(peer_id) + " was hit by " + str(damage_peer_id) + " | with damage: " + str(damage) + " | health now: " + str(health_value))
 	if health_value <= 0 and died==false :
 		died = true
-		print("DAMAGE LOG: " + str(peer_id) + " was died ")
+		print("DEATH LOG: " + str(peer_id) + " died")
 		# main_scene.rpc('delete_player_rpc',peer_id)
 
 func on_player_die() -> void:

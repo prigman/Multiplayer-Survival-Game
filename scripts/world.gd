@@ -7,14 +7,12 @@ const ROCK_2_SCENE := preload("res://scenes/stone_2.tscn")
 const ROCK_3_SCENE := preload("res://scenes/stone_3.tscn")
 const WORLD_CRATE_SCENE := preload("res://scenes/interactable/world_pine-wood-crate_staticbody.tscn")
 
-@export var enemy1: CharacterBody3D
-@export var enemy2: CharacterBody3D
-@export var enemy3: CharacterBody3D
 @export var multiplayer_spawner : MultiplayerSpawner
 @export var item_spawner : MultiplayerSpawner
 @export var world_resources_spawner : MultiplayerSpawner
 @export var world_crate_spawner : MultiplayerSpawner
 @export var object_creator : Node3D
+@export var nav_mesh : MNavigationRegion3D
 
 @onready var players_spawn_node := %Players
 
@@ -24,25 +22,17 @@ func _ready() -> void:
 	world_crate_spawner.spawn_function = world_crate_custom_spawn
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(delete_player)
-	Server.main_scene = get_node(get_path())
-	if multiplayer.is_server(): # spawn all trees and rocks
-		var counter := 0
-		for object in object_creator.objects_positions:
-			if not object: continue
-			# print("object: ", str(object))
-			call_deferred("add_world_resource", object)
-			counter += 1
-		print("SERVER: spawned world resources: ", str(counter))
-		add_world_crate(Vector3(229.003,3.932,196.739), Vector3.ZERO)
+	# if multiplayer.is_server(): # spawn all trees and rocks
+		# var counter := 0
+		# for object in object_creator.objects_positions:
+		# 	if not object: continue
+		# 	# print("object: ", str(object))
+		# 	call_deferred("add_world_resource", object)
+		# 	counter += 1
+		# print("SERVER: spawned world resources: ", str(counter))
+		# add_world_crate(Vector3(229.003,3.932,196.739), Vector3.ZERO)
 		# add_world_crate(Vector3(228.056,3.855,194.816), Vector3.ZERO)
-
-func _on_enemy_spawn_timer_timeout() -> void:
-	if !enemy1.visible:
-		enemy1.show()
-	if !enemy2.visible:
-		enemy2.show()
-	if !enemy3.visible:
-		enemy3.show()
+		# nav_mesh.call_deferred("bake_navigation_mesh")
 
 func add_player(id: int) -> void:
 	if not multiplayer.is_server(): return

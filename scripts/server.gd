@@ -7,7 +7,6 @@ var MAIN_SCENE := preload("res://scenes/main.tscn")
 var port := 8080
 var connection_ip := "26.80.75.54"
 var max_players := 20
-var main_scene : Node3D
 var status : int
 
 func _ready() -> void:
