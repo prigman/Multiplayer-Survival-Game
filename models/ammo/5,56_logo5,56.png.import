@@ -2,25 +2,25 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuug6abb5w5sg"
-path.s3tc="res://.godot/imported/bandage_1024_palette.png-b839865ab6b3c50d017eb6c2e3a52480.s3tc.ctex"
+uid="uid://c17owv7kc0oin"
+path.bptc="res://.godot/imported/5,56_logo5,56.png-cf063db4b13eae2529fa79a47f3a97ff.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "35110d13af6c26148b88669ff6f667be"
+"md5": "fe7538b1e97712db8076e16dbcf5e067"
 }
 
 [deps]
 
-source_file="res://models/bandage_1024_palette.png"
-dest_files=["res://.godot/imported/bandage_1024_palette.png-b839865ab6b3c50d017eb6c2e3a52480.s3tc.ctex"]
+source_file="res://models/ammo/5,56_logo5,56.png"
+dest_files=["res://.godot/imported/5,56_logo5,56.png-cf063db4b13eae2529fa79a47f3a97ff.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

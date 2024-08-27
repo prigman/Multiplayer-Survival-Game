@@ -1,0 +1,127 @@
+[gd_scene load_steps=15 format=4 uid="uid://28g62kx7y811"]
+
+[ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_bns1h"]
+[ext_resource type="Texture2D" uid="uid://d1u2snp32xsoj" path="res://models/ammo/5,56_1024_palette.png" id="1_uh1qt"]
+[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo/ammo_ar.tres" id="2_r5y0q"]
+[ext_resource type="Texture2D" uid="uid://c17owv7kc0oin" path="res://models/ammo/5,56_logo5,56.png" id="2_x8mra"]
+[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_srv00"]
+
+[sub_resource type="Resource" id="Resource_bs3au"]
+script = ExtResource("3_srv00")
+item = ExtResource("2_r5y0q")
+amount_in_slot = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rs017"]
+resource_name = "Diffuse_Color"
+shading_mode = 0
+albedo_texture = ExtResource("1_uh1qt")
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_4qho3"]
+_surfaces = [{
+"aabb": AABB(-0.000900936, -0.000335427, -0.00173516, 0.00268249, 0.001274, 0.001274),
+"format": 34896613377,
+"index_count": 78,
+"index_data": PackedByteArray("BQABAAMABQAEAAEABgAEAAUABgAHAAQADgADAA8ADgAFAAMAAAAGAAIAAAAHAAYAAwANAA8AAwACAA0AAgAMAA0AAgAGAAwADAAFAA4ADAAGAAUADwAJAAoADwANAAkADQAIAAkADQAMAAgACgAIAAsACgAJAAgACwAPAAoACwAOAA8ACAAOAAsACAAMAA4AAQACAAMAAQAAAAIA"),
+"name": "Diffuse_Color",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("AAD///7/AAAAAP7/AAAAAAAAL8z+/wAAAAAvzAAAAAD///7/AAAAAP//L8wAAAAA//8vzP7/AAD//////v8AAP//AAD//wAAAAAAAP//AAAAAAAAAAAAAP//AAAAAAAA//+Fof7/AAAAAIWh/v8AAP//haEAAAAAAACFoQAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_a8ute"]
+resource_name = "5,56_Ammo_sniper"
+_surfaces = [{
+"aabb": AABB(-0.000900936, -0.000335427, -0.00173516, 0.00268249, 0.001274, 0.001274),
+"attribute_data": PackedByteArray("X0omql9K3qukSiaqpEreq7RL3qu0S3qv+Uveq/lLeq/5S96rtEsmqrRL3qv5SyaqtEveq29Leq+0S3qvb0veq1hP5rZYT5+yxE2fssRN5rYZisfkcYkG5xmKBudxicfkWYzH5LGLNOCxi8fkWYw04LGLx+Sxi6DmWYzH5FmMoOYHi5rgB4us5a+LmuCvi6zlnUmfspxKlrCdSZawnEqfsjFLn7IxS+a2MEyfsjBM5rZKTYi2zkp2sc5KiLZKTXaxB0qfsghJ5rYHSua2CEmfsg=="),
+"format": 34896613399,
+"index_count": 78,
+"index_data": PackedByteArray("BwAEAAYABwAFAAQACAAJAAsACAAKAAkAHwAcAB4AHwAdABwADAANAA8ADAAOAA0AIQAiACMAIQAgACIAFAAVABcAFAAWABUAGAAZABsAGAAaABkAJAAlACcAJAAmACUAMAAxADMAMAAyADEAEgAQABMAEgARABAAKwAoACoAKwApACgALAAtAC8ALAAuAC0AAQACAAMAAQAAAAIA"),
+"material": SubResource("StandardMaterial3D_rs017"),
+"name": "Diffuse_Color",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 52,
+"vertex_data": PackedByteArray("AAD///7/VNUAAP7/AABU1QAAL8z+/1TVAAAvzAAAVNUAAP7/AAD//////v8AAP//AAAvzAAA/////y/MAAD/////L8z+/1TV///+/wAAVNX//////v9U1f//L8wAAFTVAAD///7//7///y/M/v//v//////+//+/AAAvzP7//7///wAA//9U1QAAAAD//1TVAAAAAAAAVNX//wAAAABU1QAAL8z+//+///+Fof7//7///y/M/v//vwAAhaH+//+///+Fof7/VNX//y/MAABU1f//L8z+/1TV//+FoQAAVNUAAC/MAAD/////L8wAAP//AACFoQAA/////4WhAAD//wAAL8z+/1TVAAAvzAAAVNUAAIWh/v9U1QAAhaEAAFTVAACFoQAAVNUAAAAA//9U1QAAhaH+/1TVAAAAAAAAVNUAAIWhAAD/////haEAAP//AAAAAAAA/////wAAAAD/////AAD//1TV//+FoQAAVNX//4Wh/v9U1f//AAAAAFTVAACFof7//7///wAA////v///haH+//+/AAAAAP///79UVaqqVFWqqlRVqqpUVaqq/z//v/8//7//P/+//z//v6qqVFWqqlRVqqpUVaqqVFX/////////////////////qipU1aoqVNWqKlTVqipU1f////////////////////+qqlRVqqpUVaqqVFWqqlRV/z//v/8//7//P/+//z//v1RVqqpUVaqqVFWqqlRVqqpUVaqqVFWqqlRVqqpUVaqq/z//v/8//7//P/+//z//v6qqVFWqqlRVqqpUVaqqVFX/////////////////////")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_4qho3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ndbop"]
+resource_name = "Материал"
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("2_x8mra")
+texture_filter = 2
+texture_repeat = false
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_206qi"]
+_surfaces = [{
+"aabb": AABB(-0.000900936, 0.000938574, -0.00173516, 0.00268249, 1e-05, 0.001274),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray("AgAAAAMAAgABAAAA"),
+"name": "Материал",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAP//AAD//wAA//8AAP//AAAAAAAAAAAAAAAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0ra25"]
+resource_name = "5,56_Ammo_sniper_002"
+_surfaces = [{
+"aabb": AABB(-0.000900936, 0.000938574, -0.00173516, 0.00268249, 1e-05, 0.001274),
+"attribute_data": PackedByteArray("yAC//jv/v/47//8AyAD/AA=="),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray("AgAAAAMAAgABAAAA"),
+"material": SubResource("StandardMaterial3D_ndbop"),
+"name": "Материал",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAP///7///wAA////v///AAAAAP+/AAAAAAAA/7////9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_206qi")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lj5j5"]
+radius = 0.130165
+height = 0.511822
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hc0mk"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="5,56" type="RigidBody3D" node_paths=PackedStringArray("synchronizer") groups=["item_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035171, 0, 0.0780598)
+collision_layer = 4
+collision_mask = 6601
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+lock_rotation = true
+script = ExtResource("1_bns1h")
+slot_data = SubResource("Resource_bs3au")
+synchronizer = NodePath("MultiplayerSynchronizer")
+
+[node name="Ammo_box" type="MeshInstance3D" parent="."]
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, 0, 0.0292334)
+mesh = SubResource("ArrayMesh_a8ute")
+skeleton = NodePath("")
+
+[node name="Ammo_logo" type="MeshInstance3D" parent="."]
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, 0, 0.0292334)
+mesh = SubResource("ArrayMesh_0ra25")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0651043, 0.0445675, -0.102371)
+shape = SubResource("CapsuleShape3D_lj5j5")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_hc0mk")
