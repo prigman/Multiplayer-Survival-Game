@@ -20,3 +20,5 @@ func physics_update(delta : float) -> void:
 		if Input.is_action_just_released("space"):
 			if player.velocity.y > 0:
 				player.velocity.y = player.velocity.y / 2.0
+			elif player.velocity.y == 0:
+				transition.emit("Idle")

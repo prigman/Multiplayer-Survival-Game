@@ -1,7 +1,7 @@
 class_name AllGameInventoryItems extends Node
 
 const DEFAULT_OBJECT := preload("res://inventory/item/objects/godot.tres")
-const AMMO_AR := preload("res://inventory/item/objects/ammo_ar.tres")
+const AMMO_AR := preload("res://inventory/item/objects/ammo/ammo_ar.tres")
 const AXE := preload("res://inventory/item/objects/axe.tres")
 const BANDAGE := preload("res://inventory/item/objects/bandage.tres")
 const CAN := preload("res://inventory/item/objects/can.tres")
