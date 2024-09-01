@@ -3,13 +3,8 @@ extends MultiplayerSpawner
 const STONE_SCENE := preload('res://scenes/interactable/pickup/stone_resource_rb.tscn')
 const STONE_RESOURCE := preload('res://inventory/item/objects/resource_stone.tres')
 
-@export var node_position : Node3D
-
-
 func _ready() -> void:
 	spawn_function = custom_spawn
-	# if not multiplayer.is_server(): return
-	# call_deferred('spawn_inventory_item', RandomNumberGenerator.new().randi_range(1000,9999), node_position.position, slot_data)
 
 func custom_spawn(data : Array) -> Node:
 	var id : int = data[0]

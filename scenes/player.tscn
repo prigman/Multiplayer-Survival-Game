@@ -4,41 +4,39 @@
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
 [ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_yc7co"]
 [ext_resource type="PackedScene" uid="uid://m8lgl6sgjc8e" path="res://scenes/item.tscn" id="4_dcn20"]
-[ext_resource type="Script" path="res://scripts/weapon/weapon_spread_data.gd" id="4_o4c3s"]
-[ext_resource type="Resource" uid="uid://c0tuqwnt3g8u0" path="res://scripts/weapon/assault_rifle_spread.tres" id="4_qxsc1"]
 [ext_resource type="AnimationLibrary" uid="uid://cbdt7intcw3pe" path="res://anims/player_state.res" id="5_7m1j8"]
-[ext_resource type="Script" path="res://scripts/interface/reticle.gd" id="5_8lwt1"]
 [ext_resource type="Script" path="res://scripts/player_input_synchronizer.gd" id="5_d8soy"]
 [ext_resource type="Script" path="res://scripts/View_Models.gd" id="5_fwk6d"]
-[ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="5_js7jf"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
 [ext_resource type="ArrayMesh" uid="uid://bcd75ewieh241" path="res://models/meshes/fp_arms.res" id="6_a0imf"]
 [ext_resource type="Script" path="res://scripts/weapon/FP_player_weapon.gd" id="6_an6qp"]
-[ext_resource type="Script" path="res://scripts/interface/ui_debug.gd" id="7_6mltq"]
 [ext_resource type="Shader" path="res://materials/viewmodel.gdshader" id="7_dn15t"]
 [ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
 [ext_resource type="AnimationLibrary" uid="uid://vlrhvjddwkvd" path="res://anims/player_fp_anims/Axe/Axe_Player_Anims.res" id="7_u4bc2"]
 [ext_resource type="AnimationLibrary" uid="uid://klxtl5jvpkhp" path="res://anims/player_fp_anims/Pickaxe/Pickaxe_Player_Anims.res" id="8_4v63h"]
 [ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
-[ext_resource type="PackedScene" uid="uid://mdsqpmcb7k53" path="res://scenes/progress_bar.tscn" id="9_bcxkl"]
-[ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="9_sd5qi"]
 [ext_resource type="Script" path="res://scripts/player state machine/sprint_state.gd" id="9_touqc"]
 [ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
-[ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://inventory/inventory_scenes/main_inventory.tscn" id="10_51sge"]
-[ext_resource type="Script" path="res://inventory/item/inv_item_info_panel.gd" id="10_pwj6i"]
 [ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
-[ext_resource type="PackedScene" uid="uid://c0vow3q82yehc" path="res://scenes/weapon_hud.tscn" id="12_2ffht"]
 [ext_resource type="AnimationLibrary" uid="uid://dmkk5nftmxg6" path="res://anims/item_fp_anims/pickaxe/Pickaxe_Anims.res" id="12_2kaya"]
 [ext_resource type="ArrayMesh" uid="uid://cxut6xfety7ab" path="res://models/meshes/pickaxe_animated.res" id="12_fkleo"]
-[ext_resource type="Script" path="res://scripts/interface/slot.gd" id="12_vifhc"]
-[ext_resource type="PackedScene" uid="uid://cq5gdhexp333" path="res://inventory/craft_menu_scenes/craft_menu.tscn" id="13_00r71"]
-[ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="13_6ejrl"]
 [ext_resource type="Texture2D" uid="uid://d37gvltmegoym" path="res://textures/1024_palette.png" id="14_rjuv0"]
 [ext_resource type="AnimationLibrary" uid="uid://dcl0nhikpge30" path="res://anims/item_fp_anims/axe/Axe_Anims.res" id="15_1ws1i"]
 [ext_resource type="ArrayMesh" uid="uid://c0qee1sc38nvk" path="res://models/meshes/axe_animated.res" id="15_yc44n"]
 [ext_resource type="Texture2D" uid="uid://carjrviipvpch" path="res://models/M4_Rifle_1024 palette.png" id="19_rkd7e"]
+[ext_resource type="Script" path="res://scripts/interface/reticle.gd" id="21_ai3eg"]
 [ext_resource type="Script" path="res://scripts/player state machine/falling_state.gd" id="21_h51by"]
-[ext_resource type="Script" path="res://scripts/interface/divide_content.gd" id="31_adwn6"]
+[ext_resource type="PackedScene" uid="uid://mdsqpmcb7k53" path="res://scenes/progress_bar.tscn" id="22_4kjjo"]
+[ext_resource type="PackedScene" uid="uid://c0vow3q82yehc" path="res://scenes/weapon_hud.tscn" id="23_3bne6"]
+[ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="24_xendr"]
+[ext_resource type="PackedScene" uid="uid://cq5gdhexp333" path="res://inventory/craft_menu_scenes/craft_menu.tscn" id="25_3ccg5"]
+[ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://inventory/inventory_scenes/main_inventory.tscn" id="26_8d57b"]
+[ext_resource type="Script" path="res://inventory/item/inv_item_info_panel.gd" id="27_6rqk3"]
+[ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://inventory/inventory_scenes/inventory_slot.tscn" id="28_wb31b"]
+[ext_resource type="Script" path="res://scripts/interface/divide_content.gd" id="29_asm51"]
+[ext_resource type="Script" path="res://scripts/interface/slot.gd" id="30_vcpwd"]
+[ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="31_gynh2"]
+[ext_resource type="Script" path="res://scripts/interface/ui_debug.gd" id="32_l6ec3"]
 [ext_resource type="PackedScene" uid="uid://wgdfogfntkn0" path="res://scenes/soundpool.tscn" id="40_fcwqi"]
 [ext_resource type="Script" path="res://scripts/footstep_timer.gd" id="40_lcs76"]
 [ext_resource type="AudioStream" uid="uid://dvod3v0n2x1hg" path="res://sounds/m4_rifle_shot_2.mp3" id="40_v4bxt"]
@@ -52,39 +50,57 @@
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n3lfe"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 2
-properties/1/path = NodePath(".:rotation")
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:velocity")
 properties/1/spawn = true
-properties/1/replication_mode = 2
-properties/2/path = NodePath(".:velocity")
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:peer_id")
 properties/2/spawn = true
-properties/2/replication_mode = 2
-properties/3/path = NodePath(".:peer_id")
+properties/2/replication_mode = 0
+properties/3/path = NodePath("Label3D:text")
 properties/3/spawn = true
-properties/3/replication_mode = 0
+properties/3/replication_mode = 2
 properties/4/path = NodePath(".:buildings_in_own")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath(".:health_value")
+properties/5/path = NodePath(".:connected_mobs")
 properties/5/spawn = true
 properties/5/replication_mode = 2
-properties/6/path = NodePath(".:hunger_value")
+properties/6/path = NodePath(".:health_value")
 properties/6/spawn = true
 properties/6/replication_mode = 2
-properties/7/path = NodePath("Label3D:text")
+properties/7/path = NodePath(".:hunger_value")
 properties/7/spawn = true
 properties/7/replication_mode = 2
+properties/8/path = NodePath("MeshInstance3D:rotation")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+properties/9/path = NodePath("CameraController/CameraHolder/RigHolder/Item:RPC_is_item_equiped")
+properties/9/spawn = true
+properties/9/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
 properties/0/path = NodePath(".:input_direction")
-properties/0/spawn = false
+properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:mouse_input")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:cam_rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f7gol"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g0hrd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jol7d"]
+size = Vector3(0.175, 0.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fnq4"]
+albedo_color = Color(1, 0, 1, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c1c83"]
 radius = 0.45
@@ -371,38 +387,38 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
+tracks/0/path = NodePath("%DefaultStateCollision:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 1.65, 0)]
+"values": [Vector3(0, 1, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("%DefaultStateCollision:position")
+tracks/1/path = NodePath("%DefaultStateCollision:shape:height")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 1, 0)]
+"values": [2.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("%DefaultStateCollision:shape:height")
+tracks/2/path = NodePath("../..:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [2.0]
+"values": [Vector3(0, 1.65, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jnhb8"]
@@ -476,9 +492,8 @@ sound_footstep_pool = NodePath("Soundpool")
 footstep_timer = NodePath("FootstepTimer")
 player_inventory = ExtResource("2_xq8ps")
 player_quick_slot = ExtResource("3_yc7co")
-weapon_spread_data = Array[ExtResource("4_o4c3s")]([ExtResource("4_qxsc1")])
 mesh = NodePath("MeshInstance3D")
-weapon_holder = NodePath("CameraHolder/RigHolder")
+weapon_holder = NodePath("CameraController/CameraHolder/RigHolder")
 weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.001
 invert_weapon_sway = true
@@ -487,12 +502,14 @@ invert_weapon_sway = true
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_n3lfe")
 
-[node name="InputSync" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("player")]
+[node name="InputSync" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("player", "item", "mesh")]
 unique_name_in_owner = true
 root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_8ul1l")
 script = ExtResource("5_d8soy")
 player = NodePath("..")
+item = NodePath("../CameraController/CameraHolder/RigHolder/Item")
+mesh = NodePath("../MeshInstance3D")
 
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
@@ -501,10 +518,56 @@ shape = SubResource("CapsuleShape3D_7qfu8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00398284, 0.994013, 0.00473261)
-visible = false
 mesh = SubResource("CapsuleMesh_f7gol")
-skeleton = NodePath("../DefaultStateCollision")
 surface_material_override/0 = SubResource("StandardMaterial3D_g0hrd")
+
+[node name="Raycasts" type="Node3D" parent="MeshInstance3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, 1.70371e-07, -8.74228e-08, -1.70371e-07, 1, 0.00398284, 0.655987, -0.00473261)
+
+[node name="InteractRay" type="RayCast3D" parent="MeshInstance3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 4574
+debug_shape_thickness = 1
+
+[node name="AimCast" type="RayCast3D" parent="MeshInstance3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -1000)
+collision_mask = 4571
+debug_shape_thickness = 1
+
+[node name="MeleeCast" type="RayCast3D" parent="MeshInstance3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 6619
+debug_shape_thickness = 1
+
+[node name="BuildingCast" type="RayCast3D" parent="MeshInstance3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -8)
+collision_mask = 4673
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 1
+
+[node name="OtherBuildingsCast" type="RayCast3D" parent="MeshInstance3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -8)
+collision_mask = 4417
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.128199, -0.432236)
+mesh = SubResource("BoxMesh_jol7d")
+surface_material_override/0 = SubResource("StandardMaterial3D_7fnq4")
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true
@@ -514,65 +577,31 @@ target_position = Vector3(0, 0, 0)
 max_results = 1
 collision_mask = 457
 
-[node name="CameraHolder" type="Node3D" parent="."]
+[node name="CameraController" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+[node name="CameraHolder" type="Node3D" parent="CameraController"]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="CameraController/CameraHolder"]
 unique_name_in_owner = true
 transform = Transform3D(1, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, 1.70371e-07, -8.74228e-08, -1.70371e-07, 1, 5.14674e-09, 0.049438, 0.0104416)
 near = 0.001
 
-[node name="InteractRay" type="RayCast3D" parent="CameraHolder/Camera3D"]
-unique_name_in_owner = true
-target_position = Vector3(0, 0, -2.5)
-collision_mask = 4574
-debug_shape_thickness = 1
-
-[node name="AimCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
-unique_name_in_owner = true
-target_position = Vector3(0, 0, -1000)
-collision_mask = 4571
-debug_shape_thickness = 1
-
-[node name="MeleeCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -2.5)
-collision_mask = 6619
-debug_shape_thickness = 1
-
-[node name="BuildingCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -8)
-collision_mask = 4673
-collide_with_areas = true
-debug_shape_custom_color = Color(0, 1, 0, 1)
-debug_shape_thickness = 1
-
-[node name="OtherBuildingsCast" type="RayCast3D" parent="CameraHolder/Camera3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -8)
-collision_mask = 4417
-collide_with_areas = true
-debug_shape_custom_color = Color(0, 1, 0, 1)
-debug_shape_thickness = 1
-
-[node name="RigHolder" type="Node3D" parent="CameraHolder"]
+[node name="RigHolder" type="Node3D" parent="CameraController/CameraHolder"]
 script = ExtResource("5_fwk6d")
 viewmodelfov = 54.0
 
-[node name="Node3D" type="Node3D" parent="CameraHolder/RigHolder"]
+[node name="Node3D" type="Node3D" parent="CameraController/CameraHolder/RigHolder"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1.65, 0)
 
-[node name="correct_fp_arms" type="Node3D" parent="CameraHolder/RigHolder/Node3D"]
+[node name="correct_fp_arms" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D"]
 visible = false
 
-[node name="arms_armature" type="Node3D" parent="CameraHolder/RigHolder/Node3D/correct_fp_arms"]
+[node name="arms_armature" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D/correct_fp_arms"]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="CameraHolder/RigHolder/Node3D/correct_fp_arms/arms_armature"]
+[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/Node3D/correct_fp_arms/arms_armature"]
 bones/0/name = "spine.002"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0.999494, 0.0318125, 0, -0.0318125, 0.999494, -4.2339e-09, 1.2929, -0.0004)
@@ -945,28 +974,28 @@ bones/52/position = Vector3(-0.325115, 1.45294, -0.522115)
 bones/52/rotation = Quaternion(-0.366599, -0.604653, 0.604653, 0.366599)
 bones/52/scale = Vector3(1, 1, 1)
 
-[node name="arms" type="MeshInstance3D" parent="CameraHolder/RigHolder/Node3D/correct_fp_arms/arms_armature/Skeleton3D"]
+[node name="arms" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/Node3D/correct_fp_arms/arms_armature/Skeleton3D"]
 cast_shadow = 0
 mesh = ExtResource("6_a0imf")
 skin = SubResource("Skin_jlae2")
 surface_material_override/0 = SubResource("ShaderMaterial_mujtk")
 
-[node name="AnimationPlayerFP" type="AnimationPlayer" parent="CameraHolder/RigHolder/Node3D/correct_fp_arms"]
+[node name="AnimationPlayerFP" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/Node3D/correct_fp_arms"]
 libraries = {
 "Axe_Player_Anims": ExtResource("7_u4bc2"),
 "FP_Armature": ExtResource("42_0yrtw"),
 "Pickaxe_Player_Anims": ExtResource("8_4v63h")
 }
 
-[node name="Item_pickaxe_animated" type="Node3D" parent="CameraHolder/RigHolder/Node3D" node_paths=PackedStringArray("animator")]
+[node name="Item_pickaxe_animated" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D" node_paths=PackedStringArray("animator")]
 visible = false
 script = ExtResource("6_an6qp")
 item_name = "Pickaxe"
 animator = NodePath("AnimationPlayerPickaxe")
 
-[node name="Pickaxe" type="Node3D" parent="CameraHolder/RigHolder/Node3D/Item_pickaxe_animated"]
+[node name="Pickaxe" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated"]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/Pickaxe"]
+[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/Pickaxe"]
 bones/0/name = "Body"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -975,27 +1004,27 @@ bones/0/position = Vector3(0.0319372, 1.43677, 0.499723)
 bones/0/rotation = Quaternion(0.168909, -0.660334, -0.0304849, 0.731095)
 bones/0/scale = Vector3(0.203522, 0.203522, 0.203522)
 
-[node name="Cylinder" type="MeshInstance3D" parent="CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/Pickaxe/Skeleton3D"]
+[node name="Cylinder" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/Pickaxe/Skeleton3D"]
 cast_shadow = 0
 mesh = ExtResource("12_fkleo")
 skin = SubResource("Skin_illik")
 surface_material_override/0 = SubResource("ShaderMaterial_xspd5")
 
-[node name="AnimationPlayerPickaxe" type="AnimationPlayer" parent="CameraHolder/RigHolder/Node3D/Item_pickaxe_animated"]
+[node name="AnimationPlayerPickaxe" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated"]
 libraries = {
 "Pickaxe_Anims": ExtResource("12_2kaya")
 }
 
-[node name="Item_axe_animated" type="Node3D" parent="CameraHolder/RigHolder/Node3D" node_paths=PackedStringArray("animator")]
+[node name="Item_axe_animated" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D" node_paths=PackedStringArray("animator")]
 visible = false
 script = ExtResource("6_an6qp")
 item_name = "Axe"
 animator = NodePath("AnimationPlayerAxe")
 
-[node name="Axe_001" type="Node3D" parent="CameraHolder/RigHolder/Node3D/Item_axe_animated"]
+[node name="Axe_001" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated"]
 transform = Transform3D(0.155443, 0, 0, 0, 0.155443, 0, 0, 0, 0.155443, -0.0141677, -0.0886093, 0)
 
-[node name="Skeleton3D" type="Skeleton3D" parent="CameraHolder/RigHolder/Node3D/Item_axe_animated/Axe_001"]
+[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated/Axe_001"]
 bones/0/name = "Body"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -1004,28 +1033,28 @@ bones/0/position = Vector3(0.143167, 10.4807, 3.60826)
 bones/0/rotation = Quaternion(0.0771204, -0.633985, 0.054486, 0.767559)
 bones/0/scale = Vector3(1, 1, 1)
 
-[node name="Axe" type="MeshInstance3D" parent="CameraHolder/RigHolder/Node3D/Item_axe_animated/Axe_001/Skeleton3D"]
+[node name="Axe" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated/Axe_001/Skeleton3D"]
 cast_shadow = 0
 mesh = ExtResource("15_yc44n")
 skin = SubResource("Skin_u0wcu")
 surface_material_override/0 = SubResource("ShaderMaterial_x4ycf")
 
-[node name="AnimationPlayerAxe" type="AnimationPlayer" parent="CameraHolder/RigHolder/Node3D/Item_axe_animated"]
+[node name="AnimationPlayerAxe" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated"]
 libraries = {
 "Axe_Anims": ExtResource("15_1ws1i")
 }
 
-[node name="Item_M4_Rifle" type="Node3D" parent="CameraHolder/RigHolder/Node3D" node_paths=PackedStringArray("animator")]
+[node name="Item_M4_Rifle" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D" node_paths=PackedStringArray("animator")]
 visible = false
 script = ExtResource("6_an6qp")
 item_name = "Assault Rifle"
 animator = NodePath("AnimationPlayerM4_Rifle")
 
-[node name="M4_Rifle2" type="Node3D" parent="CameraHolder/RigHolder/Node3D/Item_M4_Rifle"]
+[node name="M4_Rifle2" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle"]
 
-[node name="M4_Rifle" type="Node3D" parent="CameraHolder/RigHolder/Node3D/Item_M4_Rifle/M4_Rifle2"]
+[node name="M4_Rifle" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle/M4_Rifle2"]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="CameraHolder/RigHolder/Node3D/Item_M4_Rifle/M4_Rifle2/M4_Rifle"]
+[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle/M4_Rifle2/M4_Rifle"]
 bones/0/name = "Body_2"
 bones/0/parent = -1
 bones/0/rest = Transform3D(-2.38419e-07, -4.47035e-07, 1, 0.938353, -0.34568, 2.98024e-08, 0.34568, 0.938353, 4.17233e-07, 7.15512e-09, 0.0132001, -0.0367481)
@@ -1048,44 +1077,42 @@ bones/2/position = Vector3(-0.15706, 0.0650177, 1.35959e-08)
 bones/2/rotation = Quaternion(-8.00614e-08, -1.41361e-07, -0.366364, 0.930472)
 bones/2/scale = Vector3(1, 1, 1)
 
-[node name="M4_Rifle_Mesh" type="MeshInstance3D" parent="CameraHolder/RigHolder/Node3D/Item_M4_Rifle/M4_Rifle2/M4_Rifle/Skeleton3D"]
+[node name="M4_Rifle_Mesh" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle/M4_Rifle2/M4_Rifle/Skeleton3D"]
 material_override = SubResource("ShaderMaterial_27swp")
 mesh = SubResource("ArrayMesh_w04li")
 skin = SubResource("Skin_8palq")
 
-[node name="AnimationPlayerM4_Rifle" type="AnimationPlayer" parent="CameraHolder/RigHolder/Node3D/Item_M4_Rifle"]
+[node name="AnimationPlayerM4_Rifle" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle"]
 root_node = NodePath("../M4_Rifle2")
 libraries = {
 "M4_Rifle_Anims": ExtResource("41_aeuon")
 }
 
-[node name="Item" parent="CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "aim_cast", "melee_cast", "building_cast", "other_buildings_cast", "audio_queue") instance=ExtResource("4_dcn20")]
+[node name="Item" parent="CameraController/CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "raycasts_controller", "aim_cast", "melee_cast", "building_cast", "other_buildings_cast", "audio_queue") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
 transform = Transform3D(-0.652866, -0.671662, 0.350194, -0.719312, 0.694632, -0.00872654, -0.237395, -0.257596, -0.936636, 0.04, -0.61, -0.545)
 fp_items_array = [NodePath("../Node3D/Item_pickaxe_animated"), NodePath("../Node3D/Item_axe_animated"), NodePath("../Node3D/Item_M4_Rifle")]
 rig_holder = NodePath("..")
 fp_player_node = NodePath("../Node3D/correct_fp_arms")
 fp_player_animator = NodePath("../Node3D/correct_fp_arms/AnimationPlayerFP")
-camera_holder = NodePath("../..")
-player = NodePath("../../..")
-state_machine = NodePath("../../../StateMachine")
+camera_holder = NodePath("../../..")
+player = NodePath("../../../..")
+state_machine = NodePath("../../../../StateMachine")
 timer = NodePath("../Timer")
-weapon_hud = NodePath("../../../CanvasLayer/Interface/InventoryUI/MarginContainer3/WeaponHud")
-reticle = NodePath("../../../CanvasLayer/Interface/Reticle")
-crosshair = NodePath("../../../CanvasLayer/Interface/Crosshair")
-aim_cast = NodePath("../../Camera3D/AimCast")
-melee_cast = NodePath("../../Camera3D/MeleeCast")
-building_cast = NodePath("../../Camera3D/BuildingCast")
-other_buildings_cast = NodePath("../../Camera3D/OtherBuildingsCast")
-audio_queue = NodePath("../../../SoundQueue")
+raycasts_controller = NodePath("../../../../MeshInstance3D/Raycasts")
+aim_cast = NodePath("../../../../MeshInstance3D/Raycasts/AimCast")
+melee_cast = NodePath("../../../../MeshInstance3D/Raycasts/MeleeCast")
+building_cast = NodePath("../../../../MeshInstance3D/Raycasts/BuildingCast")
+other_buildings_cast = NodePath("../../../../MeshInstance3D/Raycasts/OtherBuildingsCast")
+audio_queue = NodePath("../../../../SoundQueue")
 
-[node name="Timer" type="Timer" parent="CameraHolder/RigHolder"]
+[node name="Timer" type="Timer" parent="CameraController/CameraHolder/RigHolder"]
 process_callback = 0
 one_shot = true
 
 [node name="AnimPlayerState" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
-root_node = NodePath("../CameraHolder/RigHolder")
+root_node = NodePath("../CameraController/CameraHolder/RigHolder")
 libraries = {
 "": SubResource("AnimationLibrary_jnhb8"),
 "player_state": ExtResource("5_7m1j8")
@@ -1106,6 +1133,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Crosshair" type="Control" parent="CanvasLayer/Interface"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -1133,7 +1161,7 @@ width = 1.5
 points = PackedVector2Array(-6, 0, -14, 0)
 width = 1.5
 
-[node name="Reticle" type="CenterContainer" parent="CanvasLayer/Interface" node_paths=PackedStringArray("state_machine", "reticle_lines", "player", "item_script")]
+[node name="Reticle" type="CenterContainer" parent="CanvasLayer/Interface" node_paths=PackedStringArray("reticle_lines")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -1144,11 +1172,8 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("5_8lwt1")
-state_machine = NodePath("../../../StateMachine")
+script = ExtResource("21_ai3eg")
 reticle_lines = [NodePath("../Crosshair/Top"), NodePath("../Crosshair/Right"), NodePath("../Crosshair/Bottom"), NodePath("../Crosshair/Left"), null, null]
-player = NodePath("../../..")
-item_script = NodePath("../../../CameraHolder/RigHolder/Item")
 
 [node name="InventoryUI" type="Control" parent="CanvasLayer/Interface"]
 unique_name_in_owner = true
@@ -1173,7 +1198,7 @@ grow_vertical = 0
 theme_override_constants/margin_left = 35
 theme_override_constants/margin_bottom = 35
 
-[node name="PlayerStats" parent="CanvasLayer/Interface/InventoryUI/MarginContainer" instance=ExtResource("9_bcxkl")]
+[node name="PlayerStats" parent="CanvasLayer/Interface/InventoryUI/MarginContainer" instance=ExtResource("22_4kjjo")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 90)
 layout_mode = 2
@@ -1193,7 +1218,7 @@ grow_vertical = 0
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 35
 
-[node name="WeaponHud" parent="CanvasLayer/Interface/InventoryUI/MarginContainer3" instance=ExtResource("12_2ffht")]
+[node name="WeaponHud" parent="CanvasLayer/Interface/InventoryUI/MarginContainer3" instance=ExtResource("23_3bne6")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -1214,7 +1239,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 mouse_filter = 1
-script = ExtResource("9_sd5qi")
+script = ExtResource("24_xendr")
 player = NodePath("../../../..")
 
 [node name="CraftMenuMargin" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface"]
@@ -1233,7 +1258,7 @@ grow_vertical = 0
 theme_override_constants/margin_left = 765
 theme_override_constants/margin_bottom = 120
 
-[node name="CraftMenu" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/CraftMenuMargin" node_paths=PackedStringArray("player") instance=ExtResource("13_00r71")]
+[node name="CraftMenu" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/CraftMenuMargin" node_paths=PackedStringArray("player") instance=ExtResource("25_3ccg5")]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(350, 460)
@@ -1255,7 +1280,7 @@ grow_vertical = 0
 theme_override_constants/margin_left = 799
 theme_override_constants/margin_bottom = 120
 
-[node name="ExternalInventory" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer3" instance=ExtResource("10_51sge")]
+[node name="ExternalInventory" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer3" instance=ExtResource("26_8d57b")]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(1, 1, 1, 0.509804)
@@ -1290,7 +1315,7 @@ layout_mode = 2
 size_flags_vertical = 0
 focus_mode = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_3tcom")
-script = ExtResource("10_pwj6i")
+script = ExtResource("27_6rqk3")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel"]
 layout_mode = 2
@@ -1423,22 +1448,22 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Slot" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("28_wb31b")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot2" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot2" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("28_wb31b")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot3" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot3" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("28_wb31b")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
 
-[node name="Slot4" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("13_6ejrl")]
+[node name="Slot4" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("28_wb31b")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
@@ -1570,7 +1595,7 @@ text = "Drop"
 [node name="DivideContent" type="HBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-script = ExtResource("31_adwn6")
+script = ExtResource("29_asm51")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent"]
 layout_mode = 2
@@ -1603,7 +1628,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Divide"
 
-[node name="PlayerInventory" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer" instance=ExtResource("10_51sge")]
+[node name="PlayerInventory" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer" instance=ExtResource("26_8d57b")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.509804)
 layout_mode = 2
@@ -1629,7 +1654,7 @@ size_flags_stretch_ratio = 5.0
 mouse_filter = 2
 theme_override_constants/margin_bottom = 35
 
-[node name="PlayerQuickSlot" parent="CanvasLayer/Interface/InventoryUI/MarginContainer2" instance=ExtResource("10_51sge")]
+[node name="PlayerQuickSlot" parent="CanvasLayer/Interface/InventoryUI/MarginContainer2" instance=ExtResource("26_8d57b")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
@@ -1648,7 +1673,7 @@ offset_right = 64.0
 offset_bottom = 64.0
 size_flags_horizontal = 4
 size_flags_vertical = 6
-script = ExtResource("12_vifhc")
+script = ExtResource("30_vcpwd")
 
 [node name="TopRarity" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
 visible = false
@@ -1746,7 +1771,7 @@ focus_mode = 1
 text = "SPAWN
 "
 
-[node name="Debug" type="PanelContainer" parent="CanvasLayer"]
+[node name="Debug" type="PanelContainer" parent="CanvasLayer" node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 offset_left = 15.0
@@ -1754,20 +1779,25 @@ offset_top = 15.0
 offset_right = 215.0
 offset_bottom = 55.0
 mouse_filter = 2
-theme = ExtResource("5_js7jf")
-script = ExtResource("7_6mltq")
+theme = ExtResource("31_gynh2")
+script = ExtResource("32_l6ec3")
+player = NodePath("../..")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Debug"]
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Debug/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "debug_ui")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "player")]
 script = ExtResource("6_28k2k")
 current_state = NodePath("Idle")
-debug_ui = NodePath("../CanvasLayer/Debug")
+player = NodePath("..")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("7_pfe0v")
@@ -1794,7 +1824,6 @@ script = ExtResource("41_ekt3e")
 [node name="Label3D" type="Label3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45884, 0)
-visible = false
 billboard = 1
 double_sided = false
 outline_modulate = Color(0, 0, 0, 0)
@@ -1825,14 +1854,9 @@ count = 5
 [node name="GunShot" type="AudioStreamPlayer3D" parent="SoundQueue"]
 stream = ExtResource("40_v4bxt")
 
-[connection signal="signal_update_player_health" from="." to="CanvasLayer/Interface/InventoryUI/MarginContainer/PlayerStats" method="_on_player_signal_update_player_health"]
-[connection signal="signal_update_player_hunger" from="." to="CanvasLayer/Interface/InventoryUI/MarginContainer/PlayerStats" method="_on_player_signal_update_player_hunger"]
-[connection signal="signal_update_player_stats" from="." to="CanvasLayer/Interface/InventoryUI/MarginContainer/PlayerStats" method="_on_player_signal_update_player_stats"]
-[connection signal="animation_finished" from="CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/AnimationPlayerPickaxe" to="CameraHolder/RigHolder/Item" method="_on_animation_player_pickaxe_animation_finished"]
-[connection signal="animation_finished" from="CameraHolder/RigHolder/Node3D/Item_axe_animated/AnimationPlayerAxe" to="CameraHolder/RigHolder/Item" method="_on_animation_player_axe_animation_finished"]
-[connection signal="animation_finished" from="CameraHolder/RigHolder/Node3D/Item_M4_Rifle/AnimationPlayerM4_Rifle" to="CameraHolder/RigHolder/Item" method="_on_animation_player_m_4_rifle_animation_finished"]
-[connection signal="Update_Ammo" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/InventoryUI/MarginContainer3/WeaponHud" method="_on_item_update_ammo"]
-[connection signal="Update_Fire_Mode" from="CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/InventoryUI/MarginContainer3/WeaponHud" method="_on_item_update_fire_mode"]
+[connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/AnimationPlayerPickaxe" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_pickaxe_animation_finished"]
+[connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated/AnimationPlayerAxe" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_axe_animation_finished"]
+[connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle/AnimationPlayerM4_Rifle" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_m_4_rifle_animation_finished"]
 [connection signal="gui_input" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_gui_input"]
 [connection signal="signal_item_info_panel_set_data" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
 [connection signal="visibility_changed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_visibility_changed"]
@@ -1844,5 +1868,4 @@ stream = ExtResource("40_v4bxt")
 [connection signal="gui_input" from="CanvasLayer/Interface/InventoryUI/GrabbedSlot" to="CanvasLayer/Interface/InventoryUI/GrabbedSlot" method="_on_gui_input"]
 [connection signal="mouse_entered" from="CanvasLayer/Interface/InventoryUI/GrabbedSlot" to="CanvasLayer/Interface/InventoryUI/GrabbedSlot" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Interface/InventoryUI/GrabbedSlot" to="CanvasLayer/Interface/InventoryUI/GrabbedSlot" method="_on_mouse_exited"]
-[connection signal="pressed" from="CanvasLayer/Interface/DeathUI/Panel/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="FootstepTimer" to="FootstepTimer" method="_on_timeout"]

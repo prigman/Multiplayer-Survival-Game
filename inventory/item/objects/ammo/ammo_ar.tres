@@ -9,6 +9,7 @@ script = ExtResource("2_ut7h0")
 item_type = 6
 weapon_type = 0
 id = 1
+item_rarity = 1
 name = "5.56 Ammo"
 description = ""
 description_item_panel = "5.56 NATO 
@@ -18,5 +19,5 @@ max_stack = 120
 quality = 100.0
 icon = ExtResource("1_6ep6f")
 dictionary = {
-"dropped_item": "res://scenes/ammo/5,56.tscn"
+"dropped_item": "res://scenes/interactable/pickup/ammo/5,56.tscn"
 }

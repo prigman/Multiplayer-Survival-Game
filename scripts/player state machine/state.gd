@@ -14,3 +14,7 @@ func update(_delta: float) -> void:
 
 func physics_update(_delta: float) -> void:
 	pass
+
+# @rpc("any_peer","call_local","unreliable",0)
+# func RPC_emit_state_transition(state_name : String) -> void:
+# 	transition.emit(state_name)

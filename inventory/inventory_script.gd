@@ -8,7 +8,7 @@ var slot_counter : int
 func _set_inventory_data(inventory_data : InventoryData) -> void:
 	inventory_data.signal_inventory_update.connect(_set_inventory_slots)
 	_set_inventory_slots(inventory_data)
-	
+
 func _clear_inventory_data(inventory_data : InventoryData) -> void:
 	inventory_data.signal_inventory_update.disconnect(_set_inventory_slots)
 
@@ -44,6 +44,7 @@ func _set_active_slot(inventory_data : InventoryData, new_slot_index : int, last
 	if new_slot_data and !last_slot_data:
 		new_active_slot.active_slot_panel.show()
 		new_slot_data.active_slot_data = true
+		print("id active set: ", multiplayer.get_unique_id())
 		print("Active slot set: %s" % new_slot_data.item.name)
 	if new_slot_data and last_slot_data:
 		if new_slot_data == last_slot_data:

@@ -17,6 +17,7 @@ const CRAFT_ITEM_SCENE = preload("res://inventory/craft_menu_scenes/craft_item.t
 @onready var page_name := %PageName
 
 @export var tabs_resource : CraftMenuTab
+
 @export var player: CharacterBody3D
 
 var current_page: ScrollContainer

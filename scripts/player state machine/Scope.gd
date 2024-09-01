@@ -14,6 +14,8 @@ func physics_update(delta : float) -> void:
 func Assault_Rifle_Scope() -> void:
 	if !Scoped:
 		player.animator.play(player.equiped_inv_item.item.anim_scope)
+		player.crosshair.hide()
 	else:
 		player.animator.play_backwards(player.equiped_inv_item.item.anim_scope)
+		player.crosshair.show()
 	Scoped = !Scoped

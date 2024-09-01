@@ -24,7 +24,7 @@
 [ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="25_7oqij"]
 [ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://inventory/item/objects/m4_rifle.tres" id="26_gf0fq"]
 [ext_resource type="PackedScene" uid="uid://bdl83p75mjq64" path="res://scenes/enemy.tscn" id="26_pxx8e"]
-[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo_ar.tres" id="27_amtaq"]
+[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo/ammo_ar.tres" id="27_amtaq"]
 [ext_resource type="Resource" uid="uid://dxxl4fdb2osqr" path="res://inventory/item/objects/bandage.tres" id="28_23eye"]
 [ext_resource type="Resource" uid="uid://ds240tmx01ajl" path="res://inventory/item/objects/can.tres" id="29_8y12w"]
 [ext_resource type="Resource" uid="uid://iqyranngmbcn" path="res://inventory/item/objects/can_small.tres" id="30_a1hec"]
@@ -232,6 +232,10 @@ directional_shadow_max_distance = 175.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o00h3")
 
+[node name="DecalSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/shoot_decal.tscn")
+spawn_path = NodePath("..")
+
 [node name="MobSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/enemy.tscn")
 spawn_path = NodePath("../Mobs")
@@ -248,12 +252,11 @@ spawn_path = NodePath("..")
 _spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn", "res://scenes/building_wall.tscn", "res://scenes/building_roof.tscn", "res://scenes/interactable/pine-wood-crate_staticbody.tscn", "res://scenes/building_doorway.tscn", "res://scenes/building_door.tscn")
 spawn_path = NodePath("..")
 
-[node name="ItemSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("node_position")]
+[node name="ItemSpawner" type="MultiplayerSpawner" parent="."]
 unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("res://scenes/interactable/pickup/stone_resource_rb.tscn", "res://scenes/interactable/pickup/axe_tool_rb.tscn", "res://scenes/interactable/pickup/canned-food_rigidbody.tscn", "res://scenes/interactable/pickup/m4_rifle_rb.tscn", "res://scenes/interactable/pickup/metal-bar_resource_rb.tscn", "res://scenes/interactable/pickup/pickaxe_rb.tscn", "res://scenes/interactable/pickup/pine_wood_resource_rb.tscn", "res://scenes/interactable/pickup/resource_pine_branch_rb.tscn", "res://scenes/interactable/pickup/bandage.tscn", "res://scenes/interactable/pickup/can.tscn")
 spawn_path = NodePath("..")
 script = ExtResource("2_6apke")
-node_position = NodePath("../zone/ZoneItems/SpawnPosition")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
@@ -390,6 +393,7 @@ collision_mask = 94
 wait_time = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
+current = true
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_suytq")

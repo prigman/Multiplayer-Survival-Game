@@ -1,13 +1,12 @@
 extends CenterContainer
 
-
 @export var dot_radius := 1.0
 @export var dot_color := Color.WHITE
-@export var state_machine : StateMachine
+# @export var state_machine : StateMachine
 @export var reticle_lines : Array[Line2D]
-@export var player : CharacterBody3D
-@export var item_script : ItemScript
+# @export var item_script : ItemScript
 @export var crosshair_speed := 0.15
+# var player : CharacterBody3D
 var crosshair_range : float = 0 # дефолтное значение разброса в перекрестии
 var velocity_value : Vector3
 var origin : Vector3
@@ -18,24 +17,24 @@ var spread_factors : float = 0 # все факторы разброса
 func _ready() -> void:
 	queue_redraw()
 
-func _physics_process(_delta : float) -> void:
-	if player.current_weapon_spread_data:
-		adjust_reticle_lines()
+# func _physics_process(_delta : float) -> void:
+# 	if player and player.current_weapon_spread_data:
+# 		adjust_reticle_lines()
 
 func _draw() -> void:
 	draw_circle(Vector2(0,0), dot_radius, dot_color)
 
-func adjust_reticle_lines() -> void:
+func adjust_reticle_lines(player : CharacterBody3D) -> void:
 	velocity_value = player.get_real_velocity()
 	origin = Vector3(0, 0, 0)
 	player_velocity = origin.distance_to(velocity_value)
-	if item_script.Scoped:
+	if player.item.Scoped:
 		crosshair_range = player.current_weapon_spread_data.spread_radius / player.current_weapon_spread_data.in_sight_multiplier
 	else:
 		crosshair_range = player.current_weapon_spread_data.spread_radius
-	if state_machine.is_current_state("Crouch"):
+	if player.state_machine.is_current_state("Crouch"):
 		crosshair_range /= player.current_weapon_spread_data.crouch_state_multiplier
-	if item_script.timer.is_stopped() == false:
+	if player.item.timer.is_stopped() == false:
 		var shooting_state_multiplier : float
 		if crosshair_range < 1:
 			shooting_state_multiplier = -player.current_weapon_spread_data.shooting_state_multiplier

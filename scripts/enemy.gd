@@ -31,14 +31,14 @@ func _physics_process(_delta : float) -> void:
 func _process(_delta : float) -> void:
 	if not multiplayer.is_server(): return
 
-@rpc("any_peer","reliable","call_local")
+# @rpc("any_peer","reliable","call_local")
 func damage_enemy(damage:float, damage_peer_id: int = -1) -> void:
 	health -= damage
 	# signal_update_player_health.emit(health_value)
 	print("DAMAGE LOG: " + name + " was hit by " + str(damage_peer_id) + " | with damage: " + str(damage) + " | health now: " + str(health))
 	if health <= 0:
 		if target:
-			target.rpc_id(1, "disconnect_mob_from_player", get_path())
+			target.disconnect_mob_from_player(self)
 		toggle_enemy(false) # false - died
 		death_timer.start()
 		print("DEATH LOG: " + str(name) + " killed by " + str(damage_peer_id))
@@ -60,8 +60,8 @@ func toggle_enemy(toggle : bool) -> void:
 func _on_target_detection_body_entered(body: CharacterBody3D) -> void:
 	if not multiplayer.is_server(): return
 	if target and target != body:
-		target.rpc_id(1, "disconnect_mob_from_player", get_path())	
-	body.rpc_id(1, "connect_mob_to_player", get_path())
+		target.disconnect_mob_from_player(self)	
+	body.connect_mob_to_player(self)
 
 func _on_death_timer_timeout() -> void:
 	toggle_enemy(true)

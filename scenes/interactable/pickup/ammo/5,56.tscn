@@ -1,20 +1,20 @@
 [gd_scene load_steps=15 format=4 uid="uid://28g62kx7y811"]
 
-[ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_bns1h"]
-[ext_resource type="Texture2D" uid="uid://d1u2snp32xsoj" path="res://models/ammo/5,56_1024_palette.png" id="1_uh1qt"]
-[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo/ammo_ar.tres" id="2_r5y0q"]
-[ext_resource type="Texture2D" uid="uid://c17owv7kc0oin" path="res://models/ammo/5,56_logo5,56.png" id="2_x8mra"]
-[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_srv00"]
+[ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_mjnof"]
+[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://inventory/item/objects/ammo/ammo_ar.tres" id="2_vb7wv"]
+[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_grktq"]
+[ext_resource type="Texture2D" uid="uid://d1u2snp32xsoj" path="res://models/ammo/5,56_1024_palette.png" id="4_ycpdp"]
+[ext_resource type="Texture2D" uid="uid://c17owv7kc0oin" path="res://models/ammo/5,56_logo5,56.png" id="5_k80p7"]
 
 [sub_resource type="Resource" id="Resource_bs3au"]
-script = ExtResource("3_srv00")
-item = ExtResource("2_r5y0q")
+script = ExtResource("3_grktq")
+item = ExtResource("2_vb7wv")
 amount_in_slot = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rs017"]
 resource_name = "Diffuse_Color"
 shading_mode = 0
-albedo_texture = ExtResource("1_uh1qt")
+albedo_texture = ExtResource("4_ycpdp")
 texture_filter = 2
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_4qho3"]
@@ -53,7 +53,7 @@ shadow_mesh = SubResource("ArrayMesh_4qho3")
 resource_name = "Материал"
 cull_mode = 2
 shading_mode = 0
-albedo_texture = ExtResource("2_x8mra")
+albedo_texture = ExtResource("5_k80p7")
 texture_filter = 2
 texture_repeat = false
 
@@ -99,28 +99,25 @@ properties/0/spawn = true
 properties/0/replication_mode = 2
 
 [node name="5,56" type="RigidBody3D" node_paths=PackedStringArray("synchronizer") groups=["item_interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035171, 0, 0.0780598)
 collision_layer = 4
 collision_mask = 6601
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 lock_rotation = true
-script = ExtResource("1_bns1h")
+script = ExtResource("1_mjnof")
 slot_data = SubResource("Resource_bs3au")
 synchronizer = NodePath("MultiplayerSynchronizer")
 
 [node name="Ammo_box" type="MeshInstance3D" parent="."]
-transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, 0, 0.0292334)
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, -0.0519415, 0, 0.13397)
 mesh = SubResource("ArrayMesh_a8ute")
-skeleton = NodePath("")
 
 [node name="Ammo_logo" type="MeshInstance3D" parent="."]
-transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, 0, 0.0292334)
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, -0.0519415, 0, 0.13397)
 mesh = SubResource("ArrayMesh_0ra25")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0651043, 0.0445675, -0.102371)
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0131628, 0.0445675, 0.00294583)
 shape = SubResource("CapsuleShape3D_lj5j5")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

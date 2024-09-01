@@ -15,24 +15,24 @@ const WORLD_CRATE_SCENE := preload("res://scenes/interactable/world_pine-wood-cr
 @export var nav_mesh : MNavigationRegion3D
 
 @onready var players_spawn_node := %Players
+# @onready var inventory_interface := %InventoryInterface
+# @onready var reticle := %Reticle
+# @onready var craft_menu := %CraftMenu
+# @onready var debug_ui := %Debug
+# @onready var crosshair := %Crosshair
+# @onready var weapon_hud := %WeaponHud
+
+# @onready var player_stats := %PlayerStats
+
+# @onready var death_ui := %DeathUI
+# @onready var quick_slot_ui := %PlayerQuickSlot
 
 func _ready() -> void:
 	multiplayer_spawner.spawn_function = custom_spawn
-	world_resources_spawner.spawn_function = world_resources_custom_spawn
-	world_crate_spawner.spawn_function = world_crate_custom_spawn
+	# world_resources_spawner.spawn_function = world_resources_custom_spawn
+	# world_crate_spawner.spawn_function = world_crate_custom_spawn
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(delete_player)
-	# if multiplayer.is_server(): # spawn all trees and rocks
-		# var counter := 0
-		# for object in object_creator.objects_positions:
-		# 	if not object: continue
-		# 	# print("object: ", str(object))
-		# 	call_deferred("add_world_resource", object)
-		# 	counter += 1
-		# print("SERVER: spawned world resources: ", str(counter))
-		# add_world_crate(Vector3(229.003,3.932,196.739), Vector3.ZERO)
-		# add_world_crate(Vector3(228.056,3.855,194.816), Vector3.ZERO)
-		# nav_mesh.call_deferred("bake_navigation_mesh")
 
 func add_player(id: int) -> void:
 	if not multiplayer.is_server(): return
@@ -51,7 +51,8 @@ func custom_spawn(data : Array) -> CharacterBody3D:
 	var pos : Vector3 = data[1]
 
 	var player: Player = PLAYER_SCENE.instantiate()
-	player.set_multiplayer_authority(id)
+	# player.set_multiplayer_authority(id)
+
 	player.peer_id = id
 	player.name = str(id)
 	player.position = pos

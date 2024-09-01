@@ -5,13 +5,18 @@ var speed_state : float
 var walking_state := 5.0
 	
 func physics_update(delta : float) -> void:
-	player.update_gravity(delta)
 	if player.item.Scoped:
 		speed_state = walking_state / 2
 	else:
 		speed_state = walking_state
-	player.update_input(speed_state, ACCELERATION, DECCELERATION)
-	player.update_velocity()
+	if multiplayer.get_unique_id() == player.peer_id:
+		player.input_sync.update_gravity(delta)
+		player.input_sync.update_input(speed_state, ACCELERATION, DECCELERATION)
+		player.input_sync.update_velocity()
+	else:
+		player.update_gravity(delta)
+		player.update_input(speed_state, ACCELERATION, DECCELERATION)
+		player.update_velocity()
 	if player.died:
 		transition.emit("Death")
 	if player.is_on_floor():

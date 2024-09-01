@@ -20,12 +20,13 @@ var fp_item_animator: AnimationPlayer
 #
 
 # ui
-@export var weapon_hud: VBoxContainer
-@export var reticle: CenterContainer # перекрестие и точка
-@export var crosshair: Control # только перекрестие
+# @export var weapon_hud: VBoxContainer
+# @export var reticle: CenterContainer # перекрестие и точка
+# @export var crosshair: Control # только перекрестие
 #
 
 # raycasts
+@export var raycasts_controller : Node3D
 @export var aim_cast: RayCast3D
 @export var melee_cast: RayCast3D
 @export var building_cast: RayCast3D
@@ -35,9 +36,17 @@ var fp_item_animator: AnimationPlayer
 @export var audio_queue : Node3D
 
 # информация о предмете в руках в данный момент
-var equiped_item_node: Node3D = null # нода оружия (для того чтобы не проходится по массиву каждый раз)
-var equiped_slot: InSlotData = null # слот, который в данный момент выбран
-var equiped_item: ItemData = null # айтем в этом слоте (для удобства, так как айтем можно получить через equiped_slot.item)
+@export var RPC_is_item_equiped : bool
+var equiped_item_node: Node3D # нода оружия (для того чтобы не проходится по массиву каждый раз)
+var equiped_slot: InSlotData # слот, который в данный момент выбран
+var equiped_item: ItemData :
+	set(value):
+		equiped_item = value
+		if value != null:
+			RPC_is_item_equiped = true
+		else:
+			RPC_is_item_equiped = false
+	# айтем в этом слоте (для удобства, так как айтем можно получить через equiped_slot.item)
 var equiped_slot_index: int # индекс equip слота нужен для переключения активного слота
 #
 
@@ -61,100 +70,101 @@ var current_time: float
 # building system
 var building_scene : Node # хранит в себе сцену со строительным объектом
 var wrong_colliders : Array[Area3D]
+var collider_interacted_path : NodePath # нужно для позиции двери
 
 func _physics_process(delta : float) -> void:
-	if not is_multiplayer_authority():
-		return
-	if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
-		if !player.is_inventory_open(): # проверка если закрыт инвентарь
-			if Input.is_action_pressed("fire"):
-				if equiped_item.fire_mode_current.mode == WeaponFireModes.FireMode.FULL_AUTO:
-					if can_shoot(equiped_item.fire_mode_current):
-						shoot()
-			if Input.is_action_pressed("right_click"):
-				if state_machine.is_current_state("Sprint") == false:
-					if !Scoped and fp_item_animator.current_animation != equiped_item.anim_reload and fp_item_animator.current_animation != equiped_item.anim_activate:
-						Assault_Rifle_Scope()
-						reticle.hide()
-						crosshair.hide()
-		if current_time < 1:
-			apply_recoil(delta)
-		elif player.is_inventory_open() or state_machine.is_current_state("Sprint") == true:
-			if Scoped:
-				crosshair.show()
-				Assault_Rifle_Scope()
+	# if not is_multiplayer_authority():
+	# 	return
+	# if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
+	# 	if !player.is_inventory_open(): # проверка если закрыт инвентарь
+	# 		if Input.is_action_pressed("fire"):
+	# 			if equiped_item.fire_mode_current.mode == WeaponFireModes.FireMode.FULL_AUTO:
+	# 				if can_shoot(equiped_item.fire_mode_current):
+	# 					shoot()
+	# 		if Input.is_action_pressed("right_click"):
+	# 			if state_machine.is_current_state("Sprint") == false:
+	# 				if !Scoped and fp_item_animator.current_animation != equiped_item.anim_reload and fp_item_animator.current_animation != equiped_item.anim_activate:
+	# 					Assault_Rifle_Scope()
+	# 					reticle.hide()
+	# 					crosshair.hide()
+	# 	if current_time < 1:
+	# 		apply_recoil(delta)
+	# 	elif player.is_inventory_open() or state_machine.is_current_state("Sprint") == true:
+	# 		if Scoped:
+	# 			crosshair.show()
+	# 			Assault_Rifle_Scope()
 				
-	elif _equiped_item_type(equiped_item.ItemType.building):
-		if !player.is_inventory_open(): # проверка если закрыт инвентарь
-			call_deferred("check_place_for_building")
-		else:
-			if building_scene.visible: building_scene.call_deferred("hide")
-	
+	# elif _equiped_item_type(equiped_item.ItemType.building):
+	# 	if !player.is_inventory_open(): # проверка если закрыт инвентарь
+	# 		call_deferred("check_place_for_building")
+	# 	else:
+	# 		if building_scene.visible: building_scene.call_deferred("hide")
+	pass
 	
 			
 		
 func _unhandled_input(event : InputEvent) -> void:
-	if not is_multiplayer_authority():
-		return
-	if event is InputEventKey and event.pressed:
-		if !player.is_inventory_open() and is_fp_animator_playing() == false: # проверка если закрыт инвентарь
-			match event.keycode:
-				KEY_1:
-					swap_items(player.player_quick_slot, 0)
-				KEY_2:
-					swap_items(player.player_quick_slot, 1)
-				KEY_3:
-					swap_items(player.player_quick_slot, 2)
-				KEY_4:
-					swap_items(player.player_quick_slot, 3)
-				KEY_5:
-					swap_items(player.player_quick_slot, 4)
-				KEY_6:
-					swap_items(player.player_quick_slot, 5)
-				KEY_0:
-					if _equiped_item_type(equiped_item.ItemType.weapon):
-						pass
-						# toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
+	# if not is_multiplayer_authority():
+	# 	return
+	# if event is InputEventKey and event.pressed:
+	# 	if !player.is_inventory_open() and is_fp_animator_playing() == false: # проверка если закрыт инвентарь
+	# 		match event.keycode:
+	# 			KEY_1:
+	# 				swap_items(player.player_quick_slot, 0)
+	# 			KEY_2:
+	# 				swap_items(player.player_quick_slot, 1)
+	# 			KEY_3:
+	# 				swap_items(player.player_quick_slot, 2)
+	# 			KEY_4:
+	# 				swap_items(player.player_quick_slot, 3)
+	# 			KEY_5:
+	# 				swap_items(player.player_quick_slot, 4)
+	# 			KEY_6:
+	# 				swap_items(player.player_quick_slot, 5)
+	# 			KEY_0:
+	# 				if _equiped_item_type(equiped_item.ItemType.weapon):
+	# 					pass
+	# 					# toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
 	
-	if !player.is_inventory_open(): # проверка если закрыт инвентарь
-		if Input.is_action_just_pressed("fire"):
-			if _equiped_item_type(equiped_item.ItemType.tool ) and is_fp_animator_playing() == false:
-				if equiped_item.anim_hit and equiped_item.anim_player_hit:
-					fp_item_animator.play(equiped_item.anim_hit)
-					fp_player_animator.play(equiped_item.anim_player_hit)
-			elif _equiped_item_type(equiped_item.ItemType.consumable): 
-				player._on_inventory_interface_signal_use_item(equiped_slot)
-				remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
+	# if !player.is_inventory_open(): # проверка если закрыт инвентарь
+	# 	if Input.is_action_just_pressed("fire"):
+	# 		if _equiped_item_type(equiped_item.ItemType.tool ) and is_fp_animator_playing() == false:
+	# 			if equiped_item.anim_hit and equiped_item.anim_player_hit:
+	# 				fp_item_animator.play(equiped_item.anim_hit)
+	# 				fp_player_animator.play(equiped_item.anim_player_hit)
+	# 		elif _equiped_item_type(equiped_item.ItemType.consumable): 
+	# 			player._on_inventory_interface_signal_use_item(equiped_slot)
+	# 			remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot)
 
-		if _equiped_item_type(equiped_item.ItemType.weapon) and fp_item_animator.current_animation != equiped_item.anim_activate and fp_item_animator.current_animation != equiped_item.anim_reload: # если соответствует тип
-			if Input.is_action_just_pressed("reload") and equiped_item.ammo_current != equiped_item.ammo_max and Input.is_action_pressed("right_click") == false:
-				if find_ammo_in_inventories()[0]:
-					reticle.show()
-					crosshair.hide()
-					fp_item_animator.play(equiped_item.anim_reload)
-					fp_player_animator.play(equiped_item.anim_player_reload)
-				else:
-					print("No ammo to reload in inventories")
-			if Input.is_action_just_released("right_click"):
-				if Scoped:
-					Assault_Rifle_Scope()
-					reticle.hide()
-					crosshair.show()
-			if Input.is_action_just_pressed("fire"):
-				if equiped_item.fire_mode_current.mode == WeaponFireModes.FireMode.SINGLE:
-					if can_shoot(equiped_item.fire_mode_current):
-						shoot()
-			if Input.is_action_just_pressed("change_fire_mode"):
-				for mode : WeaponFireModes in equiped_item.fire_modes:
-					if mode and mode != equiped_item.fire_mode_current:
-						equiped_item.fire_mode_current = mode
-						Update_Fire_Mode.emit(equiped_item.fire_mode_current)
-						break
+		# if _equiped_item_type(equiped_item.ItemType.weapon) and fp_item_animator.current_animation != equiped_item.anim_activate and fp_item_animator.current_animation != equiped_item.anim_reload: # если соответствует тип
+		# 	if Input.is_action_just_pressed("reload") and equiped_item.ammo_current != equiped_item.ammo_max and Input.is_action_pressed("right_click") == false:
+		# 		if find_ammo_in_inventories()[0]:
+		# 			reticle.show()
+		# 			crosshair.hide()
+		# 			fp_item_animator.play(equiped_item.anim_reload)
+		# 			fp_player_animator.play(equiped_item.anim_player_reload)
+		# 		else:
+		# 			print("No ammo to reload in inventories")
+		# 	if Input.is_action_just_released("right_click"):
+		# 		if Scoped:
+		# 			Assault_Rifle_Scope()
+		# 			reticle.hide()
+		# 			crosshair.show()
+		# 	if Input.is_action_just_pressed("fire"):
+		# 		if equiped_item.fire_mode_current.mode == WeaponFireModes.FireMode.SINGLE:
+		# 			if can_shoot(equiped_item.fire_mode_current):
+		# 				shoot()
+		# 	if Input.is_action_just_pressed("change_fire_mode"):
+		# 		for mode : WeaponFireModes in equiped_item.fire_modes:
+		# 			if mode and mode != equiped_item.fire_mode_current:
+		# 				equiped_item.fire_mode_current = mode
+		# 				Update_Fire_Mode.emit(equiped_item.fire_mode_current)
+		# 				break
+		pass
 
 func check_place_for_building() -> void:
 	if building_scene and building_cast and other_buildings_cast:
 		building_change_visibility(false)
-		var _collider_interacted_path : NodePath # нужно для позиции двери
 		if building_scene.item_data.building_type == building_scene.item_data.BuildingType.inventory: # для строений типа инвентарь
 			var is_raycast_colliding := other_buildings_cast.is_colliding()
 			if is_raycast_colliding: # если луч попадает на одну из заданных поверхностей - код выполняется, в ином случае постройка скрывается
@@ -176,7 +186,7 @@ func check_place_for_building() -> void:
 								# door_root_pos = collider_interacted.door_root.global_transform.origin
 								# door_root_rot_y = collider_interacted.door_root.global_rotation_degrees.y
 								# scene_root_global_rot_degrees_y = collider_interacted.root_scene.global_rotation_degrees.y
-								if _collider_interacted_path.is_empty(): _collider_interacted_path = collider_interacted.get_path()
+								if collider_interacted_path.is_empty(): collider_interacted_path = collider_interacted.get_path()
 								building_scene.mesh_node.position.z = 0
 								building_scene.collision_shape.position.z = 0
 								building_scene.shape_cast.position.z = 0
@@ -194,8 +204,8 @@ func check_place_for_building() -> void:
 				building_set_possibility_to_place(building_scene, true)
 		else:
 			building_set_possibility_to_place(building_scene, false)
-		if building_scene.is_able_to_build and Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
-			place_building_part(building_scene, _collider_interacted_path)
+		# if building_scene.is_able_to_build and Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
+		# 	place_building_part(building_scene, _collider_interacted_path)
 
 func building_set_possibility_to_place(building : Node, possibility : bool) -> void:
 	if possibility:
@@ -209,20 +219,27 @@ func building_change_visibility(visibility : bool) -> void:
 	if not visibility and building_scene.visible: building_scene.hide()
 	elif visibility and not building_scene.visible: building_scene.show()
 
-func place_building_part(_building_scene : Node, collider_interacted_path : NodePath) -> void:
+func place_building_part(place_position : Vector3, place_rotation_y : float, _collider_interacted_path : NodePath) -> void:
 	var building_scene_path : String = equiped_item.dictionary["scene_path"]
-	remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
-	rpc("spawn_building_part", building_scene_path, _building_scene.global_position.x, _building_scene.global_position.y, _building_scene.global_position.z, _building_scene.global_rotation_degrees.y, collider_interacted_path, player.peer_id) # посылаем на сервер запрос на спавн постройки
+	_collider_interacted_path = ''
+	# remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
+	rpc("RPC_remove_item_from_inventory")
+	spawn_building_part(building_scene_path, place_position.x, place_position.y, place_position.z, place_rotation_y, _collider_interacted_path, player.peer_id) # посылаем на сервер запрос на спавн постройки
 
-@rpc("any_peer", "reliable", "call_local")
-func spawn_building_part(building_scene_path : String, position_x : float, position_y : float, position_z : float, rotation_y : float, collider_interacted_path : NodePath, player_id : int) -> void:
-	if not multiplayer.is_server(): return
+@rpc("any_peer", "call_local", "reliable", 2)
+func RPC_remove_item_from_inventory() -> void:
+	if multiplayer.get_unique_id() == player.peer_id or multiplayer.is_server():
+		remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
+
+# @rpc("any_peer", "reliable", "call_local", 2)
+func spawn_building_part(building_scene_path : String, position_x : float, position_y : float, position_z : float, rotation_y : float, _collider_interacted_path : NodePath, player_id : int) -> void:
+	# if not multiplayer.is_server(): return
 	print("SERVER: player spawned building")
 	var building_instance : Node = load(building_scene_path).instantiate()
 	get_tree().get_first_node_in_group("world").call_deferred("add_child", building_instance, true) # добавляет постройку в обычный мир
-	call_deferred("set_building_data", building_instance, position_x, position_y, position_z, rotation_y, collider_interacted_path, player_id)
+	call_deferred("set_building_data", building_instance, position_x, position_y, position_z, rotation_y, _collider_interacted_path, player_id)
 
-func set_building_data(building_instance : Node, position_x : float, position_y : float, position_z : float, rotation_y : float, collider_interacted_path : NodePath, player_id : int) -> void:
+func set_building_data(building_instance : Node, position_x : float, position_y : float, position_z : float, rotation_y : float, _collider_interacted_path : NodePath, player_id : int) -> void:
 	var building_pos : Vector3
 	var building_rot : float
 	if building_instance.item_data.building_type != building_instance.item_data.BuildingType.inventory:
@@ -232,7 +249,7 @@ func set_building_data(building_instance : Node, position_x : float, position_y 
 		building_instance.signal_building_spawn.emit()
 		
 	if building_instance.item_data.building_type == building_instance.item_data.BuildingType.door:
-		var collider_node : Area3D = get_node(collider_interacted_path)
+		var collider_node : Area3D = get_node(_collider_interacted_path)
 		var door_position : Vector3 = collider_node.door_root.global_transform.origin
 		var door_rotation_y : float = collider_node.door_root.global_rotation_degrees.y
 		for collider : Area3D in collider_node.root_scene.building_colliders:
@@ -256,16 +273,18 @@ func set_building_data(building_instance : Node, position_x : float, position_y 
 		"building_name": building_instance.name,
 		"building_position": building_instance.global_transform.origin
 	}
-	rpc_id(player_id, "add_building_in_own", building_data) # записываем игроку данные о его постройке
-
-@rpc("any_peer", "reliable", "call_local")
-func add_building_in_own(building_data : Dictionary) -> void:
 	player.buildings_in_own.append(building_data)
+	# rpc_id(1, "add_building_in_own", building_data) # записываем игроку данные о его постройке
+
+# @rpc("any_peer", "reliable", "call_local", 2)
+# func add_building_in_own(building_data : Dictionary) -> void:
+# 	player.buildings_in_own.append(building_data)
 
 func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlotData) -> void: # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
 	if item_slot == null: return
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
 	clear_building()
+	print("id called: ", multiplayer.get_unique_id())
 	inventory_data.signal_update_active_slot.emit(inventory_data, slot_index, equiped_slot_index, item_slot, equiped_slot) # сигнал инвентарю быстрого доступа обновить активность данному слоту
 	#-назначаем основные переменные этого класса
 	equiped_slot = item_slot
@@ -295,13 +314,10 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		fp_item_animator.play(equiped_item.anim_activate)
 		fp_player_animator.play(equiped_item.anim_player_activate)
 	if _equiped_item_type(equiped_item.ItemType.weapon):
-		for data : PlayerWeaponSpread in player.weapon_spread_data:
-			if data and data.weapon_data.name == equiped_item.name:
-				player.current_weapon_spread_data = data # выставляется ресурс с данными о разбросе для оружия
-				break
-		weapon_hud.show()
-		crosshair.show()
-		reticle.hide()
+		player.current_weapon_spread_data = equiped_item.weapon_spread_data
+		player.weapon_hud.show()
+		player.crosshair.show()
+		player.reticle.hide()
 		Update_Ammo.emit(equiped_item.ammo_current)
 		Update_Fire_Mode.emit(equiped_item.fire_mode_current)
 		update_pos() # получение первоначальной позиции для разброса во время стрельбы
@@ -358,8 +374,8 @@ func clear_animations() -> void:
 		Scoped = false
 
 func is_fp_animator_playing() -> bool:
-	if not is_multiplayer_authority():
-		pass
+	# if not is_multiplayer_authority():
+	# 	pass
 	if fp_player_animator and fp_player_animator.is_playing():
 		return true
 	if fp_item_animator and fp_item_animator.is_playing():
@@ -368,8 +384,8 @@ func is_fp_animator_playing() -> bool:
 		return false
 
 func apply_recoil(delta : float) -> void:
-	if not is_multiplayer_authority():
-		return
+	# if not is_multiplayer_authority():
+	# 	return
 	current_time += delta
 	var recoil_speed : float = current_time * equiped_item.recoil_speed
 	rig_holder.position.z = lerp(rig_holder.position.z, def_pos_holder_z + target_pos.z, equiped_item.lerp_speed * delta)
@@ -383,12 +399,13 @@ func apply_recoil(delta : float) -> void:
 	target_rot.x = equiped_item.recoil_rotation_x.sample(recoil_speed) * - equiped_item.recoil_amplitude.y
 
 func shoot() -> void:
-	if not is_multiplayer_authority():
-		return
+	# if not is_multiplayer_authority():
+	# 	return
 	#audio_queue.play_sound()
 	rpc("play_shoot_sound")
 	randomize_aimcast_spread()
 	hitscan(aim_cast)
+	# hitscan(aim_cast)
 	update_weapon_ammo( - 1) # отнимаем current ammo и обновляем худ
 	equiped_item.recoil_amplitude.x *= - 1 if randf() > 0.75 else 1
 	target_pos.z = equiped_item.recoil_position_z.sample(0) * equiped_item.recoil_amplitude.z
@@ -396,54 +413,61 @@ func shoot() -> void:
 	target_rot.x = equiped_item.recoil_rotation_x.sample(0) * equiped_item.recoil_amplitude.y / 2
 	current_time = 0
 
-@rpc("any_peer","unreliable","call_local")
+@rpc("any_peer","unreliable","call_local", 0)
 func play_shoot_sound() -> void:
 	audio_queue.play_sound()
 
 func update_pos() -> void:
-	if not is_multiplayer_authority():
-		return
+	# if not is_multiplayer_authority():
+	# 	return
 	def_pos = rig_holder.position
 	def_rot = rig_holder.rotation
 	target_rot.y = 0.0
 	current_time = 1
 	
 func hitscan(raycast: RayCast3D) -> void:
-	if not is_multiplayer_authority():
-		return
+	# if not is_multiplayer_authority():
+	# 	return
 	raycast.force_raycast_update()
 	var target : Object = raycast.get_collider()
 	var ray_end_point : Vector3 = raycast.get_collision_point()
 	if ray_end_point:
-		var decal := HIT_DECAL.instantiate()
 		if target:
-			target.call_deferred("add_child", decal)
+			# target.call_deferred("add_child", decal)
 			player_hit(target)
 			if target.is_in_group("enemy_group"):
-				target.rpc('damage_enemy', equiped_item.damage, player.peer_id)
+				target.damage_enemy(equiped_item.damage, player.peer_id)
 			if raycast == melee_cast and equiped_item.ItemType.tool:
 				if target.is_in_group("world_resource"):
 					if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):
 						# target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
 						# target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
-						rpc("RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
-						create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2, 6))
+						# rpc_id(1,"RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
+						target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
+						rpc_id(player.peer_id, "RPC_set_world_resource_item_stone", randi_range(2, 6))
 					if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
 						# target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
 						# target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
-						rpc("RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
-						create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
+						# rpc_id(1,"RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
+						# create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
+						target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
+						rpc_id(player.peer_id, "RPC_set_world_resource_item_wood", randi_range(2, 6))
 				if target.is_in_group("enemy_group"):
 					target.health -= equiped_item.damage
-		else:
-			player.main_scene.call_deferred("add_child", decal)
+		var decal := HIT_DECAL.instantiate()
+		player.main_scene.call_deferred("add_child", decal, true)
 		call_deferred("shoot_decal_instance", ray_end_point, decal, raycast)
 
-@rpc("any_peer", "call_local", "reliable")
-func RPC_hit_world_resource(target_path : NodePath, hit_value : float) -> void:
-	if not multiplayer.is_server(): return
-	get_node(target_path).world_resource_hit.emit(hit_value)
+@rpc("any_peer", "call_local", "reliable", 2)
+func RPC_set_world_resource_item_wood(amount : int) -> void:
+	create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), amount)
 
+@rpc("any_peer", "call_local", "reliable", 2)
+func RPC_set_world_resource_item_stone(amount : int) -> void:
+	create_player_item(load("res://inventory/item/objects/resource_stone.tres"), amount)
+# func RPC_hit_world_resource(target_path : NodePath, hit_value : float) -> void:
+# 	# if not multiplayer.is_server(): return
+# 	get_node(target_path).world_resource_hit.emit(hit_value)
 
 func shoot_decal_instance(ray_end_point : Vector3, decal : Node, raycast : RayCast3D) -> void:
 	decal.global_transform.origin = ray_end_point
@@ -463,8 +487,8 @@ func player_hit(target : Object)->void:
 
 func randomize_aimcast_spread() -> void:
 	var rng := RandomNumberGenerator.new()
-	var crosshair_width : float = reticle.crosshair_range
-	var crosshair_height : float = reticle.crosshair_range
+	var crosshair_width : float = player.reticle.crosshair_range
+	var crosshair_height : float = player.reticle.crosshair_range
 	var raycast_length_ignore_value : float = aim_cast.target_position.z / 100.0 # 100 - это стандартное значение, при котором разброс адекватен
 	# Генерация случайных координат внутри квадрата
 	var randomize_spread_x : float = rng.randf_range(-crosshair_width / 2, crosshair_width / 2) * raycast_length_ignore_value
@@ -514,17 +538,17 @@ func clear_weapon_attachments() -> void:
 		pass
 
 func clear_weapon_hud() -> void:
-	if weapon_hud.visible:
-		weapon_hud.hide()
-	if crosshair.visible: # разделение перекрестия и точки
-		crosshair.hide()
-	reticle.show()
+	if player.weapon_hud.visible:
+		player.weapon_hud.hide()
+	if player.crosshair.visible: # разделение перекрестия и точки
+		player.crosshair.hide()
+	player.reticle.show()
 
 func reload() -> void:
-	if not is_multiplayer_authority():
-		return
-	reticle.hide()
-	crosshair.show()
+	# if not is_multiplayer_authority():
+	# 	return
+	player.reticle.hide()
+	player.crosshair.show()
 	var ammo_to_reload : int
 	var data : Array = find_ammo_in_inventories()
 	var ammo_slots : Array[InSlotData] = data[0]
@@ -565,8 +589,8 @@ func find_ammo_in_inventories() -> Array:
 	return [ammo_data, is_inventory, is_quick_slot]
 
 func swap_items(inventory_data: InventoryData, index: int) -> void:
-	if not is_multiplayer_authority():
-		return
+	# if not is_multiplayer_authority():
+	# 	return
 	var slot_data := inventory_data.slots_data[index]
 	for i in index + 1:
 		match [slot_data, equiped_slot, index]:
@@ -602,8 +626,8 @@ func _equiped_item_type(equiped_item_type: int) -> bool:
 		return false
 
 func can_shoot(fire_mode: WeaponFireModes) -> bool:
-	if not is_multiplayer_authority():
-		pass
+	# if not is_multiplayer_authority():
+	# 	pass
 	if player.is_inventory_open() or state_machine.is_current_state("Sprint") \
 		or timer.is_stopped() == false or equiped_item.ammo_current == 0 \
 		or fp_item_animator.current_animation == equiped_item.anim_reload or fp_item_animator.current_animation == equiped_item.anim_activate:
@@ -632,14 +656,14 @@ func _on_animation_player_axe_animation_finished(anim_name : String) -> void:
 			hitscan(melee_cast)
 			
 func create_player_item(item_data: Resource, amount: int) -> void:
-	if not is_multiplayer_authority():
-		return
+	# if not is_multiplayer_authority():
+	# 	return
 	var slot_data := InSlotData.new()
 	slot_data.item = item_data.duplicate(true)
 	slot_data.amount_in_slot = amount
 	player.give_item(slot_data)
 
 func remove_item_from_inventory(inventory_data : InventoryData, slot_index : int, slot_data : InSlotData) -> void:
-	if not is_multiplayer_authority(): return
+	# if not is_multiplayer_authority(): return
 	clear_item(inventory_data, slot_index, slot_data)
 	inventory_data._remove_slot_data(slot_index)

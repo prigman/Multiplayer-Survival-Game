@@ -3,10 +3,13 @@ extends PanelContainer
 var property : String
 var fps_string : String
 
+@export var player : Player
+
 @onready var property_container := %VBoxContainer
 
 func _process(delta : float) -> void:
-	add_property("fps", fps_string, 0)
+	if multiplayer.get_unique_id() == player.peer_id:
+		add_property("fps", fps_string, 0)
 	if visible:
 		fps_string = "%.f" % (1.0 / delta)
 

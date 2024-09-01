@@ -5,7 +5,8 @@ extends Node
 @onready var startup_ui := %StartupUI
 
 func _ready() -> void:
-	Server.signal_start_game.emit(change_level)
+	if OS.has_feature("dedicated_server"):
+		Server.signal_start_game.emit(change_level)
 
 func change_level(scene: PackedScene) -> void:
 	for child in level.get_children():
@@ -14,5 +15,5 @@ func change_level(scene: PackedScene) -> void:
 	level.add_child(scene.instantiate())
 
 func _on_connect_client_pressed() -> void:
-	Server.connect_to_server(address_entry.text, Server.port)
+	Client.connect_to_server(address_entry.text, Client.port)
 	startup_ui.hide()

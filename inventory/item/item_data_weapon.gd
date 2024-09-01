@@ -18,7 +18,7 @@ class_name ItemDataWeapon extends ItemData
 
 @export var fire_modes: Array[WeaponFireModes]
 @export var fire_mode_current: WeaponFireModes
-
+@export var weapon_spread_data: PlayerWeaponSpread
 @export var recoil_rotation_x: Curve
 @export var recoil_rotation_z: Curve
 @export var recoil_position_z: Curve

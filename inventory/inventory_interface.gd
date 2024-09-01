@@ -103,9 +103,9 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 		and player.item.equiped_slot and player.item.equiped_slot == grabbed_slot_data:
 		player.item.swap_items(inventory_data, index)
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("any_peer", "call_local", "reliable", 2)
 func RPC_change_slot_data_in_external_inventory(external_inventory_path : NodePath, index : int, dict_slot_data : Dictionary, dict_item_data : Dictionary, item_id : int, is_single_slot : bool = false) -> void:
-	if is_multiplayer_authority(): return
+	if multiplayer.get_unique_id() == player.peer_id: return
 	var node : StaticBody3D = get_node(external_inventory_path)
 	if dict_slot_data != {} and dict_item_data != {}:
 		var item_data := AllGameInventoryItems.load_item_data_by_id(item_id).duplicate(true)
