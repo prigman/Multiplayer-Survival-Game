@@ -18,15 +18,15 @@ func physics_update(delta : float) -> void:
 	if player.died:
 		transition.emit("Death")
 
-	if player.is_on_floor():
-		if Input.is_action_pressed("left_ctrl"):
+	elif player.is_on_floor():
+		if player.crouch_button_pressed and multiplayer.is_server():
 			transition.emit("Crouch")
+		elif player.space_button_pressed and multiplayer.is_server():
+			transition.emit("Jump")
 		elif player.velocity.length() > 0.0:
 			transition.emit("Walking")
-		elif Input.is_action_just_pressed("space"):
-			transition.emit("Jump")
 	else:
-		if player.velocity.y != 0:
+		if player.velocity.y < -3:
 			transition.emit("Falling")
 
 func enter(previous_state : State) -> void:

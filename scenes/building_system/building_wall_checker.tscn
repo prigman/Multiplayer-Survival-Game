@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://bycms485nay70"]
+
+[ext_resource type="Script" path="res://scripts/building system/building.gd" id="1_8rfdm"]
+[ext_resource type="Resource" uid="uid://do1v63m4lpun7" path="res://inventory/item/objects/wooden_wall.tres" id="2_vn88a"]
+[ext_resource type="ArrayMesh" uid="uid://bok5ktxy7q6li" path="res://models/meshes/wooden_wall.tres" id="3_scg4y"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_7kh2h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f5200"]
+size = Vector3(0.7, 3.5, 3.65)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_06qvl"]
+size = Vector3(0.45, 4, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cvuis"]
+size = Vector3(0.5, 4.2, 4.2)
+
+[node name="BuildingWall" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_group", "building_wall"]]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_8rfdm")
+item_data = ExtResource("2_vn88a")
+building_colliders = [NodePath(""), NodePath("")]
+shape_cast = NodePath("ShapeCast3D")
+collision_shape = NodePath("CollisionShape3D")
+mesh_node = NodePath("Mesh")
+building_collision = NodePath("BuildingCollision")
+
+[node name="BuildingCollision" type="Area3D" parent="."]
+collision_layer = 1024
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingCollision"]
+shape = SubResource("BoxShape3D_f5200")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.075, 0, 0)
+shape = SubResource("BoxShape3D_06qvl")
+disabled = true
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_cvuis")
+max_results = 1
+collision_mask = 222
+collide_with_areas = true
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+cast_shadow = 0
+mesh = ExtResource("3_scg4y")
+surface_material_override/0 = ExtResource("4_7kh2h")

@@ -14,7 +14,7 @@ extends MultiplayerSynchronizer
 @onready var camera := %Camera3D
 @onready var camera_holder := %CameraHolder
 @onready var camera_controller := %CameraController
-# @onready var inventory_interface := %InventoryInterface
+@onready var inventory_interface := %InventoryInterface
 @onready var label_3d := %Label3D
 
 
@@ -28,6 +28,12 @@ func _ready() -> void:
 		label_3d.hide()
 		canvas_layer.show()
 		#set local inventory data based on server inventory data
+		player.signal_toggle_inventory.connect(player._toggle_inventory_interface)
+		inventory_interface._set_player_inventory_data(player.player_inventory)
+		inventory_interface._set_quick_slot_data(player.player_quick_slot)
+		inventory_interface.signal_drop_item.connect(player._on_inventory_interface_signal_drop_item)
+		inventory_interface.signal_use_item.connect(player._on_inventory_interface_signal_use_item)
+		inventory_interface.signal_force_close.connect(player._toggle_inventory_interface)
 	else:
 		camera.clear_current()
 		set_process_for_player(false)
@@ -58,12 +64,13 @@ func _physics_process(delta : float) -> void:
 				
 
 	#### небезопасное действие так как действие может быть не синхронизировано с сервером
-	elif item.equiped_item and item._equiped_item_type(item.equiped_item.ItemType.building):
-		if !player.is_inventory_open(): # проверка если закрыт инвентарь
-			item.call_deferred("check_place_for_building")
-			if item.building_scene.is_able_to_build and Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
+	elif item.RPC_equiped_slot_index != -1 and item._equiped_item_type(player.player_quick_slot.slots_data[item.RPC_equiped_slot_index].item.ItemType.building):
+		# if !player.is_inventory_open(): # проверка если закрыт инвентарь
+		# print("+")
+		item.check_place_for_building()
+		if item.building_scene.is_able_to_build and Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
 				# place_building_part(building_scene, _collider_interacted_path)
-				rpc_id(1, "RPC_place_building", item.building_scene.global_transform.origin, item.collider_interacted_path)
+			rpc_id(1, "RPC_place_building", item.building_scene.global_transform.origin, item.collider_interacted_path)
 		else:
 			if item.building_scene.visible: item.building_scene.call_deferred("hide")
 	####
@@ -161,7 +168,7 @@ func _input(event : InputEvent) -> void:
 		camera_holder.rotate_x(deg_to_rad( - event.relative.y * mouse_sens))
 		camera_holder.rotation.x = clamp(camera_holder.rotation.x, deg_to_rad( - 85), deg_to_rad(85))
 		mouse_input = event.relative
-		item.raycasts_controller.rotation = camera_controller.rotation 
+		# item.raycasts_controller.rotation.x = camera_controller.rotation.x
 		# Отправляем данные на сервер с помощью RPC
 		# rpc("sync_rotation", player.rotation.y)
 
@@ -177,9 +184,32 @@ func _input(event : InputEvent) -> void:
 	# player.rotate_y(deg_to_rad( - mouse_input.x * mouse_sens))
 	# player.rotate_y(rotate_y_delta)
 
+@rpc("any_peer", "call_local", "reliable", 2)
+func RPC_button_pressed(button : String, value : bool) -> void:
+	match button:
+		"left_ctrl":
+			player.crouch_button_pressed = value
+		"space":
+			player.space_button_pressed = value
+		"shift":
+			player.shift_button_pressed = value
+
 func _unhandled_input(event : InputEvent) -> void:
 	# if not is_multiplayer_authority(): return
-
+	if Input.is_action_pressed("left_ctrl"):
+		# player.crouch_button_pressed = true
+		rpc_id(1,"RPC_button_pressed", "left_ctrl", true)
+	if Input.is_action_just_released("left_ctrl"):
+		# player.crouch_button_pressed = false
+		rpc_id(1,"RPC_button_pressed", "left_ctrl", false)
+	if Input.is_action_just_pressed("space"):
+		rpc_id(1,"RPC_button_pressed", "space", true)
+	if Input.is_action_just_released("space"):
+		rpc_id(1,"RPC_button_pressed", "space", false)
+	if Input.is_action_pressed("shift"):
+		rpc_id(1,"RPC_button_pressed", "shift", true)
+	if Input.is_action_just_released("shift"):
+		rpc_id(1,"RPC_button_pressed", "shift", false)
 	if Input.is_action_just_pressed("quit"):
 		# get_tree().quit()
 		player.signal_toggle_inventory.emit()
@@ -189,31 +219,38 @@ func _unhandled_input(event : InputEvent) -> void:
 		player.interact()
 
 	if event is InputEventKey and event.pressed:
-		if not player.is_inventory_open() and item.is_fp_animator_playing() == false: # проверка если закрыт инвентарь
-			match event.keycode:
-				KEY_1:
-					# swap_items(player.player_quick_slot, 0)
-					rpc("RPC_swap_items", 0)
-				KEY_2:
-					# swap_items(player.player_quick_slot, 1)
-					rpc("RPC_swap_items", 1)
-				KEY_3:
-					# swap_items(player.player_quick_slot, 2)
-					rpc("RPC_swap_items", 2)
-				KEY_4:
-					# swap_items(player.player_quick_slot, 3)
-					rpc("RPC_swap_items", 3)
-				KEY_5:
-					# swap_items(player.player_quick_slot, 4)
-					rpc("RPC_swap_items", 4)
-				KEY_6:
-					# swap_items(player.player_quick_slot, 5)
-					rpc("RPC_swap_items", 5)
-				KEY_0:
-					pass
+		match event.keycode:
+			KEY_1:
+				# item.swap_items(player.player_quick_slot, 0)
+				# item.swap_items
+				# rpc_id(1,"RPC_swap_items_button_pressed", 1)
+				rpc_id(1,"RPC_swap_items", 0)
+			KEY_2:
+				# item.swap_items(player.player_quick_slot, 1)
+				rpc_id(1,"RPC_swap_items", 1)
+				# rpc_id(1,"RPC_swap_items_button_pressed", 2)
+			KEY_3:
+				# item.swap_items(player.player_quick_slot, 2)
+				rpc_id(1,"RPC_swap_items", 2)
+				# rpc_id(1,"RPC_swap_items_button_pressed", 3)
+			KEY_4:
+				# item.swap_items(player.player_quick_slot, 3)
+				rpc_id(1,"RPC_swap_items", 3)
+				# rpc_id(1,"RPC_swap_items_button_pressed", 4)
+			KEY_5:
+				# item.swap_items(player.player_quick_slot, 4)
+				rpc_id(1,"RPC_swap_items", 4)
+				# rpc_id(1,"RPC_swap_items_button_pressed", 5)
+			KEY_6:
+				# item.swap_items(player.player_quick_slot, 5)
+				rpc_id(1,"RPC_swap_items", 5)
+				# rpc_id(1,"RPC_swap_items_button_pressed", 6)
+			KEY_0:
+				pass
 					# if _equiped_item_type(equiped_item.ItemType.weapon):
 						# pass
 						# toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
+
 	if not player.is_inventory_open(): # проверка если закрыт инвентарь
 		if Input.is_action_just_pressed("fire"):
 			if item.equiped_item and item._equiped_item_type(item.equiped_item.ItemType.tool) and item.is_fp_animator_playing() == false:
@@ -266,11 +303,23 @@ func RPC_play_fp_animations() -> void:
 	item.fp_item_animator.play(item.equiped_item.anim_hit)
 	item.fp_player_animator.play(item.equiped_item.anim_player_hit)
 
-@rpc("any_peer", "call_local", "unreliable", 0)
+@rpc("any_peer", "call_local", "reliable", 2)
 func RPC_swap_items(key_id : int) -> void:
-	# if multiplayer.is_server(): return
-	if multiplayer.get_unique_id() == player.peer_id or multiplayer.is_server():
-		item.swap_items(player.player_quick_slot, key_id)
+	# if player.peer_id != player_id: return
+	# if multiplayer.get_unique_id() == player.peer_id:
+	if not player.is_inventory_open() and item.is_fp_animator_playing() == false: # проверка если закрыт инвентарь
+		if player.item.RPC_equiped_slot_index == key_id:
+			player.item.RPC_equiped_slot_index = -1
+		else:
+			player.item.RPC_equiped_slot_index = key_id
+		rpc_id(player.peer_id, "RPC_set_active_item", key_id)
+	# elif multiplayer.get_unique_id() == player.peer_id:
+		# item.swap_items(player.player_quick_slot, key_id)
+	# player.swap_item_button_pressed = number_of_button
+
+@rpc("any_peer", "call_local", "reliable", 2)
+func RPC_set_active_item(slot_id : int) -> void:
+	player.item.swap_items(player.player_quick_slot, slot_id)
 
 @rpc("any_peer", "call_local", "unreliable", 0)
 func RPC_shoot() -> void:
@@ -296,4 +345,5 @@ func RPC_scope() -> void:
 
 @rpc("any_peer", "call_local", "reliable", 2)
 func RPC_place_building(position : Vector3, collider_path : String) -> void:
+	if not multiplayer.is_server(): return
 	item.place_building_part(position, collider_path)

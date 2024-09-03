@@ -83,7 +83,7 @@ Server="*res://scripts/server.gd"
 Global="res://scripts/global.gd"
 InventoryItems="*res://scripts/all_game_inventory_items.gd"
 GlobalMOctree="*res://scripts/terrain/m_octree.gd"
-Client="*res://scripts/client.gd"
+Client="res://scripts/client.gd"
 
 [debug]
 

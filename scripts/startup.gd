@@ -15,5 +15,5 @@ func change_level(scene: PackedScene) -> void:
 	level.add_child(scene.instantiate())
 
 func _on_connect_client_pressed() -> void:
-	Client.connect_to_server(address_entry.text, Client.port)
+	Server.connect_to_server(address_entry.text, Server.port)
 	startup_ui.hide()

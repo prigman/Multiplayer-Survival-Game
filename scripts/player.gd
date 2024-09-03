@@ -31,6 +31,12 @@ var sprint_hunger_rate: float = 0.5
 var walk_hunger_rate: float = 0.2
 var idle_hunger_rate: float = 0.1
 
+# @export var equiped_item_slot_id : int = -1
+
+@export var crouch_button_pressed : bool
+@export var space_button_pressed : bool
+@export var shift_button_pressed : bool
+
 @export var state_machine : StateMachine
 
 @export var sound_footstep_pool : SoundPool

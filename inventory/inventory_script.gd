@@ -1,7 +1,7 @@
 class_name InventoryScript extends PanelContainer
 
 const SLOT_SCENE := preload("res://inventory/inventory_scenes/inventory_slot.tscn")
-@onready var grid_container := $MarginContainer/GridContainer
+@onready var grid_container := %GridContainer
 
 var slot_counter : int
 
@@ -39,12 +39,12 @@ func _set_inventory_slots(inventory_data : InventoryData) -> void:
 	slot_counter = 0
 	
 func _set_active_slot(inventory_data : InventoryData, new_slot_index : int, last_slot_index : int, new_slot_data : InSlotData, last_slot_data : InSlotData) -> void:
+	print("id active set: ", multiplayer.get_unique_id())
 	var new_active_slot := grid_container.get_child(new_slot_index)
 	var last_active_slot := grid_container.get_child(last_slot_index)
 	if new_slot_data and !last_slot_data:
 		new_active_slot.active_slot_panel.show()
 		new_slot_data.active_slot_data = true
-		print("id active set: ", multiplayer.get_unique_id())
 		print("Active slot set: %s" % new_slot_data.item.name)
 	if new_slot_data and last_slot_data:
 		if new_slot_data == last_slot_data:

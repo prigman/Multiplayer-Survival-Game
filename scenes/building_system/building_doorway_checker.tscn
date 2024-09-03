@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://b61arh2r8osij"]
+
+[ext_resource type="Script" path="res://scripts/building system/building.gd" id="1_to715"]
+[ext_resource type="Resource" uid="uid://beqmhy1ap1nsg" path="res://inventory/item/objects/wooden_doorway.tres" id="2_m1gis"]
+[ext_resource type="ArrayMesh" uid="uid://ckox6rm88nlme" path="res://models/meshes/wooden_doorway.res" id="3_bwrk1"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_cl1vt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f5200"]
+size = Vector3(0.7, 3.5, 3.65)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cvuis"]
+size = Vector3(0.5, 4.2, 4.2)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ndl51"]
+data = PackedVector3Array(0.15, 0.8, 2, -0.15, 2, 2, 0.15, 2, 2, 0.15, 0.8, 2, -0.15, 0.8, 2, -0.15, 2, 2, -0.15, 0.8, -0.9333, -0.15, 2, -2, -0.15, 2, -0.9333, -0.15, 0.8, -0.9333, -0.15, 0.8, -2, -0.15, 2, -2, -0.15, 0.8, -2, 0.15, 2, -2, -0.15, 2, -2, -0.15, 0.8, -2, 0.15, 0.8, -2, 0.15, 2, -2, 0.15, 0.8, 0.9333, 0.15, 2, 2, 0.15, 2, 0.9333, 0.15, 0.8, 0.9333, 0.15, 0.8, 2, 0.15, 2, 2, -0.15, -2, -0.9333, 0.15, -2, -2, -0.15, -2, -2, -0.15, -2, -0.9333, 0.15, -2, -0.9333, 0.15, -2, -2, -0.15, 2, 0.9333, 0.15, 2, 2, -0.15, 2, 2, -0.15, 2, 0.9333, 0.15, 2, 0.9333, 0.15, 2, 2, -0.15, 2, -2, 0.15, 2, -0.9333, -0.15, 2, -0.9333, -0.15, 2, -2, 0.15, 2, -2, 0.15, 2, -0.9333, -0.15, 2, -0.9333, 0.15, 2, 0.9333, -0.15, 2, 0.9333, -0.15, 2, -0.9333, 0.15, 2, -0.9333, 0.15, 2, 0.9333, -0.15, -2, 2, 0.15, -2, 0.9333, -0.15, -2, 0.9333, -0.15, -2, 2, 0.15, -2, 2, 0.15, -2, 0.9333, 0.15, 0.8, -2, 0.15, 2, -0.9333, 0.15, 2, -2, 0.15, 0.8, -2, 0.15, 0.8, -0.9333, 0.15, 2, -0.9333, 0.15, 0.8, -0.9333, 0.15, 2, 0.9333, 0.15, 2, -0.9333, 0.15, 0.8, -0.9333, 0.15, 0.8, 0.9333, 0.15, 2, 0.9333, -0.15, 0.8, 2, -0.15, 2, 0.9333, -0.15, 2, 2, -0.15, 0.8, 2, -0.15, 0.8, 0.9333, -0.15, 2, 0.9333, -0.15, 0.8, 0.9333, -0.15, 2, -0.9333, -0.15, 2, 0.9333, -0.15, 0.8, 0.9333, -0.15, 0.8, -0.9333, -0.15, 2, -0.9333, -0.15, -2, 2, -0.15, 0.8, 0.9333, -0.15, 0.8, 2, -0.15, -2, 2, -0.15, -2, 0.9333, -0.15, 0.8, 0.9333, 0.15, -2, -2, 0.15, 0.8, -0.9333, 0.15, 0.8, -2, 0.15, -2, -2, 0.15, -2, -0.9333, 0.15, 0.8, -0.9333, 0.15, -2, 0.9333, 0.15, 0.8, 2, 0.15, 0.8, 0.9333, 0.15, -2, 0.9333, 0.15, -2, 2, 0.15, 0.8, 2, -0.15, -2, -2, 0.15, 0.8, -2, -0.15, 0.8, -2, -0.15, -2, -2, 0.15, -2, -2, 0.15, 0.8, -2, -0.15, -2, -0.9333, -0.15, 0.8, -2, -0.15, 0.8, -0.9333, -0.15, -2, -0.9333, -0.15, -2, -2, -0.15, 0.8, -2, 0.15, -2, 2, -0.15, 0.8, 2, 0.15, 0.8, 2, 0.15, -2, 2, -0.15, -2, 2, -0.15, 0.8, 2, -0.15, -2, 0.9333, 0.15, 0.8, 0.9333, -0.15, 0.8, 0.9333, -0.15, -2, 0.9333, 0.15, -2, 0.9333, 0.15, 0.8, 0.9333, -0.15, 0.8, 0.9333, 0.15, 0.8, -0.9333, -0.15, 0.8, -0.9333, -0.15, 0.8, 0.9333, 0.15, 0.8, 0.9333, 0.15, 0.8, -0.9333, 0.15, -2, -0.9333, -0.15, 0.8, -0.9333, 0.15, 0.8, -0.9333, 0.15, -2, -0.9333, -0.15, -2, -0.9333, -0.15, 0.8, -0.9333)
+
+[node name="BuildingDoorway" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_group", "building_wall"]]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_to715")
+item_data = ExtResource("2_m1gis")
+building_colliders = [NodePath(""), NodePath(""), NodePath(""), NodePath("")]
+shape_cast = NodePath("ShapeCast3D")
+collision_shape = NodePath("CollisionShape3D")
+mesh_node = NodePath("Mesh")
+building_collision = NodePath("BuildingCollision")
+
+[node name="BuildingCollision" type="Area3D" parent="."]
+collision_layer = 1024
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingCollision"]
+shape = SubResource("BoxShape3D_f5200")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_cvuis")
+max_results = 1
+collision_mask = 222
+collide_with_areas = true
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+cast_shadow = 0
+mesh = ExtResource("3_bwrk1")
+surface_material_override/0 = ExtResource("4_cl1vt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_ndl51")
+disabled = true

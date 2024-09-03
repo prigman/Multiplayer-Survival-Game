@@ -26,5 +26,6 @@ max_stack = 0
 quality = 100.0
 icon = ExtResource("1_1c3rp")
 dictionary = {
-"scene_path": "res://scenes/building_wall.tscn"
+"building_scene_path": "res://scenes/building_system/building_wall.tscn",
+"scene_path": "res://scenes/building_system/building_wall_checker.tscn"
 }

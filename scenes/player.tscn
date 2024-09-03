@@ -47,50 +47,8 @@
 [ext_resource type="AudioStream" uid="uid://bb3v7j1n01531" path="res://sounds/footstep_grass.mp3" id="42_s3n7o"]
 [ext_resource type="AudioStream" uid="uid://wr52318gt57c" path="res://sounds/footstep_grass_2.mp3" id="43_65qyp"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n3lfe"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:velocity")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:peer_id")
-properties/2/spawn = true
-properties/2/replication_mode = 0
-properties/3/path = NodePath("Label3D:text")
-properties/3/spawn = true
-properties/3/replication_mode = 2
-properties/4/path = NodePath(".:buildings_in_own")
-properties/4/spawn = true
-properties/4/replication_mode = 2
-properties/5/path = NodePath(".:connected_mobs")
-properties/5/spawn = true
-properties/5/replication_mode = 2
-properties/6/path = NodePath(".:health_value")
-properties/6/spawn = true
-properties/6/replication_mode = 2
-properties/7/path = NodePath(".:hunger_value")
-properties/7/spawn = true
-properties/7/replication_mode = 2
-properties/8/path = NodePath("MeshInstance3D:rotation")
-properties/8/spawn = true
-properties/8/replication_mode = 2
-properties/9/path = NodePath("CameraController/CameraHolder/RigHolder/Item:RPC_is_item_equiped")
-properties/9/spawn = true
-properties/9/replication_mode = 2
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
-properties/0/path = NodePath(".:input_direction")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:mouse_input")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:cam_rotation")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qfu8"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kmqgp"]
+resource_local_to_scene = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f7gol"]
 
@@ -483,6 +441,70 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 anti_aliasing = false
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n3lfe"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = false
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:velocity")
+properties/1/spawn = false
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:peer_id")
+properties/2/spawn = false
+properties/2/replication_mode = 0
+properties/3/path = NodePath("Label3D:text")
+properties/3/spawn = false
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:buildings_in_own")
+properties/4/spawn = false
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:connected_mobs")
+properties/5/spawn = false
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:health_value")
+properties/6/spawn = false
+properties/6/replication_mode = 2
+properties/7/path = NodePath(".:hunger_value")
+properties/7/spawn = false
+properties/7/replication_mode = 2
+properties/8/path = NodePath("MeshInstance3D:rotation")
+properties/8/spawn = false
+properties/8/replication_mode = 2
+properties/9/path = NodePath("CameraController/CameraHolder/RigHolder/Item:RPC_is_item_equiped")
+properties/9/spawn = false
+properties/9/replication_mode = 2
+properties/10/path = NodePath(".:crouch_button_pressed")
+properties/10/spawn = false
+properties/10/replication_mode = 2
+properties/11/path = NodePath("CameraController:position")
+properties/11/spawn = false
+properties/11/replication_mode = 1
+properties/12/path = NodePath("DefaultStateCollision:shape:height")
+properties/12/spawn = false
+properties/12/replication_mode = 2
+properties/13/path = NodePath("DefaultStateCollision:position")
+properties/13/spawn = false
+properties/13/replication_mode = 2
+properties/14/path = NodePath(".:space_button_pressed")
+properties/14/spawn = false
+properties/14/replication_mode = 2
+properties/15/path = NodePath(".:shift_button_pressed")
+properties/15/spawn = false
+properties/15/replication_mode = 2
+properties/16/path = NodePath("StateMachine:current_state_name")
+properties/16/spawn = false
+properties/16/replication_mode = 2
+properties/17/path = NodePath("CameraController/CameraHolder/RigHolder/Item:RPC_equiped_slot_index")
+properties/17/spawn = false
+properties/17/replication_mode = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
+properties/0/path = NodePath(".:input_direction")
+properties/0/spawn = false
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:cam_rotation")
+properties/1/spawn = false
+properties/1/replication_mode = 1
+
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("state_machine", "sound_footstep_pool", "footstep_timer", "mesh", "weapon_holder") groups=["player"]]
 collision_layer = 2
 collision_mask = 4569
@@ -498,71 +520,15 @@ weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.001
 invert_weapon_sway = true
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
-unique_name_in_owner = true
-replication_config = SubResource("SceneReplicationConfig_n3lfe")
-
-[node name="InputSync" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("player", "item", "mesh")]
-unique_name_in_owner = true
-root_path = NodePath(".")
-replication_config = SubResource("SceneReplicationConfig_8ul1l")
-script = ExtResource("5_d8soy")
-player = NodePath("..")
-item = NodePath("../CameraController/CameraHolder/RigHolder/Item")
-mesh = NodePath("../MeshInstance3D")
-
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_7qfu8")
+shape = SubResource("CapsuleShape3D_kmqgp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00398284, 0.994013, 0.00473261)
 mesh = SubResource("CapsuleMesh_f7gol")
 surface_material_override/0 = SubResource("StandardMaterial3D_g0hrd")
-
-[node name="Raycasts" type="Node3D" parent="MeshInstance3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, 1.70371e-07, -8.74228e-08, -1.70371e-07, 1, 0.00398284, 0.655987, -0.00473261)
-
-[node name="InteractRay" type="RayCast3D" parent="MeshInstance3D/Raycasts"]
-unique_name_in_owner = true
-transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -2.5)
-collision_mask = 4574
-debug_shape_thickness = 1
-
-[node name="AimCast" type="RayCast3D" parent="MeshInstance3D/Raycasts"]
-unique_name_in_owner = true
-transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -1000)
-collision_mask = 4571
-debug_shape_thickness = 1
-
-[node name="MeleeCast" type="RayCast3D" parent="MeshInstance3D/Raycasts"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -2.5)
-collision_mask = 6619
-debug_shape_thickness = 1
-
-[node name="BuildingCast" type="RayCast3D" parent="MeshInstance3D/Raycasts"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -8)
-collision_mask = 4673
-collide_with_areas = true
-debug_shape_custom_color = Color(0, 1, 0, 1)
-debug_shape_thickness = 1
-
-[node name="OtherBuildingsCast" type="RayCast3D" parent="MeshInstance3D/Raycasts"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -8)
-collision_mask = 4417
-collide_with_areas = true
-debug_shape_custom_color = Color(0, 1, 0, 1)
-debug_shape_thickness = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.128199, -0.432236)
@@ -588,6 +554,49 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 transform = Transform3D(1, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, 1.70371e-07, -8.74228e-08, -1.70371e-07, 1, 5.14674e-09, 0.049438, 0.0104416)
 near = 0.001
+
+[node name="Raycasts" type="Node3D" parent="CameraController/CameraHolder/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="InteractRay" type="RayCast3D" parent="CameraController/CameraHolder/Camera3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 4574
+debug_shape_thickness = 1
+
+[node name="AimCast" type="RayCast3D" parent="CameraController/CameraHolder/Camera3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -1000)
+collision_mask = 4571
+debug_shape_thickness = 1
+
+[node name="MeleeCast" type="RayCast3D" parent="CameraController/CameraHolder/Camera3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 6619
+debug_shape_thickness = 1
+
+[node name="BuildingCast" type="RayCast3D" parent="CameraController/CameraHolder/Camera3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -8)
+collision_mask = 4673
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 1
+
+[node name="OtherBuildingsCast" type="RayCast3D" parent="CameraController/CameraHolder/Camera3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -8)
+collision_mask = 4417
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 1
 
 [node name="RigHolder" type="Node3D" parent="CameraController/CameraHolder"]
 script = ExtResource("5_fwk6d")
@@ -1099,11 +1108,11 @@ camera_holder = NodePath("../../..")
 player = NodePath("../../../..")
 state_machine = NodePath("../../../../StateMachine")
 timer = NodePath("../Timer")
-raycasts_controller = NodePath("../../../../MeshInstance3D/Raycasts")
-aim_cast = NodePath("../../../../MeshInstance3D/Raycasts/AimCast")
-melee_cast = NodePath("../../../../MeshInstance3D/Raycasts/MeleeCast")
-building_cast = NodePath("../../../../MeshInstance3D/Raycasts/BuildingCast")
-other_buildings_cast = NodePath("../../../../MeshInstance3D/Raycasts/OtherBuildingsCast")
+raycasts_controller = NodePath("../../Camera3D/Raycasts")
+aim_cast = NodePath("../../Camera3D/Raycasts/AimCast")
+melee_cast = NodePath("../../Camera3D/Raycasts/MeleeCast")
+building_cast = NodePath("../../Camera3D/Raycasts/BuildingCast")
+other_buildings_cast = NodePath("../../Camera3D/Raycasts/OtherBuildingsCast")
 audio_queue = NodePath("../../../../SoundQueue")
 
 [node name="Timer" type="Timer" parent="CameraController/CameraHolder/RigHolder"]
@@ -1853,6 +1862,19 @@ count = 5
 
 [node name="GunShot" type="AudioStreamPlayer3D" parent="SoundQueue"]
 stream = ExtResource("40_v4bxt")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_n3lfe")
+
+[node name="InputSync" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("player", "item", "mesh")]
+unique_name_in_owner = true
+root_path = NodePath(".")
+replication_config = SubResource("SceneReplicationConfig_8ul1l")
+script = ExtResource("5_d8soy")
+player = NodePath("..")
+item = NodePath("../CameraController/CameraHolder/RigHolder/Item")
+mesh = NodePath("../MeshInstance3D")
 
 [connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/AnimationPlayerPickaxe" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_pickaxe_animation_finished"]
 [connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated/AnimationPlayerAxe" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_axe_animation_finished"]

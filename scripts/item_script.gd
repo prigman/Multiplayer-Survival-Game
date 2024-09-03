@@ -37,6 +37,7 @@ var fp_item_animator: AnimationPlayer
 
 # информация о предмете в руках в данный момент
 @export var RPC_is_item_equiped : bool
+@export var RPC_equiped_slot_index : int = -1
 var equiped_item_node: Node3D # нода оружия (для того чтобы не проходится по массиву каждый раз)
 var equiped_slot: InSlotData # слот, который в данный момент выбран
 var equiped_item: ItemData :
@@ -47,7 +48,8 @@ var equiped_item: ItemData :
 		else:
 			RPC_is_item_equiped = false
 	# айтем в этом слоте (для удобства, так как айтем можно получить через equiped_slot.item)
-var equiped_slot_index: int # индекс equip слота нужен для переключения активного слота
+var equiped_slot_index: int = -1
+	# индекс equip слота нужен для переключения активного слота 
 #
 
 # для оружия
@@ -164,7 +166,7 @@ func _unhandled_input(event : InputEvent) -> void:
 
 func check_place_for_building() -> void:
 	if building_scene and building_cast and other_buildings_cast:
-		building_change_visibility(false)
+		# building_change_visibility(false)
 		if building_scene.item_data.building_type == building_scene.item_data.BuildingType.inventory: # для строений типа инвентарь
 			var is_raycast_colliding := other_buildings_cast.is_colliding()
 			if is_raycast_colliding: # если луч попадает на одну из заданных поверхностей - код выполняется, в ином случае постройка скрывается
@@ -174,6 +176,7 @@ func check_place_for_building() -> void:
 		else: # остальные строения
 			var is_raycast_colliding := building_cast.is_colliding()
 			var collider_interacted := building_cast.get_collider()
+			# print("raycast colliding? ", str(is_raycast_colliding))
 			if is_raycast_colliding: # если луч попадает на одну из заданных поверхностей - код выполняется, в ином случае постройка скрывается
 				var collision_point := building_cast.get_collision_point() # точка столкновения луча с коллизией
 				if collider_interacted:
@@ -200,14 +203,17 @@ func check_place_for_building() -> void:
 					building_change_visibility(true) # переключение видимости постройки, если true - сделать видимой
 					building_scene.global_transform.origin = Vector3(collision_point.x, collision_point.y, collision_point.z)
 					building_scene.rotation_degrees.y = 0
+					# print("visibility ", str(building_scene.visible))
+			# else:
+				# building_change_visibility(false)
 		if not building_scene.shape_cast.is_colliding() and not building_scene.building_collision.has_overlapping_bodies() and building_scene.visible: # остальные проверки для успешной установки
-				building_set_possibility_to_place(building_scene, true)
+				building_set_possibility_for_placing(building_scene, true)
 		else:
-			building_set_possibility_to_place(building_scene, false)
+			building_set_possibility_for_placing(building_scene, false)
 		# if building_scene.is_able_to_build and Input.is_action_just_pressed("fire"): # ожидается нажатие на ЛКМ для установки постройки
 		# 	place_building_part(building_scene, _collider_interacted_path)
 
-func building_set_possibility_to_place(building : Node, possibility : bool) -> void:
+func building_set_possibility_for_placing(building : Node, possibility : bool) -> void:
 	if possibility:
 		building.is_able_to_build = true
 		building.mesh_node.set_surface_override_material(0, building.TRUE_MATERIAL)
@@ -220,7 +226,7 @@ func building_change_visibility(visibility : bool) -> void:
 	elif visibility and not building_scene.visible: building_scene.show()
 
 func place_building_part(place_position : Vector3, place_rotation_y : float, _collider_interacted_path : NodePath) -> void:
-	var building_scene_path : String = equiped_item.dictionary["scene_path"]
+	var building_scene_path : String = equiped_item.dictionary["building_scene_path"]
 	_collider_interacted_path = ''
 	# remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
 	rpc("RPC_remove_item_from_inventory")
@@ -326,7 +332,7 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		if equiped_item.dictionary.has("scene_path"):
 			var path := load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
-			player.call_deferred("add_child", building_scene)
+			player.input_sync.camera_controller.call_deferred("add_child", building_scene)
 					#building_scene.mesh_building.mesh = equiped_item.mesh
 					# в process выставляется позиция для building_scene
 
