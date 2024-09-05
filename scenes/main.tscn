@@ -249,7 +249,7 @@ _spawnable_scenes = PackedStringArray("res://scenes/pine_tree.tscn", "res://scen
 spawn_path = NodePath("..")
 
 [node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/bulding_foundation.tscn", "res://scenes/building_wall.tscn", "res://scenes/building_roof.tscn", "res://scenes/interactable/pine-wood-crate_staticbody.tscn", "res://scenes/building_doorway.tscn", "res://scenes/building_door.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/building_system/bulding_foundation.tscn", "res://scenes/building_system/building_wall.tscn", "res://scenes/building_system/building_roof.tscn", "res://scenes/building_system/building_door.tscn", "res://scenes/building_system/building_doorway.tscn", "res://scenes/interactable/pine-wood-crate_staticbody.tscn")
 spawn_path = NodePath("..")
 
 [node name="ItemSpawner" type="MultiplayerSpawner" parent="."]

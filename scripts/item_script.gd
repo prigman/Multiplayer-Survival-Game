@@ -20,9 +20,9 @@ var fp_item_animator: AnimationPlayer
 #
 
 # ui
-# @export var weapon_hud: VBoxContainer
-# @export var reticle: CenterContainer # перекрестие и точка
-# @export var crosshair: Control # только перекрестие
+@export var weapon_hud: VBoxContainer
+@export var reticle: CenterContainer # перекрестие и точка
+@export var crosshair: Control # только перекрестие
 #
 
 # raycasts
@@ -75,6 +75,8 @@ var wrong_colliders : Array[Area3D]
 var collider_interacted_path : NodePath # нужно для позиции двери
 
 func _physics_process(delta : float) -> void:
+	#if RPC_is_item_equiped and _equiped_item_type(equiped_item.ItemType.weapon):
+		#reticle.adjust_reticle_lines(player)
 	# if not is_multiplayer_authority():
 	# 	return
 	# if _equiped_item_type(equiped_item.ItemType.weapon): # если соответствует тип
@@ -102,9 +104,7 @@ func _physics_process(delta : float) -> void:
 	# 	else:
 	# 		if building_scene.visible: building_scene.call_deferred("hide")
 	pass
-	
-			
-		
+
 func _unhandled_input(event : InputEvent) -> void:
 	# if not is_multiplayer_authority():
 	# 	return
@@ -166,7 +166,7 @@ func _unhandled_input(event : InputEvent) -> void:
 
 func check_place_for_building() -> void:
 	if building_scene and building_cast and other_buildings_cast:
-		# building_change_visibility(false)
+		building_change_visibility(false)
 		if building_scene.item_data.building_type == building_scene.item_data.BuildingType.inventory: # для строений типа инвентарь
 			var is_raycast_colliding := other_buildings_cast.is_colliding()
 			if is_raycast_colliding: # если луч попадает на одну из заданных поверхностей - код выполняется, в ином случае постройка скрывается
@@ -176,7 +176,6 @@ func check_place_for_building() -> void:
 		else: # остальные строения
 			var is_raycast_colliding := building_cast.is_colliding()
 			var collider_interacted := building_cast.get_collider()
-			# print("raycast colliding? ", str(is_raycast_colliding))
 			if is_raycast_colliding: # если луч попадает на одну из заданных поверхностей - код выполняется, в ином случае постройка скрывается
 				var collision_point := building_cast.get_collision_point() # точка столкновения луча с коллизией
 				if collider_interacted:
@@ -186,9 +185,6 @@ func check_place_for_building() -> void:
 							building_scene.global_transform.origin = collider_interacted.global_transform.origin
 							building_scene.global_rotation_degrees.y = collider_interacted.global_rotation_degrees.y
 							if collider_interacted.collider_type == building_scene.item_data.BuildingType.door:
-								# door_root_pos = collider_interacted.door_root.global_transform.origin
-								# door_root_rot_y = collider_interacted.door_root.global_rotation_degrees.y
-								# scene_root_global_rot_degrees_y = collider_interacted.root_scene.global_rotation_degrees.y
 								if collider_interacted_path.is_empty(): collider_interacted_path = collider_interacted.get_path()
 								building_scene.mesh_node.position.z = 0
 								building_scene.collision_shape.position.z = 0
@@ -203,9 +199,8 @@ func check_place_for_building() -> void:
 					building_change_visibility(true) # переключение видимости постройки, если true - сделать видимой
 					building_scene.global_transform.origin = Vector3(collision_point.x, collision_point.y, collision_point.z)
 					building_scene.rotation_degrees.y = 0
-					# print("visibility ", str(building_scene.visible))
-			# else:
-				# building_change_visibility(false)
+			else:
+				building_change_visibility(false)
 		if not building_scene.shape_cast.is_colliding() and not building_scene.building_collision.has_overlapping_bodies() and building_scene.visible: # остальные проверки для успешной установки
 				building_set_possibility_for_placing(building_scene, true)
 		else:
@@ -225,37 +220,32 @@ func building_change_visibility(visibility : bool) -> void:
 	if not visibility and building_scene.visible: building_scene.hide()
 	elif visibility and not building_scene.visible: building_scene.show()
 
-func place_building_part(place_position : Vector3, place_rotation_y : float, _collider_interacted_path : NodePath) -> void:
-	var building_scene_path : String = equiped_item.dictionary["building_scene_path"]
-	_collider_interacted_path = ''
+func place_building_part(place_position : Vector3, place_rotation_y : float, building_scene_path : String, collided_node_path : NodePath) -> void:
+	#var building_scene_path : String = equiped_item.dictionary["building_scene_path"]
+	clear_server_item()
+	rpc_id(player.peer_id, "RPC_remove_item_from_inventory")
 	# remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
-	rpc("RPC_remove_item_from_inventory")
-	spawn_building_part(building_scene_path, place_position.x, place_position.y, place_position.z, place_rotation_y, _collider_interacted_path, player.peer_id) # посылаем на сервер запрос на спавн постройки
+	spawn_building_part(building_scene_path, place_position, place_rotation_y, collided_node_path) # посылаем на сервер запрос на спавн постройки
 
 @rpc("any_peer", "call_local", "reliable", 2)
 func RPC_remove_item_from_inventory() -> void:
-	if multiplayer.get_unique_id() == player.peer_id or multiplayer.is_server():
-		remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot) # убирает из рук предмет
+	remove_item_from_inventory(player.player_quick_slot, equiped_slot_index, equiped_slot) # удаляет предмет
 
 # @rpc("any_peer", "reliable", "call_local", 2)
-func spawn_building_part(building_scene_path : String, position_x : float, position_y : float, position_z : float, rotation_y : float, _collider_interacted_path : NodePath, player_id : int) -> void:
+func spawn_building_part(building_scene_path : String, place_position : Vector3, place_rotation_y : float, collided_node_path : NodePath) -> void:
 	# if not multiplayer.is_server(): return
 	print("SERVER: player spawned building")
 	var building_instance : Node = load(building_scene_path).instantiate()
-	get_tree().get_first_node_in_group("world").call_deferred("add_child", building_instance, true) # добавляет постройку в обычный мир
-	call_deferred("set_building_data", building_instance, position_x, position_y, position_z, rotation_y, _collider_interacted_path, player_id)
+	player.main_scene.call_deferred("add_child", building_instance, true) # добавляет постройку в обычный мир
+	call_deferred("set_building_data", building_instance, place_position, place_rotation_y, collided_node_path)
 
-func set_building_data(building_instance : Node, position_x : float, position_y : float, position_z : float, rotation_y : float, _collider_interacted_path : NodePath, player_id : int) -> void:
+func set_building_data(building_instance : Node, place_position : Vector3, place_rotation_y : float, collided_node_path : NodePath) -> void:
 	var building_pos : Vector3
 	var building_rot : float
-	if building_instance.item_data.building_type != building_instance.item_data.BuildingType.inventory:
-		for instance_collider : Area3D in building_instance.building_colliders: # включение коллайдеров постройки к которым она может крепиться
-			if instance_collider: instance_collider.get_child(0).disabled = false
-	else:
-		building_instance.signal_building_spawn.emit()
-		
+	if building_instance.item_data.building_type == building_instance.item_data.BuildingType.inventory:
+		building_instance.signal_building_spawn.emit()	
 	if building_instance.item_data.building_type == building_instance.item_data.BuildingType.door:
-		var collider_node : Area3D = get_node(_collider_interacted_path)
+		var collider_node : Area3D = get_node(collided_node_path)
 		var door_position : Vector3 = collider_node.door_root.global_transform.origin
 		var door_rotation_y : float = collider_node.door_root.global_rotation_degrees.y
 		for collider : Area3D in collider_node.root_scene.building_colliders:
@@ -263,18 +253,18 @@ func set_building_data(building_instance : Node, position_x : float, position_y 
 				collider.is_busy = true
 		building_pos = door_position
 		building_rot = door_rotation_y
-	else:
-		building_pos = Vector3(position_x, position_y, position_z)
-		building_rot = rotation_y
+	if building_instance.item_data.building_type != building_instance.item_data.BuildingType.door:
+		building_pos = place_position
+		building_rot = place_rotation_y
 	building_instance.global_transform.origin = building_pos
 	building_instance.global_rotation_degrees.y = building_rot
-	building_instance.building_part_owner_id = player_id # айди владельца постройки
+	building_instance.building_part_owner_id = player.peer_id # айди владельца постройки
 	#building_set_material(building_instance, building_instance.DEFAULT_MATERIAL)
-	building_instance.shape_cast.enabled = false # отключение шейпкаста, который проверяет на столкновения постройки с определёнными игровыми объектами в мире во время выполнения функции check_place_for_building
-	building_instance.collision_shape.disabled = false # включение коллизии постройки
+	#building_instance.shape_cast.enabled = false # отключение шейпкаста, который проверяет на столкновения постройки с определёнными игровыми объектами в мире во время выполнения функции check_place_for_building
+	#building_instance.collision_shape.disabled = false # включение коллизии постройки
 	# if building_instance.collision_shape_2: building_instance.collision_shape_2.disabled = false
-	building_instance.building_collision.get_child(0).disabled = true # отключение коллизии, которая проверяет столкновения с уже установленными мешами построек (эта коллизия используется во время выполнения функции check_place_for_building)
-	building_instance.mesh_node.cast_shadow = 1
+	#building_instance.building_collision.get_child(0).disabled = true # отключение коллизии, которая проверяет столкновения с уже установленными мешами построек (эта коллизия используется во время выполнения функции check_place_for_building)
+	#building_instance.mesh_node.cast_shadow = 1
 	var building_data : Dictionary = {
 		"building_name": building_instance.name,
 		"building_position": building_instance.global_transform.origin
@@ -287,10 +277,10 @@ func set_building_data(building_instance : Node, position_x : float, position_y 
 # 	player.buildings_in_own.append(building_data)
 
 func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlotData) -> void: # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
-	if item_slot == null: return
+	if not item_slot or not inventory_data: return
 	clear_animations() # очистка анимации предмета если проигрывается в данный момент
 	clear_building()
-	print("id called: ", multiplayer.get_unique_id())
+	#print("id called: ", multiplayer.get_unique_id())
 	inventory_data.signal_update_active_slot.emit(inventory_data, slot_index, equiped_slot_index, item_slot, equiped_slot) # сигнал инвентарю быстрого доступа обновить активность данному слоту
 	#-назначаем основные переменные этого класса
 	equiped_slot = item_slot
@@ -321,18 +311,19 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		fp_player_animator.play(equiped_item.anim_player_activate)
 	if _equiped_item_type(equiped_item.ItemType.weapon):
 		player.current_weapon_spread_data = equiped_item.weapon_spread_data
-		player.weapon_hud.show()
-		player.crosshair.show()
-		player.reticle.hide()
+		weapon_hud.show()
+		crosshair.show()
+		reticle.hide()
 		Update_Ammo.emit(equiped_item.ammo_current)
 		Update_Fire_Mode.emit(equiped_item.fire_mode_current)
 		update_pos() # получение первоначальной позиции для разброса во время стрельбы
 		#set_weapon_attachments() # добавляются либо удаляются обвесы на оружие
-	elif _equiped_item_type(equiped_item.ItemType.building):
+	if _equiped_item_type(equiped_item.ItemType.building):
 		if equiped_item.dictionary.has("scene_path"):
 			var path := load(equiped_item.dictionary["scene_path"])
 			building_scene = path.instantiate()
 			player.input_sync.camera_controller.call_deferred("add_child", building_scene)
+			# print("visible? ", str(building_scene.visible))
 					#building_scene.mesh_building.mesh = equiped_item.mesh
 					# в process выставляется позиция для building_scene
 
@@ -354,6 +345,11 @@ func clear_item(inventory_data : InventoryData, index : int, slot_data : InSlotD
 	equiped_slot = null
 	equiped_item = null
 	equiped_item_node = null
+	equiped_slot_index = -1
+	
+func clear_server_item():
+	RPC_equiped_slot_index = -1
+	RPC_is_item_equiped = false
 
 func clear_weapon() -> void:
 	clear_weapon_attachments() # очищаем меш прицела если он не null
@@ -370,6 +366,8 @@ func clear_building() -> void:
 		if building_scene:
 			building_scene.queue_free()
 			building_scene = null
+		if not collider_interacted_path.is_empty():
+			collider_interacted_path = ''
 	
 func clear_animations() -> void:
 	if fp_player_animator and fp_player_animator.is_playing():
@@ -493,8 +491,8 @@ func player_hit(target : Object)->void:
 
 func randomize_aimcast_spread() -> void:
 	var rng := RandomNumberGenerator.new()
-	var crosshair_width : float = player.reticle.crosshair_range
-	var crosshair_height : float = player.reticle.crosshair_range
+	var crosshair_width : float = reticle.crosshair_range
+	var crosshair_height : float = reticle.crosshair_range
 	var raycast_length_ignore_value : float = aim_cast.target_position.z / 100.0 # 100 - это стандартное значение, при котором разброс адекватен
 	# Генерация случайных координат внутри квадрата
 	var randomize_spread_x : float = rng.randf_range(-crosshair_width / 2, crosshair_width / 2) * raycast_length_ignore_value
@@ -544,17 +542,23 @@ func clear_weapon_attachments() -> void:
 		pass
 
 func clear_weapon_hud() -> void:
-	if player.weapon_hud.visible:
-		player.weapon_hud.hide()
-	if player.crosshair.visible: # разделение перекрестия и точки
-		player.crosshair.hide()
+	if weapon_hud.visible:
+		weapon_hud.hide()
+	if crosshair.visible: # разделение перекрестия и точки
+		crosshair.hide()
+	reticle.show()
+
+func start_reload() -> void:
 	player.reticle.show()
+	player.crosshair.hide()
+	fp_item_animator.play(equiped_item.anim_reload)
+	fp_player_animator.play(equiped_item.anim_player_reload)
 
 func reload() -> void:
 	# if not is_multiplayer_authority():
 	# 	return
-	player.reticle.hide()
-	player.crosshair.show()
+	reticle.hide()
+	crosshair.show()
 	var ammo_to_reload : int
 	var data : Array = find_ammo_in_inventories()
 	var ammo_slots : Array[InSlotData] = data[0]

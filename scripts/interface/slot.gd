@@ -46,9 +46,10 @@ func _set_slot_data(slot_info: InSlotData) -> void:
 		amount_text.hide()
 
 func _on_gui_input(event : InputEvent) -> void:
+	#if multiplayer.is_server(): return
 	if event is InputEventMouseButton and event.is_pressed() \
 		and (event.button_index == MOUSE_BUTTON_LEFT \
-		or event.button_index == MOUSE_BUTTON_RIGHT):
+		or event.button_index == MOUSE_BUTTON_RIGHT) and not multiplayer.is_server():
 		signal_slot_clicked.emit(get_index(), event.button_index)
 
 func _on_mouse_entered() -> void:

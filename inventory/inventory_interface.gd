@@ -135,6 +135,7 @@ func _on_visibility_changed() -> void:
 		_update_grabbed_slot()
 
 func _on_item_drop_button_pressed() -> void:
+	if multiplayer.is_server(): return #
 	if panel_inventory_data.type == panel_inventory_data.InventoryType.external_inventory and external_inventory_owner:
 		rpc("RPC_change_slot_data_in_external_inventory", external_inventory_owner.get_path(), panel_index_data, {}, {}, 0)
 	if player.item.equiped_slot == panel_inventory_data.slots_data[panel_index_data]:
@@ -144,6 +145,7 @@ func _on_item_drop_button_pressed() -> void:
 	hide_inv_item_panel()
 
 func _on_item_use_button_pressed() -> void:
+	if multiplayer.is_server(): return #
 	if panel_inventory_data.type == panel_inventory_data.InventoryType.external_inventory and external_inventory_owner:
 		rpc("RPC_change_slot_data_in_external_inventory", external_inventory_owner.get_path(), panel_index_data, {}, {}, 0)
 	if player.item.equiped_slot == panel_inventory_data.slots_data[panel_index_data]:
@@ -153,6 +155,7 @@ func _on_item_use_button_pressed() -> void:
 	hide_inv_item_panel()
 
 func _on_gui_input(event : InputEvent) -> void:
+	if multiplayer.is_server(): return #
 	if event is InputEventMouseButton \
 			and event.is_pressed():
 		match event.button_index:

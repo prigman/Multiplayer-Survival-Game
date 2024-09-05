@@ -47,7 +47,12 @@ func _on_signal_building_spawn() -> void:
 
 @rpc("any_peer","call_local","reliable")
 func connect_to_inv() -> void:
+	if multiplayer.is_server(): return
 	for player in get_tree().get_nodes_in_group("player"):
 		if player.peer_id == multiplayer.get_unique_id():
 			signal_toggle_inventory.connect(player._toggle_inventory_interface)
 			break
+
+@rpc("any_peer", "call_local", "reliable", 2)
+func RPC_external_inventory_interact() -> void:
+	signal_toggle_inventory.emit(self)

@@ -15,17 +15,7 @@ const WORLD_CRATE_SCENE := preload("res://scenes/interactable/world_pine-wood-cr
 @export var nav_mesh : MNavigationRegion3D
 
 @onready var players_spawn_node := %Players
-# @onready var inventory_interface := %InventoryInterface
-# @onready var reticle := %Reticle
-# @onready var craft_menu := %CraftMenu
-# @onready var debug_ui := %Debug
-# @onready var crosshair := %Crosshair
-# @onready var weapon_hud := %WeaponHud
 
-# @onready var player_stats := %PlayerStats
-
-# @onready var death_ui := %DeathUI
-# @onready var quick_slot_ui := %PlayerQuickSlot
 
 func _ready() -> void:
 	multiplayer_spawner.spawn_function = custom_spawn

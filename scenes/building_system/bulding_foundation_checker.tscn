@@ -14,14 +14,13 @@ size = Vector3(4.2, 1.7, 4.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_iieix"]
 size = Vector3(4, 1.5, 4)
 
-[node name="BuildingFoundation" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_floor", "building_group"]]
+[node name="BuildingFoundation" type="StaticBody3D" node_paths=PackedStringArray("shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_floor", "building_group"]]
 editor_description = "я ебал его рот
 "
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("1_th3my")
 item_data = ExtResource("2_ho2wt")
-building_colliders = [null, null, null, null, null, null, null, null]
 shape_cast = NodePath("ShapeCast3D")
 collision_shape = NodePath("CollisionShape3D")
 mesh_node = NodePath("Mesh")

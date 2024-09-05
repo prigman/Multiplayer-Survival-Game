@@ -26,5 +26,6 @@ max_stack = 0
 quality = 100.0
 icon = ExtResource("3_aqlbk")
 dictionary = {
-"scene_path": "res://scenes/interactable/pine-wood-crate_staticbody.tscn"
+"building_scene_path": "res://scenes/interactable/pine-wood-crate_staticbody.tscn",
+"scene_path": "res://scenes/interactable/pine-wood-crate_staticbody_checker.tscn"
 }

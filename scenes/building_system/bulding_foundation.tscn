@@ -19,50 +19,14 @@ size = Vector3(0.3, 4, 4)
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
-properties/1/path = NodePath("FoundationCollider/CollisionShape3D2:disabled")
+properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 2
-properties/2/path = NodePath(".:rotation")
+properties/2/path = NodePath(".:building_part_owner_id")
 properties/2/spawn = true
 properties/2/replication_mode = 2
-properties/3/path = NodePath("ShapeCast3D:enabled")
-properties/3/spawn = true
-properties/3/replication_mode = 2
-properties/4/path = NodePath("Mesh:cast_shadow")
-properties/4/spawn = true
-properties/4/replication_mode = 2
-properties/5/path = NodePath("CollisionShape3D:disabled")
-properties/5/spawn = true
-properties/5/replication_mode = 2
-properties/6/path = NodePath("BuildingCollision/CollisionShape3D:disabled")
-properties/6/spawn = true
-properties/6/replication_mode = 2
-properties/7/path = NodePath("FoundationCollider2/CollisionShape3D2:disabled")
-properties/7/spawn = true
-properties/7/replication_mode = 2
-properties/8/path = NodePath("FoundationCollider3/CollisionShape3D2:disabled")
-properties/8/spawn = true
-properties/8/replication_mode = 2
-properties/9/path = NodePath("FoundationCollider4/CollisionShape3D2:disabled")
-properties/9/spawn = true
-properties/9/replication_mode = 2
-properties/10/path = NodePath("WallCollider/CollisionShape3D:disabled")
-properties/10/spawn = true
-properties/10/replication_mode = 2
-properties/11/path = NodePath("WallCollider2/CollisionShape3D:disabled")
-properties/11/spawn = true
-properties/11/replication_mode = 2
-properties/12/path = NodePath("WallCollider3/CollisionShape3D:disabled")
-properties/12/spawn = true
-properties/12/replication_mode = 2
-properties/13/path = NodePath("WallCollider4/CollisionShape3D:disabled")
-properties/13/spawn = true
-properties/13/replication_mode = 2
-properties/14/path = NodePath(".:building_part_owner_id")
-properties/14/spawn = true
-properties/14/replication_mode = 2
 
-[node name="BuildingFoundation" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_floor", "building_group"]]
+[node name="BuildingFoundation" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "collision_shape", "mesh_node") groups=["building_floor", "building_group"]]
 editor_description = "я ебал его рот
 "
 collision_layer = 256
@@ -70,10 +34,8 @@ collision_mask = 0
 script = ExtResource("1_1ofn3")
 item_data = ExtResource("2_2go6s")
 building_colliders = [NodePath("FoundationCollider"), NodePath("FoundationCollider2"), NodePath("FoundationCollider3"), NodePath("FoundationCollider4"), NodePath("WallCollider"), NodePath("WallCollider2"), NodePath("WallCollider3"), NodePath("WallCollider4")]
-shape_cast = NodePath("")
 collision_shape = NodePath("CollisionShape3D")
 mesh_node = NodePath("Mesh")
-building_collision = NodePath("")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true

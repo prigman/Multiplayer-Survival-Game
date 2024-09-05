@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://3vdunp2fujlp"]
+[gd_scene load_steps=12 format=3 uid="uid://3vdunp2fujlp"]
 
 [ext_resource type="Script" path="res://scripts/building system/building.gd" id="1_ae5mk"]
 [ext_resource type="Resource" uid="uid://dth6kmifknlsn" path="res://inventory/item/objects/wooden_door.tres" id="2_0ens7"]
@@ -43,9 +43,6 @@ _data = {
 "door_animation": SubResource("Animation_x4ps3")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_f5200"]
-size = Vector3(0.5, 2.5, 1.6)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_cvuis"]
 size = Vector3(0.5, 3, 2.1)
 
@@ -78,7 +75,7 @@ item_data = ExtResource("2_0ens7")
 shape_cast = NodePath("BuildingDoor/ShapeCast3D")
 collision_shape = NodePath("BuildingDoor/CollisionShape3D")
 mesh_node = NodePath("BuildingDoor/Mesh")
-building_collision = NodePath("BuildingDoor/BuildingCollision")
+building_collision = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -90,14 +87,6 @@ collision_layer = 256
 collision_mask = 0
 script = ExtResource("3_m61j0")
 animation_player = NodePath("../AnimationPlayer")
-
-[node name="BuildingCollision" type="Area3D" parent="BuildingDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
-collision_layer = 1024
-collision_mask = 256
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingDoor/BuildingCollision"]
-shape = SubResource("BoxShape3D_f5200")
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="BuildingDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
@@ -116,7 +105,6 @@ surface_material_override/0 = ExtResource("4_fg1iv")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 shape = SubResource("BoxShape3D_1epwf")
-disabled = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="BuildingDoor" groups=["multiplayer_sync"]]
 root_path = NodePath("../..")
