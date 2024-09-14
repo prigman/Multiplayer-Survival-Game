@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bnm2p00ty7mau"]
 
 [ext_resource type="Script" path="res://scripts/building system/building.gd" id="1_flrfk"]
-[ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://inventory/item/objects/wooden_roof.tres" id="2_mdr0k"]
+[ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://deprecated/inventory/item/objects/wooden_roof.tres" id="2_mdr0k"]
 [ext_resource type="ArrayMesh" uid="uid://ddt0uwsodljvr" path="res://models/meshes/wooden_roof.res" id="3_h68wf"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_yqcxk"]
 

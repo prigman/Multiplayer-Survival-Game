@@ -456,12 +456,12 @@ func hitscan(raycast: RayCast3D) -> void:
 						rpc_id(1,"RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
 						#target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
 						#rpc_id(player.peer_id, "RPC_set_world_resource_item_stone", randi_range(2, 6))
-						create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2, 6))
+						# create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2, 6))
 					if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
 						# target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
 						# target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
 						rpc_id(1,"RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
-						create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
+						# create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
 						#target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
 						#rpc_id(player.peer_id, "RPC_set_world_resource_item_wood", randi_range(2, 6))
 				if target.is_in_group("enemy_group"):
@@ -481,13 +481,13 @@ func RPC_spawn_decal(ray_end : Vector3, ray_name : String) -> void:
 func RPC_damage_enemy(target_path : NodePath, hit_value : float) -> void:
 	get_node(target_path).damage_enemy(hit_value, player.peer_id)
 
-@rpc("any_peer", "call_local", "reliable", 2)
-func RPC_set_world_resource_item_wood(amount : int) -> void:
-	create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), amount)
+# @rpc("any_peer", "call_local", "reliable", 2)
+# func RPC_set_world_resource_item_wood(amount : int) -> void:
+# 	create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), amount)
 
-@rpc("any_peer", "call_local", "reliable", 2)
-func RPC_set_world_resource_item_stone(amount : int) -> void:
-	create_player_item(load("res://inventory/item/objects/resource_stone.tres"), amount)
+# @rpc("any_peer", "call_local", "reliable", 2)
+# func RPC_set_world_resource_item_stone(amount : int) -> void:
+# 	create_player_item(load("res://inventory/item/objects/resource_stone.tres"), amount)
 
 @rpc("any_peer", "call_local", "reliable", 2)
 func RPC_hit_world_resource(target_path : NodePath, hit_value : float) -> void:

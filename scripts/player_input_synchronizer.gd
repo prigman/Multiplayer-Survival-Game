@@ -15,7 +15,7 @@ extends MultiplayerSynchronizer
 @onready var camera := %Camera3D
 @onready var camera_holder := %CameraHolder
 @onready var camera_controller := %CameraController
-@onready var inventory_interface := %InventoryInterface
+# @onready var inventory_interface := %InventoryInterface
 @onready var label_3d := %Label3D
 
 
@@ -29,7 +29,7 @@ func _ready() -> void:
 		label_3d.hide()
 		canvas_layer.show()
 		
-		player.signal_toggle_inventory.connect(player._toggle_inventory_interface)
+		# player.signal_toggle_inventory.connect(player._toggle_inventory_interface)
 		
 		# назначаются данные слотов локальному инвентарю из синхронизированных данных с сервера и создаётся UI слотов
 		# inventory_interface._set_interact_player_inventory_data(player.player_inventory)
@@ -40,8 +40,8 @@ func _ready() -> void:
 		# player.player_inventory.deserialize_inventory_data(player.serialized_player_inventory)
 		# player.player_quick_slot.deserialize_inventory_data(player.serialized_player_quick_slot)
 
-		inventory_interface.player_inventory_ui._set_inventory_data(player.player_inventory)
-		inventory_interface.player_quick_slot_ui._set_inventory_data(player.player_quick_slot)
+		# inventory_interface.player_inventory_ui._set_inventory_data(player.player_inventory)
+		# inventory_interface.player_quick_slot_ui._set_inventory_data(player.player_quick_slot)
 
 		# player.player_inventory._update_inventory()
 		# player.player_quick_slot._update_inventory()
@@ -50,12 +50,12 @@ func _ready() -> void:
 		
 		#inventory_interface._set_player_inventory_data(player.player_inventory)
 		#inventory_interface._set_quick_slot_data(player.player_quick_slot)
-		inventory_interface.signal_drop_item.connect(player._on_inventory_interface_signal_drop_item)
-		inventory_interface.signal_use_item.connect(player._on_inventory_interface_signal_use_item)
+		# inventory_interface.signal_drop_item.connect(player._on_inventory_interface_signal_drop_item)
+		# inventory_interface.signal_use_item.connect(player._on_inventory_interface_signal_use_item)
 		#inventory_interface.signal_force_close.connect(player._toggle_inventory_interface)
 		
-		for node in get_tree().get_nodes_in_group("external_inventory"):
-			if node: node.signal_toggle_inventory.connect(player._toggle_inventory_interface)
+		# for node in get_tree().get_nodes_in_group("external_inventory"):
+		# 	if node: node.signal_toggle_inventory.connect(player._toggle_inventory_interface)
 	else:
 		camera.clear_current()
 		set_process_for_player(false)
@@ -76,18 +76,18 @@ func _physics_process(delta : float) -> void:
 	if Input.is_action_pressed("fire") and item.RPC_is_item_equiped:
 		# 		item.shoot() # todo
 		#rpc("RPC_shoot")
-		if player.is_inventory_open(): return
+		# if player.is_inventory_open(): return
 		if item._equiped_item_type(item.equiped_item.ItemType.weapon): # если соответствует тип
 			if item.equiped_item.fire_mode_current.mode == WeaponFireModes.FireMode.FULL_AUTO:
 				if item.can_shoot(item.equiped_item.fire_mode_current):
 					item.shoot()
 	if Input.is_action_pressed("right_click") and item.RPC_is_item_equiped:
 		if item._equiped_item_type(item.equiped_item.ItemType.weapon): # если соответствует тип
-			if !player.is_inventory_open(): # проверка если закрыт инвентарь
-				if player.state_machine.is_current_state("Sprint") == false:
-					if item.fp_item_animator.current_animation != item.equiped_item.anim_reload and item.fp_item_animator.current_animation != item.equiped_item.anim_activate:
-						item.Assault_Rifle_Scope()
-			elif player.is_inventory_open() or player.state_machine.is_current_state("Sprint") == true:
+			# if !player.is_inventory_open(): # проверка если закрыт инвентарь
+			if player.state_machine.is_current_state("Sprint") == false:
+				if item.fp_item_animator.current_animation != item.equiped_item.anim_reload and item.fp_item_animator.current_animation != item.equiped_item.anim_activate:
+					item.Assault_Rifle_Scope()
+			elif player.state_machine.is_current_state("Sprint") == true: # player.is_inventory_open()
 				item.Assault_Rifle_Scope()
 	if item.RPC_is_item_equiped and item._equiped_item_type(item.equiped_item.ItemType.weapon): # если соответствует тип	
 		if item.current_time < 1:
@@ -112,30 +112,31 @@ func _process(delta: float) -> void:
 		weapon_sway(delta)
 		weapon_bob(player.velocity.length(), delta)
 	player.signal_update_player_stats.emit(player.health_value, player.hunger_value)
-	
-# ------------ Player states
-
-func update_gravity(delta : float) -> void:
-	if not player.is_on_floor():
-		player.velocity.y -= player.gravity * delta
-	
-func update_input(speed : float, acceleration : float, decceleration : float) -> void:
-
-	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	direction = camera_controller.transform.basis * Vector3(input_direction.x, 0, input_direction.y).normalized()
-	if direction:
-		player.velocity.x = lerp(player.velocity.x, direction.x * speed, acceleration)
-		player.velocity.z = lerp(player.velocity.z, direction.z * speed, acceleration)
-	else:
-		player.velocity.x = move_toward(player.velocity.x, 0, decceleration)
-		player.velocity.z = move_toward(player.velocity.z, 0, decceleration)
-	
-	# if player.RPC_play_sound:
 	if player.is_on_floor():
 		play_footsteps_sound()
+# ------------ Player states
 
-func update_velocity() -> void:
-	player.move_and_slide()
+# func update_gravity(delta : float) -> void:
+# 	if not player.is_on_floor():
+# 		player.velocity.y -= player.gravity * delta
+	
+# func update_input(speed : float, acceleration : float, decceleration : float) -> void:
+
+# 	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+# 	direction = camera_controller.transform.basis * Vector3(input_direction.x, 0, input_direction.y).normalized()
+# 	if direction:
+# 		player.velocity.x = lerp(player.velocity.x, direction.x * speed, acceleration)
+# 		player.velocity.z = lerp(player.velocity.z, direction.z * speed, acceleration)
+# 	else:
+# 		player.velocity.x = move_toward(player.velocity.x, 0, decceleration)
+# 		player.velocity.z = move_toward(player.velocity.z, 0, decceleration)
+	
+# 	# if player.RPC_play_sound:
+# 	if player.is_on_floor():
+# 		play_footsteps_sound()
+
+# func update_velocity() -> void:
+# 	player.move_and_slide()
 
 
 #-Camera and weapon tilt
@@ -190,7 +191,7 @@ func play_footsteps_sound() -> void:
 func _input(event : InputEvent) -> void:
 	# if not is_multiplayer_authority(): return
 
-	if event is InputEventMouseMotion and !player.is_inventory_open():
+	if event is InputEventMouseMotion: # and !player.is_inventory_open():
 		# rpc_id(1,"RPC_rotate_player", deg_to_rad( - event.relative.x * mouse_sens))
 		# player.rotate_y(deg_to_rad( - event.relative.x * mouse_sens))
 		camera_controller.rotate_y(deg_to_rad( - event.relative.x * mouse_sens))
@@ -224,39 +225,38 @@ func _unhandled_input(event : InputEvent) -> void:
 		rpc_id(1,"RPC_button_pressed", "shift", true)
 	if Input.is_action_just_released("shift"):
 		rpc_id(1,"RPC_button_pressed", "shift", false)
-	if Input.is_action_just_pressed("quit"):
-		# get_tree().quit()
-		player.signal_toggle_inventory.emit()
-	if event.is_action_pressed("inv_toggle"):
-		player.signal_toggle_inventory.emit()
-	if event.is_action_pressed("interact"):
-		local_interact()
+	# if Input.is_action_just_pressed("quit"):
+		# player.signal_toggle_inventory.emit()
+	# if event.is_action_pressed("inv_toggle"):
+	# 	player.signal_toggle_inventory.emit()
+	# if event.is_action_pressed("interact"):
+	# 	local_interact()
 		#rpc_id(1,"RPC_interact")
 
-	if event is InputEventKey and event.pressed:
-		if player.is_inventory_open() and item.is_fp_animator_playing(): return
-		match event.keycode:
-			KEY_1:
-				rpc_id(1,"RPC_swap_items", 0, player.peer_id)
-			KEY_2:
-				rpc_id(1,"RPC_swap_items", 1, player.peer_id)
-			KEY_3:
-				rpc_id(1,"RPC_swap_items", 2, player.peer_id)
-			KEY_4:
-				rpc_id(1,"RPC_swap_items", 3, player.peer_id)
-			KEY_5:
-				rpc_id(1,"RPC_swap_items", 4, player.peer_id)
-			KEY_6:
-				rpc_id(1,"RPC_swap_items", 5, player.peer_id)
-			KEY_0:
-				pass
+	# if event is InputEventKey and event.pressed:
+	# 	if player.is_inventory_open() and item.is_fp_animator_playing(): return
+	# 	match event.keycode:
+	# 		KEY_1:
+	# 			rpc_id(1,"RPC_swap_items", 0, player.peer_id)
+	# 		KEY_2:
+	# 			rpc_id(1,"RPC_swap_items", 1, player.peer_id)
+	# 		KEY_3:
+	# 			rpc_id(1,"RPC_swap_items", 2, player.peer_id)
+	# 		KEY_4:
+	# 			rpc_id(1,"RPC_swap_items", 3, player.peer_id)
+	# 		KEY_5:
+	# 			rpc_id(1,"RPC_swap_items", 4, player.peer_id)
+	# 		KEY_6:
+	# 			rpc_id(1,"RPC_swap_items", 5, player.peer_id)
+	# 		KEY_0:
+	# 			pass
 					# if _equiped_item_type(equiped_item.ItemType.weapon):
 						# pass
 						# toggle_holo_sight() # На кнопку 0 можно переключать меш прицела, если его меш выставлен в ItemDataWeapon для оружия
 
 	if Input.is_action_just_pressed("reload") and item.RPC_is_item_equiped:
 		#rpc("RPC_reload")
-		if player.is_inventory_open(): return
+		# if player.is_inventory_open(): return
 		if not item.Scoped:
 			if item._equiped_item_type(item.equiped_item.ItemType.weapon) and item.fp_item_animator.current_animation != item.equiped_item.anim_activate and item.fp_item_animator.current_animation != item.equiped_item.anim_reload: # если соответствует тип
 				if item.equiped_item.ammo_current != item.equiped_item.ammo_max:
@@ -266,7 +266,7 @@ func _unhandled_input(event : InputEvent) -> void:
 						print("No ammo to reload in inventories")
 	if Input.is_action_just_pressed("fire") and item.RPC_is_item_equiped:
 		#rpc("RPC_single_shot")
-		if player.is_inventory_open(): return # проверка если закрыт инвентарь
+		# if player.is_inventory_open(): return # проверка если закрыт инвентарь
 		if item._equiped_item_type(item.equiped_item.ItemType.tool) and item.is_fp_animator_playing() == false:
 			if item.equiped_item.anim_hit and item.equiped_item.anim_player_hit:
 				item.fp_item_animator.play(item.equiped_item.anim_hit)
@@ -279,12 +279,12 @@ func _unhandled_input(event : InputEvent) -> void:
 			if item.equiped_item.anim_hit and item.equiped_item.anim_player_hit:
 				item.fp_item_animator.play(item.equiped_item.anim_hit)
 				item.fp_player_animator.play(item.equiped_item.anim_player_hit)
-		elif item._equiped_item_type(item.equiped_item.ItemType.consumable):
-			player._on_inventory_interface_signal_use_item(item.equiped_slot)
-			item.remove_item_from_inventory(player.player_quick_slot, item.equiped_slot_index, item.equiped_slot)
+		# elif item._equiped_item_type(item.equiped_item.ItemType.consumable):
+		# 	player._on_inventory_interface_signal_use_item(item.equiped_slot)
+		# 	item.remove_item_from_inventory(player.player_quick_slot, item.equiped_slot_index, item.equiped_slot)
 	if Input.is_action_just_pressed("change_fire_mode") and item.RPC_is_item_equiped:
 		#rpc("RPC_change_fire_mode")
-		if player.is_inventory_open(): return
+		# if player.is_inventory_open(): return
 		if item._equiped_item_type(item.equiped_item.ItemType.weapon) and item.fp_item_animator.current_animation != item.equiped_item.anim_activate and item.fp_item_animator.current_animation != item.equiped_item.anim_reload: # если соответствует тип
 			for mode : WeaponFireModes in item.equiped_item.fire_modes:
 				if mode and mode != item.equiped_item.fire_mode_current:
@@ -296,20 +296,20 @@ func _unhandled_input(event : InputEvent) -> void:
 # func RPC_interact() -> void:
 # 	player.interact()
 	
-func local_interact() -> void:
-	if player.interact_ray.is_colliding():
-		var collider : Object = player.interact_ray.get_collider()
-		if collider:
-			if collider.is_in_group('external_inventory'):
-				collider._player_interact()
-				#collider.rpc_id(peer_id, "RPC_external_inventory_interact")
-			elif collider.is_in_group('item_interactable'):
-				#collider.rpc_id(peer_id, "RPC_give_item", get_path())
-				# rpc('delete_item', collider.get_path())
-				if collider._player_interact(player) == true:
-					collider.rpc_id(1, 'delete_item')
-			elif collider.is_in_group('building_door'):
-				collider._player_interact()
+# func local_interact() -> void:
+# 	if player.interact_ray.is_colliding():
+# 		var collider : Object = player.interact_ray.get_collider()
+# 		if collider:
+# 			if collider.is_in_group('external_inventory'):
+# 				collider._player_interact()
+# 				#collider.rpc_id(peer_id, "RPC_external_inventory_interact")
+# 			elif collider.is_in_group('item_interactable'):
+# 				#collider.rpc_id(peer_id, "RPC_give_item", get_path())
+# 				# rpc('delete_item', collider.get_path())
+# 				if collider._player_interact(player) == true:
+# 					collider.rpc_id(1, 'delete_item')
+# 			elif collider.is_in_group('building_door'):
+# 				collider._player_interact()
 
 #@rpc("any_peer", "call_local", "unreliable", 0)
 #func RPC_change_fire_mode() -> void:

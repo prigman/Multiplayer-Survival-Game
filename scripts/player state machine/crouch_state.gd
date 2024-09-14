@@ -16,18 +16,18 @@ func physics_update(delta : float) -> void:
 	else:
 		speed_state = crouch_state
 
-	if multiplayer.get_unique_id() == player.peer_id:
-		player.input_sync.update_gravity(delta)
-		player.input_sync.update_input(speed_state, ACCELERATION, DECCELERATION)
-		player.input_sync.update_velocity()
-		# if Input.is_action_just_released("left_ctrl"):
-			# player.crouch_button_pressed = false
-			# rpc_id(1, "RPC_crouch_button_pressed", false)
-			# uncrouch(delta)
-	else:
-		player.update_gravity(delta)
-		player.update_input(speed_state, ACCELERATION, DECCELERATION)
-		player.update_velocity()
+	# if multiplayer.get_unique_id() == player.peer_id:
+	# 	player.input_sync.update_gravity(delta)
+	# 	player.input_sync.update_input(speed_state, ACCELERATION, DECCELERATION)
+	# 	player.input_sync.update_velocity()
+	# 	# if Input.is_action_just_released("left_ctrl"):
+	# 		# player.crouch_button_pressed = false
+	# 		# rpc_id(1, "RPC_crouch_button_pressed", false)
+	# 		# uncrouch(delta)
+	# else:
+	player.update_gravity(delta)
+	player.update_input(speed_state, ACCELERATION, DECCELERATION)
+	player.update_velocity()
 
 	if not player.crouch_button_pressed and multiplayer.is_server():
 		uncrouch()

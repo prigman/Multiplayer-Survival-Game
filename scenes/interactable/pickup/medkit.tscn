@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=4 uid="uid://c73g1k1oeuven"]
 
 [ext_resource type="Texture2D" uid="uid://cbunjno1oc2ud" path="res://models/medkit_Atlas.png" id="1_mnhod"]
-[ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_tx13k"]
-[ext_resource type="Resource" uid="uid://dy8c3wxtbrndj" path="res://inventory/item/objects/medkit.tres" id="2_1m0fc"]
-[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_6kdam"]
+[ext_resource type="Script" path="res://deprecated/inventory/item/item_interactable.gd" id="1_tx13k"]
+[ext_resource type="Resource" uid="uid://dy8c3wxtbrndj" path="res://deprecated/inventory/item/objects/medkit.tres" id="2_1m0fc"]
+[ext_resource type="Script" path="res://deprecated/inventory/in_slot_data.gd" id="3_6kdam"]
 
 [sub_resource type="Resource" id="Resource_r5e71"]
 script = ExtResource("3_6kdam")

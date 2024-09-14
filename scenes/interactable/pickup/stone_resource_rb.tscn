@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://cnw83bbj2p7xk"]
 
-[ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_oft30"]
+[ext_resource type="Script" path="res://deprecated/inventory/item/item_interactable.gd" id="1_oft30"]
 [ext_resource type="Texture2D" uid="uid://ca52nm4h3yfln" path="res://icons/stone_icon.png" id="2_locbn"]
-[ext_resource type="Script" path="res://inventory/item/item_data_resource.gd" id="3_784by"]
-[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="3_gusdw"]
+[ext_resource type="Script" path="res://deprecated/inventory/item/item_data_resource.gd" id="3_784by"]
+[ext_resource type="Script" path="res://deprecated/inventory/in_slot_data.gd" id="3_gusdw"]
 [ext_resource type="ArrayMesh" uid="uid://dn36yp2mvwg2q" path="res://models/meshes/stone_dropped.res" id="4_dl3h3"]
 [ext_resource type="Material" uid="uid://c6w8g20kpdi7h" path="res://materials/rocks_mat.tres" id="5_jgap4"]
 

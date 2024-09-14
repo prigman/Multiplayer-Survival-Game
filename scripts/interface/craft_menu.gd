@@ -1,7 +1,7 @@
 extends PanelContainer
 
-const TAB_SCENE = preload("res://inventory/craft_menu_scenes/craft_menu_tab.tscn")
-const CRAFT_ITEM_SCENE = preload("res://inventory/craft_menu_scenes/craft_item.tscn")
+# const TAB_SCENE = preload("res://inventory/craft_menu_scenes/craft_menu_tab.tscn")
+# const CRAFT_ITEM_SCENE = preload("res://inventory/craft_menu_scenes/craft_item.tscn")
 
 @onready var tab_container := %TabContainer
 
@@ -24,19 +24,19 @@ var current_page: ScrollContainer
 
 func _ready() -> void:
 	if tabs_resource:
-		set_craft_menu_tabs(tabs_resource)
+		# set_craft_menu_tabs(tabs_resource)
 		set_current_page(tools_page)
 	else:
 		push_error("Set tab_resource in node CraftMenu")
 
-func set_craft_menu_tabs(craft_menu_tab : CraftMenuTab) -> void:
-	for tab_data in craft_menu_tab.list:
-		if tab_data:
-			var tab := TAB_SCENE.instantiate()
-			tab_container.add_child(tab)
-			tab.set_tab_data(tab_data)
-			tab.signal_tab_clicked.connect(_on_tab_clicked)
-			set_craftable_items(tab_data.slot_in_tab)
+# func set_craft_menu_tabs(craft_menu_tab : CraftMenuTab) -> void:
+# 	for tab_data in craft_menu_tab.list:
+# 		if tab_data:
+# 			var tab := TAB_SCENE.instantiate()
+# 			tab_container.add_child(tab)
+# 			tab.set_tab_data(tab_data)
+# 			tab.signal_tab_clicked.connect(_on_tab_clicked)
+# 			set_craftable_items(tab_data.slot_in_tab)
 
 func _on_tab_clicked(tab_data : CraftMenuTabData) -> void:
 	match tab_data.type:
@@ -49,20 +49,20 @@ func _on_tab_clicked(tab_data : CraftMenuTabData) -> void:
 		tab_data.TabType.tool:
 			set_current_page(tools_page)
 
-func set_craftable_items(slots_in_tab : Array[InSlotData]) -> void:
-	for slot_data in slots_in_tab:
-		var craft_item := CRAFT_ITEM_SCENE.instantiate()
-		match slot_data.item.item_type:
-			slot_data.item.ItemType.weapon:
-				item_weapon_container.add_child(craft_item)
-			slot_data.item.ItemType.consumable:
-				item_heal_container.add_child(craft_item)
-			slot_data.item.ItemType.building:
-				item_buildings_container.add_child(craft_item)
-			slot_data.item.ItemType.tool:
-				item_tools_container.add_child(craft_item)
-		craft_item.set_craft_item_data(slot_data)
-		craft_item.signal_craft_button_pressed.connect(_on_craft_button_pressed)
+# func set_craftable_items(slots_in_tab : Array[InSlotData]) -> void:
+# 	for slot_data in slots_in_tab:
+# 		var craft_item := CRAFT_ITEM_SCENE.instantiate()
+# 		match slot_data.item.item_type:
+# 			slot_data.item.ItemType.weapon:
+# 				item_weapon_container.add_child(craft_item)
+# 			slot_data.item.ItemType.consumable:
+# 				item_heal_container.add_child(craft_item)
+# 			slot_data.item.ItemType.building:
+# 				item_buildings_container.add_child(craft_item)
+# 			slot_data.item.ItemType.tool:
+# 				item_tools_container.add_child(craft_item)
+# 		craft_item.set_craft_item_data(slot_data)
+# 		craft_item.signal_craft_button_pressed.connect(_on_craft_button_pressed)
 		
 func set_current_page(page : ScrollContainer) -> void:
 	if current_page:

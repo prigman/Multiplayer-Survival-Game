@@ -6,14 +6,14 @@ var fall_damage: float
 var fall_distance: float
 
 func physics_update(delta : float) -> void:
-	if multiplayer.get_unique_id() == player.peer_id:
-		player.input_sync.update_gravity(delta)
-		player.input_sync.update_input(speed_state, ACCELERATION, DECCELERATION)
-		player.input_sync.update_velocity()
-	else:
-		player.update_gravity(delta)
-		player.update_input(speed_state, ACCELERATION, DECCELERATION)
-		player.update_velocity()
+	# if multiplayer.get_unique_id() == player.peer_id:
+	# 	player.input_sync.update_gravity(delta)
+	# 	player.input_sync.update_input(speed_state, ACCELERATION, DECCELERATION)
+	# 	player.input_sync.update_velocity()
+	# else:
+	player.update_gravity(delta)
+	player.update_input(speed_state, ACCELERATION, DECCELERATION)
+	player.update_velocity()
 
 	if player.died and multiplayer.is_server():
 		transition.emit("Death")

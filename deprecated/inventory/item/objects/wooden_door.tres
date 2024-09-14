@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemDataCraftableBuildings" load_steps=6 format=3 uid="uid://dth6kmifknlsn"]
+
+[ext_resource type="Script" path="res://deprecated/inventory/craft_components.gd" id="1_xtqno"]
+[ext_resource type="Script" path="res://deprecated/inventory/item/item_data_craftable_buildings.gd" id="2_4h3yo"]
+[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://deprecated/inventory/item/objects/resource_pine_wood.tres" id="2_tuu2l"]
+[ext_resource type="Texture2D" uid="uid://cvedl3yyykwpj" path="res://textures/CUBIC-prototype-pack/Green/3.png" id="2_u4sep"]
+
+[sub_resource type="Resource" id="Resource_ecwed"]
+script = ExtResource("1_xtqno")
+component = ExtResource("2_tuu2l")
+amount = 15
+
+[resource]
+script = ExtResource("2_4h3yo")
+item_type = 5
+building_type = 4
+craft_components = Array[ExtResource("1_xtqno")]([SubResource("Resource_ecwed")])
+id = 19
+item_rarity = 0
+name = "Wooden Door"
+description = ""
+description_item_panel = ""
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("2_u4sep")
+dictionary = {
+"building_scene_path": "res://scenes/building_system/building_door.tscn",
+"scene_path": "res://scenes/building_system/building_door_checker.tscn"
+}

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b23yby3v18yb5"]
 
 [ext_resource type="Script" path="res://scripts/building system/building.gd" id="1_2vr4h"]
-[ext_resource type="Resource" uid="uid://do1v63m4lpun7" path="res://inventory/item/objects/wooden_wall.tres" id="2_d4kiy"]
+[ext_resource type="Resource" uid="uid://do1v63m4lpun7" path="res://deprecated/inventory/item/objects/wooden_wall.tres" id="2_d4kiy"]
 [ext_resource type="ArrayMesh" uid="uid://bok5ktxy7q6li" path="res://models/meshes/wooden_wall.tres" id="3_07a2w"]
 [ext_resource type="Script" path="res://scripts/building system/building_collider.gd" id="4_e4ejn"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_hw4he"]

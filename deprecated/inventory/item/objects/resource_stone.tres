@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemDataResource" load_steps=3 format=3 uid="uid://c857xej6d1ycd"]
+
+[ext_resource type="Texture2D" uid="uid://ca52nm4h3yfln" path="res://icons/stone_icon.png" id="1_57b5m"]
+[ext_resource type="Script" path="res://deprecated/inventory/item/item_data_resource.gd" id="1_456w4"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_456w4")
+item_type = 3
+id = 11
+name = "Stone"
+description = "Crafting resource"
+description_item_panel = "Crafting resource"
+stackable = true
+max_stack = 54
+quality = 100.0
+icon = ExtResource("1_57b5m")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/stone_resource_rb.tscn"
+}

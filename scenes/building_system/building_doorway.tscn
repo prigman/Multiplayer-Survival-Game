@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bvih3p7cj8cmf"]
 
 [ext_resource type="Script" path="res://scripts/building system/building.gd" id="1_1hsrl"]
-[ext_resource type="Resource" uid="uid://beqmhy1ap1nsg" path="res://inventory/item/objects/wooden_doorway.tres" id="2_6vgtd"]
+[ext_resource type="Resource" uid="uid://beqmhy1ap1nsg" path="res://deprecated/inventory/item/objects/wooden_doorway.tres" id="2_6vgtd"]
 [ext_resource type="ArrayMesh" uid="uid://ckox6rm88nlme" path="res://models/meshes/wooden_doorway.res" id="3_v0kuk"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_68lif"]
 [ext_resource type="Script" path="res://scripts/building system/building_collider.gd" id="5_atn4o"]

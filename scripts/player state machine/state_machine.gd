@@ -7,8 +7,8 @@ extends Node
 var states: Dictionary = {}
 
 func _ready() -> void:
-	# if not is_multiplayer_authority():
-	# 	return
+	if not multiplayer.is_server():
+		return
 	for child in get_children():
 		if child is State:
 			states[child.name] = child
@@ -23,13 +23,13 @@ func _process(delta : float) -> void:
 	if multiplayer.is_server(): 
 		current_state.update(delta)
 		current_state_name = current_state.name
-	if multiplayer.get_unique_id() == player.peer_id:
+	elif multiplayer.get_unique_id() == player.peer_id:
 		player.debug_ui.add_property("state", current_state_name, +1)
 	
 func _physics_process(delta : float) -> void:
 	# if not is_multiplayer_authority():
 	# 	return
-	# if not multiplayer.is_server(): return
+	if not multiplayer.is_server(): return
 	current_state.physics_update(delta)
 	
 func on_child_transition(new_state_name: StringName) -> void:

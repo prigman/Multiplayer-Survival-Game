@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemDataResource" load_steps=3 format=3 uid="uid://bmm6m04e0tq2m"]
+
+[ext_resource type="Script" path="res://deprecated/inventory/item/item_data_resource.gd" id="1_83hwu"]
+[ext_resource type="Texture2D" uid="uid://cew85wh0wtvs4" path="res://icons/metal_bar_icon.png" id="1_na7t1"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_83hwu")
+item_type = 3
+id = 9
+name = "Metal Bar"
+description = "Crafting resource"
+description_item_panel = "Crafting resource"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("1_na7t1")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/metal-bar_resource_rb.tscn"
+}

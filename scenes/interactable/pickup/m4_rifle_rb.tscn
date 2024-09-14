@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://cpuockgojkn1w"]
 
-[ext_resource type="Script" path="res://inventory/item/item_interactable.gd" id="1_vmli6"]
+[ext_resource type="Script" path="res://deprecated/inventory/item/item_interactable.gd" id="1_vmli6"]
 [ext_resource type="ArrayMesh" uid="uid://b4443bmc762ax" path="res://models/meshes/m4_rifle_default.res" id="2_2nyo8"]
-[ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://inventory/item/objects/m4_rifle.tres" id="2_ugj8s"]
+[ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://deprecated/inventory/item/objects/m4_rifle.tres" id="2_ugj8s"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="2_y2usy"]
-[ext_resource type="Script" path="res://inventory/in_slot_data.gd" id="7_dcd8e"]
+[ext_resource type="Script" path="res://deprecated/inventory/in_slot_data.gd" id="7_dcd8e"]
 
 [sub_resource type="Resource" id="Resource_vhvsq"]
 script = ExtResource("7_dcd8e")
