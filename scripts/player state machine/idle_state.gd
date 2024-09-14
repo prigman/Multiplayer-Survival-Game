@@ -15,7 +15,7 @@ func physics_update(delta : float) -> void:
 		player.update_input(speed_state, ACCELERATION, DECCELERATION)
 		player.update_velocity()
 
-	if player.died:
+	if player.died and multiplayer.is_server():
 		transition.emit("Death")
 
 	elif player.is_on_floor():
@@ -30,10 +30,10 @@ func physics_update(delta : float) -> void:
 			transition.emit("Falling")
 
 func enter(previous_state : State) -> void:
-	if previous_state is FallingState:
+	if multiplayer.is_server() and previous_state is FallingState:
 		fall_distance = previous_state.start_fall_y - player.global_transform.origin.y
 		if fall_distance > 4:
 			fall_damage = fall_distance * 1.5 
-			player.died_process(fall_damage)
+			player.died_process(fall_damage, "FALL DAMAGE")
 #print("Player took fall damage: ", fall_damage)
 

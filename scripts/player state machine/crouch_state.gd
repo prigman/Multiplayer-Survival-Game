@@ -32,7 +32,7 @@ func physics_update(delta : float) -> void:
 	if not player.crouch_button_pressed and multiplayer.is_server():
 		uncrouch()
 
-	if player.died:
+	if player.died and multiplayer.is_server():
 		transition.emit("Death")
 	if player.velocity.y < 0:
 		transition.emit("Falling")

@@ -67,9 +67,14 @@ static func load_item_data_by_id(id : int) -> Resource:
 		_:
 			return DEFAULT_OBJECT
 
-# static func set_new_item_data_information(item_data : Resource, dict_item_data : Dictionary) -> void:
-# 	item_data.quality = dict_item_data["quality"]
-# 	if item_data is ItemDataCraftableWeapon or item_data is ItemDataWeapon or item_data is ItemDataCraftableTools or item_data is ItemDataTools:
-# 		item_data.damage = dict_item_data["damage"]
-# 	if item_data is ItemDataWeapon or item_data is ItemDataCraftableWeapon:
-# 		item_data.ammo_current = dict_item_data["ammo_current"]
+static func deserialize_slot_and_item_data(dict_slot_data : Dictionary, dict_item_data : Dictionary, item_id : int, inventory_data : InventoryData = null) -> InSlotData:
+	var item_data := load_item_data_by_id(item_id).duplicate(true)
+	var new_slot_data : InSlotData
+	if inventory_data:
+		new_slot_data = inventory_data._create_new_slot(dict_slot_data["amount_in_slot"], item_data)
+	else:
+		new_slot_data = InSlotData.new()
+		new_slot_data.item = item_data
+		new_slot_data.amount_in_slot = dict_slot_data["amount_in_slot"]
+	new_slot_data.item.deserialize_item_data(dict_item_data)
+	return new_slot_data

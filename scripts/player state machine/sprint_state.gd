@@ -12,6 +12,8 @@ func physics_update(delta : float) -> void:
 	player.update_gravity(delta)
 	player.update_input(speed_state, ACCELERATION, DECCELERATION)
 	player.update_velocity()
+	if player.died and multiplayer.is_server():
+		transition.emit("Death")
 	if player.is_on_floor():
 		if player.space_button_pressed and multiplayer.is_server():
 			transition.emit("Jump")

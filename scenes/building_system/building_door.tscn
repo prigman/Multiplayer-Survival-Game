@@ -69,13 +69,12 @@ properties/5/path = NodePath("BuildingDoor:closed")
 properties/5/spawn = true
 properties/5/replication_mode = 2
 
-[node name="BuildingDoor" type="Node3D" node_paths=PackedStringArray("shape_cast", "collision_shape", "mesh_node", "building_collision")]
+[node name="BuildingDoor" type="Node3D" node_paths=PackedStringArray("shape_cast", "collision_shape", "mesh_node")]
 script = ExtResource("1_ae5mk")
 item_data = ExtResource("2_0ens7")
 shape_cast = NodePath("BuildingDoor/ShapeCast3D")
 collision_shape = NodePath("BuildingDoor/CollisionShape3D")
 mesh_node = NodePath("BuildingDoor/Mesh")
-building_collision = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

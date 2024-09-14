@@ -1,12 +1,14 @@
-[gd_scene load_steps=75 format=4 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=77 format=4 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
 [ext_resource type="Resource" uid="uid://w5yuvrpdvx3k" path="res://inventory/inventory.tres" id="2_xq8ps"]
 [ext_resource type="Resource" uid="uid://vsfhctrv3820" path="res://inventory/quick_slot_inventory.tres" id="3_yc7co"]
 [ext_resource type="PackedScene" uid="uid://m8lgl6sgjc8e" path="res://scenes/item.tscn" id="4_dcn20"]
+[ext_resource type="Script" path="res://scripts/weapon/weapon_spread_data.gd" id="4_n4jsu"]
 [ext_resource type="AnimationLibrary" uid="uid://cbdt7intcw3pe" path="res://anims/player_state.res" id="5_7m1j8"]
 [ext_resource type="Script" path="res://scripts/player_input_synchronizer.gd" id="5_d8soy"]
 [ext_resource type="Script" path="res://scripts/View_Models.gd" id="5_fwk6d"]
+[ext_resource type="Resource" uid="uid://c0tuqwnt3g8u0" path="res://scripts/weapon/assault_rifle_spread.tres" id="5_gd57m"]
 [ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
 [ext_resource type="ArrayMesh" uid="uid://bcd75ewieh241" path="res://models/meshes/fp_arms.res" id="6_a0imf"]
 [ext_resource type="Script" path="res://scripts/weapon/FP_player_weapon.gd" id="6_an6qp"]
@@ -499,12 +501,6 @@ properties/17/replication_mode = 2
 properties/18/path = NodePath(".:died")
 properties/18/spawn = false
 properties/18/replication_mode = 2
-properties/19/path = NodePath("Raycasts:rotation")
-properties/19/spawn = false
-properties/19/replication_mode = 2
-properties/20/path = NodePath("Raycasts:position")
-properties/20/spawn = false
-properties/20/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
 properties/0/path = NodePath(".:input_direction")
@@ -523,6 +519,7 @@ collision_mask = 4569
 script = ExtResource("1_adhyr")
 player_inventory = ExtResource("2_xq8ps")
 player_quick_slot = ExtResource("3_yc7co")
+weapon_spread_data = Array[ExtResource("4_n4jsu")]([ExtResource("5_gd57m")])
 weapon_holder = NodePath("CameraController/CameraHolder/RigHolder")
 weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.001
@@ -532,49 +529,6 @@ invert_weapon_sway = true
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_kmqgp")
-
-[node name="Raycasts" type="Node3D" parent="."]
-unique_name_in_owner = true
-transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 5.14674e-09, 1.69944, 0.0104416)
-
-[node name="InteractRay" type="RayCast3D" parent="Raycasts"]
-unique_name_in_owner = true
-transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -2.5)
-collision_mask = 4574
-debug_shape_thickness = 1
-
-[node name="AimCast" type="RayCast3D" parent="Raycasts"]
-unique_name_in_owner = true
-transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -1000)
-collision_mask = 4571
-debug_shape_thickness = 1
-
-[node name="MeleeCast" type="RayCast3D" parent="Raycasts"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -2.5)
-collision_mask = 6619
-debug_shape_thickness = 1
-
-[node name="BuildingCast" type="RayCast3D" parent="Raycasts"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -8)
-collision_mask = 4673
-collide_with_areas = true
-debug_shape_custom_color = Color(0, 1, 0, 1)
-debug_shape_thickness = 1
-
-[node name="OtherBuildingsCast" type="RayCast3D" parent="Raycasts"]
-unique_name_in_owner = true
-transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
-target_position = Vector3(0, 0, -8)
-collision_mask = 4417
-collide_with_areas = true
-debug_shape_custom_color = Color(0, 1, 0, 1)
-debug_shape_thickness = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
@@ -606,6 +560,49 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 transform = Transform3D(1, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, 1.70371e-07, -8.74228e-08, -1.70371e-07, 1, 5.14674e-09, 0.049438, 0.0104416)
 near = 0.001
+
+[node name="Raycasts" type="Node3D" parent="CameraController/CameraHolder/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -1.70371e-07, 8.74228e-08, 1.70371e-07, 1, 1.7053e-13, 2.02656e-06, 0)
+
+[node name="InteractRay" type="RayCast3D" parent="CameraController/CameraHolder/Camera3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 4574
+debug_shape_thickness = 1
+
+[node name="AimCast" type="RayCast3D" parent="CameraController/CameraHolder/Camera3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 6.83454e-16, 0, 6.83454e-16, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -1000)
+collision_mask = 4571
+debug_shape_thickness = 1
+
+[node name="MeleeCast" type="RayCast3D" parent="CameraController/CameraHolder/Camera3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 6619
+debug_shape_thickness = 1
+
+[node name="BuildingCast" type="RayCast3D" parent="CameraController/CameraHolder/Camera3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -8)
+collision_mask = 4673
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 1
+
+[node name="OtherBuildingsCast" type="RayCast3D" parent="CameraController/CameraHolder/Camera3D/Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, -8.74228e-08, 1, -8.29485e-08, 8.74228e-08, 8.29485e-08, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -8)
+collision_mask = 4417
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 1
 
 [node name="RigHolder" type="Node3D" parent="CameraController/CameraHolder"]
 script = ExtResource("5_fwk6d")
@@ -1120,11 +1117,11 @@ timer = NodePath("../Timer")
 weapon_hud = NodePath("../../../../CanvasLayer/Interface/InventoryUI/MarginContainer3/WeaponHud")
 reticle = NodePath("../../../../CanvasLayer/Interface/Reticle")
 crosshair = NodePath("../../../../CanvasLayer/Interface/Crosshair")
-raycasts_controller = NodePath("../../../../Raycasts")
-aim_cast = NodePath("../../../../Raycasts/AimCast")
-melee_cast = NodePath("../../../../Raycasts/MeleeCast")
-building_cast = NodePath("../../../../Raycasts/BuildingCast")
-other_buildings_cast = NodePath("../../../../Raycasts/OtherBuildingsCast")
+raycasts_controller = NodePath("../../Camera3D/Raycasts")
+aim_cast = NodePath("../../Camera3D/Raycasts/AimCast")
+melee_cast = NodePath("../../Camera3D/Raycasts/MeleeCast")
+building_cast = NodePath("../../Camera3D/Raycasts/BuildingCast")
+other_buildings_cast = NodePath("../../Camera3D/Raycasts/OtherBuildingsCast")
 audio_queue = NodePath("../../../../SoundQueue")
 
 [node name="Timer" type="Timer" parent="CameraController/CameraHolder/RigHolder"]
@@ -1650,13 +1647,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Divide"
 
-[node name="PlayerInventory" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer" instance=ExtResource("26_8d57b")]
+[node name="PlayerInventory" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer" node_paths=PackedStringArray("player") instance=ExtResource("26_8d57b")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.509804)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 size_flags_stretch_ratio = 10.0
+player = NodePath("../../../../../../..")
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI"]
 layout_mode = 1
@@ -1676,13 +1674,14 @@ size_flags_stretch_ratio = 5.0
 mouse_filter = 2
 theme_override_constants/margin_bottom = 35
 
-[node name="PlayerQuickSlot" parent="CanvasLayer/Interface/InventoryUI/MarginContainer2" instance=ExtResource("26_8d57b")]
+[node name="PlayerQuickSlot" parent="CanvasLayer/Interface/InventoryUI/MarginContainer2" node_paths=PackedStringArray("player") instance=ExtResource("26_8d57b")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 size_flags_stretch_ratio = 20.25
+player = NodePath("../../../../..")
 
 [node name="GrabbedSlot" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI"]
 unique_name_in_owner = true
@@ -1896,6 +1895,8 @@ mesh = NodePath("../MeshInstance3D")
 [connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/AnimationPlayerPickaxe" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_pickaxe_animation_finished"]
 [connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated/AnimationPlayerAxe" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_axe_animation_finished"]
 [connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle/AnimationPlayerM4_Rifle" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_m_4_rifle_animation_finished"]
+[connection signal="Update_Ammo" from="CameraController/CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/InventoryUI/MarginContainer3/WeaponHud" method="_on_item_update_ammo"]
+[connection signal="Update_Fire_Mode" from="CameraController/CameraHolder/RigHolder/Item" to="CanvasLayer/Interface/InventoryUI/MarginContainer3/WeaponHud" method="_on_item_update_fire_mode"]
 [connection signal="gui_input" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_gui_input"]
 [connection signal="signal_item_info_panel_set_data" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
 [connection signal="visibility_changed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_visibility_changed"]

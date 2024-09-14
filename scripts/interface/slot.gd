@@ -1,7 +1,7 @@
 extends PanelContainer
 class_name Slot
 
-signal signal_slot_clicked(index : int, button : int)
+signal signal_slot_clicked(slot : Slot, button : int)
 
 @onready var texture_rect := %TextureRect
 @onready var amount_text := %Amount
@@ -13,9 +13,12 @@ signal signal_slot_clicked(index : int, button : int)
 @export var rarity_top_texture : PanelContainer
 @export var active_slot_panel : PanelContainer
 
-var slot_rarity : Array
-
 @export var hover_panel : PanelContainer
+
+var slot_inventory_type : int
+var slot_rarity : Array
+# var player : Player
+
 
 #var right_clicked : bool
 
@@ -45,12 +48,13 @@ func _set_slot_data(slot_info: InSlotData) -> void:
 	else:
 		amount_text.hide()
 
-func _on_gui_input(event : InputEvent) -> void:
-	#if multiplayer.is_server(): return
+func _on_gui_input(event : InputEvent) -> void: # Инпут может сработать только на клиенте
+	# if multiplayer.is_server(): return
 	if event is InputEventMouseButton and event.is_pressed() \
 		and (event.button_index == MOUSE_BUTTON_LEFT \
-		or event.button_index == MOUSE_BUTTON_RIGHT) and not multiplayer.is_server():
-		signal_slot_clicked.emit(get_index(), event.button_index)
+		or event.button_index == MOUSE_BUTTON_RIGHT):
+		# player.rpc_id(1, "RPC_player_interacted_with_inventory", get_index(), event.button_index, multiplayer.get_unique_id(), slot_inventory_type)
+		signal_slot_clicked.emit(self, event.button_index)
 
 func _on_mouse_entered() -> void:
 	if texture_rect.texture != null:

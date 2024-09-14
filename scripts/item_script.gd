@@ -35,6 +35,8 @@ var fp_item_animator: AnimationPlayer
 
 @export var audio_queue : Node3D
 
+#@export var RPC_is_item_equiped_weapon : bool
+#@export var RPC_item_equiped_id : int = -1
 # информация о предмете в руках в данный момент
 @export var RPC_is_item_equiped : bool
 @export var RPC_equiped_slot_index : int = -1
@@ -310,7 +312,11 @@ func initialize(inventory_data: InventoryData, slot_index: int, item_slot: InSlo
 		fp_item_animator.play(equiped_item.anim_activate)
 		fp_player_animator.play(equiped_item.anim_player_activate)
 	if _equiped_item_type(equiped_item.ItemType.weapon):
-		player.current_weapon_spread_data = equiped_item.weapon_spread_data
+		for data : PlayerWeaponSpread in player.weapon_spread_data:
+			if data and data.weapon_data.id == equiped_item.id:
+				player.current_weapon_spread_data = data # на сервер надо перекинуть
+				break
+		#rpc("RPC_change_weapon_spread_data", equiped_item.id)
 		weapon_hud.show()
 		crosshair.show()
 		reticle.hide()
@@ -347,14 +353,15 @@ func clear_item(inventory_data : InventoryData, index : int, slot_data : InSlotD
 	equiped_item_node = null
 	equiped_slot_index = -1
 	
-func clear_server_item():
+func clear_server_item() -> void:
+	#RPC_item_equiped_id = -1
 	RPC_equiped_slot_index = -1
 	RPC_is_item_equiped = false
 
 func clear_weapon() -> void:
 	clear_weapon_attachments() # очищаем меш прицела если он не null
 	clear_weapon_hud() # убираем перекрестие и hud
-	#player.current_weapon_spread_data = null
+	player.current_weapon_spread_data = null
 
 func clear_building() -> void:
 	if _equiped_item_type(equiped_item.ItemType.building):
@@ -440,27 +447,39 @@ func hitscan(raycast: RayCast3D) -> void:
 			# target.call_deferred("add_child", decal)
 			player_hit(target)
 			if target.is_in_group("enemy_group"):
-				target.damage_enemy(equiped_item.damage, player.peer_id)
+				rpc_id(1, "RPC_damage_enemy", target.get_path(), equiped_item.damage)
 			if raycast == melee_cast and equiped_item.ItemType.tool:
 				if target.is_in_group("world_resource"):
 					if equiped_item.tool_type == equiped_item.ToolType.pickaxe and target.is_in_group("stone_object"):
 						# target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
 						# target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
-						# rpc_id(1,"RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
-						target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
-						rpc_id(player.peer_id, "RPC_set_world_resource_item_stone", randi_range(2, 6))
+						rpc_id(1,"RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
+						#target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
+						#rpc_id(player.peer_id, "RPC_set_world_resource_item_stone", randi_range(2, 6))
+						create_player_item(load("res://inventory/item/objects/resource_stone.tres"), randi_range(2, 6))
 					if equiped_item.tool_type == equiped_item.ToolType.axe and target.is_in_group("pine_tree_object"):
 						# target.health -= randf_range(equiped_item.damage, equiped_item.damage * 2)
 						# target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
-						# rpc_id(1,"RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
-						# create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
-						target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
-						rpc_id(player.peer_id, "RPC_set_world_resource_item_wood", randi_range(2, 6))
+						rpc_id(1,"RPC_hit_world_resource", target.get_path(), randf_range(equiped_item.damage, equiped_item.damage * 2))
+						create_player_item(load("res://inventory/item/objects/resource_pine_wood.tres"), randi_range(2, 6))
+						#target.world_resource_hit.emit(randf_range(equiped_item.damage, equiped_item.damage * 2))
+						#rpc_id(player.peer_id, "RPC_set_world_resource_item_wood", randi_range(2, 6))
 				if target.is_in_group("enemy_group"):
 					target.health -= equiped_item.damage
-		var decal := HIT_DECAL.instantiate()
-		player.main_scene.call_deferred("add_child", decal, true)
-		call_deferred("shoot_decal_instance", ray_end_point, decal, raycast)
+		#var decal := HIT_DECAL.instantiate()
+		#player.main_scene.call_deferred("add_child", decal, true)
+		#call_deferred("shoot_decal_instance", ray_end_point, decal, raycast)
+		rpc_id(1, "RPC_spawn_decal", ray_end_point, raycast.name)
+
+@rpc("any_peer", "call_local", "reliable", 2)
+func RPC_spawn_decal(ray_end : Vector3, ray_name : String) -> void:
+	var decal := HIT_DECAL.instantiate()
+	player.main_scene.call_deferred("add_child", decal, true)
+	call_deferred("shoot_decal_instance", ray_end, decal, ray_name)
+
+@rpc("any_peer", "call_local", "reliable", 2)
+func RPC_damage_enemy(target_path : NodePath, hit_value : float) -> void:
+	get_node(target_path).damage_enemy(hit_value, player.peer_id)
 
 @rpc("any_peer", "call_local", "reliable", 2)
 func RPC_set_world_resource_item_wood(amount : int) -> void:
@@ -469,24 +488,30 @@ func RPC_set_world_resource_item_wood(amount : int) -> void:
 @rpc("any_peer", "call_local", "reliable", 2)
 func RPC_set_world_resource_item_stone(amount : int) -> void:
 	create_player_item(load("res://inventory/item/objects/resource_stone.tres"), amount)
-# func RPC_hit_world_resource(target_path : NodePath, hit_value : float) -> void:
-# 	# if not multiplayer.is_server(): return
-# 	get_node(target_path).world_resource_hit.emit(hit_value)
 
-func shoot_decal_instance(ray_end_point : Vector3, decal : Node, raycast : RayCast3D) -> void:
-	decal.global_transform.origin = ray_end_point
-	var side: Vector3
-	if raycast.get_collision_normal() == Vector3.UP:
-		side = Vector3(1, 0, 0)
-	elif raycast.get_collision_normal() == Vector3.DOWN:
-		side = Vector3( - 1, 0, 0)
-	else:
-		side = Vector3(0, 1, 0)
-	decal.look_at(ray_end_point + raycast.get_collision_normal(), side)
+@rpc("any_peer", "call_local", "reliable", 2)
+func RPC_hit_world_resource(target_path : NodePath, hit_value : float) -> void:
+	# if not multiplayer.is_server(): return
+	get_node(target_path).world_resource_hit.emit(hit_value)
+
+func shoot_decal_instance(ray_end_point : Vector3, decal : Node, raycast_name : String) -> void:
+	for raycast in raycasts_controller.get_children():
+		if raycast.name == raycast_name:
+			decal.global_transform.origin = ray_end_point
+			var side: Vector3
+			if raycast.get_collision_normal() == Vector3.UP:
+				side = Vector3(1, 0, 0)
+			elif raycast.get_collision_normal() == Vector3.DOWN:
+				side = Vector3( - 1, 0, 0)
+			else:
+				side = Vector3(0, 1, 0)
+			decal.look_at(ray_end_point + raycast.get_collision_normal(), side)
+			break
 
 func player_hit(target : Object)->void:
 	if target.is_in_group("player"):
-		target.rpc('died_process', equiped_item.damage, player.peer_id)
+		target.rpc_id(1, "player_shot", equiped_item.damage, player.peer_id)
+		#target.rpc('died_process', equiped_item.damage, player.peer_id)
 		# print("EnemyP_health:", target.health_value)
 
 func randomize_aimcast_spread() -> void:
@@ -549,8 +574,8 @@ func clear_weapon_hud() -> void:
 	reticle.show()
 
 func start_reload() -> void:
-	player.reticle.show()
-	player.crosshair.hide()
+	reticle.show()
+	crosshair.hide()
 	fp_item_animator.play(equiped_item.anim_reload)
 	fp_player_animator.play(equiped_item.anim_player_reload)
 

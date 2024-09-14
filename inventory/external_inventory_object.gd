@@ -26,19 +26,21 @@ var is_able_to_build : bool
 func _ready() -> void:
 	if was_build:
 		if on_player_connect_inventory_data == {}: return
-		for slot_key : String in on_player_connect_inventory_data.keys():
-			# print(str(slot_data_dict))
-			if on_player_connect_inventory_data[slot_key] is int: continue
-			var slot_data_dict : Dictionary = on_player_connect_inventory_data[slot_key]
-			var slot_id : int = slot_data_dict["slot_id"]
-			if slot_id <= inventory_data.slots_data.size():
-				var slot_item_data := AllGameInventoryItems.load_item_data_by_id(slot_data_dict["item_id_in_slot"]).duplicate(true)
-				var new_slot_data : InSlotData = inventory_data._create_new_slot(slot_data_dict["amount_in_slot"], slot_item_data)
-				if slot_item_data.has_method("deserialize_item_data"):
-					slot_item_data.deserialize_item_data(slot_data_dict["item_serialized_data"])
-				inventory_data._set_slot_data(slot_id, new_slot_data)
+		inventory_data.deserialize_inventory_data(on_player_connect_inventory_data) # выполняется для всех серверных игроков на сервере
+		if not multiplayer.is_server(): inventory_data._update_inventory()
+		#for slot_key : String in on_player_connect_inventory_data.keys():
+			## print(str(slot_data_dict))
+			#if on_player_connect_inventory_data[slot_key] is int: continue
+			#var slot_data_dict : Dictionary = on_player_connect_inventory_data[slot_key]
+			#var slot_id : int = slot_data_dict["slot_id"]
+			#if slot_id <= inventory_data.slots_data.size():
+				#var slot_item_data := AllGameInventoryItems.load_item_data_by_id(slot_data_dict["item_id_in_slot"]).duplicate(true)
+				#var new_slot_data : InSlotData = inventory_data._create_new_slot(slot_data_dict["amount_in_slot"], slot_item_data)
+				#if slot_item_data.has_method("deserialize_item_data"):
+					#slot_item_data.deserialize_item_data(slot_data_dict["item_serialized_data"])
+				#inventory_data._set_slot_data(slot_id, new_slot_data)
 
-func _player_interact(_inventory_data: InventoryData, _quick_slot_data: InventoryData) -> void:
+func _player_interact() -> void:
 	signal_toggle_inventory.emit(self)
 
 func _on_signal_building_spawn() -> void:

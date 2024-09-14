@@ -109,8 +109,9 @@ func _pick_up_slot_data(slot_data : InSlotData) -> bool:
 	print("Player inventory is full")
 	return false
 	
-func _on_slot_clicked(index : int, button : int) -> void:
-	signal_inventory_interact.emit(self, index, button)
+func _on_slot_clicked(index : int, button : int, peer_id : int) -> void:
+	signal_inventory_interact.emit(self, index, button, peer_id)
+	#rpc_id(1, "RPC_player_interacted_with_inventory") # nevozmojno
 
 func _create_new_slot(amount_in_slot : int, item_data : Resource) -> InSlotData:
 	var slot := InSlotData.new()
@@ -118,13 +119,13 @@ func _create_new_slot(amount_in_slot : int, item_data : Resource) -> InSlotData:
 	slot.amount_in_slot = amount_in_slot
 	return slot
 
-func _set_slot_data(index : int, slot_data : InSlotData) -> bool:
-	if slot_data:
-		slots_data[index] = slot_data
-		signal_inventory_update.emit(self)
-		return true
-	else:
-		return false
+# func _set_slot_data(index : int, slot_data : InSlotData) -> bool:
+# 	if slot_data:
+# 		slots_data[index] = slot_data
+# 		signal_inventory_update.emit(self)
+# 		return true
+# 	else:
+# 		return false
 
 func serialize_inventory_data() -> Dictionary:
 	var serialized_data := {}
@@ -144,6 +145,23 @@ func serialize_inventory_data() -> Dictionary:
 		serialized_data[slot_key] = slot_data_dict
 	
 	return serialized_data
+
+func deserialize_inventory_data(serialized_inventory_data : Dictionary) -> void:
+	for i in range(slots_data.size()):
+		slots_data[i] = null
+	for slot_key : String in serialized_inventory_data.keys():
+		# print(str(slot_data_dict))
+		if serialized_inventory_data[slot_key] is not Dictionary: continue
+		var slot_data_dict : Dictionary = serialized_inventory_data[slot_key]
+		var slot_id : int = slot_data_dict["slot_id"]
+		if slot_id < slots_data.size():
+			var slot_item_data := AllGameInventoryItems.load_item_data_by_id(slot_data_dict["item_id_in_slot"]).duplicate(true)
+			var new_slot_data : InSlotData = _create_new_slot(slot_data_dict["amount_in_slot"], slot_item_data)
+			if slot_item_data.has_method("deserialize_item_data"):
+				slot_item_data.deserialize_item_data(slot_data_dict["item_serialized_data"])
+			# _set_slot_data(slot_id, new_slot_data)
+			slots_data[slot_id] = new_slot_data
+	#_update_inventory() # no
 
 func _clear_inventory() -> void:
 	for slot in slots_data:

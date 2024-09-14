@@ -18,3 +18,8 @@ func RPC_give_item(player_node_path : NodePath) -> void:
 	var player : Player = get_node(player_node_path)
 	if player.give_item(slot_data, false) == true:
 		player.rpc_id(1, "delete_item", get_path())
+
+@rpc("any_peer", "reliable", "call_local")
+func delete_item() -> void:
+	print("SERVER: delete_item function called on item %s" % name)
+	queue_free()

@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="PlayerWeaponSpread" load_steps=2 format=3 uid="uid://c0tuqwnt3g8u0"]
+[gd_resource type="Resource" script_class="PlayerWeaponSpread" load_steps=3 format=3 uid="uid://c0tuqwnt3g8u0"]
 
 [ext_resource type="Script" path="res://scripts/weapon/weapon_spread_data.gd" id="1_t7es8"]
+[ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://inventory/item/objects/m4_rifle.tres" id="2_joojr"]
 
 [resource]
 script = ExtResource("1_t7es8")
+weapon_data = ExtResource("2_joojr")
 spread_radius = 15.0
 in_sight_multiplier = 4.0
 crouch_state_multiplier = 2.5

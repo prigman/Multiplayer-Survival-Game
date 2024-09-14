@@ -5,6 +5,7 @@ signal signal_update_player_stats(health: float, hunger: float)
 signal signal_update_player_health(health: float)
 signal signal_update_player_hunger(hunger: float)
 
+
 # footsteps sounds
 var footstep_wait_time : float = 0.3
 
@@ -54,8 +55,12 @@ var idle_hunger_rate: float = 0.1
 # inv
 @export var player_inventory: InventoryData
 @export var player_quick_slot: InventoryData
+@export var serialized_player_inventory : Dictionary
+@export var serialized_player_quick_slot : Dictionary
+#
 
 # spread data
+@export var weapon_spread_data : Array[PlayerWeaponSpread]
 var current_weapon_spread_data: PlayerWeaponSpread # сюда назначается то оружие, которое игрок держит сейчас в руках
 
 # building system
@@ -100,12 +105,21 @@ func _ready() -> void:
 	label_3d.text = "Player_" + name
 
 	#signal_toggle_inventory.connect(_toggle_inventory_interface)
-	#inventory_interface._set_player_inventory_data(player_inventory)
-	#inventory_interface._set_quick_slot_data(player_quick_slot)
-	#inventory_interface.signal_drop_item.connect(_on_inventory_interface_signal_drop_item)
+	
+	
+	# 
+	inventory_interface._set_interact_player_inventory_data(player_inventory)
+	inventory_interface._set_interact_quick_slot_data(player_quick_slot)
+
+	serialized_player_inventory = player_inventory.serialize_inventory_data()
+	serialized_player_quick_slot = player_quick_slot.serialize_inventory_data()
+	#
+	
+	
+	# inventory_interface.signal_drop_item.connect(_on_inventory_interface_signal_drop_item)
+	
 	#inventory_interface.signal_use_item.connect(_on_inventory_interface_signal_use_item)
 	#inventory_interface.signal_force_close.connect(_toggle_inventory_interface)
-
 	#for node in get_tree().get_nodes_in_group("external_inventory"):
 		#if node:
 			#node.signal_toggle_inventory.connect(_toggle_inventory_interface)
@@ -121,11 +135,10 @@ func _exit_tree() -> void:
 
 func _physics_process(delta: float) -> void:
 	mesh.rotation.y = input_sync.camera_controller_input_rotation_y
-	item.raycasts_controller.rotation.x = input_sync.camera_holder_input_rotation_x
-	item.raycasts_controller.rotation.y = input_sync.camera_controller_input_rotation_y
+	#item.raycasts_controller.rotation.x = input_sync.camera_holder_input_rotation_x
+	#item.raycasts_controller.rotation.y = input_sync.camera_controller_input_rotation_y
 
 func _process(delta : float) -> void:
-	
 	decrease_hunger_value(delta)
 	# var velocity_string := "%.2f" % velocity.length()
 	# debug_ui.add_property("velocity", velocity_string, + 1)
@@ -144,7 +157,7 @@ func decrease_hunger_value(delta: float) -> void:
 	#signal_update_player_hunger.emit(hunger_value)
 	#rpc_id(peer_id, "update_player_hunger_ui", hunger_value)
 	if hunger_value == 0.0 and health_value > 0.0:
-		died_process(0.5*delta)
+		died_process(0.5*delta, "STARVING")
 	elif hunger_value > 95 and health_value < 100:
 		health_value+=0.5*delta
 		
@@ -181,53 +194,50 @@ func disconnect_mob_from_player(mob : CharacterBody3D) -> void:
 				break
 
 #@rpc("any_peer","reliable","call_local", 2)
-func died_process(damage:float, damage_peer_id: int = -1) -> void:
+func died_process(damage:float, damage_info : String) -> void:
 	health_value -= damage
-	#signal_update_player_health.emit(health_value)
-	#rpc_id(peer_id, "update_player_health_ui", health_value)
+	print("DAMAGE LOG: " + str(peer_id) + " was hit by " + damage_info + " | with damage: " + str(damage) + " | health now: " + str(health_value))
+	if health_value <= 0 and died==false :
+		died = true
+		print("DEATH LOG: " + str(peer_id) + " died")
+
+@rpc("any_peer", "call_local", "reliable", 2)
+func player_shot(damage:float, damage_peer_id: int = -1) -> void:
+	health_value -= damage
 	print("DAMAGE LOG: " + str(peer_id) + " was hit by " + str(damage_peer_id) + " | with damage: " + str(damage) + " | health now: " + str(health_value))
 	if health_value <= 0 and died==false :
 		died = true
 		print("DEATH LOG: " + str(peer_id) + " died")
-		# main_scene.rpc('delete_player_rpc',peer_id)
 
 #@rpc("any_peer", "call_local", "reliable", 2)
 #func update_player_health_ui(value: float) -> void:
 	#signal_update_player_health.emit(value)
 
 func on_player_die() -> void:
-	if multiplayer.is_server():
-		for slot in player_inventory.slots_data:
-			if slot:
-				var random_position_z := randf_range(global_position.z-1, global_position.z+1)
-				var random_position_x := randf_range(global_position.x-1, global_position.x+1)
-				drop_item_from_inventory(slot, Vector3(random_position_x, global_position.y+2, random_position_z))
-		for slot in player_quick_slot.slots_data:
-			if slot:
-				var random_position_z := randf_range(global_position.z-1, global_position.z+1)
-				var random_position_x := randf_range(global_position.x-1, global_position.x+1)
-				drop_item_from_inventory(slot, Vector3(random_position_x, global_position.y+2, random_position_z))
+	for slot in player_inventory.slots_data:
+		if slot:
+			var random_position_z := randf_range(global_position.z-1, global_position.z+1)
+			var random_position_x := randf_range(global_position.x-1, global_position.x+1)
+			drop_item_from_inventory(slot, Vector3(random_position_x, global_position.y+2, random_position_z), false)
+	for slot in player_quick_slot.slots_data:
+		if slot:
+			var random_position_z := randf_range(global_position.z-1, global_position.z+1)
+			var random_position_x := randf_range(global_position.x-1, global_position.x+1)
+			drop_item_from_inventory(slot, Vector3(random_position_x, global_position.y+2, random_position_z), false)
 		#mesh.hide()
 		#label_3d.hide()
 		#collision.disabled = true
-		rpc("toggle_player_visibility_on_server")
-	elif multiplayer.get_unique_id() == peer_id:
-		input_sync.set_process_for_player(false)
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		if item.RPC_is_equiped_item:
-			item.clear_item(player_quick_slot, item.equiped_slot_index, item.equiped_slot)
-		if is_inventory_open(): inventory_interface.hide()
-		item.reticle.hide()
-		quick_slot_ui.hide()
-		player_stats.hide()
-		death_ui.show()
+	rpc("toggle_player_visibility_on_server", false)
+	rpc_id(peer_id, "RPC_on_player_die")
+	if item.RPC_is_item_equiped:
+		item.clear_server_item()
 	player_inventory._clear_inventory()
 	player_quick_slot._clear_inventory()
 
 @rpc("any_peer", "call_local", "reliable", 2)
-func toggle_player_visibility_on_server(visible: bool) -> void:
+func toggle_player_visibility_on_server(player_visibility: bool) -> void:
 	if multiplayer.get_unique_id() == peer_id: return
-	if not visible:
+	if not player_visibility:
 		mesh.hide()
 		label_3d.hide()
 		collision.disabled = true
@@ -236,12 +246,19 @@ func toggle_player_visibility_on_server(visible: bool) -> void:
 		label_3d.show()
 		collision.disabled = false
 
-# @rpc("any_peer", "call_local", "reliable")
-# func RPC_on_player_die() -> void:
-# 	if is_multiplayer_authority(): return
-# 	mesh.hide()
-# 	label_3d.hide()
-# 	collision.disabled = true
+@rpc("any_peer", "call_local", "reliable")
+func RPC_on_player_die() -> void:
+	input_sync.set_process_for_player(false)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if item.RPC_is_item_equiped:
+		item.clear_item(player_quick_slot, item.equiped_slot_index, item.equiped_slot)
+	if is_inventory_open(): inventory_interface.hide()
+	item.reticle.hide()
+	quick_slot_ui.hide()
+	player_stats.hide()
+	death_ui.show()
+	player_inventory._clear_inventory()
+	player_quick_slot._clear_inventory()
 
 func on_player_respawn() -> void:
 	died = false
@@ -322,6 +339,7 @@ func update_velocity() -> void:
 # ------------ Inventory items interaction
 
 func _on_inventory_interface_signal_drop_item(slot_data: InSlotData) -> void:
+	
 	drop_item_from_inventory(slot_data, get_drop_position())
 
 func _on_inventory_interface_signal_use_item(slot_data: InSlotData) -> void:
@@ -333,33 +351,30 @@ func _on_inventory_interface_signal_use_item(slot_data: InSlotData) -> void:
 		hunger_value = min(hunger_value + item_data.hunger_value, 100.0)
 		signal_update_player_hunger.emit(hunger_value)
 
-func drop_item_from_inventory(slot_data : InSlotData, item_position : Vector3) -> void:
+func drop_item_from_inventory(slot_data : InSlotData, item_position : Vector3, from_local : bool = true) -> void:
 	var item_data_scene := slot_data.item.dictionary
 	if not item_data_scene.has('dropped_item'): return
 	var dict_slot_data := slot_data.serialize_data()
 	var dict_item_data := slot_data.item.serialize_item_data()
 	var random_number := RandomNumberGenerator.new().randi_range(1000, 9999)
 	var drop_position := item_position
-	main_scene.item_spawner.rpc_id(1, "request_spawn_item", random_number, drop_position, dict_slot_data, dict_item_data, item_data_scene)
+	if from_local:
+		main_scene.item_spawner.rpc_id(1, "request_spawn_item", random_number, drop_position, dict_slot_data, dict_item_data, item_data_scene)
+	else:
+		main_scene.item_spawner.request_spawn_item(random_number, drop_position, dict_slot_data, dict_item_data, item_data_scene)
 
-func interact() -> void:
-	if interact_ray.is_colliding():
-		var collider : Object = interact_ray.get_collider()
-		if collider:
-			if collider.is_in_group('external_inventory'):
-				#collider._player_interact(player_inventory, player_quick_slot)
-				collider.rpc_id(peer_id, "RPC_external_inventory_interact")
-			elif collider.is_in_group('item_interactable'):
-				collider.rpc_id(peer_id, "RPC_give_item", get_path())
-				# rpc('delete_item', collider.get_path())
-			elif collider.is_in_group('building_door'):
-				collider._player_interact()
-
-@rpc("any_peer", "reliable", "call_local")
-func delete_item(inventory_item_interacted_path : NodePath) -> void:
-	var item_node = get_node(inventory_item_interacted_path)
-	print("SERVER: delete_item function called on item %s" % item_node.name)
-	item_node.queue_free()
+#func interact() -> void:
+	#if interact_ray.is_colliding():
+		#var collider : Object = interact_ray.get_collider()
+		#if collider:
+			#if collider.is_in_group('external_inventory'):
+				##collider._player_interact(player_inventory, player_quick_slot)
+				#collider.rpc_id(peer_id, "RPC_external_inventory_interact")
+			#elif collider.is_in_group('item_interactable'):
+				#collider.rpc_id(peer_id, "RPC_give_item", get_path())
+				## rpc('delete_item', collider.get_path())
+			#elif collider.is_in_group('building_door'):
+				#collider._player_interact()
 
 func get_drop_position() -> Vector3:
 	var drop_direction : Vector3 = -camera.global_transform.basis.z

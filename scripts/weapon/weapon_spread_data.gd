@@ -1,6 +1,6 @@
 class_name PlayerWeaponSpread extends Resource
 
-# @export var weapon_data : ItemData
+@export var weapon_data : ItemData
 
 # переменные разброса для оружия
 @export var spread_radius : float = 10
