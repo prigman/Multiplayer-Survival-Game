@@ -1,0 +1,2 @@
+extends ItemDataCraftable
+class_name ItemDataWorldResource

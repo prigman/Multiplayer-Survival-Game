@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemDataWorldResource" load_steps=4 format=3 uid="uid://b01lsfitk54lv"]
+
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="1_62clq"]
+[ext_resource type="Texture2D" uid="uid://dm4omcxw3164a" path="res://icons/branch_icon.png" id="1_lsxr0"]
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_world_resource.gd" id="2_82lq0"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_82lq0")
+craft_components = Array[ExtResource("1_62clq")]([])
+id = 8
+item_type = 3
+item_rarity = 0
+name = "Branch"
+description = "Common pine wood branch"
+description_item_panel = "Common pine wood branch"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("1_lsxr0")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/resource_pine_branch_rb.tscn"
+}

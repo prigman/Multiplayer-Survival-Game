@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bk2224yowjlux"]
 
 [ext_resource type="ArrayMesh" uid="uid://cl73ro1sfy3jp" path="res://models/ar/ar_body.res" id="1_k8mqm"]
-[ext_resource type="Script" path="res://deprecated/inventory/item/item_interactable.gd" id="1_u5xq3"]
+[ext_resource type="Script" path="res://scripts/inventory/item_interactable_body.gd" id="1_u5xq3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hhk2x"]
 size = Vector3(1.54, 0.425, 0.16)

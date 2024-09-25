@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://c3oaa4540mbmi"]
+
+[ext_resource type="Script" path="res://scripts/building/building.gd" id="1_bgdk2"]
+[ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://scripts/inventory/item/resources/building/wooden_roof.tres" id="2_rgkta"]
+[ext_resource type="ArrayMesh" uid="uid://ddt0uwsodljvr" path="res://models/meshes/wooden_roof.res" id="3_oqdh8"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_6nnhl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1owip"]
+size = Vector3(3.6, 0.3, 3.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_82k1h"]
+size = Vector3(4, 0.3, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ryrnq"]
+size = Vector3(4.2, 0.5, 4.2)
+
+[node name="BuildingRoof" type="StaticBody3D" node_paths=PackedStringArray("shape_cast", "collision_shape", "mesh_node", "building_collision") groups=["building_group", "building_roof"]]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_bgdk2")
+item_data = ExtResource("2_rgkta")
+shape_cast = NodePath("ShapeCast3D")
+collision_shape = NodePath("CollisionShape3D")
+mesh_node = NodePath("Mesh")
+building_collision = NodePath("BuildingCollision")
+
+[node name="BuildingCollision" type="Area3D" parent="."]
+collision_layer = 1024
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingCollision"]
+shape = SubResource("BoxShape3D_1owip")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = ExtResource("3_oqdh8")
+surface_material_override/0 = ExtResource("4_6nnhl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_82k1h")
+disabled = true
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_ryrnq")
+max_results = 1
+collision_mask = 222
+collide_with_areas = true

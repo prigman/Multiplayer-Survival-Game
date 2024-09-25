@@ -1,4 +1,4 @@
-class_name ItemDataTools extends ItemData
+class_name ItemDataTools1 extends ItemData1
 
 enum ToolType {
 	pickaxe,

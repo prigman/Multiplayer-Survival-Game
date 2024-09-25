@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=13 format=3 uid="uid://vsfhctrv3820"]
+[gd_resource type="Resource" script_class="InventoryNode" load_steps=13 format=3 uid="uid://vsfhctrv3820"]
 
-[ext_resource type="Script" path="res://deprecated/inventory/inventory_data.gd" id="1_ab8t5"]
-[ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://deprecated/inventory/item/objects/wooden_floor.tres" id="3_ok6k2"]
-[ext_resource type="Resource" uid="uid://beqmhy1ap1nsg" path="res://deprecated/inventory/item/objects/wooden_doorway.tres" id="4_513k8"]
-[ext_resource type="Resource" uid="uid://dth6kmifknlsn" path="res://deprecated/inventory/item/objects/wooden_door.tres" id="5_2nwvh"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_data.gd" id="1_ab8t5"]
+[ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://scripts/inventory/item/resources/building/wooden_floor.tres" id="3_ok6k2"]
+[ext_resource type="Resource" uid="uid://beqmhy1ap1nsg" path="res://scripts/inventory/item/resources/building/wooden_doorway.tres" id="4_513k8"]
+[ext_resource type="Resource" uid="uid://dth6kmifknlsn" path="res://scripts/inventory/item/resources/building/wooden_door.tres" id="5_2nwvh"]
 [ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://deprecated/inventory/item/objects/m4_rifle.tres" id="6_u4cw6"]
-[ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://deprecated/inventory/item/objects/pickaxe.tres" id="7_orett"]
-[ext_resource type="Script" path="res://deprecated/inventory/in_slot_data.gd" id="8_qw5vx"]
+[ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://scripts/inventory/item/resources/tool/pickaxe.tres" id="7_orett"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="8_qw5vx"]
 
 [sub_resource type="Resource" id="Resource_337d5"]
 script = ExtResource("8_qw5vx")

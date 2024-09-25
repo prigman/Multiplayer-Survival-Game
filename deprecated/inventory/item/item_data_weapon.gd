@@ -1,4 +1,4 @@
-class_name ItemDataWeapon extends ItemData
+class_name ItemDataWeapon1 extends ItemData1
 
 @export var item_type: ItemType = ItemType.weapon
 @export var anim_activate: String

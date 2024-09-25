@@ -1,0 +1,105 @@
+[gd_scene load_steps=9 format=3 uid="uid://bvih3p7cj8cmf"]
+
+[ext_resource type="Script" path="res://scripts/building/building.gd" id="1_1hsrl"]
+[ext_resource type="ArrayMesh" uid="uid://ckox6rm88nlme" path="res://models/meshes/wooden_doorway.res" id="3_v0kuk"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_68lif"]
+[ext_resource type="Script" path="res://scripts/building/building_collider.gd" id="5_atn4o"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ndl51"]
+data = PackedVector3Array(0.15, 0.8, 2, -0.15, 2, 2, 0.15, 2, 2, 0.15, 0.8, 2, -0.15, 0.8, 2, -0.15, 2, 2, -0.15, 0.8, -0.9333, -0.15, 2, -2, -0.15, 2, -0.9333, -0.15, 0.8, -0.9333, -0.15, 0.8, -2, -0.15, 2, -2, -0.15, 0.8, -2, 0.15, 2, -2, -0.15, 2, -2, -0.15, 0.8, -2, 0.15, 0.8, -2, 0.15, 2, -2, 0.15, 0.8, 0.9333, 0.15, 2, 2, 0.15, 2, 0.9333, 0.15, 0.8, 0.9333, 0.15, 0.8, 2, 0.15, 2, 2, -0.15, -2, -0.9333, 0.15, -2, -2, -0.15, -2, -2, -0.15, -2, -0.9333, 0.15, -2, -0.9333, 0.15, -2, -2, -0.15, 2, 0.9333, 0.15, 2, 2, -0.15, 2, 2, -0.15, 2, 0.9333, 0.15, 2, 0.9333, 0.15, 2, 2, -0.15, 2, -2, 0.15, 2, -0.9333, -0.15, 2, -0.9333, -0.15, 2, -2, 0.15, 2, -2, 0.15, 2, -0.9333, -0.15, 2, -0.9333, 0.15, 2, 0.9333, -0.15, 2, 0.9333, -0.15, 2, -0.9333, 0.15, 2, -0.9333, 0.15, 2, 0.9333, -0.15, -2, 2, 0.15, -2, 0.9333, -0.15, -2, 0.9333, -0.15, -2, 2, 0.15, -2, 2, 0.15, -2, 0.9333, 0.15, 0.8, -2, 0.15, 2, -0.9333, 0.15, 2, -2, 0.15, 0.8, -2, 0.15, 0.8, -0.9333, 0.15, 2, -0.9333, 0.15, 0.8, -0.9333, 0.15, 2, 0.9333, 0.15, 2, -0.9333, 0.15, 0.8, -0.9333, 0.15, 0.8, 0.9333, 0.15, 2, 0.9333, -0.15, 0.8, 2, -0.15, 2, 0.9333, -0.15, 2, 2, -0.15, 0.8, 2, -0.15, 0.8, 0.9333, -0.15, 2, 0.9333, -0.15, 0.8, 0.9333, -0.15, 2, -0.9333, -0.15, 2, 0.9333, -0.15, 0.8, 0.9333, -0.15, 0.8, -0.9333, -0.15, 2, -0.9333, -0.15, -2, 2, -0.15, 0.8, 0.9333, -0.15, 0.8, 2, -0.15, -2, 2, -0.15, -2, 0.9333, -0.15, 0.8, 0.9333, 0.15, -2, -2, 0.15, 0.8, -0.9333, 0.15, 0.8, -2, 0.15, -2, -2, 0.15, -2, -0.9333, 0.15, 0.8, -0.9333, 0.15, -2, 0.9333, 0.15, 0.8, 2, 0.15, 0.8, 0.9333, 0.15, -2, 0.9333, 0.15, -2, 2, 0.15, 0.8, 2, -0.15, -2, -2, 0.15, 0.8, -2, -0.15, 0.8, -2, -0.15, -2, -2, 0.15, -2, -2, 0.15, 0.8, -2, -0.15, -2, -0.9333, -0.15, 0.8, -2, -0.15, 0.8, -0.9333, -0.15, -2, -0.9333, -0.15, -2, -2, -0.15, 0.8, -2, 0.15, -2, 2, -0.15, 0.8, 2, 0.15, 0.8, 2, 0.15, -2, 2, -0.15, -2, 2, -0.15, 0.8, 2, -0.15, -2, 0.9333, 0.15, 0.8, 0.9333, -0.15, 0.8, 0.9333, -0.15, -2, 0.9333, 0.15, -2, 0.9333, 0.15, 0.8, 0.9333, -0.15, 0.8, 0.9333, 0.15, 0.8, -0.9333, -0.15, 0.8, -0.9333, -0.15, 0.8, 0.9333, 0.15, 0.8, 0.9333, 0.15, 0.8, -0.9333, 0.15, -2, -0.9333, -0.15, 0.8, -0.9333, 0.15, 0.8, -0.9333, 0.15, -2, -0.9333, -0.15, -2, -0.9333, -0.15, 0.8, -0.9333)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ci7a3"]
+size = Vector3(4, 0.3, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ydk17"]
+size = Vector3(0.35, 2.8, 1.9)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0v3hs"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:building_part_owner_id")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("DoorColliderBack:is_busy")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("DoorColliderFront:is_busy")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+
+[node name="BuildingDoorway" type="StaticBody3D" node_paths=PackedStringArray("building_colliders", "collision_shape", "mesh_node") groups=["building_group", "building_wall"]]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_1hsrl")
+building_colliders = [NodePath("RoofCollider"), NodePath("RoofCollider2"), NodePath("DoorColliderBack"), NodePath("DoorColliderFront")]
+collision_shape = NodePath("CollisionShape3D")
+mesh_node = NodePath("Mesh")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = ExtResource("3_v0kuk")
+surface_material_override/0 = ExtResource("4_68lif")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_ndl51")
+
+[node name="RoofCollider" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0)
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("5_atn4o")
+collider_type = 2
+root_scene = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoofCollider"]
+shape = SubResource("BoxShape3D_ci7a3")
+
+[node name="RoofCollider2" type="Area3D" parent="." node_paths=PackedStringArray("root_scene") groups=["building_collider"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("5_atn4o")
+collider_type = 2
+root_scene = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoofCollider2"]
+shape = SubResource("BoxShape3D_ci7a3")
+
+[node name="DoorColliderBack" type="Area3D" parent="." node_paths=PackedStringArray("door_root", "root_scene") groups=["building_collider"]]
+transform = Transform3D(-0.5, 0, 0.866026, 0, 1, 0, -0.866026, 0, -0.5, 0.866026, -0.6, 0.5)
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("5_atn4o")
+collider_type = 4
+door_root = NodePath("../DoorBackRoot")
+root_scene = NodePath("..")
+door_type = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorColliderBack"]
+shape = SubResource("BoxShape3D_ydk17")
+
+[node name="DoorColliderFront" type="Area3D" parent="." node_paths=PackedStringArray("door_root", "root_scene") groups=["building_collider"]]
+transform = Transform3D(0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, 0.5, -0.866026, -0.6, -0.5)
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("5_atn4o")
+collider_type = 4
+door_root = NodePath("../DoorFrontRoot")
+root_scene = NodePath("..")
+door_type = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorColliderFront"]
+shape = SubResource("BoxShape3D_ydk17")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
+replication_config = SubResource("SceneReplicationConfig_0v3hs")
+
+[node name="DoorBackRoot" type="Marker3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.6, 1)
+
+[node name="DoorFrontRoot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, -1)

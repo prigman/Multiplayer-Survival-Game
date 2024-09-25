@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="ItemDataCraftableWeapon" load_steps=12 format=3 uid="uid://dueasdbvrpec2"]
+[gd_resource type="Resource" script_class="ItemDataCraftableWeapon1" load_steps=12 format=3 uid="uid://dueasdbvrpec2"]
 
-[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://deprecated/inventory/item/objects/resource_metal-bar.tres" id="1_2ls5s"]
-[ext_resource type="Script" path="res://deprecated/inventory/craft_components.gd" id="2_4jvik"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://scripts/inventory/item/resources/world_resource/resource_metal-bar.tres" id="1_2ls5s"]
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="2_4jvik"]
 [ext_resource type="Script" path="res://deprecated/inventory/item/item_data_craftable_weapon.gd" id="3_3vu0k"]
 [ext_resource type="Resource" uid="uid://dwmpk6d810gkb" path="res://scripts/weapon/fire_modes/fire_mode_full_auto_ar.tres" id="3_26vtl"]
 [ext_resource type="Resource" uid="uid://duolnhkopt6su" path="res://scripts/weapon/fire_modes/fire_mode_single.tres" id="3_ltgc8"]

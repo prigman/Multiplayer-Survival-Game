@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://dtnj5b53jux58"]
 
-[ext_resource type="Script" path="res://deprecated/inventory/external_inventory_object.gd" id="1_nherp"]
-[ext_resource type="Script" path="res://deprecated/inventory/inventory_data.gd" id="2_qudbc"]
-[ext_resource type="Script" path="res://deprecated/inventory/in_slot_data.gd" id="3_nts3i"]
-[ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://deprecated/inventory/item/objects/pine-wood-crate.tres" id="4_kpanm"]
+[ext_resource type="Script" path="res://scripts/inventory/external_inventory_body.gd" id="1_nherp"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_data.gd" id="2_qudbc"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="3_nts3i"]
+[ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://scripts/inventory/item/resources/building/pine-wood-crate.tres" id="4_kpanm"]
 [ext_resource type="ArrayMesh" uid="uid://c0yho8pq4oj4l" path="res://models/meshes/pine_wood_crate.res" id="5_ohdfv"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="6_o7w1t"]
 

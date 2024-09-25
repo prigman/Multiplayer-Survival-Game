@@ -1,44 +1,144 @@
-[gd_scene load_steps=60 format=4 uid="uid://dukxkjfwv4sap"]
+[gd_scene load_steps=92 format=4 uid="uid://dukxkjfwv4sap"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_adhyr"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_data.gd" id="4_448sj"]
 [ext_resource type="PackedScene" uid="uid://m8lgl6sgjc8e" path="res://scenes/item.tscn" id="4_dcn20"]
 [ext_resource type="Script" path="res://scripts/weapon/weapon_spread_data.gd" id="4_n4jsu"]
 [ext_resource type="AnimationLibrary" uid="uid://cbdt7intcw3pe" path="res://anims/player_state.res" id="5_7m1j8"]
 [ext_resource type="Script" path="res://scripts/player_input_synchronizer.gd" id="5_d8soy"]
 [ext_resource type="Script" path="res://scripts/View_Models.gd" id="5_fwk6d"]
 [ext_resource type="Resource" uid="uid://c0tuqwnt3g8u0" path="res://scripts/weapon/assault_rifle_spread.tres" id="5_gd57m"]
-[ext_resource type="Script" path="res://scripts/player state machine/state_machine.gd" id="6_28k2k"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="5_lbdj5"]
+[ext_resource type="Script" path="res://scripts/player_state_machine/state_machine.gd" id="6_28k2k"]
 [ext_resource type="ArrayMesh" uid="uid://bcd75ewieh241" path="res://models/meshes/fp_arms.res" id="6_a0imf"]
 [ext_resource type="Script" path="res://scripts/weapon/FP_player_weapon.gd" id="6_an6qp"]
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="6_iiu80"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://scripts/inventory/item/resources/world_resource/resource_metal-bar.tres" id="7_1qrkk"]
 [ext_resource type="Shader" path="res://materials/viewmodel.gdshader" id="7_dn15t"]
-[ext_resource type="Script" path="res://scripts/player state machine/idle_state.gd" id="7_pfe0v"]
+[ext_resource type="Script" path="res://scripts/player_state_machine/idle_state.gd" id="7_pfe0v"]
 [ext_resource type="AnimationLibrary" uid="uid://vlrhvjddwkvd" path="res://anims/player_fp_anims/Axe/Axe_Player_Anims.res" id="7_u4bc2"]
 [ext_resource type="AnimationLibrary" uid="uid://klxtl5jvpkhp" path="res://anims/player_fp_anims/Pickaxe/Pickaxe_Player_Anims.res" id="8_4v63h"]
-[ext_resource type="Script" path="res://scripts/player state machine/walking_state.gd" id="8_w2o86"]
-[ext_resource type="Script" path="res://scripts/player state machine/sprint_state.gd" id="9_touqc"]
-[ext_resource type="Script" path="res://scripts/player state machine/crouch_state.gd" id="10_0am0j"]
-[ext_resource type="Script" path="res://scripts/player state machine/jump_state.gd" id="11_juquo"]
+[ext_resource type="Script" path="res://scripts/player_state_machine/walking_state.gd" id="8_w2o86"]
+[ext_resource type="Resource" uid="uid://dwmpk6d810gkb" path="res://scripts/weapon/fire_modes/fire_mode_full_auto_ar.tres" id="8_wnpra"]
+[ext_resource type="Script" path="res://scripts/weapon/fire_modes/weapon_fire_modes.gd" id="9_l5cy6"]
+[ext_resource type="Script" path="res://scripts/player_state_machine/sprint_state.gd" id="9_touqc"]
+[ext_resource type="Script" path="res://scripts/player_state_machine/crouch_state.gd" id="10_0am0j"]
+[ext_resource type="Resource" uid="uid://duolnhkopt6su" path="res://scripts/weapon/fire_modes/fire_mode_single.tres" id="10_hm01b"]
+[ext_resource type="Script" path="res://scripts/player_state_machine/jump_state.gd" id="11_juquo"]
+[ext_resource type="Texture2D" uid="uid://dkv3vtbo8ejnw" path="res://icons/m4_rifle_icon.png" id="11_rp6vn"]
 [ext_resource type="AnimationLibrary" uid="uid://dmkk5nftmxg6" path="res://anims/item_fp_anims/pickaxe/Pickaxe_Anims.res" id="12_2kaya"]
+[ext_resource type="Curve" uid="uid://bl86an7yiit51" path="res://scripts/weapon/ar_curve.tres" id="12_40kco"]
 [ext_resource type="ArrayMesh" uid="uid://cxut6xfety7ab" path="res://models/meshes/pickaxe_animated.res" id="12_fkleo"]
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_firearm.gd" id="13_d8xy7"]
+[ext_resource type="Texture2D" uid="uid://df6oj3sv4d2u3" path="res://icons/resourceWood.png" id="14_ay0kx"]
 [ext_resource type="Texture2D" uid="uid://d37gvltmegoym" path="res://textures/1024_palette.png" id="14_rjuv0"]
 [ext_resource type="AnimationLibrary" uid="uid://dcl0nhikpge30" path="res://anims/item_fp_anims/axe/Axe_Anims.res" id="15_1ws1i"]
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_world_resource.gd" id="15_hriai"]
 [ext_resource type="ArrayMesh" uid="uid://c0qee1sc38nvk" path="res://models/meshes/axe_animated.res" id="15_yc44n"]
 [ext_resource type="Texture2D" uid="uid://carjrviipvpch" path="res://models/M4_Rifle_1024 palette.png" id="19_rkd7e"]
 [ext_resource type="Script" path="res://scripts/interface/reticle.gd" id="21_ai3eg"]
-[ext_resource type="Script" path="res://scripts/player state machine/falling_state.gd" id="21_h51by"]
-[ext_resource type="PackedScene" uid="uid://mdsqpmcb7k53" path="res://scenes/progress_bar.tscn" id="22_4kjjo"]
-[ext_resource type="PackedScene" uid="uid://c0vow3q82yehc" path="res://scenes/weapon_hud.tscn" id="23_3bne6"]
+[ext_resource type="Script" path="res://scripts/player_state_machine/falling_state.gd" id="21_h51by"]
+[ext_resource type="PackedScene" uid="uid://mdsqpmcb7k53" path="res://scenes/interface/progress_bar.tscn" id="22_4kjjo"]
+[ext_resource type="PackedScene" uid="uid://c0vow3q82yehc" path="res://scenes/interface/weapon_hud.tscn" id="23_3bne6"]
+[ext_resource type="Script" path="res://scripts/inventory/interface/inventory_interface.gd" id="25_8alge"]
+[ext_resource type="PackedScene" uid="uid://cq5gdhexp333" path="res://scenes/interface/crafting/craft_menu.tscn" id="26_a4lti"]
+[ext_resource type="PackedScene" uid="uid://pp77ah6u2djb" path="res://scenes/interface/inventory/main_inventory.tscn" id="27_t2mbk"]
+[ext_resource type="Script" path="res://scripts/inventory/interface/inv_item_info_panel.gd" id="28_mtewg"]
+[ext_resource type="PackedScene" uid="uid://drejmah8lp647" path="res://scenes/interface/inventory/inventory_slot.tscn" id="29_vjj2b"]
+[ext_resource type="Script" path="res://scripts/interface/divide_content.gd" id="30_5vsgl"]
 [ext_resource type="Theme" uid="uid://d25a7utqv5i8e" path="res://ui_debug_theme.tres" id="31_gynh2"]
+[ext_resource type="Script" path="res://scripts/inventory/interface/slot.gd" id="31_m4byf"]
 [ext_resource type="Script" path="res://scripts/interface/ui_debug.gd" id="32_l6ec3"]
 [ext_resource type="PackedScene" uid="uid://wgdfogfntkn0" path="res://scenes/soundpool.tscn" id="40_fcwqi"]
 [ext_resource type="Script" path="res://scripts/footstep_timer.gd" id="40_lcs76"]
 [ext_resource type="AudioStream" uid="uid://dvod3v0n2x1hg" path="res://sounds/m4_rifle_shot_2.mp3" id="40_v4bxt"]
 [ext_resource type="PackedScene" uid="uid://mojf4gd1jn1c" path="res://scenes/sound_queue.tscn" id="40_yvvnj"]
 [ext_resource type="AnimationLibrary" uid="uid://daohau8af7uyl" path="res://anims/item_fp_anims/m4_rifle/M4_Rifle_Anims.res" id="41_aeuon"]
-[ext_resource type="Script" path="res://scripts/player state machine/death_state.gd" id="41_ekt3e"]
+[ext_resource type="Script" path="res://scripts/player_state_machine/death_state.gd" id="41_ekt3e"]
 [ext_resource type="AnimationLibrary" uid="uid://c5ohgn7l2bmpy" path="res://anims/player_fp_anims/m4_rifle/FP_Armature.res" id="42_0yrtw"]
 [ext_resource type="AudioStream" uid="uid://bb3v7j1n01531" path="res://sounds/footstep_grass.mp3" id="42_s3n7o"]
 [ext_resource type="AudioStream" uid="uid://wr52318gt57c" path="res://sounds/footstep_grass_2.mp3" id="43_65qyp"]
+
+[sub_resource type="Resource" id="Resource_fdvqx"]
+script = ExtResource("6_iiu80")
+component = ExtResource("7_1qrkk")
+amount = 3
+
+[sub_resource type="Resource" id="Resource_wgvwu"]
+resource_local_to_scene = true
+script = ExtResource("13_d8xy7")
+anim_activate = "M4_Rifle_Anims/M4_Rifle_Equip"
+anim_scope = "M4_Rifle_Anims/M4_Rifle_Scope"
+anim_reload = "M4_Rifle_Anims/M4_Rifle_Reload"
+anim_idle = "M4_Rifle_Anims/M4_Rifle_Idle"
+anim_player_activate = "FP_Armature/M4_Rifle_Player_Equip"
+anim_player_scope = "FP_Armature/M4_Rifle_Player_Scope"
+anim_player_reload = "FP_Armature/M4_Rifle_Player_Reload"
+anim_player_idle = "FP_Armature/M4_Rifle_Player_Idle"
+ammo_current = 30
+ammo_max = 30
+weapon_type = 0
+fire_modes = Array[ExtResource("9_l5cy6")]([ExtResource("10_hm01b"), ExtResource("8_wnpra")])
+fire_mode_current = ExtResource("8_wnpra")
+recoil_rotation_x = ExtResource("12_40kco")
+recoil_rotation_z = ExtResource("12_40kco")
+recoil_position_z = ExtResource("12_40kco")
+recoil_amplitude = Vector3(0.05, 0.2, 0.02)
+lerp_speed = 5.0
+recoil_speed = 1.0
+position = Vector3(0, 0, 0)
+damage = 24.0
+craft_components = Array[ExtResource("6_iiu80")]([SubResource("Resource_fdvqx")])
+id = 5
+item_type = 1
+item_rarity = 3
+name = "Assault Rifle"
+description = "Weapon"
+description_item_panel = "The handy short automatic rifle with supressor and sight.
+
+Ammo type: 5.45 mm
+Damage head: 60 hp
+Damage body: 25 hp
+Damage arms: 15 hp
+Damage legs: 15 hps
+Shoot types: auto, single, burst"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("11_rp6vn")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/m4_rifle_rb.tscn"
+}
+
+[sub_resource type="Resource" id="Resource_qn0f5"]
+resource_local_to_scene = true
+script = ExtResource("5_lbdj5")
+item = SubResource("Resource_wgvwu")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_wo7da"]
+resource_local_to_scene = true
+script = ExtResource("15_hriai")
+craft_components = Array[ExtResource("6_iiu80")]([])
+id = 10
+item_type = 3
+item_rarity = 0
+name = "Pine Wood"
+description = "Crafting resource"
+description_item_panel = "Crafting resource"
+stackable = true
+max_stack = 54
+quality = 100.0
+icon = ExtResource("14_ay0kx")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/pine_wood_resource_rb.tscn"
+}
+
+[sub_resource type="Resource" id="Resource_yq3si"]
+resource_local_to_scene = true
+script = ExtResource("5_lbdj5")
+item = SubResource("Resource_wo7da")
+amount_in_slot = 50
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kmqgp"]
 resource_local_to_scene = true
@@ -377,6 +477,63 @@ _data = {
 "RESET": SubResource("Animation_0it08")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3tcom"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.796078)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfy83"]
+bg_color = Color(0, 0.611765, 0.286275, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing_size = 0.979
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27v0r"]
+bg_color = Color(0.435294, 0.435294, 0.435294, 0.490196)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqr46"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hi0ux"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4e25u"]
+bg_color = Color(1, 1, 1, 0)
+border_width_top = 5
+border_color = Color(0.490196, 0.0980392, 0.592157, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jnoc3"]
+bg_color = Color(1, 1, 1, 0)
+border_width_top = 5
+border_color = Color(0.117647, 0.243137, 0.494118, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4yrev"]
+bg_color = Color(1, 1, 1, 0)
+border_width_top = 5
+border_color = Color(0.113725, 0.372549, 0.494118, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n3lfe"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = false
@@ -405,42 +562,54 @@ properties/7/replication_mode = 2
 properties/8/path = NodePath("MeshInstance3D:rotation")
 properties/8/spawn = false
 properties/8/replication_mode = 2
-properties/9/path = NodePath("CameraController/CameraHolder/RigHolder/Item:RPC_is_item_equiped")
+properties/9/path = NodePath(".:crouch_button_pressed")
 properties/9/spawn = false
 properties/9/replication_mode = 2
-properties/10/path = NodePath(".:crouch_button_pressed")
+properties/10/path = NodePath("CameraController:position")
 properties/10/spawn = false
-properties/10/replication_mode = 2
-properties/11/path = NodePath("CameraController:position")
+properties/10/replication_mode = 1
+properties/11/path = NodePath("DefaultStateCollision:shape:height")
 properties/11/spawn = false
-properties/11/replication_mode = 1
-properties/12/path = NodePath("DefaultStateCollision:shape:height")
+properties/11/replication_mode = 2
+properties/12/path = NodePath("DefaultStateCollision:position")
 properties/12/spawn = false
 properties/12/replication_mode = 2
-properties/13/path = NodePath("DefaultStateCollision:position")
+properties/13/path = NodePath(".:space_button_pressed")
 properties/13/spawn = false
 properties/13/replication_mode = 2
-properties/14/path = NodePath(".:space_button_pressed")
+properties/14/path = NodePath(".:shift_button_pressed")
 properties/14/spawn = false
 properties/14/replication_mode = 2
-properties/15/path = NodePath(".:shift_button_pressed")
+properties/15/path = NodePath("StateMachine:current_state_name")
 properties/15/spawn = false
 properties/15/replication_mode = 2
-properties/16/path = NodePath("StateMachine:current_state_name")
+properties/16/path = NodePath(".:died")
 properties/16/spawn = false
 properties/16/replication_mode = 2
-properties/17/path = NodePath("CameraController/CameraHolder/RigHolder/Item:RPC_equiped_slot_index")
+properties/17/path = NodePath("CameraController/CameraHolder/Camera3D/Raycasts:rotation")
 properties/17/spawn = false
-properties/17/replication_mode = 2
-properties/18/path = NodePath(".:died")
+properties/17/replication_mode = 1
+properties/18/path = NodePath("CameraController/CameraHolder/Camera3D/Raycasts:position")
 properties/18/spawn = false
-properties/18/replication_mode = 2
-properties/19/path = NodePath("CameraController/CameraHolder/Camera3D/Raycasts:rotation")
+properties/18/replication_mode = 1
+properties/19/path = NodePath("CameraController/CameraHolder/RigHolder/ItemScript:RPC_is_item_equiped")
 properties/19/spawn = false
-properties/19/replication_mode = 1
-properties/20/path = NodePath("CameraController/CameraHolder/Camera3D/Raycasts:position")
+properties/19/replication_mode = 2
+properties/20/path = NodePath("CameraController/CameraHolder/RigHolder/ItemScript:RPC_equiped_slot_index")
 properties/20/spawn = false
-properties/20/replication_mode = 1
+properties/20/replication_mode = 2
+properties/21/path = NodePath(".:toggle_inventory_button_pressed")
+properties/21/spawn = false
+properties/21/replication_mode = 2
+properties/22/path = NodePath("CanvasLayer/Interface/InventoryUI/InventoryInterface:RPC_is_slot_grabbed")
+properties/22/spawn = false
+properties/22/replication_mode = 2
+properties/23/path = NodePath(".:is_inventory_open")
+properties/23/spawn = false
+properties/23/replication_mode = 1
+properties/24/path = NodePath(".:RPC_is_on_floor")
+properties/24/spawn = false
+properties/24/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8ul1l"]
 properties/0/path = NodePath(".:input_direction")
@@ -453,15 +622,28 @@ properties/2/path = NodePath(".:camera_holder_input_rotation_x")
 properties/2/spawn = false
 properties/2/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder") groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("player_inventory", "player_quick_slot", "weapon_holder") groups=["player"]]
 collision_layer = 2
 collision_mask = 4569
 script = ExtResource("1_adhyr")
+player_inventory = NodePath("PlayerInventory")
+player_quick_slot = NodePath("QuickSlotInventory")
 weapon_spread_data = Array[ExtResource("4_n4jsu")]([ExtResource("5_gd57m")])
 weapon_holder = NodePath("CameraController/CameraHolder/RigHolder")
 weapon_sway_amount = 0.001
 weapon_rotation_amount = 0.001
 invert_weapon_sway = true
+
+[node name="PlayerInventory" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_448sj")
+slots_data = Array[ExtResource("5_lbdj5")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[node name="QuickSlotInventory" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_448sj")
+type = 1
+slots_data = Array[ExtResource("5_lbdj5")]([SubResource("Resource_qn0f5"), SubResource("Resource_yq3si"), null, null, null, null])
 
 [node name="DefaultStateCollision" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
@@ -546,15 +728,15 @@ debug_shape_thickness = 1
 script = ExtResource("5_fwk6d")
 viewmodelfov = 54.0
 
-[node name="Node3D" type="Node3D" parent="CameraController/CameraHolder/RigHolder"]
+[node name="ItemHolder" type="Node3D" parent="CameraController/CameraHolder/RigHolder"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1.65, 0)
 
-[node name="correct_fp_arms" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D"]
+[node name="correct_fp_arms" type="Node3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder"]
 visible = false
 
-[node name="arms_armature" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D/correct_fp_arms"]
+[node name="arms_armature" type="Node3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/correct_fp_arms"]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/Node3D/correct_fp_arms/arms_armature"]
+[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/correct_fp_arms/arms_armature"]
 bones/0/name = "spine.002"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0.999494, 0.0318125, 0, -0.0318125, 0.999494, -4.2339e-09, 1.2929, -0.0004)
@@ -927,28 +1109,28 @@ bones/52/position = Vector3(-0.325115, 1.45294, -0.522115)
 bones/52/rotation = Quaternion(-0.366599, -0.604653, 0.604653, 0.366599)
 bones/52/scale = Vector3(1, 1, 1)
 
-[node name="arms" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/Node3D/correct_fp_arms/arms_armature/Skeleton3D"]
+[node name="arms" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/correct_fp_arms/arms_armature/Skeleton3D"]
 cast_shadow = 0
 mesh = ExtResource("6_a0imf")
 skin = SubResource("Skin_jlae2")
 surface_material_override/0 = SubResource("ShaderMaterial_mujtk")
 
-[node name="AnimationPlayerFP" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/Node3D/correct_fp_arms"]
+[node name="AnimationPlayerFP" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/ItemHolder/correct_fp_arms"]
 libraries = {
 "Axe_Player_Anims": ExtResource("7_u4bc2"),
 "FP_Armature": ExtResource("42_0yrtw"),
 "Pickaxe_Player_Anims": ExtResource("8_4v63h")
 }
 
-[node name="Item_pickaxe_animated" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D" node_paths=PackedStringArray("animator")]
+[node name="Item_pickaxe_animated" type="Node3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder" node_paths=PackedStringArray("animator")]
 visible = false
 script = ExtResource("6_an6qp")
 item_name = "Pickaxe"
 animator = NodePath("AnimationPlayerPickaxe")
 
-[node name="Pickaxe" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated"]
+[node name="Pickaxe" type="Node3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_pickaxe_animated"]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/Pickaxe"]
+[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_pickaxe_animated/Pickaxe"]
 bones/0/name = "Body"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -957,27 +1139,27 @@ bones/0/position = Vector3(0.0319372, 1.43677, 0.499723)
 bones/0/rotation = Quaternion(0.168909, -0.660334, -0.0304849, 0.731095)
 bones/0/scale = Vector3(0.203522, 0.203522, 0.203522)
 
-[node name="Cylinder" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/Pickaxe/Skeleton3D"]
+[node name="Cylinder" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_pickaxe_animated/Pickaxe/Skeleton3D"]
 cast_shadow = 0
 mesh = ExtResource("12_fkleo")
 skin = SubResource("Skin_illik")
 surface_material_override/0 = SubResource("ShaderMaterial_xspd5")
 
-[node name="AnimationPlayerPickaxe" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated"]
+[node name="AnimationPlayerPickaxe" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_pickaxe_animated"]
 libraries = {
 "Pickaxe_Anims": ExtResource("12_2kaya")
 }
 
-[node name="Item_axe_animated" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D" node_paths=PackedStringArray("animator")]
+[node name="Item_axe_animated" type="Node3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder" node_paths=PackedStringArray("animator")]
 visible = false
 script = ExtResource("6_an6qp")
 item_name = "Axe"
 animator = NodePath("AnimationPlayerAxe")
 
-[node name="Axe_001" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated"]
+[node name="Axe_001" type="Node3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_axe_animated"]
 transform = Transform3D(0.155443, 0, 0, 0, 0.155443, 0, 0, 0, 0.155443, -0.0141677, -0.0886093, 0)
 
-[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated/Axe_001"]
+[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_axe_animated/Axe_001"]
 bones/0/name = "Body"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -986,34 +1168,34 @@ bones/0/position = Vector3(0.143167, 10.4807, 3.60826)
 bones/0/rotation = Quaternion(0.0771204, -0.633985, 0.054486, 0.767559)
 bones/0/scale = Vector3(1, 1, 1)
 
-[node name="Axe" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated/Axe_001/Skeleton3D"]
+[node name="Axe" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_axe_animated/Axe_001/Skeleton3D"]
 cast_shadow = 0
 mesh = ExtResource("15_yc44n")
 skin = SubResource("Skin_u0wcu")
 surface_material_override/0 = SubResource("ShaderMaterial_x4ycf")
 
-[node name="AnimationPlayerAxe" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated"]
+[node name="AnimationPlayerAxe" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_axe_animated"]
 libraries = {
 "Axe_Anims": ExtResource("15_1ws1i")
 }
 
-[node name="Item_M4_Rifle" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D" node_paths=PackedStringArray("animator")]
+[node name="Item_M4_Rifle" type="Node3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder" node_paths=PackedStringArray("animator")]
 visible = false
 script = ExtResource("6_an6qp")
 item_name = "Assault Rifle"
 animator = NodePath("AnimationPlayerM4_Rifle")
 
-[node name="M4_Rifle2" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle"]
+[node name="M4_Rifle2" type="Node3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_M4_Rifle"]
 
-[node name="M4_Rifle" type="Node3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle/M4_Rifle2"]
+[node name="M4_Rifle" type="Node3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_M4_Rifle/M4_Rifle2"]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle/M4_Rifle2/M4_Rifle"]
+[node name="Skeleton3D" type="Skeleton3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_M4_Rifle/M4_Rifle2/M4_Rifle"]
 bones/0/name = "Body_2"
 bones/0/parent = -1
 bones/0/rest = Transform3D(-2.38419e-07, -4.47035e-07, 1, 0.938353, -0.34568, 2.98024e-08, 0.34568, 0.938353, 4.17233e-07, 7.15512e-09, 0.0132001, -0.0367481)
 bones/0/enabled = true
-bones/0/position = Vector3(-0.128764, 1.4711, 0.219458)
-bones/0/rotation = Quaternion(0.202288, 0.677554, 0.202288, 0.677554)
+bones/0/position = Vector3(-0.128764, 1.3568, -0.22846)
+bones/0/rotation = Quaternion(0.622142, 0.336064, 0.622142, 0.336064)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Barrel"
 bones/1/parent = 0
@@ -1030,24 +1212,24 @@ bones/2/position = Vector3(-0.15706, 0.0650177, 1.35959e-08)
 bones/2/rotation = Quaternion(-8.00614e-08, -1.41361e-07, -0.366364, 0.930472)
 bones/2/scale = Vector3(1, 1, 1)
 
-[node name="M4_Rifle_Mesh" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle/M4_Rifle2/M4_Rifle/Skeleton3D"]
+[node name="M4_Rifle_Mesh" type="MeshInstance3D" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_M4_Rifle/M4_Rifle2/M4_Rifle/Skeleton3D"]
 material_override = SubResource("ShaderMaterial_27swp")
 mesh = SubResource("ArrayMesh_w04li")
 skin = SubResource("Skin_8palq")
 
-[node name="AnimationPlayerM4_Rifle" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle"]
+[node name="AnimationPlayerM4_Rifle" type="AnimationPlayer" parent="CameraController/CameraHolder/RigHolder/ItemHolder/Item_M4_Rifle"]
 root_node = NodePath("../M4_Rifle2")
 libraries = {
 "M4_Rifle_Anims": ExtResource("41_aeuon")
 }
 
-[node name="Item" parent="CameraController/CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "raycasts_controller", "aim_cast", "melee_cast", "building_cast", "other_buildings_cast", "audio_queue") instance=ExtResource("4_dcn20")]
+[node name="ItemScript" parent="CameraController/CameraHolder/RigHolder" node_paths=PackedStringArray("fp_items_array", "rig_holder", "fp_player_node", "fp_player_animator", "camera_holder", "player", "state_machine", "timer", "weapon_hud", "reticle", "crosshair", "raycasts_controller", "aim_cast", "melee_cast", "building_cast", "other_buildings_cast", "audio_queue") instance=ExtResource("4_dcn20")]
 unique_name_in_owner = true
 transform = Transform3D(-0.652866, -0.671662, 0.350194, -0.719312, 0.694632, -0.00872654, -0.237395, -0.257596, -0.936636, 0.04, -0.61, -0.545)
-fp_items_array = [NodePath("../Node3D/Item_pickaxe_animated"), NodePath("../Node3D/Item_axe_animated"), NodePath("../Node3D/Item_M4_Rifle")]
+fp_items_array = [NodePath("../ItemHolder/Item_pickaxe_animated"), NodePath("../ItemHolder/Item_axe_animated"), NodePath("../ItemHolder/Item_M4_Rifle")]
 rig_holder = NodePath("..")
-fp_player_node = NodePath("../Node3D/correct_fp_arms")
-fp_player_animator = NodePath("../Node3D/correct_fp_arms/AnimationPlayerFP")
+fp_player_node = NodePath("../ItemHolder/correct_fp_arms")
+fp_player_animator = NodePath("../ItemHolder/correct_fp_arms/AnimationPlayerFP")
 camera_holder = NodePath("../../..")
 player = NodePath("../../../..")
 state_machine = NodePath("../../../../StateMachine")
@@ -1171,6 +1353,521 @@ custom_minimum_size = Vector2(250, 90)
 layout_mode = 2
 size_flags_stretch_ratio = 5.0
 
+[node name="InventoryUI" type="Control" parent="CanvasLayer/Interface"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="InventoryInterface" type="Control" parent="CanvasLayer/Interface/InventoryUI" node_paths=PackedStringArray("player")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+mouse_filter = 1
+script = ExtResource("25_8alge")
+player = NodePath("../../../..")
+
+[node name="CraftMenuMargin" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -542.5
+offset_top = -400.0
+offset_right = 542.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 765
+theme_override_constants/margin_bottom = 120
+
+[node name="CraftMenu" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/CraftMenuMargin" node_paths=PackedStringArray("player") instance=ExtResource("26_a4lti")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(350, 460)
+layout_mode = 2
+player = NodePath("../../../../../..")
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -17.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 799
+theme_override_constants/margin_bottom = 120
+
+[node name="ExternalInventory" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer3" instance=ExtResource("27_t2mbk")]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0.509804)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+size_flags_stretch_ratio = 5.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -136.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 120
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="InvItemInfoPanel" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(380, 200)
+layout_mode = 2
+size_flags_vertical = 0
+focus_mode = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_3tcom")
+script = ExtResource("28_mtewg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Rarity" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "unpopular"
+uppercase = true
+
+[node name="MainContent" type="HBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="ItemHealth" type="ProgressBar" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_sfy83")
+value = 80.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ItemHealth"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 7
+text = "QUALITY
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+
+[node name="ItemIcon" type="TextureRect" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AmmoCountPanel" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="AmmoCount" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/PanelContainer3/ItemIcon/AmmoCountPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 18
+text = "30"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponSlots" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 7
+text = "Attachments"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Slot" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("29_vjj2b")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="Slot2" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("29_vjj2b")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="Slot3" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("29_vjj2b")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="Slot4" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/PanelContainer/MarginContainer/VBoxContainer/WeaponSlots/VBoxContainer/HBoxContainer" instance=ExtResource("29_vjj2b")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27v0r")
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 15.0
+focus_mode = 1
+theme_override_constants/outline_size = 0
+theme_override_constants/side_margin = 0
+theme_override_constants/icon_max_width = 0
+theme_override_font_sizes/font_size = 16
+current_tab = 0
+
+[node name="Details" type="TabBar" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer"]
+layout_mode = 2
+focus_mode = 0
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemName" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 14
+text = "Assault Rifle"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ItemDescription" type="RichTextLabel" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Details/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/normal_font_size = 10
+text = "The handy short automatic rifle with supressor and sight.
+
+Ammo type: 5.45 mm
+Damage head: 60 hp
+Damage body: 25 hp
+Damage arms: 15 hp
+Damage legs: 15 hps
+Shoot types: auto, single, burst"
+
+[node name="Actions" type="TabBar" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemUseButton" type="Button" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Use
+"
+
+[node name="WeaponUnloadButton" type="Button" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Unload"
+
+[node name="ItemDropButton" type="Button" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xqr46")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hi0ux")
+text = "Drop"
+
+[node name="DivideContent" type="HBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("30_5vsgl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent/VBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="DivideNumber" type="Label" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "350"
+horizontal_alignment = 1
+
+[node name="DivideScroll" type="HScrollBar" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+rounded = true
+
+[node name="DivideButton" type="Button" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Divide"
+
+[node name="PlayerInventoryUI" parent="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer" instance=ExtResource("27_t2mbk")]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.509804)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+size_flags_stretch_ratio = 10.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -55.0
+offset_right = 10.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 5.0
+mouse_filter = 2
+theme_override_constants/margin_bottom = 35
+
+[node name="PlayerQuickSlotUI" parent="CanvasLayer/Interface/InventoryUI/MarginContainer2" instance=ExtResource("27_t2mbk")]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+size_flags_stretch_ratio = 20.25
+
+[node name="GrabbedSlot" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.788235)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(58, 58)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+script = ExtResource("31_m4byf")
+
+[node name="TopRarity" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4e25u")
+
+[node name="RareRarity" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jnoc3")
+
+[node name="UnpopularRarity" type="PanelContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4yrev")
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot/MarginContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Amount" type="Label" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot/MarginContainer3"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 16
+text = "x99"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+
+[node name="SlotNumber" type="Label" parent="CanvasLayer/Interface/InventoryUI/GrabbedSlot/MarginContainer2"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "1"
+
 [node name="DeathUI" type="Control" parent="CanvasLayer/Interface"]
 unique_name_in_owner = true
 visible = false
@@ -1216,6 +1913,7 @@ text = "SPAWN
 [node name="Debug" type="PanelContainer" parent="CanvasLayer/Interface" node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
 offset_left = 15.0
 offset_top = 15.0
 offset_right = 215.0
@@ -1309,12 +2007,23 @@ root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_8ul1l")
 script = ExtResource("5_d8soy")
 player = NodePath("..")
-item = NodePath("../CameraController/CameraHolder/RigHolder/Item")
+item = NodePath("../CameraController/CameraHolder/RigHolder/ItemScript")
 mesh = NodePath("../MeshInstance3D")
 
 [connection signal="signal_update_player_stats" from="." to="CanvasLayer/Interface/MarginContainer/PlayerStats" method="_on_player_signal_update_player_stats"]
-[connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_pickaxe_animated/AnimationPlayerPickaxe" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_pickaxe_animation_finished"]
-[connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_axe_animated/AnimationPlayerAxe" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_axe_animation_finished"]
-[connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/Node3D/Item_M4_Rifle/AnimationPlayerM4_Rifle" to="CameraController/CameraHolder/RigHolder/Item" method="_on_animation_player_m_4_rifle_animation_finished"]
+[connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/ItemHolder/Item_pickaxe_animated/AnimationPlayerPickaxe" to="CameraController/CameraHolder/RigHolder/ItemScript" method="_on_animation_player_pickaxe_animation_finished"]
+[connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/ItemHolder/Item_axe_animated/AnimationPlayerAxe" to="CameraController/CameraHolder/RigHolder/ItemScript" method="_on_animation_player_axe_animation_finished"]
+[connection signal="animation_finished" from="CameraController/CameraHolder/RigHolder/ItemHolder/Item_M4_Rifle/AnimationPlayerM4_Rifle" to="CameraController/CameraHolder/RigHolder/ItemScript" method="_on_animation_player_m_4_rifle_animation_finished"]
+[connection signal="gui_input" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_gui_input"]
+[connection signal="signal_item_info_panel_set_data" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel" method="_on_inventory_interface_signal_item_info_panel_set_data"]
+[connection signal="visibility_changed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_visibility_changed"]
+[connection signal="pressed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemUseButton" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_item_use_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/MainContent/TabContainer/Actions/VBoxContainer/MarginContainer/VBoxContainer/ItemDropButton" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_item_drop_button_pressed"]
+[connection signal="signal_divide_button_pressed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent" to="CanvasLayer/Interface/InventoryUI/InventoryInterface" method="_on_divide_content_signal_divide_button_pressed"]
+[connection signal="scrolling" from="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent/VBoxContainer/DivideScroll" to="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent" method="_on_divide_scroll_scrolling"]
+[connection signal="pressed" from="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent/DivideButton" to="CanvasLayer/Interface/InventoryUI/InventoryInterface/MarginContainer/VBoxContainer/InvItemInfoPanel/MarginContainer/VBoxContainer/DivideContent" method="_on_divide_button_pressed"]
+[connection signal="gui_input" from="CanvasLayer/Interface/InventoryUI/GrabbedSlot" to="CanvasLayer/Interface/InventoryUI/GrabbedSlot" method="_on_gui_input"]
+[connection signal="mouse_entered" from="CanvasLayer/Interface/InventoryUI/GrabbedSlot" to="CanvasLayer/Interface/InventoryUI/GrabbedSlot" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Interface/InventoryUI/GrabbedSlot" to="CanvasLayer/Interface/InventoryUI/GrabbedSlot" method="_on_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Interface/DeathUI/Panel/VBoxContainer/Button" to="InputSync" method="_on_button_pressed"]
 [connection signal="timeout" from="FootstepTimer" to="FootstepTimer" method="_on_timeout"]

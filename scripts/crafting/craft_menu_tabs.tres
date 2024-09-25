@@ -1,0 +1,91 @@
+[gd_resource type="Resource" script_class="CraftMenuListData" load_steps=30 format=3 uid="uid://cva3usl6n6x60"]
+
+[ext_resource type="Script" path="res://scripts/crafting/craft_menu_tab_data.gd" id="1_mrvjb"]
+[ext_resource type="Texture2D" uid="uid://dfbnyymoh4a7j" path="res://icons/stone-crafting.svg" id="2_eltlx"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="3_8glbx"]
+[ext_resource type="Resource" uid="uid://d16s5vsgm2o6t" path="res://scripts/inventory/item/resources/tool/axe.tres" id="4_g2mnv"]
+[ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://scripts/inventory/item/resources/tool/pickaxe.tres" id="5_pb881"]
+[ext_resource type="Texture2D" uid="uid://d0ietromxua3r" path="res://icons/health-normal.svg" id="6_pu605"]
+[ext_resource type="Resource" uid="uid://d4jeop4ymqjas" path="res://scripts/inventory/item/resources/consumable/bandage.tres" id="7_o22yd"]
+[ext_resource type="Texture2D" uid="uid://cosm6l6ycyqya" path="res://icons/crossbow.svg" id="8_huuv2"]
+[ext_resource type="Resource" uid="uid://bt3e0omgksjpr" path="res://scripts/inventory/item/resources/firearm/m4_rifle.tres" id="9_obgv7"]
+[ext_resource type="Texture2D" uid="uid://osho7g83kvo" path="res://icons/house.svg" id="10_sl5yu"]
+[ext_resource type="Resource" uid="uid://bgj5o5u1223mf" path="res://scripts/inventory/item/resources/building/wooden_floor.tres" id="12_5qyrn"]
+[ext_resource type="Resource" uid="uid://do1v63m4lpun7" path="res://scripts/inventory/item/resources/building/wooden_wall.tres" id="13_v4i5f"]
+[ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://scripts/inventory/item/resources/building/wooden_roof.tres" id="14_3ac5g"]
+[ext_resource type="Resource" uid="uid://beqmhy1ap1nsg" path="res://scripts/inventory/item/resources/building/wooden_doorway.tres" id="15_3v04k"]
+[ext_resource type="Resource" uid="uid://dth6kmifknlsn" path="res://scripts/inventory/item/resources/building/wooden_door.tres" id="16_khi1t"]
+[ext_resource type="Script" path="res://scripts/crafting/craft_menu_list_data.gd" id="17_gxu20"]
+
+[sub_resource type="Resource" id="Resource_gjvok"]
+script = ExtResource("3_8glbx")
+item = ExtResource("4_g2mnv")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_bq2hc"]
+script = ExtResource("3_8glbx")
+item = ExtResource("5_pb881")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ygrwm"]
+script = ExtResource("1_mrvjb")
+icon = ExtResource("2_eltlx")
+type = 3
+slots_in_tab = Array[ExtResource("3_8glbx")]([SubResource("Resource_gjvok"), SubResource("Resource_bq2hc")])
+
+[sub_resource type="Resource" id="Resource_k4yhg"]
+script = ExtResource("3_8glbx")
+item = ExtResource("7_o22yd")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_0bv8n"]
+script = ExtResource("1_mrvjb")
+icon = ExtResource("6_pu605")
+type = 0
+slots_in_tab = Array[ExtResource("3_8glbx")]([SubResource("Resource_k4yhg")])
+
+[sub_resource type="Resource" id="Resource_rfkre"]
+script = ExtResource("3_8glbx")
+item = ExtResource("9_obgv7")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_yjhey"]
+script = ExtResource("1_mrvjb")
+icon = ExtResource("8_huuv2")
+type = 1
+slots_in_tab = Array[ExtResource("3_8glbx")]([SubResource("Resource_rfkre")])
+
+[sub_resource type="Resource" id="Resource_61mrt"]
+script = ExtResource("3_8glbx")
+item = ExtResource("16_khi1t")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_mqp7c"]
+script = ExtResource("3_8glbx")
+item = ExtResource("15_3v04k")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_dm1be"]
+script = ExtResource("3_8glbx")
+item = ExtResource("12_5qyrn")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_54re2"]
+script = ExtResource("3_8glbx")
+item = ExtResource("14_3ac5g")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_ffqmh"]
+script = ExtResource("3_8glbx")
+item = ExtResource("13_v4i5f")
+amount_in_slot = 1
+
+[sub_resource type="Resource" id="Resource_phucr"]
+script = ExtResource("1_mrvjb")
+icon = ExtResource("10_sl5yu")
+type = 2
+slots_in_tab = Array[ExtResource("3_8glbx")]([SubResource("Resource_61mrt"), SubResource("Resource_mqp7c"), SubResource("Resource_dm1be"), SubResource("Resource_54re2"), SubResource("Resource_ffqmh")])
+
+[resource]
+script = ExtResource("17_gxu20")
+list = Array[ExtResource("1_mrvjb")]([SubResource("Resource_ygrwm"), SubResource("Resource_0bv8n"), SubResource("Resource_yjhey"), SubResource("Resource_phucr")])

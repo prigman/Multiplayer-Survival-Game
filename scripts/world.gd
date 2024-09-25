@@ -5,7 +5,7 @@ const TREE_SCENE := preload("res://scenes/pine_tree.tscn")
 const ROCK_1_SCENE := preload("res://scenes/stone_1.tscn")
 const ROCK_2_SCENE := preload("res://scenes/stone_2.tscn")
 const ROCK_3_SCENE := preload("res://scenes/stone_3.tscn")
-const WORLD_CRATE_SCENE := preload("res://scenes/interactable/world_pine-wood-crate_staticbody.tscn")
+# const WORLD_CRATE_SCENE := preload("res://scenes/interactable/world_pine-wood-crate_staticbody.tscn")
 
 @export var multiplayer_spawner : MultiplayerSpawner
 @export var item_spawner : MultiplayerSpawner
@@ -77,10 +77,10 @@ func world_resources_custom_spawn(data : Array) -> StaticBody3D:
 func add_world_crate(crate_position : Vector3, crate_rotation : Vector3) -> void:
 	world_crate_spawner.spawn([crate_position, crate_rotation])
 
-func world_crate_custom_spawn(data : Array) -> StaticBody3D:
-	var pos : Vector3 = data[0]
-	var rot : Vector3 = data[1]
-	var world_crate : StaticBody3D = WORLD_CRATE_SCENE.instantiate()
-	world_crate.position = pos
-	world_crate.rotation = rot
-	return world_crate
+# func world_crate_custom_spawn(data : Array) -> StaticBody3D:
+# 	var pos : Vector3 = data[0]
+# 	var rot : Vector3 = data[1]
+# 	var world_crate : StaticBody3D = WORLD_CRATE_SCENE.instantiate()
+# 	world_crate.position = pos
+# 	world_crate.rotation = rot
+# 	return world_crate

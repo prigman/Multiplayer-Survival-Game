@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ItemDataCraftableBuildings" load_steps=6 format=3 uid="uid://beqmhy1ap1nsg"]
 
-[ext_resource type="Script" path="res://deprecated/inventory/craft_components.gd" id="1_lj7v6"]
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="1_lj7v6"]
 [ext_resource type="Texture2D" uid="uid://u1rttol2sggi" path="res://textures/CUBIC-prototype-pack/Blue/16.png" id="2_2crky"]
-[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://deprecated/inventory/item/objects/resource_pine_wood.tres" id="2_ajuax"]
+[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://scripts/inventory/item/resources/world_resource/resource_pine_wood.tres" id="2_ajuax"]
 [ext_resource type="Script" path="res://deprecated/inventory/item/item_data_craftable_buildings.gd" id="2_wckl4"]
 
 [sub_resource type="Resource" id="Resource_ecwed"]

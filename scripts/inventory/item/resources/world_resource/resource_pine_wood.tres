@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemDataWorldResource" load_steps=4 format=3 uid="uid://dlkod5etdkco2"]
+
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_world_resource.gd" id="1_00r6d"]
+[ext_resource type="Texture2D" uid="uid://df6oj3sv4d2u3" path="res://icons/resourceWood.png" id="1_5hiya"]
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="1_6ci3p"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_00r6d")
+craft_components = Array[ExtResource("1_6ci3p")]([])
+id = 10
+item_type = 3
+item_rarity = 0
+name = "Pine Wood"
+description = "Crafting resource"
+description_item_panel = "Crafting resource"
+stackable = true
+max_stack = 54
+quality = 100.0
+icon = ExtResource("1_5hiya")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/pine_wood_resource_rb.tscn"
+}

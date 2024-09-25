@@ -1,4 +1,4 @@
-class_name ItemDataCraftableWeapon extends ItemDataWeapon
+class_name ItemDataCraftableWeapon1 extends ItemDataWeapon1
 
 @export var craft_components : Array[CraftComponentData]
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://bbh30efrwiakh"]
 
-[ext_resource type="Script" path="res://deprecated/inventory/item/item_interactable.gd" id="1_a6hh4"]
+[ext_resource type="Script" path="res://scripts/inventory/item_interactable_body.gd" id="1_a6hh4"]
 [ext_resource type="ArrayMesh" uid="uid://bm2fa23ycbw8" path="res://models/meshes/metal_bar.res" id="1_q1uh1"]
-[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://deprecated/inventory/item/objects/resource_metal-bar.tres" id="2_31knv"]
-[ext_resource type="Script" path="res://deprecated/inventory/in_slot_data.gd" id="3_ldplm"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://scripts/inventory/item/resources/world_resource/resource_metal-bar.tres" id="2_31knv"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="3_ldplm"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="5_bbmu1"]
 
 [sub_resource type="Resource" id="Resource_4tuwe"]

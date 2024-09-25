@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ItemDataAmmo" load_steps=4 format=3 uid="uid://fffl75d0wr6r"]
+
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="1_3py2e"]
+[ext_resource type="Texture2D" uid="uid://b8xyhmsxtky1r" path="res://icons/Ammo/5,56_icon.png" id="1_6ep6f"]
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_ammo.gd" id="2_ut7h0"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_ut7h0")
+weapon_type = 0
+craft_components = Array[ExtResource("1_3py2e")]([])
+id = 1
+item_type = 6
+item_rarity = 1
+name = "5.56 Ammo"
+description = ""
+description_item_panel = "5.56 NATO 
+"
+stackable = true
+max_stack = 120
+quality = 100.0
+icon = ExtResource("1_6ep6f")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/ammo/5,56.tscn"
+}

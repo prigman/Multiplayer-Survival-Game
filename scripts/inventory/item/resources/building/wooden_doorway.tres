@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemDataBuildings" load_steps=6 format=3 uid="uid://beqmhy1ap1nsg"]
+
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="1_lj7v6"]
+[ext_resource type="Texture2D" uid="uid://u1rttol2sggi" path="res://textures/CUBIC-prototype-pack/Blue/16.png" id="2_2crky"]
+[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://scripts/inventory/item/resources/world_resource/resource_pine_wood.tres" id="2_ajuax"]
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_buildings.gd" id="2_wckl4"]
+
+[sub_resource type="Resource" id="Resource_ecwed"]
+script = ExtResource("1_lj7v6")
+component = ExtResource("2_ajuax")
+amount = 15
+
+[resource]
+script = ExtResource("2_wckl4")
+building_type = 1
+craft_components = Array[ExtResource("1_lj7v6")]([SubResource("Resource_ecwed")])
+id = 18
+item_type = 5
+item_rarity = 0
+name = "Wooden Doorway"
+description = ""
+description_item_panel = ""
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("2_2crky")
+dictionary = {
+"building_scene_path": "res://scenes/building_system/building_doorway.tscn",
+"scene_path": "res://scenes/building_system/building_doorway_checker.tscn"
+}

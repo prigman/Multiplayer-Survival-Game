@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ItemDataBuildings" load_steps=6 format=3 uid="uid://bhaf4mm6sq7pn"]
+
+[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://scripts/inventory/item/resources/world_resource/resource_pine_wood.tres" id="1_2yuex"]
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_buildings.gd" id="1_epkxx"]
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="2_xbifh"]
+[ext_resource type="Texture2D" uid="uid://by08p3rg4lhpe" path="res://icons/pine_wood_crate.png" id="3_aqlbk"]
+
+[sub_resource type="Resource" id="Resource_1101j"]
+script = ExtResource("2_xbifh")
+component = ExtResource("1_2yuex")
+amount = 5
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_epkxx")
+building_type = 3
+craft_components = Array[ExtResource("2_xbifh")]([SubResource("Resource_1101j")])
+id = 7
+item_type = 5
+item_rarity = 0
+name = "Wooden Crate"
+description = "Pine wood crate"
+description_item_panel = "Pine wood crate"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("3_aqlbk")
+dictionary = {
+"building_scene_path": "res://scenes/interactable/pine-wood-crate_staticbody.tscn",
+"scene_path": "res://scenes/interactable/pine-wood-crate_staticbody_checker.tscn"
+}

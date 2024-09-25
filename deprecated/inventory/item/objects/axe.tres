@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="ItemDataCraftableTools" load_steps=8 format=3 uid="uid://d16s5vsgm2o6t"]
 
 [ext_resource type="Script" path="res://deprecated/inventory/item/item_data_craftable_tools.gd" id="1_6ssit"]
-[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://deprecated/inventory/item/objects/resource_metal-bar.tres" id="1_xry5s"]
-[ext_resource type="Script" path="res://deprecated/inventory/craft_components.gd" id="2_5cqwt"]
-[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://deprecated/inventory/item/objects/resource_branch.tres" id="3_mklod"]
+[ext_resource type="Resource" uid="uid://bmm6m04e0tq2m" path="res://scripts/inventory/item/resources/world_resource/resource_metal-bar.tres" id="1_xry5s"]
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="2_5cqwt"]
+[ext_resource type="Resource" uid="uid://b01lsfitk54lv" path="res://scripts/inventory/item/resources/world_resource/resource_branch.tres" id="3_mklod"]
 [ext_resource type="Texture2D" uid="uid://dvna1pmer2x1u" path="res://icons/axe_icon.png" id="4_nn3b5"]
 
 [sub_resource type="Resource" id="Resource_1j36k"]

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=7 format=3 uid="uid://w5yuvrpdvx3k"]
+[gd_resource type="Resource" script_class="InventoryNode" load_steps=7 format=3 uid="uid://w5yuvrpdvx3k"]
 
-[ext_resource type="Script" path="res://deprecated/inventory/inventory_data.gd" id="1_n2del"]
-[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://deprecated/inventory/item/objects/ammo/ammo_ar.tres" id="3_vqeew"]
-[ext_resource type="Script" path="res://deprecated/inventory/in_slot_data.gd" id="3_vrley"]
-[ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://deprecated/inventory/item/objects/pine-wood-crate.tres" id="7_14h70"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_data.gd" id="1_n2del"]
+[ext_resource type="Resource" uid="uid://fffl75d0wr6r" path="res://scripts/inventory/item/resources/ammo/ammo_ar.tres" id="3_vqeew"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="3_vrley"]
+[ext_resource type="Resource" uid="uid://bhaf4mm6sq7pn" path="res://scripts/inventory/item/resources/building/pine-wood-crate.tres" id="7_14h70"]
 
 [sub_resource type="Resource" id="Resource_x30qw"]
 script = ExtResource("3_vrley")

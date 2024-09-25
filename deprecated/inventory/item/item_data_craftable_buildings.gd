@@ -1,4 +1,4 @@
-class_name ItemDataCraftableBuildings extends ItemData
+class_name ItemDataCraftableBuildings1 extends ItemData1
 
 enum BuildingType {
 	floor,

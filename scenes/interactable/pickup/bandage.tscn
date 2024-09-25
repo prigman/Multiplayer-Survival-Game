@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=4 uid="uid://bmloagc7l8nf1"]
 
-[ext_resource type="Script" path="res://deprecated/inventory/item/item_interactable.gd" id="1_ey0c2"]
+[ext_resource type="Script" path="res://scripts/inventory/item_interactable_body.gd" id="1_ey0c2"]
 [ext_resource type="Resource" uid="uid://dxxl4fdb2osqr" path="res://deprecated/inventory/item/objects/bandage.tres" id="2_gigsg"]
-[ext_resource type="Script" path="res://deprecated/inventory/in_slot_data.gd" id="3_qxh4l"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="3_qxh4l"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_u1tob"]
 
 [sub_resource type="Resource" id="Resource_eyy4r"]

@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnm2p00ty7mau"]
+
+[ext_resource type="Script" path="res://scripts/building/building.gd" id="1_flrfk"]
+[ext_resource type="Resource" uid="uid://cickst76e8dus" path="res://scripts/inventory/item/resources/building/wooden_roof.tres" id="2_mdr0k"]
+[ext_resource type="ArrayMesh" uid="uid://ddt0uwsodljvr" path="res://models/meshes/wooden_roof.res" id="3_h68wf"]
+[ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="4_yqcxk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_82k1h"]
+size = Vector3(4, 0.3, 4)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_a1t0h"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:building_part_owner_id")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[node name="BuildingRoof" type="StaticBody3D" node_paths=PackedStringArray("collision_shape", "mesh_node") groups=["building_group", "building_roof"]]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_flrfk")
+item_data = ExtResource("2_mdr0k")
+collision_shape = NodePath("CollisionShape3D")
+mesh_node = NodePath("Mesh")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = ExtResource("3_h68wf")
+surface_material_override/0 = ExtResource("4_yqcxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_82k1h")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["multiplayer_sync"]]
+replication_config = SubResource("SceneReplicationConfig_a1t0h")

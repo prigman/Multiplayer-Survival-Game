@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDataOther" load_steps=4 format=3 uid="uid://cuhm3r0mlhurs"]
+
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="1_0to74"]
+[ext_resource type="Texture2D" uid="uid://beyuabc24hd8t" path="res://icons/icon.svg" id="1_n2x22"]
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_other.gd" id="1_wob3u"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_wob3u")
+craft_components = Array[ExtResource("1_0to74")]([])
+id = 0
+item_type = 0
+item_rarity = 0
+name = "Godot"
+description = "Pointless engine"
+description_item_panel = "Pointless engine"
+stackable = true
+max_stack = 30
+quality = 100.0
+icon = ExtResource("1_n2x22")
+dictionary = {}

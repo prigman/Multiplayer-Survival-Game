@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dj2gqxo6momil" path="res://textures/PNG/Dark/texture_09.png" id="1_1c3rp"]
 [ext_resource type="Script" path="res://deprecated/inventory/item/item_data_craftable_buildings.gd" id="1_poij4"]
-[ext_resource type="Script" path="res://deprecated/inventory/craft_components.gd" id="1_u4wdw"]
-[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://deprecated/inventory/item/objects/resource_pine_wood.tres" id="2_es5vq"]
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="1_u4wdw"]
+[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://scripts/inventory/item/resources/world_resource/resource_pine_wood.tres" id="2_es5vq"]
 
 [sub_resource type="Resource" id="Resource_ecwed"]
 script = ExtResource("1_u4wdw")

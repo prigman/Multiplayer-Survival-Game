@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=4 format=3 uid="uid://d4jeop4ymqjas"]
+
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="1_5ujhh"]
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_consumable.gd" id="1_arlg6"]
+[ext_resource type="Texture2D" uid="uid://b1gqxo71jpkr8" path="res://icons/Consumble/bandage_icon.png" id="2_6d084"]
+
+[resource]
+script = ExtResource("1_arlg6")
+health_value = 30.0
+hunger_value = 0.0
+craft_components = Array[ExtResource("1_5ujhh")]([])
+id = 3
+item_type = 2
+item_rarity = 0
+name = "Bandage"
+description = ""
+description_item_panel = ""
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("2_6d084")
+dictionary = {
+"dropped_item": "res://scenes/interactable/pickup/bandage.tscn"
+}

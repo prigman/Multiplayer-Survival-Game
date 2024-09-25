@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ItemDataBuildings" load_steps=6 format=3 uid="uid://do1v63m4lpun7"]
+
+[ext_resource type="Texture2D" uid="uid://dj2gqxo6momil" path="res://textures/PNG/Dark/texture_09.png" id="1_1c3rp"]
+[ext_resource type="Script" path="res://scripts/inventory/item/item_data_buildings.gd" id="1_poij4"]
+[ext_resource type="Script" path="res://scripts/crafting/craft_component_data.gd" id="1_u4wdw"]
+[ext_resource type="Resource" uid="uid://dlkod5etdkco2" path="res://scripts/inventory/item/resources/world_resource/resource_pine_wood.tres" id="2_es5vq"]
+
+[sub_resource type="Resource" id="Resource_ecwed"]
+script = ExtResource("1_u4wdw")
+component = ExtResource("2_es5vq")
+amount = 15
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_poij4")
+building_type = 1
+craft_components = Array[ExtResource("1_u4wdw")]([SubResource("Resource_ecwed")])
+id = 14
+item_type = 5
+item_rarity = 0
+name = "Wooden Wall"
+description = "Сonstruction part"
+description_item_panel = "Сonstruction part"
+stackable = false
+max_stack = 0
+quality = 100.0
+icon = ExtResource("1_1c3rp")
+dictionary = {
+"building_scene_path": "res://scenes/building_system/building_wall.tscn",
+"scene_path": "res://scenes/building_system/building_wall_checker.tscn"
+}

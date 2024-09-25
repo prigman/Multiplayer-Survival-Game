@@ -1,0 +1,3 @@
+extends ItemDataCraftable
+class_name ItemDataOther
+

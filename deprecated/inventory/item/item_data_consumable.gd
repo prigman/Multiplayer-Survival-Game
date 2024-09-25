@@ -1,5 +1,5 @@
-extends ItemData
-class_name ItemDataConsumable
+extends ItemData1
+class_name ItemDataConsumable1
 
 @export var health_value: float
 @export var hunger_value: float 

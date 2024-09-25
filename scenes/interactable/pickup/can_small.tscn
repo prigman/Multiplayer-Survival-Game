@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=4 uid="uid://dgqbv2yuilqfc"]
 
-[ext_resource type="Script" path="res://deprecated/inventory/item/item_interactable.gd" id="1_04ikg"]
-[ext_resource type="Resource" uid="uid://iqyranngmbcn" path="res://deprecated/inventory/item/objects/can_small.tres" id="2_vwiw1"]
-[ext_resource type="Script" path="res://deprecated/inventory/in_slot_data.gd" id="3_3ljo0"]
+[ext_resource type="Script" path="res://scripts/inventory/item_interactable_body.gd" id="1_04ikg"]
+[ext_resource type="Resource" uid="uid://iqyranngmbcn" path="res://scripts/inventory/item/resources/consumable/can_small.tres" id="2_vwiw1"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="3_3ljo0"]
 
 [sub_resource type="Resource" id="Resource_247cn"]
 script = ExtResource("3_3ljo0")

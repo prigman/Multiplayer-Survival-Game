@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://sk2v3l3djkvl"]
 
-[ext_resource type="Script" path="res://deprecated/inventory/item/item_interactable.gd" id="1_cft26"]
+[ext_resource type="Script" path="res://scripts/inventory/item_interactable_body.gd" id="1_cft26"]
 [ext_resource type="ArrayMesh" uid="uid://hmgxq3s6kcv7" path="res://models/meshes/pickaxe.res" id="1_e3ayi"]
-[ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://deprecated/inventory/item/objects/pickaxe.tres" id="2_685im"]
-[ext_resource type="Script" path="res://deprecated/inventory/in_slot_data.gd" id="8_jr624"]
+[ext_resource type="Resource" uid="uid://cmhctfq2qq820" path="res://scripts/inventory/item/resources/tool/pickaxe.tres" id="2_685im"]
+[ext_resource type="Script" path="res://scripts/inventory/in_slot_data.gd" id="8_jr624"]
 [ext_resource type="Material" uid="uid://c18viyo5nbpxg" path="res://materials/main_pallete.tres" id="9_52gya"]
 
 [sub_resource type="Resource" id="Resource_aohpx"]
