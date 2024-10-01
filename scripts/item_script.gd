@@ -41,8 +41,12 @@ var fp_item_animator: AnimationPlayer
 @export var RPC_is_item_equiped : bool
 @export var RPC_equiped_slot_index : int = -1 :
 	set(value):
-		RPC_equiped_slot_index = value
-		equiped_slot_index = value
+		if value == RPC_equiped_slot_index:
+			RPC_equiped_slot_index = -1
+			equiped_slot_index = -1
+		else:
+			RPC_equiped_slot_index = value
+			equiped_slot_index = value
 var equiped_item_node: Node3D # нода оружия (для того чтобы не проходится по массиву каждый раз)
 var equiped_slot: InSlotData # слот, который в данный момент выбран 
 var equiped_item: ItemData :
@@ -276,30 +280,39 @@ func set_building_data(building_instance : Node, place_position : Vector3, place
 # @rpc("any_peer", "reliable", "call_local", 2)
 # func add_building_in_own(building_data : Dictionary) -> void:
 # 	player.buildings_in_own.append(building_data)
-@rpc("any_peer", "call_local", "reliable", 2)
+@rpc("any_peer", "call_local", "unreliable", 0)
 func initialize(inventory_node_path : NodePath, slot_index: int, player_id : int) -> void: # создаем либо свапаем предмет в руках / принимаем данные из item_slot и назначаем меш предмета
+
+	# перенести выполнение initialize на сервер и с сервера отправлять данные для эквипа оружия, то есть передавать путь к ноде айтема которую нужно показать игроку, а остальные переменные оставить за сервером
+
+	# в реальном времени синхронизировать переменную разброса
+
+	# 
+
 	if multiplayer.is_server() and player.peer_id != player_id: return
 	elif not multiplayer.is_server() and multiplayer.get_unique_id() != player_id: return
+
 	var inventory_data : InventoryNode = get_node(inventory_node_path)
-	var item_slot : InSlotData = inventory_data.slots_data[slot_index] 
+	var item_slot : InSlotData = inventory_data.slots_data[slot_index]
+	
 	if not item_slot or not inventory_data: return
 	print("initialize on auth: ", str(multiplayer.get_unique_id()))
 	#-назначаем основные переменные этого класса
 	
 	if not multiplayer.is_server():
 		clear_building()
-	
+		clear_animations() # очистка анимации предмета если проигрывается в данный момент
+
 	inventory_data.signal_update_active_slot.emit(inventory_data, item_slot, equiped_slot) # сигнал инвентарю быстрого доступа обновить активность данному слоту
 	equiped_slot = item_slot
 	equiped_item = equiped_slot.item
 	# equiped_slot_index = slot_index
 	if not multiplayer.is_server():
-		clear_animations() # очистка анимации предмета если проигрывается в данный момент
+		
 	#print("id called: ", multiplayer.get_unique_id())
 	#-
-		if _equiped_item_type(EnumData.ItemType.FIREARM) == false:
-			clear_weapon_hud() # прячем UI оружия (clear_weapon)
-		else:
+		print("type: ", equiped_item.item_type)
+		if _equiped_item_type(EnumData.ItemType.FIREARM):
 			print("show weapon hud on client")
 			weapon_hud.show()
 			crosshair.show()
@@ -307,6 +320,8 @@ func initialize(inventory_node_path : NodePath, slot_index: int, player_id : int
 			Update_Ammo.emit(equiped_item.ammo_current)
 			Update_Fire_Mode.emit(equiped_item.fire_mode_current)
 			update_pos() # получение первоначальной позиции для разброса во время стрельбы
+		else:
+			clear_weapon_hud() # прячем UI оружия (clear_weapon)
 		if equiped_item_node:
 			if equiped_item_node.visible:
 				equiped_item_node.hide()
@@ -327,23 +342,6 @@ func initialize(inventory_node_path : NodePath, slot_index: int, player_id : int
 		if _equiped_item_type(EnumData.ItemType.FIREARM) or _equiped_item_type(EnumData.ItemType.TOOL):
 			fp_item_animator.play(equiped_item.anim_activate)
 			fp_player_animator.play(equiped_item.anim_player_activate)
-
-	if _equiped_item_type(EnumData.ItemType.FIREARM):
-		for data : PlayerWeaponSpread in player.weapon_spread_data:
-			if data and data.weapon_data.id == equiped_item.id:
-				player.current_weapon_spread_data = data # на сервер надо перекинуть
-				break
-		#rpc("RPC_change_weapon_spread_data", equiped_item.id)
-		# if not multiplayer.is_server():
-		# 	print("show weapon hud on client")
-		# 	weapon_hud.show()
-		# 	crosshair.show()
-		# 	reticle.hide()
-		# 	Update_Ammo.emit(equiped_item.ammo_current)
-		# 	Update_Fire_Mode.emit(equiped_item.fire_mode_current)
-		# 	update_pos() # получение первоначальной позиции для разброса во время стрельбы
-		#set_weapon_attachments() # добавляются либо удаляются обвесы на оружие
-	if not multiplayer.is_server():
 		if _equiped_item_type(EnumData.ItemType.BUILDING):
 			if equiped_item.dictionary.has("scene_path"):
 				var path := load(equiped_item.dictionary["scene_path"])
@@ -352,6 +350,22 @@ func initialize(inventory_node_path : NodePath, slot_index: int, player_id : int
 				# print("visible? ", str(building_scene.visible))
 						#building_scene.mesh_building.mesh = equiped_item.mesh
 						# в process выставляется позиция для building_scene
+
+	if _equiped_item_type(EnumData.ItemType.FIREARM):
+		for data : PlayerWeaponSpread in player.weapon_spread_data:
+			if data and data.weapon_data.id == equiped_item.id:
+				player.current_weapon_spread_data = data # на сервер надо перекинуть (nenado)
+				break
+		# if not multiplayer.is_server():
+		# 	print("show weapon hud on client")
+		# 	weapon_hud.show()
+		# 	crosshair.show()
+		# 	reticle.hide()
+		# 	Update_Ammo.emit(equiped_item.ammo_current)
+		# 	Update_Fire_Mode.emit(equiped_item.fire_mode_current)
+		# 	update_pos() # получение первоначальной позиции для разброса во время стрельбы
+		#rpc("RPC_change_weapon_spread_data", equiped_item.id)
+		# set_weapon_attachments() # добавляются либо удаляются обвесы на оружие
 
 func clear_active_item(inventory_path : NodePath, index : int) -> void:
 	var inventory_data : InventoryNode = get_node(inventory_path)
@@ -684,6 +698,7 @@ func swap_items(inventory_data: InventoryNode, index: int) -> void:
 func RPC_update_active_slot(inventory_path : NodePath, index : int, player_id : int) -> void:
 	if multiplayer.is_server() and player.peer_id != player_id: return
 	elif not multiplayer.is_server() and multiplayer.get_unique_id() != player_id: return
+
 	var inventory_data : InventoryNode = get_node(inventory_path)
 	inventory_data.signal_update_active_slot.emit(inventory_data, inventory_data.slots_data[index], equiped_slot)
 
@@ -697,10 +712,13 @@ func _equiped_item_type(equiped_item_type: int) -> bool:
 	if equiped_item:
 		match EnumData.ItemType:
 			equiped_item_type:
+				# print("item match type")
 				return true
 			_:
+				# print("item does not match type")
 				return false
 	else:
+		# print("item was not equiped")
 		return false
 
 func can_shoot(fire_mode: WeaponFireModes) -> bool:

@@ -354,9 +354,7 @@ func RPC_swap_items(key_id : int, player_id : int) -> void:
 
 	#print("swaped item for server player ", str(player.peer_id))
 	# if multiplayer.get_unique_id() == player.peer_id:
-	if player.item.RPC_equiped_slot_index == key_id:
-		player.item.RPC_equiped_slot_index = -1
-	elif player.player_quick_slot.slots_data[key_id] != null:
+	if player.player_quick_slot.slots_data[key_id] != null:
 		player.item.RPC_equiped_slot_index = key_id
 	# rpc("RPC_set_equiped_item", key_id)
 	player.item.swap_items(player.player_quick_slot, key_id)
