@@ -9,6 +9,7 @@ health_value = 5.0
 hunger_value = 15.0
 item_type = 1
 id = 16
+item_rarity = 0
 name = "Can of soda"
 description = ""
 description_item_panel = "Sur-kola."
